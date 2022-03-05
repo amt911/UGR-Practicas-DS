@@ -12,6 +12,6 @@ public class Velocimetro extends JPanel{
     }
     
     public void calcularVelocidad(double radio, double revs){
-        velocidad=2*3.14*radio*revs*0.06;
+        velocidad=2*Math.PI*radio*revs*0.06;
     }
 }

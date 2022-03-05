@@ -13,7 +13,6 @@ public class CalcularVelocidad implements Filtro {
 			case ACELERANDO:
 				incrementoVelocidad=100;
 				break;
-			
 
 			case FRENANDO:
 				incrementoVelocidad=-100;

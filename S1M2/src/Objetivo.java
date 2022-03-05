@@ -9,22 +9,17 @@ public class Objetivo extends JPanel{
 
 	public Objetivo(){
 		_tiene=EstadoMotor.APAGADO;
-		//velocidad=0;
 		velocidad=new Velocimetro();
-		//distancia=0;
 		distancia=new CuentaKilometros();
-
-		//revs=0;
 		revs=new CuentaRevoluciones();
 	}
+
 	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {
-		//throw new UnsupportedOperationException();
-		//revs=aRevoluciones;
 		revs.setRevs(aRevoluciones);
 
 		_tiene=aEstadoMotor;
 		//distancia+=2*3.14*radio*revs;
-		distancia.addDistancia(2*3.14*RADIO*revs.getRevs());	//MEJORABLE
+		distancia.addDistancia(2*Math.PI*RADIO*revs.getRevs());	//MEJORABLE
 
 		//velocidad=2*3.14*radio*revs*0.06;
 		velocidad.calcularVelocidad(RADIO, revs.getRevs());
@@ -35,7 +30,7 @@ public class Objetivo extends JPanel{
 		System.out.println("\nVelocidad actual: "+velocidad.getVelocidad());
 		System.out.println("\nEstado motor: "+_tiene);
 
-		return  5.6;	//ARREGLAR ESTE RETURN, NO SE EXACTAMENTE QUE TIENE QUE DEVOLVER
+		return  revs.getRevs();	//ARREGLAR ESTE RETURN, NO SE EXACTAMENTE QUE TIENE QUE DEVOLVER
 	}
 
 	public CuentaRevoluciones getRevs(){

@@ -11,10 +11,19 @@
  * IMPORTANTE COMPROBAR COMO SE DEBEN CREAR LOS OBJETOS, LOS HE HECHO EN CADENA PERO SEGURAMENTE ESTEN MAL
  * IMPORTANTE COMPROBAR VISIBILIDAD DE TODOS LOS COMPONENTES DE CADA CLASE
  */
+/*
+interface Vehicle {
+      
+    c.peticion(EstadoMotor.ACELERANDO);
+	c.peticion(EstadoMotor.FRENANDO);
+	c.peticion(EstadoMotor.APAGADO);
+   	c.peticion(EstadoMotor.ENCENDIDO);
+}
+*/
 
 public class Main{
 	public static void main(String [] args){
-		System.out.println("Asco de vida");
+		//System.out.println("Asco de vida");
 
 		Cliente c=new Cliente();
 
