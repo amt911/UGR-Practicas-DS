@@ -6,10 +6,6 @@ public class CadenaFiltros {
 
 	public CadenaFiltros(){
 		_ordered_=new Vector<Filtro>();
-
-		/*
-		_ordered_.add(new CalcularVelocidad());
-		_ordered_.add(new RepercutirRozamiento());*/
 		_invoca=new Objetivo();
 	}
 

@@ -10,13 +10,12 @@ public class CalcularVelocidad implements Filtro {
 	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {
 
 		switch(aEstadoMotor){
-			case ACELERANDO:{
+			case ACELERANDO:
 				incrementoVelocidad=100;
 				break;
-			}
+			
 
 			case FRENANDO:
-				//res=aRevoluciones-100;
 				incrementoVelocidad=-100;
 				break;
 
@@ -25,7 +24,7 @@ public class CalcularVelocidad implements Filtro {
 				break;
 		}
 
-		if((aRevoluciones+incrementoVelocidad)>=MAX_REVS || (aRevoluciones+incrementoVelocidad)<=0)
+		if((aRevoluciones+incrementoVelocidad)>=CuentaRevoluciones.getMAX_REVS() || (aRevoluciones+incrementoVelocidad)<=0)
 			incrementoVelocidad=0;
 
 		return aRevoluciones+incrementoVelocidad;

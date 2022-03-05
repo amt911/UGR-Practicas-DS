@@ -2,14 +2,10 @@ import javax.swing.JPanel;
 
 public class Objetivo extends JPanel{
 	private EstadoMotor _tiene;
-	//private double velocidad;
 	private Velocimetro velocidad;
-	//private double distancia;
 	private CuentaKilometros distancia;
-	//public double revs;
 	private CuentaRevoluciones revs;
-	final private double radio=0.15;
-	//final public int MAX_REVS=5000;
+	final private double RADIO=0.15;
 
 	public Objetivo(){
 		_tiene=EstadoMotor.APAGADO;
@@ -28,10 +24,10 @@ public class Objetivo extends JPanel{
 
 		_tiene=aEstadoMotor;
 		//distancia+=2*3.14*radio*revs;
-		distancia.addDistancia(2*3.14*radio*revs.getRevs());	//MEJORABLE
+		distancia.addDistancia(2*3.14*RADIO*revs.getRevs());	//MEJORABLE
 
 		//velocidad=2*3.14*radio*revs*0.06;
-		velocidad.calcularVelocidad(radio, revs.getRevs());
+		velocidad.calcularVelocidad(RADIO, revs.getRevs());
 
 
 		System.out.println("Revs: "+revs.getRevs());

@@ -4,17 +4,16 @@ public class GestorFiltros {
 
 	public GestorFiltros(){
 		_gestiona=new CadenaFiltros();
-		
+
 		_gestiona.addFilter(new CalcularVelocidad());
 		_gestiona.addFilter(new RepercutirRozamiento());		
 	}
 
 	public void addFilter(Filtro filtro){
-		//_gestiona._ordered_.add(filtro);
 		_gestiona.addFilter(filtro);
 	}
 
-	public void peticionFiltros(EstadoMotor estadoMotor) {	//Suponemos que siempre esta acelerando
+	public void peticionFiltros(EstadoMotor estadoMotor) {
 		_gestiona.ejecutar(estadoMotor);
 	}
 }
