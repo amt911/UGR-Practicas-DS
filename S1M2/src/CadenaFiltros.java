@@ -14,7 +14,8 @@ public class CadenaFiltros {
 	}
 
 	public double ejecutar(EstadoMotor aEstadoMotor) {
-		double inicial=_invoca.getRevs().getRevs();		//CUTRISIMO
+		double inicial=_invoca.getRevs();//_invoca.getRevs().getRevs();		//CUTRISIMO
+		
 		for(Filtro aux: _ordered_){
 			inicial=aux.ejecutar(inicial, aEstadoMotor);
 		}

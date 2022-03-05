@@ -22,7 +22,7 @@ public class Objetivo extends JPanel{
 		distancia.addDistancia(2*Math.PI*RADIO*revs.getRevs());	//MEJORABLE
 
 		//velocidad=2*3.14*radio*revs*0.06;
-		velocidad.calcularVelocidad(RADIO, revs.getRevs());
+		velocidad.calcularVelocidad(RADIO, revs.getRevs());	//MEJORABLE
 
 
 		System.out.println("Revs: "+revs.getRevs());
@@ -33,7 +33,15 @@ public class Objetivo extends JPanel{
 		return  revs.getRevs();	//ARREGLAR ESTE RETURN, NO SE EXACTAMENTE QUE TIENE QUE DEVOLVER
 	}
 
+
+	//Seguramente esto que haga sea un insulto para todos los programadores del mundo
+	public double getRevs(){
+		return revs.getRevs();
+	}
+
+/*
 	public CuentaRevoluciones getRevs(){
 		return revs;
 	}
+	*/
 }

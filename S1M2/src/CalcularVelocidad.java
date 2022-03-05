@@ -23,7 +23,7 @@ public class CalcularVelocidad implements Filtro {
 				break;
 		}
 
-		if((aRevoluciones+incrementoVelocidad)>=CuentaRevoluciones.getMAX_REVS() || (aRevoluciones+incrementoVelocidad)<=0)
+		if((aRevoluciones+incrementoVelocidad)>=MAX_REVS || (aRevoluciones+incrementoVelocidad)<=0)
 			incrementoVelocidad=0;
 
 		return aRevoluciones+incrementoVelocidad;
