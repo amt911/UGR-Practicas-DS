@@ -1,3 +1,10 @@
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.*;			//ESTA SIRVE PARA LA CLASE COLOR
+//import java.*;
+
 /**
  * TODO:
  * ARREGLAR ATRIBUTOS SUELTOS EN DISTINTAS CLASES Y DARLES SENTIDO
@@ -21,10 +28,40 @@ interface Vehicle {
 }
 */
 
-public class Main{
+public class Main extends JPanel{
+	//JLabel ejemplo=new JLabel("eSTO ES UNA PRUEBA MAL HECHA");
+	static JPanel p;
+	static JButton boton;
+	static JLabel l;
+	static JFrame f;
 	public static void main(String [] args){
-		//System.out.println("Asco de vida");
+		f=new JFrame("Ventana de prueba");
+		p=new JPanel();
+		l=new JLabel("LABEL DE PRUEBA");
+		boton=new JButton("Boton de prueba");
 
+		boton.setBounds(400, 300, 300, 40);
+		boton.setBackground(Color.orange);
+		boton.setForeground(Color.black);
+		p.setLayout(null);
+		p.add(boton);
+		//boton.setBounds(400, 300, 300, 40);
+		p.add(l);
+
+
+		p.setBackground(Color.green);
+
+		f.add(p);
+		
+
+		f.setSize(1000, 1000);
+
+		//f.show();
+		f.setVisible(true);
+		//p.setVisible(true);
+
+
+		//PARTE DE MI IMPLEMENTACION
 		Cliente c=new Cliente(100, 0.15, -5);
 		//Cliente c=new Cliente();
 
