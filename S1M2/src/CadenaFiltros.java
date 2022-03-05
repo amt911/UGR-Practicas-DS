@@ -5,8 +5,12 @@ public class CadenaFiltros {
 	private Objetivo _invoca;
 
 	public CadenaFiltros(){
+		this(0.15);
+	}
+
+	public CadenaFiltros(double radioObjetivo){
 		_ordered_=new Vector<Filtro>();
-		_invoca=new Objetivo();
+		_invoca=new Objetivo(radioObjetivo);		
 	}
 
 	public void addFilter(Filtro filtro){
