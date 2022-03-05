@@ -1,8 +1,16 @@
 public class RepercutirRozamiento implements Filtro {
-	public final int ROZAMIENTO;
+	private final int ROZAMIENTO;
 
 	public RepercutirRozamiento(){
 		ROZAMIENTO=-37;
+	}
+
+	public RepercutirRozamiento(int roz) {
+		if (roz > 0)
+			ROZAMIENTO = -10;
+
+		else
+			ROZAMIENTO = roz;
 	}
 
 	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {

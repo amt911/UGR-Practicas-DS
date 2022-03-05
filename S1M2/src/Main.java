@@ -25,7 +25,8 @@ public class Main{
 	public static void main(String [] args){
 		//System.out.println("Asco de vida");
 
-		Cliente c=new Cliente();
+		Cliente c=new Cliente(100, 0.15, -5);
+		//Cliente c=new Cliente();
 
 		System.out.println("Ahora a ver si funcionan las revs ACELERANDO");
 
