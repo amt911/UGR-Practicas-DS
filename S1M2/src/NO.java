@@ -28,13 +28,14 @@ interface Vehicle {
 }
 */
 
-public class Main extends JPanel{
+public class NO extends JPanel{
 	//JLabel ejemplo=new JLabel("eSTO ES UNA PRUEBA MAL HECHA");
 	static JPanel p;
 	static JButton boton;
 	static JLabel l;
 	static JFrame f;
 	public static void main(String [] args){
+            /*
 		f=new JFrame("Ventana de prueba");
 		p=new JPanel();
 		l=new JLabel("LABEL DE PRUEBA");
@@ -59,7 +60,8 @@ public class Main extends JPanel{
 		//f.show();
 		f.setVisible(true);
 		//p.setVisible(true);
-
+                */
+            //NewJFrame nuevo=new NewJFrame();
 
 		//PARTE DE MI IMPLEMENTACION
 		Cliente c=new Cliente(100, 0.15, -5);

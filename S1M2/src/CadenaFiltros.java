@@ -28,4 +28,8 @@ public class CadenaFiltros {
 
 		return inicial;
 	}
+        
+        public Objetivo getObjetivo(){
+            return _invoca;
+        }
 }

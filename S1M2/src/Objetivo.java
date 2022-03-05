@@ -50,6 +50,10 @@ public class Objetivo extends JPanel{
 		return revs.getRevs();
 	}
 
+        
+        public EstadoMotor getEstado(){
+            return _tiene;
+        }
 /*
 	public CuentaRevoluciones getRevs(){
 		return revs;
