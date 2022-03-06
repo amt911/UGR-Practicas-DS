@@ -1,4 +1,4 @@
-public class PantallaTemperatura {
+public class PantallaTemperatura implements Runnable {
 	public Temperatura _estacion_meteorlg;
         float _temp;
 
@@ -14,7 +14,12 @@ public class PantallaTemperatura {
 		return _temp;
 	}
 
-	public void mostrarTemp(){
-            System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
+	//public void mostrarTemp(){
+            //System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
+        @Override
+    public void run() {
+         System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
     }
-}
+    }
+
+    
