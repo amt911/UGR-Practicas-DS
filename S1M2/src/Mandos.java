@@ -1,8 +1,10 @@
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.TimerTask;
 import javax.swing.JToggleButton;
-import java.util.Timer;
+import javax.swing.Timer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,11 +16,45 @@ import java.util.Timer;
  * @author andres
  */
 public class Mandos extends javax.swing.JFrame {
+    //private static Timer timer=new Timer(1000, null);//ap, en, ac, fr;
+    private ActionListener apagar, encender, frenar, acelerar;
+    
+    public static int instances=0;
     Cliente c=new Cliente();
     /**
      * Creates new form Mandos
      */
     public Mandos() {
+        /*
+ apagar = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          c.peticion(EstadoMotor.APAGADO);
+          //System.out.println("instances mando: "+instances);
+      }      
+  };             
+  encender = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          c.peticion(EstadoMotor.ENCENDIDO);
+          //System.out.println("instances mando: "+instances);
+      }      
+  };        
+  
+ acelerar = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          c.peticion(EstadoMotor.ACELERANDO);
+          //System.out.println("instances mando: "+instances);
+      }      
+  };          
+ 
+  frenar = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          c.peticion(EstadoMotor.FRENANDO);
+          //System.out.println("instances mando: "+instances);
+      }      
+  };      
+        */
+//        timer=new Timer()
+        instances++;
         initComponents();
     }
 
@@ -36,7 +72,7 @@ public class Mandos extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
-        salpicadero1 = new Salpicadero();
+        salpicadero1 = c.getGestorFiltros().getCadenaFiltros().getSalpicadero();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,7 +130,7 @@ public class Mandos extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(salpicadero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,19 +239,22 @@ public class Mandos extends javax.swing.JFrame {
             jToggleButton1.setText("APAGAR");
             c.peticion(EstadoMotor.ENCENDIDO);
 
-            //INCLUIR METODO PARA RESETEAR BOTONES
-            //jToggleButton2.setSelected(false);
             resetAcelerador(jToggleButton2);
             resetFreno(jToggleButton3);
-            //jToggleButton3.setSelected(false);
         }
         else{
             jLabel1.setText("APAGADO");
             jToggleButton1.setForeground(Color.green);
             jToggleButton1.setText("ENCENDER");
+            
+            
+            /**
+             * OBTENER LA FORMA DE CONSEGUIR QUE SE PUEDA DIRECCIONAR UN TIMER, EN CUYO CASO YA ESTARIA HECHO PORQUE EL PROBLEMA ES QUE ES NECESARIO PARAR TODOS LOS TIMERS
+             */
+
             c.peticion(EstadoMotor.APAGADO);
-            if(c.getGestorFiltros().getCadenaFiltros().getObjetivo().getEstado()==EstadoMotor.APAGADO)
-            System.out.println("APAGADO uwu");
+            //if(c.getGestorFiltros().getCadenaFiltros().getSalpicadero().getEstado()==EstadoMotor.APAGADO)
+            //System.out.println("APAGADO uwu");
 
             //jToggleButton2.setSelected(false);
             //jToggleButton3.setSelected(false);
@@ -224,6 +263,17 @@ public class Mandos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed1
 
+    
+    void procesarPeticion(EstadoMotor estado){
+  ActionListener res = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          c.peticion(estado);
+          System.out.println("instances mando: "+instances);
+      }
+      
+  };        
+    }
+    
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
@@ -288,16 +338,20 @@ public class Mandos extends javax.swing.JFrame {
                 System.out.println("Esto es una prueba");
             }
         });
-        
+        /*
         TimerTask task=new TimerTask(){
             public void run(){
                 System.out.println("Esto es otra prueba");
             }
         };
-                
+          */      
+        /*
          Timer timer=new Timer("Timer");
          timer.schedule(task, 1, 1);
          timer.cancel();
+*/
+        
+
         
     }
 

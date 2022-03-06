@@ -31,12 +31,12 @@ public class CadenaFiltros {
 	}
         
         /*
-        public Objetivo getObjetivo(){
+        public Objetivo getSalpicadero(){
             return _invoca;
         }
 */
         
-        public Salpicadero getObjetivo(){
+        public Salpicadero getSalpicadero(){
             return _invoca;
         }        
 }

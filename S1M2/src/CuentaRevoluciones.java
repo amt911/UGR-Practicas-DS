@@ -2,13 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 /**
  *
  * @author andres
  */
 public class CuentaRevoluciones extends javax.swing.JPanel {
     private double revs;
+    private static int instances=0;
 
     /*
     public CuentaRevoluciones(){
@@ -28,11 +31,25 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
     /**
      * Creates new form CuentaRevoluciones2
      */
+    static int valor=0;
+    
     public CuentaRevoluciones() {
+        instances++;
         revs=0;
         initComponents();
+            
+            //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
+  
+    int delay = 1000; //milliseconds
+  ActionListener taskPerformer2 = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          jLabel1.setText(""+getRevs());
+          //System.out.println("DENTRO DEL ACTIONLISTENER: "+revs);
+          //System.out.println("Instancias: "+instances);
+      }
+  };
+  new Timer(delay, taskPerformer2).start();            
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,19 +60,27 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Cuentarrevoluciones"));
 
         jLabel1.setText(jLabel1.getText());
         jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder("RPM"));
 
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(jLabel2)))
                 .addContainerGap(147, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -63,12 +88,15 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addComponent(jLabel2)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

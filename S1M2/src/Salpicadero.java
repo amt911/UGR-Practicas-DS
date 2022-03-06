@@ -18,9 +18,9 @@ public class Salpicadero extends javax.swing.JPanel {
                 initComponents();
 		RADIO=0.15;
 		_tiene=EstadoMotor.APAGADO;
-		velocidad=new Velocimetro();
-		distancia=new CuentaKilometros();
-		revs=new CuentaRevoluciones();
+		//velocidad=new Velocimetro();
+		//distancia=new CuentaKilometros();
+		//revs=new CuentaRevoluciones();    Creado en initComponents
 	}
 
 	public Salpicadero(double rads){
@@ -28,9 +28,9 @@ public class Salpicadero extends javax.swing.JPanel {
 		RADIO=(rads>0)?rads:0.1;
 
 		_tiene=EstadoMotor.APAGADO;
-		velocidad=new Velocimetro();
-		distancia=new CuentaKilometros();
-		this.revs=new CuentaRevoluciones();		
+		//velocidad=new Velocimetro();
+		//distancia=new CuentaKilometros();
+		//this.revs=new CuentaRevoluciones(); Creado en initComponents
 	}
 
 	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {
@@ -49,8 +49,8 @@ public class Salpicadero extends javax.swing.JPanel {
 		System.out.println("Velocidad actual: "+velocidad.getVelocidad());
 		System.out.println("Estado motor: "+_tiene);
 		System.out.println("#################################################");
-
-                */
+*/
+                
 		return  revs.getRevs();	//ARREGLAR ESTE RETURN, NO SE EXACTAMENTE QUE TIENE QUE DEVOLVER
 	}
 

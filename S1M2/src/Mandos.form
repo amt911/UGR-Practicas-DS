@@ -57,7 +57,7 @@
                           <Component id="salpicadero1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="36" max="32767" attributes="0"/>
+                  <EmptySpace pref="116" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -115,6 +115,9 @@
           </Events>
         </Component>
         <Component class="Salpicadero" name="salpicadero1">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="c.getGestorFiltros().getCadenaFiltros().getObjetivo()"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

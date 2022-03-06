@@ -1,3 +1,8 @@
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -9,6 +14,7 @@
  */
 public class Velocimetro extends javax.swing.JPanel {
     private double velocidad;
+    private static int instances=0;
 
     /*
     public Velocimetro(){
@@ -27,7 +33,18 @@ public class Velocimetro extends javax.swing.JPanel {
      * Creates new form Velocimetro2
      */
     public Velocimetro() {
+        instances++;
         initComponents();
+        
+    int delay = 1000; //milliseconds
+  ActionListener taskPerformer2 = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          jLabel1.setText(""+getVelocidad());
+          //System.out.println("DENTRO DEL ACTIONLISTENER: "+revs);
+          //System.out.println("Instancias Velocimetro: "+instances);
+      }
+  };
+  new Timer(delay, taskPerformer2).start();          
     }
 
     /**
