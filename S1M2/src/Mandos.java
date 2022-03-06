@@ -1,6 +1,8 @@
 
 import java.awt.Color;
+import java.util.TimerTask;
 import javax.swing.JToggleButton;
+import java.util.Timer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -34,6 +36,7 @@ public class Mandos extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
+        salpicadero1 = new Salpicadero();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,8 +56,8 @@ public class Mandos extends javax.swing.JFrame {
         });
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
                 jToggleButton1ActionPerformed1(evt);
+                jToggleButton1ActionPerformed(evt);
             }
         });
 
@@ -87,8 +90,11 @@ public class Mandos extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jToggleButton2)
                         .addGap(28, 28, 28)
-                        .addComponent(jToggleButton3)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addComponent(jToggleButton3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(salpicadero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +106,9 @@ public class Mandos extends javax.swing.JFrame {
                     .addComponent(jToggleButton1)
                     .addComponent(jToggleButton2)
                     .addComponent(jToggleButton3))
-                .addContainerGap(373, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(salpicadero1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -117,9 +125,118 @@ public class Mandos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jToggleButton3ActionPerformedFreno(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformedFreno
+        //Solamente se entra si no esta el acelerador activado
+        if(!jToggleButton2.isSelected()){
+
+            //Primer caso: Encendido y pulsado
+            if(jToggleButton3.isSelected() && jToggleButton1.isSelected()){
+                jToggleButton3.setText("Soltar Freno");
+                jToggleButton3.setForeground(Color.red);
+                jLabel1.setText("FRENANDO");
+                c.peticion(EstadoMotor.FRENANDO);
+            }
+
+            //Segundo caso: Soltado Freno
+            else if(jToggleButton1.isSelected() && !jToggleButton3.isSelected()){
+                jToggleButton3.setText("FRENAR");
+                jToggleButton3.setForeground(Color.black);
+                jLabel1.setText("ENCENDIDO");
+                c.peticion(EstadoMotor.ENCENDIDO);
+            }
+            //Tercer caso: pulsado acelerador con el coche encendido
+
+            //Tercer caso: Pulsado acelerador con el coche apagado
+            else{
+                //jToggleButton3.setSelected(false);
+                resetFreno(jToggleButton3);
+                c.peticion(EstadoMotor.APAGADO);
+            }
+        }
+        else{
+            //jToggleButton3.setSelected(false);
+            resetFreno(jToggleButton3);
+        }
+    }//GEN-LAST:event_jToggleButton3ActionPerformedFreno
+
+    private void jToggleButton2ActionPerformedAcelerar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformedAcelerar
+        //Solamente se entra si no esta el freno activado
+        if(!jToggleButton3.isSelected()){
+            //Primer caso: Encendido y pulsado
+            if(jToggleButton2.isSelected() && jToggleButton1.isSelected()){
+                jToggleButton2.setText("Soltar Acelerador");
+                jToggleButton2.setForeground(Color.red);
+                jLabel1.setText("ACELERANDO");
+                c.peticion(EstadoMotor.ACELERANDO);
+            }
+
+            //Segundo caso: Soltado Acelerador
+            else if(jToggleButton1.isSelected()){
+                jToggleButton2.setText("ACELERAR");
+                jToggleButton2.setForeground(Color.black);
+                jLabel1.setText("ENCENDIDO");
+                c.peticion(EstadoMotor.ENCENDIDO);
+            }
+            //Tercer caso: pulsado freno con el coche encendido
+            //        else if(jToggleButton1.isSelected() && jToggleButton3.isSelected()){
+
+                //      }
+
+            //Tercer caso: Pulsado acelerador con el coche apagado
+            else{
+                //jToggleButton2.setSelected(false);
+                resetAcelerador(jToggleButton2);
+                
+                c.peticion(EstadoMotor.APAGADO);
+            }
+        }
+        else{
+            //jToggleButton2.setSelected(false);
+            resetAcelerador(jToggleButton2);
+        }
+    }//GEN-LAST:event_jToggleButton2ActionPerformedAcelerar
+
+    private void jToggleButton1ActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed1
+        if(jToggleButton1.isSelected()){
+            jLabel1.setText("ENCENDIDO");
+            jToggleButton1.setForeground(Color.red);
+            jToggleButton1.setText("APAGAR");
+            c.peticion(EstadoMotor.ENCENDIDO);
+
+            //INCLUIR METODO PARA RESETEAR BOTONES
+            //jToggleButton2.setSelected(false);
+            resetAcelerador(jToggleButton2);
+            resetFreno(jToggleButton3);
+            //jToggleButton3.setSelected(false);
+        }
+        else{
+            jLabel1.setText("APAGADO");
+            jToggleButton1.setForeground(Color.green);
+            jToggleButton1.setText("ENCENDER");
+            c.peticion(EstadoMotor.APAGADO);
+            if(c.getGestorFiltros().getCadenaFiltros().getObjetivo().getEstado()==EstadoMotor.APAGADO)
+            System.out.println("APAGADO uwu");
+
+            //jToggleButton2.setSelected(false);
+            //jToggleButton3.setSelected(false);
+            resetAcelerador(jToggleButton2);
+            resetFreno(jToggleButton3);
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed1
+
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void Prueba(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_Prueba
+        // TODO add your handling code here:
+        //jToggleButton1.setText("Esto es una prueba");
+    }//GEN-LAST:event_Prueba
+
+    private void jToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleButton1ItemStateChanged
+        // TODO add your handling code here:
+        //jToggleButton1.setText("Esto es una prueba");
+    }//GEN-LAST:event_jToggleButton1ItemStateChanged
 
     //METODO INTERESANTE setSelected(boolean)
     private void resetFreno(JToggleButton freno){
@@ -137,116 +254,6 @@ public class Mandos extends javax.swing.JFrame {
         jToggleButton2.setSelected(false);        
     }
     
-    private void jToggleButton1ActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed1
-        if(jToggleButton1.isSelected()){
-            jLabel1.setText("ENCENDIDO");
-            jToggleButton1.setForeground(Color.red);
-            jToggleButton1.setText("APAGAR");
-            c.peticion(EstadoMotor.ENCENDIDO);
-            
-            //INCLUIR METODO PARA RESETEAR BOTONES
-            //jToggleButton2.setSelected(false);
-            resetAcelerador(jToggleButton2);
-            resetFreno(jToggleButton3);
-            //jToggleButton3.setSelected(false);
-        }
-        else{
-            jLabel1.setText("APAGADO");
-            jToggleButton1.setForeground(Color.green);
-            jToggleButton1.setText("ENCENDER");
-            c.peticion(EstadoMotor.APAGADO);
-            if(c.getGestorFiltros().getCadenaFiltros().getObjetivo().getEstado()==EstadoMotor.APAGADO)
-                    System.out.println("APAGADO uwu");
-            
-            //jToggleButton2.setSelected(false);
-            //jToggleButton3.setSelected(false);
-            resetAcelerador(jToggleButton2);
-            resetFreno(jToggleButton3);
-        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed1
-
-    private void Prueba(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_Prueba
-        // TODO add your handling code here:
-        //jToggleButton1.setText("Esto es una prueba");
-    }//GEN-LAST:event_Prueba
-
-    private void jToggleButton1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jToggleButton1ItemStateChanged
-        // TODO add your handling code here:
-        //jToggleButton1.setText("Esto es una prueba");
-    }//GEN-LAST:event_jToggleButton1ItemStateChanged
-
-    private void jToggleButton2ActionPerformedAcelerar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformedAcelerar
-        //Solamente se entra si no esta el freno activado
-        if(!jToggleButton3.isSelected()){
-        //Primer caso: Encendido y pulsado
-        if(jToggleButton2.isSelected() && jToggleButton1.isSelected()){
-            jToggleButton2.setText("Soltar Acelerador");
-            jToggleButton2.setForeground(Color.red);
-            jLabel1.setText("ACELERANDO");
-            c.peticion(EstadoMotor.ACELERANDO);
-        }
-        
-        //Segundo caso: Soltado Acelerador
-        else if(jToggleButton1.isSelected()){
-            jToggleButton2.setText("ACELERAR");
-            jToggleButton2.setForeground(Color.black);
-            jLabel1.setText("ENCENDIDO");    
-            c.peticion(EstadoMotor.ENCENDIDO);
-        }
-        //Tercer caso: pulsado freno con el coche encendido
-//        else if(jToggleButton1.isSelected() && jToggleButton3.isSelected()){
-
-  //      }
-        
-        
-        //Tercer caso: Pulsado acelerador con el coche apagado
-        else{
-            //jToggleButton2.setSelected(false);
-            resetAcelerador(jToggleButton2);
-            c.peticion(EstadoMotor.APAGADO);
-        }
-        }
-        else{
-            //jToggleButton2.setSelected(false);
-            resetAcelerador(jToggleButton2);
-        }
-    }//GEN-LAST:event_jToggleButton2ActionPerformedAcelerar
-
-    private void jToggleButton3ActionPerformedFreno(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformedFreno
-        //Solamente se entra si no esta el acelerador activado
-        if(!jToggleButton2.isSelected()){        
-
-        //Primer caso: Encendido y pulsado
-        if(jToggleButton3.isSelected() && jToggleButton1.isSelected()){
-            jToggleButton3.setText("Soltar Freno");
-            jToggleButton3.setForeground(Color.red);
-            jLabel1.setText("FRENANDO");
-            c.peticion(EstadoMotor.FRENANDO);
-        }
-        
-        //Segundo caso: Soltado Freno
-        else if(jToggleButton1.isSelected() && !jToggleButton3.isSelected()){
-            jToggleButton3.setText("FRENAR");
-            jToggleButton3.setForeground(Color.black);
-            jLabel1.setText("ENCENDIDO");            
-            c.peticion(EstadoMotor.ENCENDIDO);
-        }
-        //Tercer caso: pulsado acelerador con el coche encendido
-        
-        
-        //Tercer caso: Pulsado acelerador con el coche apagado
-        else{
-            //jToggleButton3.setSelected(false); 
-            resetFreno(jToggleButton3);
-            c.peticion(EstadoMotor.APAGADO);
-        }
-        }
-        else{
-            //jToggleButton3.setSelected(false); 
-            resetFreno(jToggleButton3);
-        }
-    }//GEN-LAST:event_jToggleButton3ActionPerformedFreno
-
     /**
      * @param args the command line arguments
      */
@@ -278,8 +285,20 @@ public class Mandos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Mandos().setVisible(true);
+                System.out.println("Esto es una prueba");
             }
         });
+        
+        TimerTask task=new TimerTask(){
+            public void run(){
+                System.out.println("Esto es otra prueba");
+            }
+        };
+                
+         Timer timer=new Timer("Timer");
+         timer.schedule(task, 1, 1);
+         timer.cancel();
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -288,5 +307,6 @@ public class Mandos extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
+    private Salpicadero salpicadero1;
     // End of variables declaration//GEN-END:variables
 }

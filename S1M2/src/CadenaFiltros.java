@@ -2,7 +2,7 @@ import java.util.Vector;
 
 public class CadenaFiltros {
 	private Vector<Filtro> _ordered_;// = new Vector<Filtro>();
-	private Objetivo _invoca;
+	private Salpicadero _invoca;
 
 	public CadenaFiltros(){
 		this(0.15);
@@ -10,7 +10,8 @@ public class CadenaFiltros {
 
 	public CadenaFiltros(double radioObjetivo){
 		_ordered_=new Vector<Filtro>();
-		_invoca=new Objetivo(radioObjetivo);		
+		//_invoca=new Objetivo(radioObjetivo);		
+                _invoca=new Salpicadero(radioObjetivo);
 	}
 
 	public void addFilter(Filtro filtro){
@@ -29,7 +30,13 @@ public class CadenaFiltros {
 		return inicial;
 	}
         
+        /*
         public Objetivo getObjetivo(){
             return _invoca;
         }
+*/
+        
+        public Salpicadero getObjetivo(){
+            return _invoca;
+        }        
 }

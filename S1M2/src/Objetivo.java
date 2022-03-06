@@ -2,26 +2,26 @@ import javax.swing.JPanel;
 
 public class Objetivo extends JPanel{
 	private EstadoMotor _tiene;
-	private Velocimetro velocidad;
-	private CuentaKilometros distancia;
-	private CuentaRevoluciones revs;
+	private VelocimetroAntiguo velocidad;
+	private CuentaKilometrosAntiguo distancia;
+	private CuentaRevolucionesAntiguo revs;
 	final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
 
 	public Objetivo(){
 		RADIO=0.15;
 		_tiene=EstadoMotor.APAGADO;
-		velocidad=new Velocimetro();
-		distancia=new CuentaKilometros();
-		revs=new CuentaRevoluciones();
+		velocidad=new VelocimetroAntiguo();
+		distancia=new CuentaKilometrosAntiguo();
+		revs=new CuentaRevolucionesAntiguo();
 	}
 
 	public Objetivo(double rads){
 		RADIO=(rads>0)?rads:0.1;
 
 		_tiene=EstadoMotor.APAGADO;
-		velocidad=new Velocimetro();
-		distancia=new CuentaKilometros();
-		this.revs=new CuentaRevoluciones();		
+		velocidad=new VelocimetroAntiguo();
+		distancia=new CuentaKilometrosAntiguo();
+		this.revs=new CuentaRevolucionesAntiguo();		
 	}
 
 	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {
@@ -54,9 +54,4 @@ public class Objetivo extends JPanel{
         public EstadoMotor getEstado(){
             return _tiene;
         }
-/*
-	public CuentaRevoluciones getRevs(){
-		return revs;
-	}
-	*/
 }
