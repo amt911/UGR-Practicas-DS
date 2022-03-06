@@ -12,8 +12,6 @@ class main {
         hebra2.start();
         System.out.println("FIN");
 
-        GUI v1 = new GUI();
-        v1.setVisible(true);
         
     }
 }
