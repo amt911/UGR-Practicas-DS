@@ -13,7 +13,8 @@ public class PantallaTemperatura {
 	public float mostrarTempC() {
 		return _temp;
 	}
-        public void mostrarTemp(){
+
+	public void mostrarTemp(){
             System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
-        }
+    }
 }

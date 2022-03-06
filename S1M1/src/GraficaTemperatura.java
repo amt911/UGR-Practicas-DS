@@ -8,18 +8,17 @@ public class GraficaTemperatura implements Observer {
         
 	public Temperatura _sujetoObservable;
 
-            //revisar
+    //revisar
     public GraficaTemperatura() {
         this.MAXTEMPS = 7;
     }
 
 	//descubir como va la grafica
-        public void mostrarGrafica() {
-		throw new UnsupportedOperationException();
-               
+    public void mostrarGrafica() {
+        System.out.println("*GRÁFICA*");                 
 	}
 
-        //creo que está bien pero repasar
+    //creo que está bien pero repasar
     @Override
     public void update(java.util.Observable o, Object o1) {
         int pos_insertar = ult_pos % MAXTEMPS;
