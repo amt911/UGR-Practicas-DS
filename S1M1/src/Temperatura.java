@@ -4,6 +4,10 @@ import java.util.Random;
 public class Temperatura extends Observable implements Runnable {
 	private float _temp;
 
+        public Temperatura(){
+               Random r = new Random();
+                _temp = (50 - 20)*r.nextFloat() -15;
+        }
 	public float getTemp() {
 		return this._temp;
 	}

@@ -2,6 +2,9 @@ public class PantallaTemperatura implements Runnable {
 	public Temperatura _estacion_meteorlg;
         float _temp;
 
+        public PantallaTemperatura(Temperatura t){
+            _estacion_meteorlg = t;
+        }
 	public void getState() {
             _temp = _estacion_meteorlg.getTemp();
 	}
@@ -18,6 +21,7 @@ public class PantallaTemperatura implements Runnable {
             //System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
         @Override
     public void run() {
+        this.getState();
          System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
     }
     }

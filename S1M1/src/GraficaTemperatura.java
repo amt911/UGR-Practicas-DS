@@ -14,11 +14,12 @@ public class GraficaTemperatura implements Observer {
         private int ult_pos = 0;
         final private int MAXTEMPS;
         
-	public Temperatura _sujetoObservable;
+	public Temperatura _sujetoObservable = new Temperatura();
 
     //revisar
     public GraficaTemperatura() {
         this.MAXTEMPS = 7;
+        _temp = new float[MAXTEMPS];
     }
 
 	//descubir como va la grafica
@@ -32,5 +33,6 @@ public class GraficaTemperatura implements Observer {
         int pos_insertar = ult_pos % MAXTEMPS;
         _temp[pos_insertar] = _sujetoObservable.getTemp();
         ult_pos += 1;
+        mostrarGrafica();
     }
 }
