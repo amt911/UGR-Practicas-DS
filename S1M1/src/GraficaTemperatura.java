@@ -13,26 +13,27 @@ public class GraficaTemperatura implements Observer {
 	private float _temp[];
         private int ult_pos = 0;
         final private int MAXTEMPS;
-        
-	public Temperatura _sujetoObservable = new Temperatura();
+        public Temperatura _sujetoObservable;
 
     //revisar
-    public GraficaTemperatura() {
+    public GraficaTemperatura(Temperatura t) {
         this.MAXTEMPS = 7;
         _temp = new float[MAXTEMPS];
+	_sujetoObservable = t;
+
     }
 
 	//descubir como va la grafica
     public void mostrarGrafica() {
-        System.out.println("*GRÁFICA*");                 
+        System.out.println("GRÁFICA Temp Celsius: " + _temp[ult_pos]);                 
 	}
 
     //creo que está bien pero repasar
     @Override
     public void update(java.util.Observable o, Object o1) {
-        int pos_insertar = ult_pos % MAXTEMPS;
+        int pos_insertar = ult_pos;
         _temp[pos_insertar] = _sujetoObservable.getTemp();
-        ult_pos += 1;
-        mostrarGrafica();
+         mostrarGrafica();
+         ult_pos = (ult_pos+1) % MAXTEMPS;
     }
 }

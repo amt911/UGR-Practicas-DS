@@ -21,9 +21,17 @@ public class PantallaTemperatura implements Runnable {
             //System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
         @Override
     public void run() {
+        for(int k = 0; k < 7; k++){
         this.getState();
          System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
-    }
+
+            try {
+			Thread.sleep(1 * 1000);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+    }    }
+
     }
 
     

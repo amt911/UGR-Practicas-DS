@@ -25,10 +25,12 @@ public class Temperatura extends Observable implements Runnable {
 
     @Override
     public void run() {
+        for(int k = 0; k < 7; k++){
         Random r = new Random();
         _temp = (50 - 20)*r.nextFloat() -15;
         setChanged();
         notifyObservers();
         esperartiempo();
+        }
     }
 }
