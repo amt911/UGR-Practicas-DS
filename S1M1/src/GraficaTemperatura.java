@@ -1,4 +1,12 @@
 import java.util.Observer;
+ //libtrerias freechar
+import javax.swing.JFrame;  
+import javax.swing.SwingUtilities;  
+  
+import org.jfree.chart.ChartFactory;  
+import org.jfree.chart.ChartPanel;  
+import org.jfree.chart.JFreeChart;  
+import org.jfree.data.category.DefaultCategoryDataset;  
 
 public class GraficaTemperatura implements Observer {
     //especificar la dimension maxima del vector
