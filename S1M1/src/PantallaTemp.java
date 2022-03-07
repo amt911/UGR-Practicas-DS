@@ -46,9 +46,10 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
     public void run() {
         for(int k = 0; k < 14; k++){
         this.getEstado();
-         System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
-                 texto.setText("Temperatura: " + mostrarTempC());
-
+        System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
+        texto.setText("TEMPERATURAS");
+        celsius.setText("Celsius: " + mostrarTempC());
+        farenheit.setText("Farenheit: " + mostrarTempF());
         try {
             Thread.sleep(1 * 1000);
 	} catch (InterruptedException ex) {
@@ -65,6 +66,8 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        celsius = new javax.swing.JLabel();
+        farenheit = new javax.swing.JLabel();
         texto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -72,12 +75,22 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        texto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        celsius.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        celsius.setText("jLabel2");
+        getContentPane().add(celsius, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 190, 60));
+
+        farenheit.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        farenheit.setText("jLabel2");
+        getContentPane().add(farenheit, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 210, 60));
+
+        texto.setBackground(new java.awt.Color(153, 153, 255));
+        texto.setFont(new java.awt.Font("Verdana", 1, 36)); // NOI18N
+        texto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         texto.setText("texto");
-        getContentPane().add(texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 270, 270, 120));
+        getContentPane().add(texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 360, 120));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoazul.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 858, 530));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -88,6 +101,8 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel celsius;
+    private javax.swing.JLabel farenheit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel texto;
     // End of variables declaration//GEN-END:variables
