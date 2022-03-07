@@ -5,11 +5,6 @@ public class GestorFiltros {
 	//public double revs;	//Cutre no, lo siguiente
 
 	public GestorFiltros(){
-		/*
-		_gestiona=new CadenaFiltros();
-
-		_gestiona.addFilter(new CalcularVelocidad());
-		_gestiona.addFilter(new RepercutirRozamiento());		*/
 		this(5000, 0.15, -37);
 	}
 
