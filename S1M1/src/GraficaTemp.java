@@ -40,13 +40,73 @@ public class GraficaTemp extends JFrame implements Observer {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         String series1= "temperaturas semanales";
         
-        dataset.addValue(_temp[0], series1, "lunes");  
-        dataset.addValue(_temp[1], series1, "martes");  
-        dataset.addValue(_temp[2], series1, "miercoles");  
-        dataset.addValue(_temp[3], series1, "jueves");  
-        dataset.addValue(_temp[4], series1, "viernes");  
-        dataset.addValue(_temp[5], series1, "sabado");  
-        dataset.addValue(_temp[6], series1, "domingo"); 
+        int posicion_lunes = ult_pos % 7;
+        switch(posicion_lunes){
+            case 0:
+                dataset.addValue(_temp[1], series1, "martes");  
+                dataset.addValue(_temp[2], series1, "miercoles");  
+                dataset.addValue(_temp[3], series1, "jueves");  
+                dataset.addValue(_temp[4], series1, "viernes");  
+                dataset.addValue(_temp[5], series1, "sabado");  
+                dataset.addValue(_temp[6], series1, "domingo");
+                dataset.addValue(_temp[0], series1, "lunes"); 
+                break;
+            case 1:
+                dataset.addValue(_temp[2], series1, "miercoles");  
+                dataset.addValue(_temp[3], series1, "jueves");  
+                dataset.addValue(_temp[4], series1, "viernes");  
+                dataset.addValue(_temp[5], series1, "sabado");  
+                dataset.addValue(_temp[6], series1, "domingo");
+                dataset.addValue(_temp[0], series1, "lunes");
+                dataset.addValue(_temp[1], series1, "martes");
+                break;
+            case 2:
+                dataset.addValue(_temp[3], series1, "jueves");  
+                dataset.addValue(_temp[4], series1, "viernes");  
+                dataset.addValue(_temp[5], series1, "sabado");  
+                dataset.addValue(_temp[6], series1, "domingo");
+                dataset.addValue(_temp[0], series1, "lunes");
+                dataset.addValue(_temp[1], series1, "martes");
+                dataset.addValue(_temp[2], series1, "miercoles");
+                break;
+            case 3:
+                dataset.addValue(_temp[4], series1, "viernes");  
+                dataset.addValue(_temp[5], series1, "sabado");  
+                dataset.addValue(_temp[6], series1, "domingo");
+                dataset.addValue(_temp[0], series1, "lunes");
+                dataset.addValue(_temp[1], series1, "martes");
+                dataset.addValue(_temp[2], series1, "miercoles");
+                dataset.addValue(_temp[3], series1, "jueves");
+                break;
+            case 4:
+                dataset.addValue(_temp[5], series1, "sabado");  
+                dataset.addValue(_temp[6], series1, "domingo");
+                dataset.addValue(_temp[0], series1, "lunes");
+                dataset.addValue(_temp[1], series1, "martes");
+                dataset.addValue(_temp[2], series1, "miercoles");
+                dataset.addValue(_temp[3], series1, "jueves");
+                dataset.addValue(_temp[4], series1, "viernes"); 
+                break;
+            case 5:
+                dataset.addValue(_temp[6], series1, "domingo");
+                dataset.addValue(_temp[0], series1, "lunes");
+                dataset.addValue(_temp[1], series1, "martes");
+                dataset.addValue(_temp[2], series1, "miercoles");
+                dataset.addValue(_temp[3], series1, "jueves");
+                dataset.addValue(_temp[4], series1, "viernes");
+                dataset.addValue(_temp[5], series1, "sabado");
+                break;
+            case 6:
+                dataset.addValue(_temp[0], series1, "lunes");
+                dataset.addValue(_temp[1], series1, "martes");  
+                dataset.addValue(_temp[2], series1, "miercoles");  
+                dataset.addValue(_temp[3], series1, "jueves");  
+                dataset.addValue(_temp[4], series1, "viernes");  
+                dataset.addValue(_temp[5], series1, "sabado");  
+                dataset.addValue(_temp[6], series1, "domingo");
+                break;
+                
+        }
         
         return dataset;
     }
