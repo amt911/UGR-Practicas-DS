@@ -30,7 +30,7 @@ public class Salpicadero extends javax.swing.JPanel {
 		_tiene=EstadoMotor.APAGADO;
 		//velocidad=new Velocimetro();
 		//distancia=new CuentaKilometros();
-		//this.revs=new CuentaRevoluciones(); Creado en initComponents
+		//revs=new CuentaRevoluciones(); //Creado en initComponents
 	}
 
 	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {

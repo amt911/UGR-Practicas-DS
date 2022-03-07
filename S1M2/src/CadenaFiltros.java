@@ -1,7 +1,7 @@
 import java.util.Vector;
 
 public class CadenaFiltros {
-	private Vector<Filtro> _ordered_;// = new Vector<Filtro>();
+	private Vector<Filtro> _ordered_;
 	private Salpicadero _invoca;
 
 	public CadenaFiltros(){
@@ -10,7 +10,6 @@ public class CadenaFiltros {
 
 	public CadenaFiltros(double radioObjetivo){
 		_ordered_=new Vector<Filtro>();
-		//_invoca=new Objetivo(radioObjetivo);		
                 _invoca=new Salpicadero(radioObjetivo);
 	}
 
@@ -19,7 +18,7 @@ public class CadenaFiltros {
 	}
 
 	public double ejecutar(EstadoMotor aEstadoMotor) {
-		double inicial=_invoca.getRevs();//_invoca.getRevs().getRevs();		//CUTRISIMO
+		double inicial=_invoca.getRevs(); //CUTRISIMO
 		
 		for(Filtro aux: _ordered_){
 			inicial=aux.ejecutar(inicial, aEstadoMotor);
@@ -29,12 +28,6 @@ public class CadenaFiltros {
 
 		return inicial;
 	}
-        
-        /*
-        public Objetivo getSalpicadero(){
-            return _invoca;
-        }
-*/
         
         public Salpicadero getSalpicadero(){
             return _invoca;
