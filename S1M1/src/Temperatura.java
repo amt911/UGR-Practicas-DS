@@ -13,11 +13,11 @@ public class Temperatura extends Observable implements Runnable {
 	}
 
 	public void setTemp(float aTemp) {
-		
+		_temp = aTemp;
 	}
         private void esperartiempo(){
             try {
-			Thread.sleep(1 * 1000);
+			Thread.sleep(1 * 3000);
 		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}

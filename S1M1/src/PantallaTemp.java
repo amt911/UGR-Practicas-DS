@@ -17,6 +17,7 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
         
 
     public PantallaTemp(Temperatura t) {
+        super("Pantalla Temperaturas");
         initComponents();
         _estacion_meteorlg = t;
         this.setLocationRelativeTo(null);
@@ -51,7 +52,7 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
         celsius.setText("Celsius: " + mostrarTempC());
         farenheit.setText("Farenheit: " + mostrarTempF());
         try {
-            Thread.sleep(1 * 1000);
+            Thread.sleep(1 * 3000);
 	} catch (InterruptedException ex) {
 		Thread.currentThread().interrupt();
 	}

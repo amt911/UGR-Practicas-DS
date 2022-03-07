@@ -3,9 +3,10 @@ class main {
         Temperatura t = new Temperatura();
         GraficaTemp gt = new GraficaTemp(t);
         PantallaTemp pt = new PantallaTemp(t);
-
+        botonCambio bc = new botonCambio(t);
+        
         t.addObserver(gt);
- 
+        
         Thread hebra1 = new Thread(t);
         hebra1.start();
         Thread hebra2 = new Thread(pt);
