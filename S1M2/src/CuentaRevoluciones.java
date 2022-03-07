@@ -11,7 +11,7 @@ import javax.swing.*;
  */
 public class CuentaRevoluciones extends javax.swing.JPanel {
     private double revs;
-    private static int instances=0;
+    //private static int instances=0;
 
     /*
     public CuentaRevoluciones(){
@@ -34,21 +34,17 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
     static int valor=0;
     
     public CuentaRevoluciones() {
-        instances++;
+        //instances++;
         revs=0;
         initComponents();
             
             //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
-  
-    int delay = 1000; //milliseconds
   ActionListener taskPerformer2 = new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
           jLabel1.setText(""+getRevs());
-          //System.out.println("DENTRO DEL ACTIONLISTENER: "+revs);
-          //System.out.println("Instancias: "+instances);
       }
   };
-  new Timer(delay, taskPerformer2).start();   
+  new Timer(Mandos.delay, taskPerformer2).start();   
     }
     /**
      * This method is called from within the constructor to initialize the form.

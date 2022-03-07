@@ -16,7 +16,7 @@ import javax.swing.Timer;
  */
 public class Mandos extends javax.swing.JFrame {
     private static Timer timer;
-    private static int delay=1000;      //Delay de los timers en milisegundos
+    public static final int delay=100;      //Delay de los timers en milisegundos
     private static Cliente c=new Cliente();
     
     

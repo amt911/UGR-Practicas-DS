@@ -14,7 +14,7 @@ import javax.swing.Timer;
  */
 public class Velocimetro extends javax.swing.JPanel {
     private double velocidad;
-    private static int instances=0;
+    //private static int instances=0;
 
     /*
     public Velocimetro(){
@@ -33,18 +33,15 @@ public class Velocimetro extends javax.swing.JPanel {
      * Creates new form Velocimetro2
      */
     public Velocimetro() {
-        instances++;
         initComponents();
         
-    int delay = 1000; //milliseconds
+    //int delay = 1000; //milliseconds
   ActionListener taskPerformer2 = new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
           jLabel1.setText(""+getVelocidad());
-          //System.out.println("DENTRO DEL ACTIONLISTENER: "+revs);
-          //System.out.println("Instancias Velocimetro: "+instances);
       }
   };
-  new Timer(delay, taskPerformer2).start();          
+  new Timer(Mandos.delay, taskPerformer2).start();          
     }
 
     /**

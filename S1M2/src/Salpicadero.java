@@ -38,10 +38,12 @@ public class Salpicadero extends javax.swing.JPanel {
 
 		_tiene=aEstadoMotor;
 		//distancia+=2*3.14*radio*revs;
-		distancia.addDistancia(2*Math.PI*RADIO*revs.getRevs());	//MEJORABLE
+		//distancia.addDistancia(2*Math.PI*RADIO*revs.getRevs());	//MEJORABLE
 
 		//velocidad=2*3.14*radio*revs*0.06;
 		velocidad.calcularVelocidad(RADIO, revs.getRevs());	//MEJORABLE
+                
+                distancia.addDistancia(velocidad.getVelocidad());
 /*
 		System.out.println("#################################################");
 		System.out.println("Revs: "+revs.getRevs());

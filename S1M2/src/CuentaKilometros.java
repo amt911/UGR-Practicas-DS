@@ -1,3 +1,8 @@
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -14,8 +19,8 @@ public class CuentaKilometros extends javax.swing.JPanel {
         return distancia;
     }
 
-    public void addDistancia(double valor){
-        distancia+=valor;
+    public void addDistancia(double velocidadActual){
+        distancia+=velocidadActual*(Mandos.delay/3600000.0);
     }
     /**
      * Creates new form CuentaKilometros2
@@ -23,6 +28,14 @@ public class CuentaKilometros extends javax.swing.JPanel {
     public CuentaKilometros() {
         distancia=0;
         initComponents();
+            
+            //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
+  ActionListener taskPerformer2 = new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          jLabel1.setText(""+getDistancia());
+      }
+  };
+  new Timer(Mandos.delay, taskPerformer2).start();         
     }
 
     /**
