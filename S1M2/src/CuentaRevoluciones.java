@@ -48,7 +48,7 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
           //System.out.println("Instancias: "+instances);
       }
   };
-  new Timer(delay, taskPerformer2).start();            
+  new Timer(delay, taskPerformer2).start();   
     }
     /**
      * This method is called from within the constructor to initialize the form.

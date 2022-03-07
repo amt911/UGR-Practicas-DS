@@ -16,11 +16,24 @@ import javax.swing.Timer;
  * @author andres
  */
 public class Mandos extends javax.swing.JFrame {
-    //private static Timer timer=new Timer(1000, null);//ap, en, ac, fr;
+    private static Timer timer;//=new Timer(1000, null);//ap, en, ac, fr;
     private ActionListener apagar, encender, frenar, acelerar;
-    
     public static int instances=0;
     Cliente c=new Cliente();
+    
+    private void ejecutarRutina(EstadoMotor estado){
+        if(timer!=null)
+            timer.stop();
+        
+        timer=new Timer(1000, new ActionListener() {
+      public void actionPerformed(ActionEvent evt) {
+          c.peticion(estado);
+          //System.out.println("instances mando: "+instances);
+      }      
+  });
+  
+  timer.start();
+    }
     /**
      * Creates new form Mandos
      */
@@ -170,7 +183,8 @@ public class Mandos extends javax.swing.JFrame {
                 jToggleButton3.setText("Soltar Freno");
                 jToggleButton3.setForeground(Color.red);
                 jLabel1.setText("FRENANDO");
-                c.peticion(EstadoMotor.FRENANDO);
+                //c.peticion(EstadoMotor.FRENANDO);
+                ejecutarRutina(EstadoMotor.FRENANDO);
             }
 
             //Segundo caso: Soltado Freno
@@ -178,7 +192,8 @@ public class Mandos extends javax.swing.JFrame {
                 jToggleButton3.setText("FRENAR");
                 jToggleButton3.setForeground(Color.black);
                 jLabel1.setText("ENCENDIDO");
-                c.peticion(EstadoMotor.ENCENDIDO);
+                //c.peticion(EstadoMotor.ENCENDIDO);
+                ejecutarRutina(EstadoMotor.ENCENDIDO);
             }
             //Tercer caso: pulsado acelerador con el coche encendido
 
@@ -186,7 +201,8 @@ public class Mandos extends javax.swing.JFrame {
             else{
                 //jToggleButton3.setSelected(false);
                 resetFreno(jToggleButton3);
-                c.peticion(EstadoMotor.APAGADO);
+                //c.peticion(EstadoMotor.APAGADO);
+                ejecutarRutina(EstadoMotor.APAGADO);
             }
         }
         else{
@@ -203,7 +219,8 @@ public class Mandos extends javax.swing.JFrame {
                 jToggleButton2.setText("Soltar Acelerador");
                 jToggleButton2.setForeground(Color.red);
                 jLabel1.setText("ACELERANDO");
-                c.peticion(EstadoMotor.ACELERANDO);
+                //c.peticion(EstadoMotor.ACELERANDO);
+                ejecutarRutina(EstadoMotor.ACELERANDO);
             }
 
             //Segundo caso: Soltado Acelerador
@@ -211,7 +228,8 @@ public class Mandos extends javax.swing.JFrame {
                 jToggleButton2.setText("ACELERAR");
                 jToggleButton2.setForeground(Color.black);
                 jLabel1.setText("ENCENDIDO");
-                c.peticion(EstadoMotor.ENCENDIDO);
+                //c.peticion(EstadoMotor.ENCENDIDO);
+                ejecutarRutina(EstadoMotor.ENCENDIDO);
             }
             //Tercer caso: pulsado freno con el coche encendido
             //        else if(jToggleButton1.isSelected() && jToggleButton3.isSelected()){
@@ -223,7 +241,8 @@ public class Mandos extends javax.swing.JFrame {
                 //jToggleButton2.setSelected(false);
                 resetAcelerador(jToggleButton2);
                 
-                c.peticion(EstadoMotor.APAGADO);
+                //c.peticion(EstadoMotor.APAGADO);
+                ejecutarRutina(EstadoMotor.APAGADO);
             }
         }
         else{
@@ -237,7 +256,8 @@ public class Mandos extends javax.swing.JFrame {
             jLabel1.setText("ENCENDIDO");
             jToggleButton1.setForeground(Color.red);
             jToggleButton1.setText("APAGAR");
-            c.peticion(EstadoMotor.ENCENDIDO);
+            //c.peticion(EstadoMotor.ENCENDIDO);
+            ejecutarRutina(EstadoMotor.ENCENDIDO);
 
             resetAcelerador(jToggleButton2);
             resetFreno(jToggleButton3);
@@ -252,7 +272,7 @@ public class Mandos extends javax.swing.JFrame {
              * OBTENER LA FORMA DE CONSEGUIR QUE SE PUEDA DIRECCIONAR UN TIMER, EN CUYO CASO YA ESTARIA HECHO PORQUE EL PROBLEMA ES QUE ES NECESARIO PARAR TODOS LOS TIMERS
              */
 
-            c.peticion(EstadoMotor.APAGADO);
+            //c.peticion(EstadoMotor.APAGADO);
             //if(c.getGestorFiltros().getCadenaFiltros().getSalpicadero().getEstado()==EstadoMotor.APAGADO)
             //System.out.println("APAGADO uwu");
 
@@ -260,6 +280,7 @@ public class Mandos extends javax.swing.JFrame {
             //jToggleButton3.setSelected(false);
             resetAcelerador(jToggleButton2);
             resetFreno(jToggleButton3);
+            ejecutarRutina(EstadoMotor.APAGADO);
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed1
 
