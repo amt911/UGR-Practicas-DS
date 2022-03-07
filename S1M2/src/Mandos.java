@@ -2,7 +2,6 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
@@ -16,58 +15,33 @@ import javax.swing.Timer;
  * @author andres
  */
 public class Mandos extends javax.swing.JFrame {
-    private static Timer timer;//=new Timer(1000, null);//ap, en, ac, fr;
-    private ActionListener apagar, encender, frenar, acelerar;
-    public static int instances=0;
-    Cliente c=new Cliente();
+    private static Timer timer;
+    private static int delay=1000;      //Delay de los timers en milisegundos
+    private static Cliente c=new Cliente();
+    
+    
+    /**
+     * Se usa para que cuando se invoque una peticion al cliente entre en el timer
+     * y ejecute la peticion infinitamente hasta que se intente ejecutar otra,
+     * en cuyo caso se para el timer y se inicia uno nuevo
+     * */
     
     private void ejecutarRutina(EstadoMotor estado){
         if(timer!=null)
             timer.stop();
         
         timer=new Timer(1000, new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          c.peticion(estado);
-          //System.out.println("instances mando: "+instances);
-      }      
-  });
+            public void actionPerformed(ActionEvent evt) {
+                c.peticion(estado);
+            }      
+        });
   
-  timer.start();
+        timer.start();
     }
     /**
      * Creates new form Mandos
      */
     public Mandos() {
-        /*
- apagar = new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          c.peticion(EstadoMotor.APAGADO);
-          //System.out.println("instances mando: "+instances);
-      }      
-  };             
-  encender = new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          c.peticion(EstadoMotor.ENCENDIDO);
-          //System.out.println("instances mando: "+instances);
-      }      
-  };        
-  
- acelerar = new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          c.peticion(EstadoMotor.ACELERANDO);
-          //System.out.println("instances mando: "+instances);
-      }      
-  };          
- 
-  frenar = new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          c.peticion(EstadoMotor.FRENANDO);
-          //System.out.println("instances mando: "+instances);
-      }      
-  };      
-        */
-//        timer=new Timer()
-        instances++;
         initComponents();
     }
 
@@ -183,7 +157,7 @@ public class Mandos extends javax.swing.JFrame {
                 jToggleButton3.setText("Soltar Freno");
                 jToggleButton3.setForeground(Color.red);
                 jLabel1.setText("FRENANDO");
-                //c.peticion(EstadoMotor.FRENANDO);
+
                 ejecutarRutina(EstadoMotor.FRENANDO);
             }
 
