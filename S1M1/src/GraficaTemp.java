@@ -115,7 +115,7 @@ public class GraficaTemp extends JFrame implements Observer {
     public void mostrarGrafica() {
         //inicialización contexto de la gráfica
         if(ult_pos >= 6 ){
-            this.setVisible(false);
+            //this.setVisible(false);
             DefaultCategoryDataset dataset = crearDataset();
             //crea una grafica de puntos
             JFreeChart chart = ChartFactory.createLineChart(  "Temperaturas", "dias semana",   "Temp. en Celsius",    dataset );
