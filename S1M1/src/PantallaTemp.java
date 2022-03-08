@@ -42,7 +42,15 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
     private PantallaTemp() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    private void esperartiempo(){
+            try {
+			Thread.sleep(1 * 3000);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+        }
+    
       @Override
     public void run() {
         while(true){
@@ -51,6 +59,7 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
         texto.setText("TEMPERATURAS");
         celsius.setText("Celsius: " + mostrarTempC());
         farenheit.setText("Farenheit: " + mostrarTempF());
+        esperartiempo();
 
     }
     }
