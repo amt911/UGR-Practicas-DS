@@ -16,7 +16,7 @@ import javax.swing.event.ChangeListener;
 public class botonCambio extends javax.swing.JFrame implements Observer {
     
     public Temperatura _sujetoObservable;
-
+    float temp_aux;
     /**
      * Creates new form botonCambio
      * @param t
@@ -29,10 +29,12 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
         barra.addChangeListener(new ChangeListener(){
             @Override
             public void stateChanged(ChangeEvent e){
-                        _sujetoObservable.setTemp(barra.getValue());
+                  temp_aux =  barra.getValue();      
+                  texto2.setText(""+temp_aux);
             }
 });
 }
+    
 
 
     /**
@@ -45,6 +47,8 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        texto2 = new javax.swing.JLabel();
         barra = new javax.swing.JSlider();
         img = new javax.swing.JLabel();
 
@@ -55,9 +59,22 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
         jLabel1.setText("Modificar Temperaturas");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
+        getContentPane().add(texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 70, 30));
+
+        barra.setMajorTickSpacing(8);
         barra.setMaximum(34);
         barra.setMinimum(-34);
-        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 240, 40));
+        barra.setMinorTickSpacing(1);
+        barra.setPaintLabels(true);
+        barra.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().add(barra, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 240, 40));
 
         img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondoazul.jpg"))); // NOI18N
         getContentPane().add(img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 260));
@@ -65,12 +82,18 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        _sujetoObservable.setTemp(temp_aux);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider barra;
     private javax.swing.JLabel img;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel texto2;
     // End of variables declaration//GEN-END:variables
 
     @Override
