@@ -45,7 +45,7 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
 
       @Override
     public void run() {
-        for(int k = 0; k < 14; k++){
+        while(true){
         this.getEstado();
         System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
         texto.setText("TEMPERATURAS");

@@ -15,8 +15,8 @@ public class Temperatura extends Observable implements Runnable {
 	public void setTemp(float aTemp) {
 		_temp = aTemp;
                 notifyObservers();
-
-	}
+                setChanged();
+        }
         private void esperartiempo(){
             try {
 			Thread.sleep(1 * 3000);
@@ -30,7 +30,6 @@ public class Temperatura extends Observable implements Runnable {
         for(int k = 0; k < 14; k++){
         Random r = new Random();
         setTemp((50 - 20)*r.nextFloat() -15);
-        setChanged();
         esperartiempo();
         }
     }
