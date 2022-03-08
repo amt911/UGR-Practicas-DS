@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.*;
+import org.jfree.chart.axis.*;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /*
@@ -119,6 +121,9 @@ public class GraficaTemp extends JFrame implements Observer {
             DefaultCategoryDataset dataset = crearDataset();
             //crea una grafica de puntos
             JFreeChart chart = ChartFactory.createLineChart(  "Temperaturas", "dias semana",   "Temp. en Celsius",    dataset );
+            CategoryPlot plot= (CategoryPlot) chart.getPlot();
+            NumberAxis rango = (NumberAxis)plot.getRangeAxis();
+            rango.setRange(-30, 50);
             //crea un panel que incluye la grafica
             ChartPanel panel = new ChartPanel(chart);
             //Coloca el panel?
