@@ -24,9 +24,10 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
     public botonCambio(Temperatura t) {
         super("Cambiar Temperatura");
         initComponents();
-                        texto2.setText(""+temp_aux);
-
+        texto2.setText(""+temp_aux);
         _sujetoObservable = t;
+        temp.setText("Temperatura: " + Math.round(_sujetoObservable.getTemp()*10d)/10d);
+
         setVisible(true);
         barra.addChangeListener(new ChangeListener(){
             @Override
@@ -48,6 +49,7 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        temp = new javax.swing.JLabel();
         texto2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -56,11 +58,12 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(temp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
         getContentPane().add(texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 70, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Modificar Temperaturas");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,12 +98,13 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel img;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel temp;
     private javax.swing.JLabel texto2;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        temp.setText("Temperatura: " + Math.round(_sujetoObservable.getTemp()*10d)/10d);
     }
 }
 /*

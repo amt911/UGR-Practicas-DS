@@ -20,6 +20,7 @@ class main {
         tiempoSatelital ts = new tiempoSatelital(temps);
         
         t_g.addObserver(gt);
+        t_g.addObserver(bc);
         t_g.addObserver(ts);
         t_l.addObserver(ts);
         t_b.addObserver(ts);
