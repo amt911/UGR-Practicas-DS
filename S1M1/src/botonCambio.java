@@ -24,6 +24,8 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
     public botonCambio(Temperatura t) {
         super("Cambiar Temperatura");
         initComponents();
+                        texto2.setText(""+temp_aux);
+
         _sujetoObservable = t;
         setVisible(true);
         barra.addChangeListener(new ChangeListener(){
@@ -46,27 +48,27 @@ public class botonCambio extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        texto2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        texto2 = new javax.swing.JLabel();
         barra = new javax.swing.JSlider();
         img = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 70, 30));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Modificar Temperaturas");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
-        getContentPane().add(texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 70, 30));
 
         barra.setMajorTickSpacing(8);
         barra.setMaximum(34);

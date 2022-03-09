@@ -45,7 +45,7 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
     
     private void esperartiempo(){
             try {
-			Thread.sleep(1 * 3000);
+			Thread.sleep(1 * 500);
 		} catch (InterruptedException ex) {
 			Thread.currentThread().interrupt();
 		}
@@ -55,7 +55,7 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
     public void run() {
         while(true){
         this.getEstado();
-        System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
+       // System.out.println("Temp Celsius: " + mostrarTempC() + "\n" +"Temp Farenheit: " + mostrarTempF() + "\n" );
         texto.setText("TEMPERATURAS");
         celsius.setText("Celsius: " + mostrarTempC());
         farenheit.setText("Farenheit: " + mostrarTempF());
