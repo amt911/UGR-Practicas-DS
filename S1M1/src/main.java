@@ -14,9 +14,9 @@ class main {
         temps.add(t_m);
         temps.add(t_b);
         
-        GraficaTemp gt = new GraficaTemp(t_g);
+        Combo gt = new GraficaTemp(t_g);
         PantallaTemp pt = new PantallaTemp(t_g);
-        botonCambio bc = new botonCambio(t_g);
+        Combo bc = new botonCambio(t_g);
         tiempoSatelital ts = new tiempoSatelital(temps);
         
         t_g.addObserver(gt);

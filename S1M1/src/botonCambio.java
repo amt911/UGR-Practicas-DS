@@ -13,9 +13,8 @@ import javax.swing.event.ChangeListener;
  *
  * @author sergi
  */
-public class botonCambio extends javax.swing.JFrame implements Observer {
+public class botonCambio extends Combo {
     
-    public Temperatura _sujetoObservable;
     float temp_aux;
     /**
      * Creates new form botonCambio

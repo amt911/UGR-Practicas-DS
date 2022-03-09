@@ -18,19 +18,18 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author sergi
  */
-public class GraficaTemp extends JFrame implements Observer {
+public class GraficaTemp extends Combo {
     //especificar la dimension maxima del vector
 	private float _temp[];
         private int ult_pos = 0;
         final private int MAXTEMPS;
-        public Temperatura _sujetoObservable;
     /**
      * Creates new form GraficaTemp
      * @param t
      */
     public GraficaTemp(Temperatura t) {
         super("Grafica temperaturas");
-                initComponents();
+        initComponents();
         //constructor de la grafica
         this.MAXTEMPS = 7;
         _temp = new float[MAXTEMPS];
