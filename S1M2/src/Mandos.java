@@ -2,6 +2,8 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
@@ -18,6 +20,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     private static Timer timer;
     public static final int delay=100;      //Delay de los timers en milisegundos
     private static Cliente c;//=new Cliente();
+    private EstadoMotor estadoM=EstadoMotor.APAGADO;
     
     
     /**
@@ -35,7 +38,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
                 c.peticion(estado);
             }      
         });
-  
+              //System.out.println("Prueba2");
         timer.start();
     }
     /**
@@ -44,18 +47,26 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     public Mandos() {
         c=new Cliente();
         initComponents();
+        
+        setVisible(true);
     }
     
     public Mandos(double maxR, double radio, int roz){
         c=new Cliente(maxR, radio, roz);        
         initComponents();
+        setVisible(true);
     }
 
     @Override
     public void run(){
         while(true){
-            //System.out.println("Prueba2");
             salpicadero.actualizarInfo();
+            c.peticion(estadoM);
+            try {
+                Thread.sleep(Mandos.delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Mandos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     /**
@@ -160,7 +171,8 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
                 botonFreno.setForeground(Color.red);
                 estado.setText("FRENANDO");
 
-                ejecutarRutina(EstadoMotor.FRENANDO);
+                //ejecutarRutina(EstadoMotor.FRENANDO);
+                estadoM=EstadoMotor.FRENANDO;
             }
 
             //Segundo caso: Soltado Freno
@@ -169,13 +181,16 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
                 botonFreno.setForeground(Color.black);
                 estado.setText("ENCENDIDO");
 
-                ejecutarRutina(EstadoMotor.ENCENDIDO);
+                //ejecutarRutina(EstadoMotor.ENCENDIDO);
+                estadoM=EstadoMotor.ENCENDIDO;
             }
 
             //Tercer caso: Pulsado acelerador con el coche apagado
             else{
                 resetFreno(botonFreno);
-                ejecutarRutina(EstadoMotor.APAGADO);
+                //ejecutarRutina(EstadoMotor.APAGADO);
+                estadoM=EstadoMotor.APAGADO;
+                
             }
         }
         else{
@@ -192,7 +207,8 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
                 botonAcelerador.setForeground(Color.red);
                 estado.setText("ACELERANDO");
 
-                ejecutarRutina(EstadoMotor.ACELERANDO);
+                //ejecutarRutina(EstadoMotor.ACELERANDO);
+                estadoM=EstadoMotor.ACELERANDO;
             }
 
             //Segundo caso: Soltado Acelerador
@@ -201,13 +217,15 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
                 botonAcelerador.setForeground(Color.black);
                 estado.setText("ENCENDIDO");
 
-                ejecutarRutina(EstadoMotor.ENCENDIDO);
+                //ejecutarRutina(EstadoMotor.ENCENDIDO);
+                estadoM=EstadoMotor.ENCENDIDO;
             }
 
             //Tercer caso: Pulsado acelerador con el coche apagado
             else{
                 resetAcelerador(botonAcelerador);
-                ejecutarRutina(EstadoMotor.APAGADO);
+                //ejecutarRutina(EstadoMotor.APAGADO);
+                estadoM=EstadoMotor.APAGADO;
             }
         }
         else{
@@ -221,8 +239,9 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
             botonEncendido.setForeground(Color.red);
             botonEncendido.setText("APAGAR");
 
-            ejecutarRutina(EstadoMotor.ENCENDIDO);
-
+            //ejecutarRutina(EstadoMotor.ENCENDIDO);
+            estadoM=EstadoMotor.ENCENDIDO;
+            
             resetAcelerador(botonAcelerador);
             resetFreno(botonFreno);
         }
@@ -233,7 +252,8 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
             
             resetAcelerador(botonAcelerador);
             resetFreno(botonFreno);
-            ejecutarRutina(EstadoMotor.APAGADO);
+            //ejecutarRutina(EstadoMotor.APAGADO);
+            estadoM=EstadoMotor.APAGADO;
         }
     }//GEN-LAST:event_BotonEncender
 
