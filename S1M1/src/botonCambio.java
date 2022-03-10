@@ -125,7 +125,7 @@ public class botonCambio extends Combo {
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         char c = evt.getKeyChar();
         
-        if(!Character.isDigit(c) && c != '.'){
+        if(!Character.isDigit(c) && c != '.' && c != '-'){
             evt.consume();
         }
     }//GEN-LAST:event_jTextField1KeyTyped

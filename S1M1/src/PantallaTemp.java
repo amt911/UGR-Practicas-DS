@@ -54,7 +54,6 @@ public class PantallaTemp extends javax.swing.JFrame implements Runnable {
             celsius.setText("-> Celsius: " + Math.round(getTempC()*10d)/10d);
             farenheit.setText("-> Farenheit: " + Math.round(getTempF()*10d)/10d);
             esperartiempo();
-
         }
     }
 
