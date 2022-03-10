@@ -53,9 +53,25 @@ public class tiempoSatelital extends javax.swing.JFrame implements Observer {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tempgranada.setBackground(new java.awt.Color(204, 255, 204));
+        tempgranada.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tempgranada.setOpaque(true);
         getContentPane().add(tempgranada, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
-        getContentPane().add(tempmadrid, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, -1, -1));
+
+        tempmadrid.setBackground(new java.awt.Color(204, 255, 204));
+        tempmadrid.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tempmadrid.setOpaque(true);
+        getContentPane().add(tempmadrid, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 223, -1, -1));
+
+        templugo.setBackground(new java.awt.Color(204, 255, 204));
+        templugo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        templugo.setOpaque(true);
         getContentPane().add(templugo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
+
+        tempbarcelona.setBackground(new java.awt.Color(204, 255, 204));
+        tempbarcelona.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        tempbarcelona.setOpaque(true);
         getContentPane().add(tempbarcelona, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mapa.jpg"))); // NOI18N
