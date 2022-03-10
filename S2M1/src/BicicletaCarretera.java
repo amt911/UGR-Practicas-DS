@@ -15,6 +15,6 @@ public class BicicletaCarretera implements _Bicicleta, Runnable {
         while(!acabado){
             
         }
-        //mostrar que ha salido de la carrera;
+        System.out.println("La bicicleta de carretera " + dorsal +" Ha abandonado la carrera");
     }
 }

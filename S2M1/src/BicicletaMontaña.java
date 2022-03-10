@@ -15,6 +15,6 @@ public class BicicletaMontaña implements _Bicicleta, Runnable {
         while(!acabado){
             
         }
-        //mostrar que ha salido de la carrera;?
+        System.out.println("La bicicleta de montaña " + dorsal +" Ha abandonado la carrera");
     }
 }
