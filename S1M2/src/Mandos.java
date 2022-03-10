@@ -14,10 +14,10 @@ import javax.swing.Timer;
  *
  * @author andres
  */
-public class Mandos extends javax.swing.JFrame {
+public class Mandos extends javax.swing.JFrame implements Runnable{
     private static Timer timer;
     public static final int delay=100;      //Delay de los timers en milisegundos
-    private static Cliente c=new Cliente();
+    private static Cliente c;//=new Cliente();
     
     
     /**
@@ -42,9 +42,22 @@ public class Mandos extends javax.swing.JFrame {
      * Creates new form Mandos
      */
     public Mandos() {
+        c=new Cliente();
+        initComponents();
+    }
+    
+    public Mandos(double maxR, double radio, int roz){
+        c=new Cliente(maxR, radio, roz);        
         initComponents();
     }
 
+    @Override
+    public void run(){
+        while(true){
+            //System.out.println("Prueba2");
+            salpicadero.actualizarInfo();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,33 +107,33 @@ public class Mandos extends javax.swing.JFrame {
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(botonEncendido)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonAcelerador)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonFreno))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(196, 196, 196)
                         .addComponent(estado))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
                         .addGap(81, 81, 81)
-                        .addComponent(salpicadero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                                .addComponent(botonEncendido)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonAcelerador)
+                                .addGap(18, 18, 18)
+                                .addComponent(botonFreno))
+                            .addComponent(salpicadero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(estado)
-                .addGap(48, 48, 48)
+                .addGap(54, 54, 54)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonEncendido)
                     .addComponent(botonAcelerador)
                     .addComponent(botonFreno))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(salpicadero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,42 +250,6 @@ public class Mandos extends javax.swing.JFrame {
         acelerador.setText("ACELERAR");
         acelerador.setForeground(Color.black);
         acelerador.setSelected(false);        
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Mandos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Mandos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Mandos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Mandos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Mandos().setVisible(true);
-                System.out.println("Esto es una prueba");
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

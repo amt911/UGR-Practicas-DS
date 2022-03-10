@@ -14,28 +14,47 @@ import javax.swing.Timer;
  */
 public class CuentaKilometros extends javax.swing.JPanel {
    private double distancia;
+   private double distanciaAbs;
 
     public double getDistancia(){
         return distancia;
     }
+    
+    public double getDistanciaAbs(){
+        return distanciaAbs;
+    }    
+    
+    private void resetDistancia(){
+        distancia=0;
+    }
 
     public void addDistancia(double velocidadActual){
-        distancia+=velocidadActual*(Mandos.delay/3600000.0);
+        double res=velocidadActual*(Mandos.delay/3600000.0);
+        distancia+=res;
+        distanciaAbs+=res;
     }
     /**
      * Creates new form CuentaKilometros2
      */
     public CuentaKilometros() {
         distancia=0;
+        distanciaAbs=0;
         initComponents();
-            
-            //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
+           /* 
+    //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
   ActionListener taskPerformer2 = new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
           jLabel1.setText(""+getDistancia());
+          jLabel2.setText(""+getDistanciaAbs());
       }
   };
-  new Timer(Mandos.delay, taskPerformer2).start();         
+  new Timer(Mandos.delay, taskPerformer2).start();    
+        */
+    }
+    
+    public void actualizarCuentaKilometros(){
+        jLabel1.setText(""+getDistancia());
+        jLabel2.setText(""+getDistanciaAbs());        
     }
 
     /**
@@ -49,6 +68,7 @@ public class CuentaKilometros extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("CuentaKilometros"));
 
@@ -58,24 +78,44 @@ public class CuentaKilometros extends javax.swing.JPanel {
         jLabel2.setText("jLabel2");
         jLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador total"));
 
+        jButton1.setText("Reset");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        resetDistancia();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

@@ -23,6 +23,13 @@ public class Salpicadero extends javax.swing.JPanel {
 		//revs=new CuentaRevoluciones();    Creado en initComponents
 	}
 
+        
+        public void actualizarInfo(){
+            velocidad.actualizarVelocimetro();
+            distancia.actualizarCuentaKilometros();
+            revs.actualizarCuentaRevoluciones();
+        }
+        
 	public Salpicadero(double rads){
                 initComponents();
 		RADIO=(rads>0)?rads:0.1;

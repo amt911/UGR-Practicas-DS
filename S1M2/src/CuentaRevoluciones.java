@@ -37,7 +37,7 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
         //instances++;
         revs=0;
         initComponents();
-            
+     /*       
             //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
   ActionListener taskPerformer2 = new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
@@ -45,7 +45,14 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
       }
   };
   new Timer(Mandos.delay, taskPerformer2).start();   
+        */
     }
+    
+    public void actualizarCuentaRevoluciones(){
+        jLabel1.setText(""+getRevs());
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

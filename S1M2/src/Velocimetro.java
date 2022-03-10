@@ -34,16 +34,21 @@ public class Velocimetro extends javax.swing.JPanel {
      */
     public Velocimetro() {
         initComponents();
-        
+        /*
     //int delay = 1000; //milliseconds
   ActionListener taskPerformer2 = new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
           jLabel1.setText(""+getVelocidad());
       }
   };
-  new Timer(Mandos.delay, taskPerformer2).start();          
+  new Timer(Mandos.delay, taskPerformer2).start();      
+        */
     }
 
+    
+    public void actualizarVelocimetro(){
+        jLabel1.setText(""+getVelocidad());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
