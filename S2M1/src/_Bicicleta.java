@@ -1,4 +1,7 @@
-public interface _Bicicleta {
+public abstract class _Bicicleta {
+        protected int dorsal;
+        protected boolean acabado;
         
-	public void acabarCarrera();
+        public _Bicicleta(int dorsal){this.dorsal = dorsal;};
+	abstract void acabarCarrera();
 }

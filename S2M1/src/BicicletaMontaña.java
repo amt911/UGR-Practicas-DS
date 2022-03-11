@@ -1,9 +1,7 @@
-public class BicicletaMontaña implements _Bicicleta, Runnable {
-        private int dorsal;
-        private boolean acabado;
+public class BicicletaMontaña extends _Bicicleta implements Runnable {
         
         BicicletaMontaña(int dorsal){
-            this.dorsal = dorsal;
+            super(dorsal);
         }
         @Override
 	public void acabarCarrera() {
