@@ -1,41 +1,42 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class GestorFiltros {
-	private CadenaFiltros _gestiona;
-	//public double revs;	//Cutre no, lo siguiente
-
+	private CadenaFiltros cadenaFiltros;
+        
+        
+        //Constructor por defecto con parametros basicos para que sea usable
 	public GestorFiltros(){
 		this(5000, 0.15, -37);
 	}
 
-	public GestorFiltros(Vector<Filtro> filtros, double radioObjetivo){
-		_gestiona=new CadenaFiltros(radioObjetivo);
+	public GestorFiltros(ArrayList<Filtro> filtros, double radioObjetivo){
+		cadenaFiltros=new CadenaFiltros(radioObjetivo);
 
 		for(Filtro aux : filtros)
-			_gestiona.addFilter(aux);
+			cadenaFiltros.addFilter(aux);
 	}
 
 	//Constructor especifico para probar los parametros del vehiculo
 	public GestorFiltros(double maxR, double radio, int roz){
-		_gestiona=new CadenaFiltros(radio);
+		cadenaFiltros=new CadenaFiltros(radio);
 
-		_gestiona.addFilter(new CalcularVelocidad(maxR));
-		_gestiona.addFilter(new RepercutirRozamiento(roz));		
+		cadenaFiltros.addFilter(new CalcularVelocidad(maxR));
+		cadenaFiltros.addFilter(new RepercutirRozamiento(roz));		
 	}
 
-	public GestorFiltros(Vector<Filtro> filtros){
+	public GestorFiltros(ArrayList<Filtro> filtros){
 		this(filtros, 0.15);
 	}
 
 	public void addFilter(Filtro filtro){
-		_gestiona.addFilter(filtro);
+		cadenaFiltros.addFilter(filtro);
 	}
 
 	public void peticionFiltros(EstadoMotor estadoMotor) {
-		_gestiona.ejecutar(estadoMotor);
+		cadenaFiltros.ejecutar(estadoMotor);
 	}
 
 	public CadenaFiltros getCadenaFiltros(){
-		return _gestiona;
+		return cadenaFiltros;
 	}
 }

@@ -1,24 +1,24 @@
 public class RepercutirRozamiento implements Filtro {
-	private final int ROZAMIENTO;
+    private final int ROZAMIENTO;
 
-	public RepercutirRozamiento(){
-		ROZAMIENTO=-37;
-	}
+    //Constructor por defecto con un valor arbitrario
+    public RepercutirRozamiento(){
+        ROZAMIENTO=-37;
+    }
 
-	public RepercutirRozamiento(int roz) {
-		if (roz > 0)
-			ROZAMIENTO = -10;
+    public RepercutirRozamiento(int roz) {
+        if (roz > 0)
+                ROZAMIENTO = -10;
 
-		else
-			ROZAMIENTO = roz;
-	}
+        else
+                ROZAMIENTO = roz;
+    }
 
-	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {
+    public double ejecutar(double revoluciones, EstadoMotor estado) {
+        if((revoluciones+ROZAMIENTO)<=0)
+                return 0;
 
-		if((aRevoluciones+ROZAMIENTO)<=0)
-			return 0;
-
-		else
-			return aRevoluciones+ROZAMIENTO;	//Hay que comprobar esto
-	}
+        else
+                return revoluciones+ROZAMIENTO;
+    }
 }

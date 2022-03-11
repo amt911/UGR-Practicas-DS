@@ -15,9 +15,9 @@ public class CalcularVelocidad implements Filtro {
 
 
 	//Este metodo devuelve las revoluciones del coche despues de aplicar el filtro
-	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {
+	public double ejecutar(double revoluciones, EstadoMotor estado) {
 
-		switch(aEstadoMotor){
+		switch(estado){
 			case ACELERANDO:
 				incrementoVelocidad=100;
 				break;
@@ -32,12 +32,12 @@ public class CalcularVelocidad implements Filtro {
 		}
 
 		//En caso de que se supere el maximo, simplemente se llega al mismo
-		if((aRevoluciones+incrementoVelocidad)>MAX_REVS)
-			incrementoVelocidad=MAX_REVS-aRevoluciones;
+		if((revoluciones+incrementoVelocidad)>MAX_REVS)
+			incrementoVelocidad=MAX_REVS-revoluciones;
 		
-		else if((aRevoluciones+incrementoVelocidad)<=0)
+		else if((revoluciones+incrementoVelocidad)<=0)
 			incrementoVelocidad=0;
 
-		return aRevoluciones+incrementoVelocidad;
+		return revoluciones+incrementoVelocidad;
 	}
 }

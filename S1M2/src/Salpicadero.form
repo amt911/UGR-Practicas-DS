@@ -45,7 +45,7 @@
     </Component>
     <Component class="Velocimetro" name="velocidad">
     </Component>
-    <Component class="CuentaRevoluciones" name="revs">
+    <Component class="CuentaRrevoluciones" name="revs">
     </Component>
   </SubComponents>
 </Form>

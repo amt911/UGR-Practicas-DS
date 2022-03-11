@@ -36,10 +36,7 @@ public class Main {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Mandos().setVisible(true);
-            }
-        });
+        Thread hebra=new Thread(new Mandos(10000, 0.15, -23));
+        hebra.start();
     }
 }

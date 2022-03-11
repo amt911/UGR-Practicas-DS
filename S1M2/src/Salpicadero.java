@@ -8,72 +8,53 @@
  * @author andres
  */
 public class Salpicadero extends javax.swing.JPanel {
-	private EstadoMotor _tiene;
-	//private Velocimetro velocidad;
-	//private CuentaKilometros distancia;
-	//private CuentaRevoluciones revs;
-	final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
+    //Los demas meotods los pone NetBeans abajo
+    private EstadoMotor estadoMotor;
+    final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
 
-	public Salpicadero(){
-                initComponents();
-		RADIO=0.15;
-		_tiene=EstadoMotor.APAGADO;
-		//velocidad=new Velocimetro();
-		//distancia=new CuentaKilometros();
-		//revs=new CuentaRevoluciones();    Creado en initComponents
-	}
-
-	public Salpicadero(double rads){
-                initComponents();
-		RADIO=(rads>0)?rads:0.1;
-
-		_tiene=EstadoMotor.APAGADO;
-		//velocidad=new Velocimetro();
-		//distancia=new CuentaKilometros();
-		//revs=new CuentaRevoluciones(); //Creado en initComponents
-	}
-
-	public double ejecutar(double aRevoluciones, EstadoMotor aEstadoMotor) {
-		revs.setRevs(aRevoluciones);
-
-		_tiene=aEstadoMotor;
-		//distancia+=2*3.14*radio*revs;
-		//distancia.addDistancia(2*Math.PI*RADIO*revs.getRevs());	//MEJORABLE
-
-		//velocidad=2*3.14*radio*revs*0.06;
-		velocidad.calcularVelocidad(RADIO, revs.getRevs());	//MEJORABLE
-                
-                distancia.addDistancia(velocidad.getVelocidad());
-/*
-		System.out.println("#################################################");
-		System.out.println("Revs: "+revs.getRevs());
-		System.out.println("Distancia recorrida: "+distancia.getDistancia());
-		System.out.println("Velocidad actual: "+velocidad.getVelocidad());
-		System.out.println("Estado motor: "+_tiene);
-		System.out.println("#################################################");
-*/
-                
-		return  revs.getRevs();	//ARREGLAR ESTE RETURN, NO SE EXACTAMENTE QUE TIENE QUE DEVOLVER
-	}
-
-
-	//Seguramente esto que haga sea un insulto para todos los programadores del mundo
-	public double getRevs(){
-		return revs.getRevs();
-	}
-
-        
-        public EstadoMotor getEstado(){
-            return _tiene;
-        }
-    /**
-     * Creates new form Salpicadero
-     */
-        /*
-    public Salpicadero() {
+    public Salpicadero(){
+        //En initComponents se inicializa el CuentaRrevoluciones,
+        //CuentaKilometros y Velocimetro, esto es debido a que 
+        //NetBeans lo realiza asi obligatoriamente cuando se tratan de JPanels
         initComponents();
+        RADIO=0.15;
+        estadoMotor=EstadoMotor.APAGADO;
     }
-        */
+
+
+    public void actualizarInfo(){
+        velocidad.actualizarVelocimetro();
+        distancia.actualizarCuentaKilometros();
+        revs.actualizarCuentaRevoluciones();
+    }
+
+    public Salpicadero(double rads){
+        initComponents();
+        RADIO=(rads>0)?rads:0.1;
+
+        estadoMotor=EstadoMotor.APAGADO;
+    }
+
+    public double ejecutar(double revoluciones, EstadoMotor estado) {
+        revs.setRevs(revoluciones);
+
+        estadoMotor=estado;
+        velocidad.calcularVelocidad(RADIO, revs.getRevs());	//MEJORABLE
+
+        distancia.addDistancia(velocidad.getVelocidad());
+
+        return  revs.getRevs();
+    }
+
+
+    //Seguramente esto este mal, hay que comprobarlo
+    public double getRevs(){
+        return revs.getRevs();
+    }
+
+    public EstadoMotor getEstado(){
+        return estadoMotor;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,7 +67,7 @@ public class Salpicadero extends javax.swing.JPanel {
 
         distancia = new CuentaKilometros();
         velocidad = new Velocimetro();
-        revs = new CuentaRevoluciones();
+        revs = new CuentaRrevoluciones();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Salpicadero"));
 
@@ -112,7 +93,7 @@ public class Salpicadero extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private CuentaKilometros distancia;
-    private CuentaRevoluciones revs;
+    private CuentaRrevoluciones revs;
     private Velocimetro velocidad;
     // End of variables declaration//GEN-END:variables
 }
