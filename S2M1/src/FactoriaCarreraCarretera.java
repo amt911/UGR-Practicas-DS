@@ -1,10 +1,10 @@
-public class FactoriaCarreraCarretera extends FactoriaCarreraYBicicleta {
+public class FactoriaCarreraCarretera implements FactoriaCarreraYBicicleta {
 
 	public Carrera crearCarrera() {
 		throw new UnsupportedOperationException();
 	}
 
-	public Bicicleta crearBicicleta() {
+	public _Bicicleta crearBicicleta() {
 		throw new UnsupportedOperationException();
 	}
 }

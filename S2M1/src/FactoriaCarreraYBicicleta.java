@@ -1,6 +1,6 @@
 public interface FactoriaCarreraYBicicleta {
 
 	public Carrera crearCarrera();
-
-	public Bicicleta crearBicicleta();
+	public _Bicicleta crearBicicleta();
+	
 }

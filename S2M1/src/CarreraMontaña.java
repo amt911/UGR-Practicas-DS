@@ -1,2 +1,2 @@
-public class CarreraMontaña extends Carrera {
+public class CarreraMontaÃ±a extends Carrera {
 }

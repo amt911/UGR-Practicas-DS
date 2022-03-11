@@ -1,2 +1,2 @@
-public interface Carrera {
+public abstract class Carrera {
 }
