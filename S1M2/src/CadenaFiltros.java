@@ -1,35 +1,35 @@
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class CadenaFiltros {
-	private Vector<Filtro> _ordered_;
-	private Salpicadero _invoca;
+	private ArrayList<Filtro> filtros;
+	private Salpicadero salpicadero;
 
 	public CadenaFiltros(){
 		this(0.15);
 	}
 
 	public CadenaFiltros(double radioObjetivo){
-		_ordered_=new Vector<Filtro>();
-                _invoca=new Salpicadero(radioObjetivo);
+		filtros=new ArrayList<Filtro>();
+                salpicadero=new Salpicadero(radioObjetivo);
 	}
 
 	public void addFilter(Filtro filtro){
-		_ordered_.add(filtro);
+		filtros.add(filtro);
 	}
 
-	public double ejecutar(EstadoMotor aEstadoMotor) {
-		double inicial=_invoca.getRevs(); //CUTRISIMO
+	public double ejecutar(EstadoMotor estado) {
+		double inicial=salpicadero.getRevs(); //CUTRISIMO
 		
-		for(Filtro aux: _ordered_){
-			inicial=aux.ejecutar(inicial, aEstadoMotor);
+		for(Filtro aux: filtros){
+			inicial=aux.ejecutar(inicial, estado);
 		}
 
-		_invoca.ejecutar(inicial, aEstadoMotor);
+		salpicadero.ejecutar(inicial, estado);
 
 		return inicial;
 	}
         
         public Salpicadero getSalpicadero(){
-            return _invoca;
+            return salpicadero;
         }        
 }

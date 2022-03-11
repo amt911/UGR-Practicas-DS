@@ -1,8 +1,3 @@
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -29,32 +24,24 @@ public class CuentaKilometros extends javax.swing.JPanel {
     }
 
     public void addDistancia(double velocidadActual){
-        double res=velocidadActual*(Mandos.delay/3600000.0);
+        double res=velocidadActual*(Mandos.DELAY/3600000.0);    //Obtenido de la formula de la velocidad y despejando la distancia
         distancia+=res;
         distanciaAbs+=res;
     }
+    
     /**
-     * Creates new form CuentaKilometros2
+     * Creates new form CuentaKilometros
      */
     public CuentaKilometros() {
         distancia=0;
         distanciaAbs=0;
+        
         initComponents();
-           /* 
-    //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
-  ActionListener taskPerformer2 = new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          jLabel1.setText(""+getDistancia());
-          jLabel2.setText(""+getDistanciaAbs());
-      }
-  };
-  new Timer(Mandos.delay, taskPerformer2).start();    
-        */
     }
     
     public void actualizarCuentaKilometros(){
-        jLabel1.setText(""+getDistancia());
-        jLabel2.setText(""+getDistanciaAbs());        
+        contadorReciente.setText(String.format("%.2f", getDistancia()));
+        contadorTotal.setText(String.format("%.2f", getDistanciaAbs()));      
     }
 
     /**
@@ -66,22 +53,22 @@ public class CuentaKilometros extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        contadorReciente = new javax.swing.JLabel();
+        contadorTotal = new javax.swing.JLabel();
+        botonReset = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("CuentaKilometros"));
 
-        jLabel1.setText("jLabel1");
-        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador reciente"));
+        contadorReciente.setText("jLabel1");
+        contadorReciente.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador reciente"));
 
-        jLabel2.setText("jLabel2");
-        jLabel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador total"));
+        contadorTotal.setText("jLabel2");
+        contadorTotal.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador total"));
 
-        jButton1.setText("Reset");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonReset.setText("Reset");
+        botonReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonResetActionPerformed(evt);
             }
         });
 
@@ -89,34 +76,35 @@ public class CuentaKilometros extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+            .addComponent(contadorTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+            .addComponent(contadorReciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addComponent(jButton1)
+                .addComponent(botonReset)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contadorReciente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contadorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(botonReset)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    //Boton reset del cuentakilometros para poner a 0 la distancia cuando se pulse
+    private void botonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonResetActionPerformed
         // TODO add your handling code here:
         resetDistancia();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonResetActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton botonReset;
+    private javax.swing.JLabel contadorReciente;
+    private javax.swing.JLabel contadorTotal;
     // End of variables declaration//GEN-END:variables
 }

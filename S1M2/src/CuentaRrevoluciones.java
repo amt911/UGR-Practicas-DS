@@ -2,22 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
 /**
  *
  * @author andres
  */
-public class CuentaRevoluciones extends javax.swing.JPanel {
+public class CuentaRrevoluciones extends javax.swing.JPanel {
     private double revs;
-    //private static int instances=0;
-
-    /*
-    public CuentaRevoluciones(){
-        revs=0;
-    }
-    */
 
     public double getRevs(){
         return revs;
@@ -26,30 +16,17 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
     public void setRevs(double nuevo){
         revs=nuevo;
     }
-    
-    
+
     /**
-     * Creates new form CuentaRevoluciones2
+     * Creates new form CuentaRevoluciones
      */
-    static int valor=0;
-    
-    public CuentaRevoluciones() {
-        //instances++;
+    public CuentaRrevoluciones() {
         revs=0;
         initComponents();
-     /*       
-            //ESTE CODIGO FUNCIONA, SACADO DE LA DOCUMENTACION OFICIAL
-  ActionListener taskPerformer2 = new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          jLabel1.setText(""+getRevs());
-      }
-  };
-  new Timer(Mandos.delay, taskPerformer2).start();   
-        */
     }
     
     public void actualizarCuentaRevoluciones(){
-        jLabel1.setText(""+getRevs());
+        revsLabel.setText(String.format("%.0f", getRevs()));
     }
     
     
@@ -62,27 +39,27 @@ public class CuentaRevoluciones extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        revsLabel = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Cuentarrevoluciones"));
 
-        jLabel1.setText(jLabel1.getText());
-        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder("RPM"));
+        revsLabel.setText(revsLabel.getText());
+        revsLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("RPM"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(revsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addComponent(revsLabel)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel revsLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,4 @@
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -14,13 +10,6 @@ import javax.swing.Timer;
  */
 public class Velocimetro extends javax.swing.JPanel {
     private double velocidad;
-    //private static int instances=0;
-
-    /*
-    public Velocimetro(){
-        velocidad=0;
-    }
-    */
 
     public double getVelocidad(){
         return velocidad;
@@ -30,24 +19,15 @@ public class Velocimetro extends javax.swing.JPanel {
         velocidad=2*Math.PI*radio*revs*0.06;
     }
     /**
-     * Creates new form Velocimetro2
+     * Creates new form Velocimetro
      */
     public Velocimetro() {
         initComponents();
-        /*
-    //int delay = 1000; //milliseconds
-  ActionListener taskPerformer2 = new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-          jLabel1.setText(""+getVelocidad());
-      }
-  };
-  new Timer(Mandos.delay, taskPerformer2).start();      
-        */
     }
 
     
     public void actualizarVelocimetro(){
-        jLabel1.setText(""+getVelocidad());
+        velDisplay.setText(String.format("%.2f", getVelocidad()));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,28 +38,28 @@ public class Velocimetro extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        velDisplay = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Velocimetro"));
         setName("ejemplo"); // NOI18N
 
-        jLabel1.setText(""+getVelocidad());
-        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Km/h"));
+        velDisplay.setText(""+getVelocidad());
+        velDisplay.setBorder(javax.swing.BorderFactory.createTitledBorder("Km/h"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(velDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addComponent(velDisplay)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel velDisplay;
     // End of variables declaration//GEN-END:variables
 }

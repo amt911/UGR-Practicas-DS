@@ -1,11 +1,8 @@
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JToggleButton;
-import javax.swing.Timer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -17,53 +14,39 @@ import javax.swing.Timer;
  * @author andres
  */
 public class Mandos extends javax.swing.JFrame implements Runnable{
-    private static Timer timer;
-    public static final int delay=100;      //Delay de los timers en milisegundos
-    private static Cliente c;//=new Cliente();
-    private EstadoMotor estadoM=EstadoMotor.APAGADO;
-    
-    
-    /**
-     * Se usa para que cuando se invoque una peticion al cliente entre en el timer
-     * y ejecute la peticion infinitamente hasta que se intente ejecutar otra,
-     * en cuyo caso se para el timer y se inicia uno nuevo
-     * */
-    
-    private void ejecutarRutina(EstadoMotor estado){
-        if(timer!=null)
-            timer.stop();
-        
-        timer=new Timer(delay, new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                c.peticion(estado);
-            }      
-        });
-              //System.out.println("Prueba2");
-        timer.start();
-    }
+    public static final int DELAY=100;      //Delay de los timers en milisegundos
+    private static Cliente c;
+    private static EstadoMotor comandoActual;      //Mejorable
+
     /**
      * Creates new form Mandos
      */
     public Mandos() {
+        comandoActual=EstadoMotor.APAGADO;
         c=new Cliente();
         initComponents();
         
+        //Mostramos el panel
         setVisible(true);
     }
     
     public Mandos(double maxR, double radio, int roz){
+        comandoActual=EstadoMotor.APAGADO;
         c=new Cliente(maxR, radio, roz);        
         initComponents();
+        
+        //Mostramos el panel
         setVisible(true);
     }
 
+    //Parte de la hebra de la interfaz de usuario
     @Override
     public void run(){
         while(true){
-            salpicadero.actualizarInfo();
-            c.peticion(estadoM);
+            salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
+            c.peticion(comandoActual);  //Se manda la peticion a los Filtros para su posterior actualizacion en el Salpicadero
             try {
-                Thread.sleep(Mandos.delay);
+                Thread.sleep(Mandos.DELAY);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Mandos.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -163,36 +146,28 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
 
     private void BotonFreno(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFreno
         //Solamente se entra si no esta el acelerador activado
-        if(!botonAcelerador.isSelected()){
+        //y el coche esta encendido
+        if(!botonAcelerador.isSelected() && botonEncendido.isSelected()){
 
-            //Primer caso: Encendido y pulsado
-            if(botonFreno.isSelected() && botonEncendido.isSelected()){
+            //Primer caso: Freno pulsado
+            if(botonFreno.isSelected()){
                 botonFreno.setText("Soltar Freno");
                 botonFreno.setForeground(Color.red);
                 estado.setText("FRENANDO");
 
-                //ejecutarRutina(EstadoMotor.FRENANDO);
-                estadoM=EstadoMotor.FRENANDO;
+                comandoActual=EstadoMotor.FRENANDO;
             }
 
             //Segundo caso: Soltado Freno
-            else if(botonEncendido.isSelected() && !botonFreno.isSelected()){
+            else{// if(botonEncendido.isSelected() && !botonFreno.isSelected()){
                 botonFreno.setText("FRENAR");
                 botonFreno.setForeground(Color.black);
                 estado.setText("ENCENDIDO");
 
-                //ejecutarRutina(EstadoMotor.ENCENDIDO);
-                estadoM=EstadoMotor.ENCENDIDO;
-            }
-
-            //Tercer caso: Pulsado acelerador con el coche apagado
-            else{
-                resetFreno(botonFreno);
-                //ejecutarRutina(EstadoMotor.APAGADO);
-                estadoM=EstadoMotor.APAGADO;
-                
+                comandoActual=EstadoMotor.ENCENDIDO;
             }
         }
+        //En caso de no cumplirse se resetea el estado del boton
         else{
             resetFreno(botonFreno);
         }
@@ -200,34 +175,27 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
 
     private void BotonAcelerar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAcelerar
         //Solamente se entra si no esta el freno activado
-        if(!botonFreno.isSelected()){
+        //y el coche esta encendido
+        if(!botonFreno.isSelected() && botonEncendido.isSelected()){
             //Primer caso: Encendido y pulsado
-            if(botonAcelerador.isSelected() && botonEncendido.isSelected()){
+            if(botonAcelerador.isSelected()){
                 botonAcelerador.setText("Soltar Acelerador");
                 botonAcelerador.setForeground(Color.red);
                 estado.setText("ACELERANDO");
 
-                //ejecutarRutina(EstadoMotor.ACELERANDO);
-                estadoM=EstadoMotor.ACELERANDO;
+                comandoActual=EstadoMotor.ACELERANDO;
             }
 
             //Segundo caso: Soltado Acelerador
-            else if(botonEncendido.isSelected()){
+            else{// if(botonEncendido.isSelected()){
                 botonAcelerador.setText("ACELERAR");
                 botonAcelerador.setForeground(Color.black);
                 estado.setText("ENCENDIDO");
-
-                //ejecutarRutina(EstadoMotor.ENCENDIDO);
-                estadoM=EstadoMotor.ENCENDIDO;
-            }
-
-            //Tercer caso: Pulsado acelerador con el coche apagado
-            else{
-                resetAcelerador(botonAcelerador);
-                //ejecutarRutina(EstadoMotor.APAGADO);
-                estadoM=EstadoMotor.APAGADO;
+                comandoActual=EstadoMotor.ENCENDIDO;
             }
         }
+        
+        //Es necesario resetear el boton del acelerador porque se queda presionado
         else{
             resetAcelerador(botonAcelerador);
         }
@@ -239,21 +207,14 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
             botonEncendido.setForeground(Color.red);
             botonEncendido.setText("APAGAR");
 
-            //ejecutarRutina(EstadoMotor.ENCENDIDO);
-            estadoM=EstadoMotor.ENCENDIDO;
-            
-            resetAcelerador(botonAcelerador);
-            resetFreno(botonFreno);
+            comandoActual=EstadoMotor.ENCENDIDO;
         }
         else{
             estado.setText("APAGADO");
             botonEncendido.setForeground(Color.green);
             botonEncendido.setText("ENCENDER");
             
-            resetAcelerador(botonAcelerador);
-            resetFreno(botonFreno);
-            //ejecutarRutina(EstadoMotor.APAGADO);
-            estadoM=EstadoMotor.APAGADO;
+            comandoActual=EstadoMotor.APAGADO;
         }
     }//GEN-LAST:event_BotonEncender
 
