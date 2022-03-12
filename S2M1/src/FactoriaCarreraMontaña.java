@@ -1,10 +1,10 @@
 public class FactoriaCarreraMontaña implements FactoriaCarreraYBicicleta {
 
 	public Carrera crearCarrera() {
-		throw new UnsupportedOperationException();
+		return new CarreraMontaña();
 	}
 
-	public _Bicicleta crearBicicleta() {
-		throw new UnsupportedOperationException();
+	public _Bicicleta crearBicicleta(int dorsal) {
+		return new BicicletaMontaña(dorsal);
 	}
 }
