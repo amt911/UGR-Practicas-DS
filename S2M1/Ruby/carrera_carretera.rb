@@ -1,7 +1,9 @@
 class CarreraCarretera < Carrera
     @@TASA = 0.1
 
-    attr_reader :TASA
+    def self.TASA
+        @@TASA
+    end
 
 #    @Override
 #    public void run(){

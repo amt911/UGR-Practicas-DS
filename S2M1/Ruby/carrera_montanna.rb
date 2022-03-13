@@ -1,7 +1,9 @@
-class CarreraMontanna
+class CarreraMontanna < Carrera
     @@TASA = 0.2
     
-    attr_reader :TASA
+    def self.TASA
+        @@TASA
+    end
 
 
 

@@ -6,7 +6,7 @@ public abstract class Carrera implements Runnable {
 
     public Carrera(){
         Random aleatorio=new Random();
-        abandonoTiempo=(aleatorio.nextInt()%60)*1000;
+        abandonoTiempo=(aleatorio.nextInt()%61)*1000;
 
         abandonoTiempo=(abandonoTiempo<0)?-abandonoTiempo:abandonoTiempo;
 

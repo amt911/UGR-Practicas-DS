@@ -23,18 +23,18 @@ carrera_proto_m = CarreraMontanna.new
 bici_proto_c = BicicletaCarretera.new
 carrera_proto_c = CarreraCarretera.new
 #creaemos factorias
-factoria_carretera = FactoriaConcreta.new(bici_proto_m, carrera_proto_m)
-factoria_montanna = FactoriaConcreta.new(bici_proto_c, carrera_proto_c)
+factoria_carretera = FactoriaConcreta.new(carrera_proto_m, bici_proto_m)
+factoria_montanna = FactoriaConcreta.new(carrera_proto_c, bici_proto_c)
 
 #cada factoria crea su carrera
-#carreracarretera = factoria_carretera.clone()
-#carreramontanna = factoria_montanna.clone()
+carreracarretera = factoria_carretera.crear_carrera()
+carreramontanna = factoria_montanna.crear_carrera()
 
-=begin
+
 indice = (1 - CarreraCarretera.TASA) * bicis_carretera
 for i in (0..bicis_carretera)
         if (i >= indice)
-        tengo_acabar = true
+            tengo_acabar = true
         end
         carreracarretera.annadir_bicicleta(factoria_carretera.crear_bicicleta(i, tengo_acabar))
 end
@@ -47,4 +47,3 @@ end
         end
         carreramontanna.annadir_bicicleta(factoria_montanna.crear_bicicleta(i, tengo_acabar))
     end
-=end

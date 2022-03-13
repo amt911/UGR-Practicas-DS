@@ -5,18 +5,12 @@ class Carrera
     attr_reader :abandono_tiempo
 
     def initialize
-        @bicicletas = [] ########???????????????
-        #Random aleatorio=new Random()
-        #@@abandono_tiempo=(aleatorio.nextInt()%60)*1000
-        @@abandono_tiempo=20000
-
-        if(@@abandono_tiempo<0)
-            @@abandono_tiempo = -@@abandono_tiempo  
-        end
+        @bicicletas = []
+        @@abandono_tiempo=rand(61)
     end
 
     def annadir_bicicleta(bici)
-        @bicicletas.add(bici)
+        @bicicletas.push(bici)
     end
 
 #    def comenzar_carrera
