@@ -28,6 +28,6 @@ public class CarreraCarretera extends Carrera {
     }
 
     public void acabarCarrera(){
-        System.out.println("La carrera de carretera  " + this +" ha terminaddo");
+        System.out.println("La carrera de carretera  " + this +" ha terminado");
     }
 }

@@ -6,5 +6,7 @@ public abstract class Bicicleta implements Runnable{
                 this.dorsal = dorsal;
                 acabado=tengoAcabar;
         }
-	abstract void acabarCarrera();
+	public void acabarCarrera(){
+                acabado=true;
+        }
 }

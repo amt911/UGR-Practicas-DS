@@ -5,11 +5,6 @@ public class BicicletaMontaña extends Bicicleta {
     }
 
     @Override
-    public void acabarCarrera() {
-        acabado = true;
-    }
-
-    @Override
     public void run() {
         System.out.println("La bicicleta de montaña " + dorsal + " ha entrado en la carrera");
         try {
