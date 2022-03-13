@@ -1,17 +1,30 @@
-public class CarreraMontaña extends Carrera  extends Carrera implements Runnable {
-
-    CarreraMontaña(int numberRace, ArrayList<_Bicicleta> bicicletas){
-        super(numberRace, bicicletas);
+public class CarreraMontaña extends Carrera {
+    private static final float TASA = 0.2f;
+    @Override
+    public void run(){
+        comenzarCarrera();
+       try {
+            Thread.sleep(60000);        //El padre (la carrera) espera a las bicicletas
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        acabarCarrera();
     }
 
-	public void startRace(){
-        Ended = false;
-        System.out.println("La carrera de montaña  " + numberRace +" ha comenzado");
-
+    CarreraMontaña(){
+        super();
     }
 
-    public void endRace(){
-        Ended = true;
-        System.out.println("La carrera de montaña  " + numberRace +" ha terminaddo");
+    public static float getTasa(){
+        return TASA;
+    }
+
+	public void comenzarCarrera(){
+        super.comenzarCarrera();
+        System.out.println("La carrera de montaña ha comenzado");
+    }
+
+    public void acabarCarrera(){
+        System.out.println("La carrera de montaña ha terminado");
     }
 }

@@ -1,18 +1,31 @@
-public class BicicletaMontaña extends _Bicicleta implements Runnable {
-        
-        BicicletaMontaña(int dorsal){
-            super(dorsal);
-        }
-        @Override
-	public void acabarCarrera() {
-		acabado = true;
-	}
+public class BicicletaMontaña extends Bicicleta {
+
+    BicicletaMontaña(int dorsal, boolean tengoAcabar) {
+        super(dorsal, tengoAcabar);
+    }
+
+    @Override
+    public void acabarCarrera() {
+        acabado = true;
+    }
 
     @Override
     public void run() {
-        while(!acabado){
-            
+        System.out.println("La bicicleta de montaña " + dorsal + " ha entrado en la carrera");
+        try {
+            if(acabado)
+                Thread.sleep(Carrera.getAbandonoTiempo());
+            else
+                Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println("La bicicleta de montaña " + dorsal +" Ha abandonado la carrera");
+        if(acabado){
+            System.out.println("La bicicleta de montaña " + dorsal + " ha abandonado la carrera");       
+        }
+        else{
+            System.out.println("La bicicleta de montaña " + dorsal + " ha terminado la carrera");       
+
+        }
     }
 }

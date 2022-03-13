@@ -4,7 +4,7 @@ public class FactoriaCarreraCarretera implements FactoriaCarreraYBicicleta {
 		return new CarreraCarretera();
 	}
 
-	public _Bicicleta crearBicicleta(int dorsal) {
-		return new BicicletaCarretera(dorsal);
+	public Bicicleta crearBicicleta(int dorsal, boolean tengoAcabar) {
+		return new BicicletaCarretera(dorsal, tengoAcabar);
 	}
 }

@@ -1,17 +1,33 @@
-public class CarreraCarretera extends Carrera implements Runnable {
+public class CarreraCarretera extends Carrera {
+    private static final float TASA = 0.1f;
 
-    CarreraCarretera(int numberRace, ArrayList<_Bicicleta> bicicletas){
-        super(numberRace, bicicletas);
+    @Override
+    public void run(){
+        comenzarCarrera();
+         try {
+            Thread.sleep(60000);    //El padre (la carrera) espera a las bicicletas
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        acabarCarrera();        
     }
 
-    public void startRace(){
-        Ended = false;
-        System.out.println("La carrera de carretera  " + numberRace +" ha comenzado");
+    public static float getTasa(){
+        return TASA;
+    }
+
+    CarreraCarretera(){
+        super();
+    }
+
+    public void comenzarCarrera(){
+        super.comenzarCarrera();
+        System.out.println("La carrera de carretera  " + this +" ha comenzado");
 
     }
 
-    public void endRace(){
-        Ended = true;
-        System.out.println("La carrera de carretera  " + numberRace +" ha terminaddo");
+    public void acabarCarrera(){
+        System.out.println("La carrera de carretera  " + this +" ha terminaddo");
     }
 }
