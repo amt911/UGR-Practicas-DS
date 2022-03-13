@@ -1,8 +1,17 @@
-public class CarreraMontaña extends Carrera {
+public class CarreraMontaña extends Carrera  extends Carrera implements Runnable {
 
-    @Override
-    public void run() {
-        // TODO Auto-generated method stub
-        
+    CarreraMontaña(int numberRace, ArrayList<_Bicicleta> bicicletas){
+        super(numberRace, bicicletas);
+    }
+
+	public void startRace(){
+        Ended = false;
+        System.out.println("La carrera de montaña  " + numberRace +" ha comenzado");
+
+    }
+
+    public void endRace(){
+        Ended = true;
+        System.out.println("La carrera de montaña  " + numberRace +" ha terminaddo");
     }
 }
