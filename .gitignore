@@ -8,3 +8,9 @@
 /S2M1/build.xml
 /S2M1/manifest.mf
 .vscode
+/S2M1/manifest.mf
+/S2M1/Java/*
+!/S2M1/Java/src
+
+/S2M1/Ruby/*
+!/S2M1/Ruby/lib
