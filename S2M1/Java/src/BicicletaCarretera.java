@@ -6,7 +6,7 @@ public class BicicletaCarretera extends Bicicleta {
 
     @Override
     public void run() {
-        System.out.println("La bicicleta de carretera " + dorsal + " ha entrado en la carrera");
+        System.out.println("La bicicleta de carretera " + dorsal + " ha comenzado la carrera");
 
         try {
             if (acabado){

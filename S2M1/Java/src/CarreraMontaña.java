@@ -20,8 +20,8 @@ public class CarreraMontaña extends Carrera {
     }
 
 	public void comenzarCarrera(){
-        super.comenzarCarrera();
         System.out.println("La carrera de montaña ha comenzado");
+        super.comenzarCarrera();
     }
 
     public void acabarCarrera(){

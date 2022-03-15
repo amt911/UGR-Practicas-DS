@@ -13,7 +13,7 @@ class Carrera
 
     def initialize
         @bicicletas = []
-        @@abandono_tiempo=rand(@@DURACION+1)
+        @@abandono_tiempo=rand(@@DURACION)
     end
 
     def annadir_bicicleta(bici)

@@ -6,7 +6,7 @@ public class BicicletaMontaña extends Bicicleta {
 
     @Override
     public void run() {
-        System.out.println("La bicicleta de montaña " + dorsal + " ha entrado en la carrera");
+        System.out.println("La bicicleta de montaña " + dorsal + " ha comenzado la carrera");
         try {
             if(acabado){
                 Thread.sleep(Carrera.getAbandonoTiempo());

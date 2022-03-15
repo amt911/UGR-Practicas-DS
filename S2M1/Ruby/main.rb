@@ -49,6 +49,8 @@ end
     }
     h1.join
 
+    puts "---------------------------------------------------------"
+    
     #Lanzamos carrera carretera
     h2 = Thread.new{
         carrera_carretera.run

@@ -5,7 +5,7 @@ class BicicletaMontanna < Bicicleta
     end
 
     def run
-        puts "La bicicleta de montaña #{dorsal} ha entrado en la carrera"
+        puts "La bicicleta de montaña #{dorsal} ha comenzado la carrera"
         if(acabado)
             sleep(Carrera.abandono_tiempo)      #PETA SEGURO
             puts "La bicicleta de montaña #{dorsal} ha abandonado la carrera" 

@@ -22,9 +22,8 @@ public class CarreraCarretera extends Carrera {
     }
 
     public void comenzarCarrera(){
-        super.comenzarCarrera();
         System.out.println("La carrera de carretera ha comenzado");
-
+        super.comenzarCarrera();
     }
 
     public void acabarCarrera(){

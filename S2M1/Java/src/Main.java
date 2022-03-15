@@ -33,6 +33,21 @@ class Main {
       Thread h2 = new Thread(carreramontaña);
 
       h1.run();
-      h2.run();
+
+      try {
+         h1.join();
+     } catch (InterruptedException e) {
+         e.printStackTrace();
+     }
+
+     System.out.println("-------------------------------------------------");
+
+     h2.run();
+     
+      try {
+         h2.join();
+     } catch (InterruptedException e) {
+         e.printStackTrace();
+     }
    }
 }
