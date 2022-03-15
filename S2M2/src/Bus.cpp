@@ -10,10 +10,10 @@ void Bus::aceptar(VisitanteEquipo aVe) {
 
 }
 
-int Bus::getBusPrecio(){
+int Bus::getPrecio(){
 	return precio;
 }
 
-string Bus::getBusNombre(){
+string Bus::getNombre(){
 	return nombre;
 }

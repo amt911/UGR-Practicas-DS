@@ -15,9 +15,10 @@ class Disco: public ComponenteEquipo
 
 	public:
 	Disco(): precio(100), nombre("Disco duro"){}
-	Disco(int precio, string nombre):precio(precio), nombre(nombre){}
-	void aceptar(VisitanteEquipo aVe);
-	void operacionDisco();
+	Disco(double p,string n);
+	void aceptar(VisitanteEquipo V) override;
+	double getPrecio();
+	string getNombre();
 };
 
 #endif

@@ -1,5 +1,5 @@
-#include <exception>
-using namespace std;
+
+#include <iostream>
 
 #include "VisitantePrecioDetalle.h"
 #include "Disco.h"
@@ -7,16 +7,18 @@ using namespace std;
 #include "Bus.h"
 #include "VisitanteEquipo.h"
 
+using namespace std;
+
 void VisitantePrecioDetalle::visitarDisco(Disco aD) {
-	throw "Not yet implemented";
+	cout << "El producto " << aD.getNombre() << " cuesta " << aD.getPrecio() << endl;
 }
 
 void VisitantePrecioDetalle::visitarTarjeta(Tarjeta aT) {
-	throw "Not yet implemented";
+	cout << "El producto " << aT.getNombre() << " cuesta " << aT.getPrecio() << endl;
 }
 
 void VisitantePrecioDetalle::visitarBus(Bus aB) {
-	throw "Not yet implemented";
+	cout << "El producto " << aB.getNombre() << " cuesta " << aB.getPrecio() << endl;
 }
 
 

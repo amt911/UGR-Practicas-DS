@@ -17,9 +17,9 @@ class Bus: public ComponenteEquipo
 	Bus():precio(120), nombre("Un bus"){}
 	Bus(int precio, string nombre):precio(precio), nombre(nombre){}
 	
-	void aceptar(VisitanteEquipo aVe);
-	int getBusPrecio();
-	string getBusNombre();
+	void aceptar(VisitanteEquipo aVe) override;
+	int getPrecio();
+	string getNombre();
 };
 
 #endif

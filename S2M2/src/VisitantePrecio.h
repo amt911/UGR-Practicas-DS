@@ -1,6 +1,3 @@
-#include <exception>
-using namespace std;
-
 #ifndef __VisitantePrecio_h__
 #define __VisitantePrecio_h__
 

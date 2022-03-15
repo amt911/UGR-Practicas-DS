@@ -1,10 +1,18 @@
-#include <exception>
-using namespace std;
-
 #include "Disco.h"
 #include "VisitanteEquipo.h"
 #include "ComponenteEquipo.h"
 
-void Disco::aceptar(VisitanteEquipo aVe) {
-	throw "Not yet implemented";
+Disco::Disco(double p,string n): precio(p),nombre(n){}
+
+void Disco::aceptar(VisitanteEquipo V){
+	V.visitarDisco(*this);
 }
+
+double Disco::getPrecio(){
+	return precio;
+}
+
+string Disco::getNombre(){
+	return nombre;
+}
+
