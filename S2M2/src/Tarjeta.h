@@ -1,4 +1,3 @@
-#include <exception>
 using namespace std;
 
 #ifndef __Tarjeta_h__
@@ -6,11 +5,22 @@ using namespace std;
 
 #include "VisitanteEquipo.h"
 #include "ComponenteEquipo.h"
+#include <string>
 
-	class Tarjeta
+	class Tarjeta : public ComponenteEquipo
 	{
+		private:
+			double precioTarjeta;
+			string nombre;
+
 		public:
-			void aceptar(VisitanteEquipo aVe);
+			Tarjeta(double p,string n);
+			void aceptar(VisitanteEquipo V);
+
+			double getPrecio();
+			string getNombre();
+
+
 	};
 
 #endif

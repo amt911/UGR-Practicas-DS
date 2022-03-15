@@ -1,4 +1,3 @@
-#include <exception>
 using namespace std;
 
 #ifndef __Disco_h__
@@ -10,7 +9,16 @@ using namespace std;
 class Disco: public ComponenteEquipo
 {
 
-	public: void aceptar(VisitanteEquipo aVe);
+	private:
+			double precioDisco;
+			string nombre;
+
+		public:
+			Disco(double p,string n);
+			void aceptar(VisitanteEquipo V) override;
+
+			double getPrecio();
+			string getNombre();
 };
 
 #endif
