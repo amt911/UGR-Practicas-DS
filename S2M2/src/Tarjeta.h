@@ -7,20 +7,10 @@ using namespace std;
 #include "VisitanteEquipo.h"
 #include "ComponenteEquipo.h"
 
-namespace S2M2
-{
-	class VisitanteEquipo;
-	// class ComponenteEquipo;
-	class Tarjeta;
-}
-
-namespace S2M2
-{
-	class Tarjeta: public S2M2::ComponenteEquipo
+	class Tarjeta
 	{
-
-		public: void() aceptar(S2M2::VisitanteEquipo aVe);
+		public:
+			void aceptar(VisitanteEquipo aVe);
 	};
-}
 
 #endif

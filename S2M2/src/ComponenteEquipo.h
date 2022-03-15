@@ -6,22 +6,11 @@ using namespace std;
 
 // #include "Main.h"
 #include "VisitanteEquipo.h"
-
-namespace S2M2
-{
-	class Main;
-	class VisitanteEquipo;
-	class ComponenteEquipo;
-}
-
-namespace S2M2
-{
-	__abstract class ComponenteEquipo
+	class ComponenteEquipo
 	{
-		public: S2M2::Main* _unnamed_Main_;
-
-		public: virtual void aceptar(S2M2::VisitanteEquipo aVe) = 0;
+		public:
+		virtual void aceptar(VisitanteEquipo aVe) = 0;
 	};
-}
+
 
 #endif
