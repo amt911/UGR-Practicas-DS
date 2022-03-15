@@ -5,7 +5,7 @@ using namespace std;
 #include "VisitanteEquipo.h"
 #include "ComponenteEquipo.h"
 
-void S2M2::Disco::aceptar(S2M2::VisitanteEquipo aVe) {
+void Disco::aceptar(VisitanteEquipo aVe) {
 	throw "Not yet implemented";
 }
 

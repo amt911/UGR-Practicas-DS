@@ -7,15 +7,15 @@ using namespace std;
 #include "Bus.h"
 #include "VisitanteEquipo.h"
 
-void S2M2::VisitantePrecio::visitarDisco(S2M2::Disco aD) {
+void VisitantePrecio::visitarDisco(Disco aD) {
 	throw "Not yet implemented";
 }
 
-void S2M2::VisitantePrecio::visitarTarjeta(S2M2::Tarjeta aT) {
+void VisitantePrecio::visitarTarjeta(Tarjeta aT) {
 	throw "Not yet implemented";
 }
 
-void S2M2::VisitantePrecio::visitarBus(S2M2::Bus aB) {
+void VisitantePrecio::visitarBus(Bus aB) {
 	throw "Not yet implemented";
 }
 

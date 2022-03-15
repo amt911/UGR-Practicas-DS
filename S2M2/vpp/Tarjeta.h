@@ -2,7 +2,7 @@
 #define TARJETA_H
 
 namespace S2M2 {
-	class Tarjeta : S2M2::ComponenteEquipo {
+	class Tarjeta : ComponenteEquipo {
 	};
 }
 

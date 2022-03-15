@@ -6,7 +6,7 @@ namespace S2M2 {
 
 
 	public:
-		virtual void aceptar(S2M2::VisitanteEquipo ve) = 0;
+		virtual void aceptar(VisitanteEquipo ve) = 0;
 	};
 }
 

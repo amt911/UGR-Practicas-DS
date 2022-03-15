@@ -2,7 +2,7 @@
 #define BUS_H
 
 namespace S2M2 {
-	class Bus : S2M2::ComponenteEquipo {
+	class Bus : ComponenteEquipo {
 	};
 }
 

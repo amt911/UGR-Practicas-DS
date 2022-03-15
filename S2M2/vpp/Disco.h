@@ -2,11 +2,11 @@
 #define DISCO_H
 
 namespace S2M2 {
-	class Disco : S2M2::ComponenteEquipo {
+	class Disco : ComponenteEquipo {
 
 
 	public:
-		void aceptar(S2M2::VisitanteEquipo ve);
+		void aceptar(VisitanteEquipo ve);
 	};
 }
 

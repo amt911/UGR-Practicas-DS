@@ -2,15 +2,15 @@
 #define VISITANTEPRECIODETALLE_H
 
 namespace S2M2 {
-	class VisitantePrecioDetalle : S2M2::VisitanteEquipo {
+	class VisitantePrecioDetalle : VisitanteEquipo {
 
 
 	public:
-		void visitarDisco(S2M2::Disco d);
+		void visitarDisco(Disco d);
 
-		void visitarTarjeta(S2M2::Tarjeta t);
+		void visitarTarjeta(Tarjeta t);
 
-		void visitarBus(S2M2::Bus b);
+		void visitarBus(Bus b);
 	};
 }
 

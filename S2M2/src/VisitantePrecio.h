@@ -8,27 +8,13 @@ using namespace std;
 #include "Tarjeta.h"
 #include "Bus.h"
 #include "VisitanteEquipo.h"
-
-namespace S2M2
+class VisitantePrecio: public VisitanteEquipo
 {
-	class Disco;
-	class Tarjeta;
-	class Bus;
-	// class VisitanteEquipo;
-	class VisitantePrecio;
-}
+	public:
 
-namespace S2M2
-{
-	class VisitantePrecio: public S2M2::VisitanteEquipo
-	{
-
-		public: void visitarDisco(S2M2::Disco aD);
-
-		public: void visitarTarjeta(S2M2::Tarjeta aT);
-
-		public: void visitarBus(S2M2::Bus aB);
-	};
-}
+	void visitarDisco(Disco aD);
+	void visitarTarjeta(Tarjeta aT);
+	void visitarBus(Bus aB);
+};
 
 #endif
