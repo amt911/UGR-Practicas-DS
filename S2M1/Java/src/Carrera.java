@@ -3,10 +3,15 @@ import java.util.Random;
 public abstract class Carrera implements Runnable {
     protected ArrayList<Bicicleta> bicicletas;
     protected static int abandonoTiempo;
+    protected static final int DURACION=60;
+
+    public static int getDuracion(){
+        return DURACION;
+    }
 
     public Carrera(){
         Random aleatorio=new Random();
-        abandonoTiempo=(aleatorio.nextInt()%61)*1000;
+        abandonoTiempo=(aleatorio.nextInt()%(DURACION+1))*1000;
 
         abandonoTiempo=(abandonoTiempo<0)?-abandonoTiempo:abandonoTiempo;
 

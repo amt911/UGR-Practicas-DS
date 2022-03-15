@@ -4,18 +4,14 @@ class BicicletaMontanna < Bicicleta
         super(dorsal, tengoAcabar)
     end
 
-    def run()
-        puts "La bicicleta de montaña " + dorsal + " ha entrado en la carrera"
+    def run
+        puts "La bicicleta de montaña #{dorsal} ha entrado en la carrera"
         if(acabado)
-            Thread.sleep(Carrera.getAbandonoTiempo())
+            sleep(Carrera.abandono_tiempo)      #PETA SEGURO
+            puts "La bicicleta de montaña #{dorsal} ha abandonado la carrera" 
         else
-            Thread.sleep(60000)
-        end
-        
-        if(acabado)
-            puts "La bicicleta de montaña " + dorsal + " ha abandonado la carrera" 
-        else
-            puts "La bicicleta de montaña " + dorsal + " ha terminado la carrera"      
+            sleep(Carrera.DURACION)
+            puts "La bicicleta de montaña #{dorsal} ha terminado la carrera"  
         end
     end
 end

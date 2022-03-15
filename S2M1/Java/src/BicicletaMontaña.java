@@ -8,13 +8,18 @@ public class BicicletaMontaña extends Bicicleta {
     public void run() {
         System.out.println("La bicicleta de montaña " + dorsal + " ha entrado en la carrera");
         try {
-            if(acabado)
+            if(acabado){
                 Thread.sleep(Carrera.getAbandonoTiempo());
-            else
-                Thread.sleep(60000);
+                System.out.println("La bicicleta de montaña " + dorsal + " ha abandonado la carrera");       
+            }
+            else{
+                Thread.sleep(Carrera.getDuracion()*1000);
+                System.out.println("La bicicleta de montaña " + dorsal + " ha terminado la carrera");       
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        /*
         if(acabado){
             System.out.println("La bicicleta de montaña " + dorsal + " ha abandonado la carrera");       
         }
@@ -22,5 +27,6 @@ public class BicicletaMontaña extends Bicicleta {
             System.out.println("La bicicleta de montaña " + dorsal + " ha terminado la carrera");       
 
         }
+        */
     }
 }

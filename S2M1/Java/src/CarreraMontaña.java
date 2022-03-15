@@ -4,7 +4,7 @@ public class CarreraMontaña extends Carrera {
     public void run(){
         comenzarCarrera();
        try {
-            Thread.sleep(60000);        //El padre (la carrera) espera a las bicicletas
+            Thread.sleep(Carrera.getDuracion()*1000);        //El padre (la carrera) espera a las bicicletas
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

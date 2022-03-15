@@ -11,11 +11,6 @@ bicis_carretera = 30
 bicis_montanna = 30
 tengo_acabar = false
 
-30.times{
-puts "===========| COMIENZA LA CARRERA |==========="
-}
-
-
 #creamos los prototipos
 bici_proto_m = BicicletaMontanna.new
 carrera_proto_m = CarreraMontanna.new
@@ -23,27 +18,39 @@ carrera_proto_m = CarreraMontanna.new
 bici_proto_c = BicicletaCarretera.new
 carrera_proto_c = CarreraCarretera.new
 #creaemos factorias
-factoria_carretera = FactoriaConcreta.new(carrera_proto_m, bici_proto_m)
-factoria_montanna = FactoriaConcreta.new(carrera_proto_c, bici_proto_c)
+factoria_carretera = FactoriaConcreta.new(carrera_proto_c, bici_proto_c)
+factoria_montanna = FactoriaConcreta.new(carrera_proto_m, bici_proto_m)
 
 #cada factoria crea su carrera
-carreracarretera = factoria_carretera.crear_carrera()
-carreramontanna = factoria_montanna.crear_carrera()
+carrera_carretera = factoria_carretera.crear_carrera()
+carrera_montanna = factoria_montanna.crear_carrera()
 
 
 indice = (1 - CarreraCarretera.TASA) * bicis_carretera
-for i in (0..bicis_carretera)
+for i in (0..(bicis_carretera-1))
         if (i >= indice)
             tengo_acabar = true
         end
-        carreracarretera.annadir_bicicleta(factoria_carretera.crear_bicicleta(i, tengo_acabar))
+        carrera_carretera.annadir_bicicleta(factoria_carretera.crear_bicicleta(i, tengo_acabar))
 end
 
     tengo_acabar = false
     indice = (1 - CarreraMontanna.TASA) * bicis_carretera;
-    for i in (0..bicis_montanna) 
+    for i in (0..(bicis_montanna-1)) 
         if (i >= indice)
         tengo_acabar = true
         end
-        carreramontanna.annadir_bicicleta(factoria_montanna.crear_bicicleta(i, tengo_acabar))
+        carrera_montanna.annadir_bicicleta(factoria_montanna.crear_bicicleta(i, tengo_acabar))
     end
+
+    #Lanzamos carrera montaña
+    h1 = Thread.new{
+        carrera_montanna.run
+    }
+    h1.join
+
+    #Lanzamos carrera carretera
+    h2 = Thread.new{
+        carrera_carretera.run
+    }
+    h2.join

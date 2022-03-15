@@ -4,26 +4,21 @@ class CarreraMontanna < Carrera
     def self.TASA
         @@TASA
     end
-
-
-
-#    public void run(){
-#        comenzarCarrera();
-#       try {
-#            Thread.sleep(60000);        //El padre (la carrera) espera a las bicicletas
-#        } catch (InterruptedException e) {
-#            e.printStackTrace();
-#        }
-#        acabarCarrera();
-#    }
+    
+    def run
+        comenzar_carrera
+        sleep(@@DURACION)
+        @hebra.each(&:join)
+        acabar_carrera
+    end
 
     def initialize
         super
     end
 
 	def comenzar_carrera
-        super
         puts "La carrera de montaña ha comenzado"
+        super
     end
 
     def acabar_carrera

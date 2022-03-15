@@ -5,7 +5,7 @@ public class CarreraCarretera extends Carrera {
     public void run(){
         comenzarCarrera();
          try {
-            Thread.sleep(60000);    //El padre (la carrera) espera a las bicicletas
+            Thread.sleep(Carrera.getDuracion()*1000);    //El padre (la carrera) espera a las bicicletas
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -23,11 +23,11 @@ public class CarreraCarretera extends Carrera {
 
     public void comenzarCarrera(){
         super.comenzarCarrera();
-        System.out.println("La carrera de carretera  " + this +" ha comenzado");
+        System.out.println("La carrera de carretera ha comenzado");
 
     }
 
     public void acabarCarrera(){
-        System.out.println("La carrera de carretera  " + this +" ha terminado");
+        System.out.println("La carrera de carretera ha terminado");
     }
 }

@@ -13,5 +13,5 @@ class Bicicleta
     def set_dorsal(val)
         @dorsal = val # `self` is an instance of Foo, it has `bar=` method
         @dorsal
-      end
+    end
 end

@@ -17,14 +17,21 @@ class CarreraCarretera < Carrera
 #        acabarCarrera();        
 #    }
 
+    def run
+        comenzar_carrera
+        sleep(@@DURACION)
+        @hebra.each(&:join)
+        acabar_carrera
+    end
+
     def initialize
         super
     end
 
 
     def comenzar_carrera
-        super
         puts "La carrera de carretera ha comenzado"
+        super
     end
 
     def acabar_carrera

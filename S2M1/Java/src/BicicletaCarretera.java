@@ -9,18 +9,24 @@ public class BicicletaCarretera extends Bicicleta {
         System.out.println("La bicicleta de carretera " + dorsal + " ha entrado en la carrera");
 
         try {
-            if (acabado)
+            if (acabado){
                 Thread.sleep(Carrera.getAbandonoTiempo());
-            else
-                Thread.sleep(60000);
+                System.out.println("La bicicleta de carretera " + dorsal + " ha abandonado la carrera");
+            }
+            else{
+                Thread.sleep(Carrera.getDuracion()*1000);
+                System.out.println("La bicicleta de carretera " + dorsal + " ha terminado la carrera");
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }        
 
+        /*
         if (acabado) {
             System.out.println("La bicicleta de carretera " + dorsal + " ha abandonado la carrera");
         } else {
             System.out.println("La bicicleta de carretera " + dorsal + " ha terminado la carrera");
         }
+        */
     }
 }
