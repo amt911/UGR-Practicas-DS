@@ -1,4 +1,3 @@
-#include <exception>
 using namespace std;
 
 #include "VisitantePrecio.h"
@@ -7,15 +6,23 @@ using namespace std;
 #include "Bus.h"
 #include "VisitanteEquipo.h"
 
+VisitantePrecio::VisitantePrecio(){
+	precioTotal = 0;
+}
+
 void VisitantePrecio::visitarDisco(Disco aD) {
-	throw "Not yet implemented";
+	precioTotal+=aD.getDiscoPrecio();
 }
 
 void VisitantePrecio::visitarTarjeta(Tarjeta aT) {
-	throw "Not yet implemented";
+	precioTotal+=aT.getTarjetaPrecio();
+
 }
 
 void VisitantePrecio::visitarBus(Bus aB) {
-	throw "Not yet implemented";
+	precioTotal+=aB.getBusPrecio();
 }
 
+int getPrecioTotal(){
+	return precioTotal;
+}

@@ -7,10 +7,16 @@ using namespace std;
 #include "VisitanteEquipo.h"
 #include "ComponenteEquipo.h"
 
-	class Tarjeta
-	{
-		public:
-			void aceptar(VisitanteEquipo aVe);
-	};
+class Tarjeta
+{
+	private:
+	int precio;
+	string nombre;
+	public:
+		Tarjeta():precio(1000), nombre("GPU"){}
+		Tarjeta(int precio, string nombre):precio(precio), nombre(nombre){}
+		void aceptar(VisitanteEquipo aVe);
+		void operacionTarjeta();
+};
 
 #endif

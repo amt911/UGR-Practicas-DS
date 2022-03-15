@@ -6,11 +6,9 @@ using namespace std;
 
 // #include "Main.h"
 #include "VisitanteEquipo.h"
-	class ComponenteEquipo
-	{
-		public:
-		virtual void aceptar(VisitanteEquipo aVe) = 0;
-	};
-
-
+class ComponenteEquipo
+{
+	public:
+	virtual void aceptar(VisitanteEquipo aVe);
+};
 #endif

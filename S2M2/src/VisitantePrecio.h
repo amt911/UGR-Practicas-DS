@@ -10,11 +10,15 @@ using namespace std;
 #include "VisitanteEquipo.h"
 class VisitantePrecio: public VisitanteEquipo
 {
+	private: 
+		int precioTotal;
+	
 	public:
-
+	VisitantePrecio();
 	void visitarDisco(Disco aD);
 	void visitarTarjeta(Tarjeta aT);
 	void visitarBus(Bus aB);
+	int getPrecioTotal();
 };
 
 #endif

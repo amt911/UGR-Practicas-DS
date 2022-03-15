@@ -8,4 +8,3 @@ using namespace std;
 void Disco::aceptar(VisitanteEquipo aVe) {
 	throw "Not yet implemented";
 }
-

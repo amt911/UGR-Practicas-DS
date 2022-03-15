@@ -6,6 +6,14 @@ using namespace std;
 #include "ComponenteEquipo.h"
 
 void Bus::aceptar(VisitanteEquipo aVe) {
-	throw "Not yet implemented";
+	aVe.visitarBus(*this);
+
 }
 
+int Bus::getBusPrecio(){
+	return precio;
+}
+
+string Bus::getBusNombre(){
+	return nombre;
+}
