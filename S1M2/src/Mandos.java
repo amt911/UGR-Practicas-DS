@@ -16,7 +16,7 @@ import javax.swing.JToggleButton;
 public class Mandos extends javax.swing.JFrame implements Runnable{
     public static final int DELAY=100;      //Delay de los timers en milisegundos
     private static Cliente c;
-    private static EstadoMotor comandoActual;      //Mejorable
+    private static EstadoMotor comandoActual;
 
     /**
      * Creates new form Mandos
@@ -25,23 +25,13 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
         comandoActual=EstadoMotor.APAGADO;
         c=client;
         salpicadero=s;
-        
+     
+        //Iniciamos el JFrame
         initComponents();
         
         //Mostramos el panel
         setVisible(true);
     }
-    
-    /*
-    public Mandos(double maxR, double radio, int roz){
-        comandoActual=EstadoMotor.APAGADO;
-        c=new Cliente(maxR, radio, roz);        
-        initComponents();
-        
-        //Mostramos el panel
-        setVisible(true);
-    }
-    */
 
     //Parte de la hebra de la interfaz de usuario
     @Override
@@ -149,8 +139,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonFreno(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFreno
-        //Solamente se entra si no esta el acelerador activado
-        //y el coche esta encendido
+        //Solamente se entra si no esta el acelerador activado y el coche esta encendido
         if(!botonAcelerador.isSelected() && botonEncendido.isSelected()){
 
             //Primer caso: Freno pulsado
@@ -163,7 +152,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
             }
 
             //Segundo caso: Soltado Freno
-            else{// if(botonEncendido.isSelected() && !botonFreno.isSelected()){
+            else{
                 botonFreno.setText("FRENAR");
                 botonFreno.setForeground(Color.black);
                 estado.setText("ENCENDIDO");
@@ -178,8 +167,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     }//GEN-LAST:event_BotonFreno
 
     private void BotonAcelerar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAcelerar
-        //Solamente se entra si no esta el freno activado
-        //y el coche esta encendido
+        //Solamente se entra si no esta el freno activado y el coche esta encendido
         if(!botonFreno.isSelected() && botonEncendido.isSelected()){
             //Primer caso: Encendido y pulsado
             if(botonAcelerador.isSelected()){
@@ -191,7 +179,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
             }
 
             //Segundo caso: Soltado Acelerador
-            else{// if(botonEncendido.isSelected()){
+            else{
                 botonAcelerador.setText("ACELERAR");
                 botonAcelerador.setForeground(Color.black);
                 estado.setText("ENCENDIDO");

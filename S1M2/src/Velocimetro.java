@@ -15,6 +15,8 @@ public class Velocimetro extends javax.swing.JPanel {
         return velocidad;
     }
     
+
+    //A partir de las revoluciones filtradas y con la formula proporcionada, se obtiene la velocidad actual
     public void calcularVelocidad(double radio, double revs){
         velocidad=2*Math.PI*radio*revs*0.06;
     }
@@ -22,6 +24,7 @@ public class Velocimetro extends javax.swing.JPanel {
      * Creates new form Velocimetro
      */
     public Velocimetro() {
+        velocidad=0;
         initComponents();
     }
 

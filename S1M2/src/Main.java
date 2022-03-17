@@ -7,25 +7,21 @@
  *
  * @author andres
  */
+
 public class Main {
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        
-         Salpicadero s=new Salpicadero();
-         GestorFiltros gestor=new GestorFiltros(s);
-         gestor.addFilter(new CalcularVelocidad());
-         gestor.addFilter(new RepercutirRozamiento());
+        Salpicadero s = new Salpicadero(0.3); // Radio de las ruedas
+        GestorFiltros gestor = new GestorFiltros(s); // Añadimos al GestorFiltros el Salpicadero recien creado
+        gestor.addFilter(new CalcularVelocidad(10000)); // Revoluciones maximas
+        gestor.addFilter(new RepercutirRozamiento(-84)); // Rozamiento que se aplica
 
-         Cliente c=new Cliente(gestor);
+        Cliente c = new Cliente(gestor); // Añadimos al cliente el gestor de filtros
 
-        try {
+        // Nimbus look and feel
+/*        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -41,10 +37,11 @@ public class Main {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Mandos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        
-        /* Create and display the form */
-        Thread hebra=new Thread(new Mandos(c, s));
+        // </editor-fold>
+*/
+        // Creamos las hebras pasandole un objeto Mandos (JFrame) y pasandole el cliente
+        // y el salpicadero
+        Thread hebra = new Thread(new Mandos(c, s));
         hebra.start();
     }
 }
