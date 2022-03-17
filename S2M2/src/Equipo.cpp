@@ -3,8 +3,6 @@
 void Equipo::aceptar(VisitanteEquipo *ve){
     for(int i=0; i<3; i++)
         componentes[i]->aceptar(ve);
-
-    ve->visitarEquipo(this);
 }
 
 Equipo::Equipo(){}

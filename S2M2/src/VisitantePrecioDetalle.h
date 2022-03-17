@@ -11,7 +11,6 @@ class VisitantePrecioDetalle : public VisitanteEquipo
 	void visitarDisco(Disco * aD) override;
 	void visitarTarjeta(Tarjeta * aT) override;
 	void visitarBus(Bus * aB) override;
-	void visitarEquipo(Equipo * e) override{}
 };
 
 

@@ -15,8 +15,7 @@ class VisitantePrecio : public VisitanteEquipo
 	void visitarTarjeta(Tarjeta * aT) override;
 	void visitarBus(Bus *aB) override;
 	int getPrecioTotal();
-
-	void visitarEquipo(Equipo *e) override {}
+	void restablecerPrecio();
 };
 
 #endif

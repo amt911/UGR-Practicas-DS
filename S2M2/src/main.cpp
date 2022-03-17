@@ -17,18 +17,24 @@ int main(){
     
     Equipo *e1=new Equipo(&t1, &b1, &d1);
     Equipo *e2=new Equipo(&t2, &b2, &d2);
-    VisitantePrecio vp;
-    VisitantePrecioDetalle vpd;
+    VisitantePrecio *vp=new VisitantePrecio();
+    VisitantePrecioDetalle *vpd=new VisitantePrecioDetalle();
 
-    e1->aceptar(&vp);
-    e1->aceptar(&vpd);
+    e1->aceptar(vp);
+    e1->aceptar(vpd);
 
-    cout << "Precio total de e1: " << vp.getPrecioTotal();
+    cout << "Precio total de e1: " << vp->getPrecioTotal() << endl;
 
-
-    e2->aceptar(&vp);
-    e2->aceptar(&vpd);
-    cout << "Precio total de e2: " << vp.getPrecioTotal();
+    vp->restablecerPrecio();
+    e2->aceptar(vp);
+    e2->aceptar(vpd);
+    cout << "Precio total de e2: " << vp->getPrecioTotal() << endl;
   
+
+    delete e1;
+    delete e2;
+    delete vp;
+    delete vpd;
+
     return 0;
 }

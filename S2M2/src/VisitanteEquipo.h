@@ -12,7 +12,6 @@ class VisitanteEquipo{
 		virtual void visitarDisco(Disco * aD)=0;
 		virtual void visitarTarjeta(Tarjeta * aT)=0;
 		virtual void visitarBus(Bus * aB)=0;
-		virtual void visitarEquipo(Equipo * e)=0;
 };
 
 #endif

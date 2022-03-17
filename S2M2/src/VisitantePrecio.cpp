@@ -19,6 +19,10 @@ void VisitantePrecio::visitarBus(Bus * aB) {
 	precioTotal+=aB->getPrecio();
 }
 
+void VisitantePrecio::restablecerPrecio(){
+	precioTotal = 0;	
+}
+
 int VisitantePrecio::getPrecioTotal(){
 	return precioTotal;
 }
