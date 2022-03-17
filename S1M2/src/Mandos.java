@@ -2,7 +2,12 @@
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JToggleButton;
+
+/**
+ * No pongo los imports de JFrame y los botones porque NetBeans por defecto
+ * los llama con la ruta absoluta
+ * /
+
 
 /**
  * COMPROBAR LA LOGICA QUE CUANDO SE ESTA ACELERANDO O FRENANDO Y SE APAGA EL MOTOR SE MANTIENE PULSADO EL BOTON
@@ -67,6 +72,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
         botonFreno = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Mandos");
 
         estado.setText("APAGADO");
 
@@ -166,7 +172,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
         }
         //En caso de no cumplirse se resetea el estado del boton
         else{
-            resetFreno(botonFreno);
+            resetFreno();
         }
     }//GEN-LAST:event_BotonFreno
 
@@ -193,7 +199,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
         
         //Es necesario resetear el boton del acelerador porque se queda presionado
         else{
-            resetAcelerador(botonAcelerador);
+            resetAcelerador();
         }
     }//GEN-LAST:event_BotonAcelerar
 
@@ -209,24 +215,27 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
             estado.setText("APAGADO");
             botonEncendido.setForeground(Color.green);
             botonEncendido.setText("ENCENDER");
-            
+
+            resetFreno();
+            resetAcelerador();            
+
             comandoActual=EstadoMotor.APAGADO;
         }
     }//GEN-LAST:event_BotonEncender
 
     
     //METODO INTERESANTE setSelected(boolean)
-    private void resetFreno(JToggleButton freno){
+    private void resetFreno(){
         botonFreno.setText("FRENAR");
         botonFreno.setForeground(Color.black);
         botonFreno.setSelected(false);
     }
     
     
-    private void resetAcelerador(JToggleButton acelerador){
-        acelerador.setText("ACELERAR");
-        acelerador.setForeground(Color.black);
-        acelerador.setSelected(false);        
+    private void resetAcelerador(){
+        botonAcelerador.setText("ACELERAR");
+        botonAcelerador.setForeground(Color.black);
+        botonAcelerador.setSelected(false);        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

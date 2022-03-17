@@ -1,7 +1,7 @@
 #ifndef __VisitanteEquipo_h__
 #define __VisitanteEquipo_h__
 
-#include <Cliente.h>
+#include "Cliente.h"
 
 class Disco;
 class Tarjeta;
