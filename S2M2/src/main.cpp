@@ -13,8 +13,6 @@ int main(){
     Disco d1(50, "Disco barato"), d2(300, "Disco caro");
     Bus b1(150, "Bus barato"), b2(500, "Bus caro");
     
-    cout <<"Hola funciona pls" <<endl;
-    
     Equipo *e1=new Equipo(&t1, &b1, &d1);
     Equipo *e2=new Equipo(&t2, &b2, &d2);
     VisitantePrecio *vp=new VisitantePrecio();
@@ -23,7 +21,7 @@ int main(){
     e1->aceptar(vp);
     e1->aceptar(vpd);
 
-    cout << "Precio total de e1: " << vp->getPrecioTotal() << endl;
+    cout << "Precio total de e1: " << vp->getPrecioTotal() << endl <<endl;
 
     vp->restablecerPrecio();
     e2->aceptar(vp);
