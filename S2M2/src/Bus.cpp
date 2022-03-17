@@ -1,13 +1,7 @@
-#include <exception>
-using namespace std;
-
 #include "Bus.h"
-#include "VisitanteEquipo.h"
-#include "ComponenteEquipo.h"
 
-void Bus::aceptar(VisitanteEquipo aVe) {
-	aVe.visitarBus(*this);
-
+void Bus::aceptar(VisitanteEquipo *V) {
+	V->visitarBus(this);
 }
 
 int Bus::getPrecio(){

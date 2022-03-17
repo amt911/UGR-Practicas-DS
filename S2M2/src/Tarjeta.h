@@ -1,10 +1,11 @@
 #ifndef __Tarjeta_h__
 #define __Tarjeta_h__
 
-
-#include "VisitanteEquipo.h"
-#include "ComponenteEquipo.h"
 #include <string>
+
+using namespace std;
+
+class VisitanteEquipo;
 
 class Tarjeta: public ComponenteEquipo
 {
@@ -15,7 +16,7 @@ class Tarjeta: public ComponenteEquipo
 	public:
 		Tarjeta():precio(1000), nombre("GPU"){}
 		Tarjeta(double p,string n);
-		void aceptar(VisitanteEquipo V) override;
+		void aceptar(VisitanteEquipo *V);
 		double getPrecio();
 		string getNombre();
 };
