@@ -21,15 +21,18 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     /**
      * Creates new form Mandos
      */
-    public Mandos() {
+    public Mandos(Cliente client, Salpicadero s) {
         comandoActual=EstadoMotor.APAGADO;
-        c=new Cliente();
+        c=client;
+        salpicadero=s;
+        
         initComponents();
         
         //Mostramos el panel
         setVisible(true);
     }
     
+    /*
     public Mandos(double maxR, double radio, int roz){
         comandoActual=EstadoMotor.APAGADO;
         c=new Cliente(maxR, radio, roz);        
@@ -38,6 +41,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
         //Mostramos el panel
         setVisible(true);
     }
+    */
 
     //Parte de la hebra de la interfaz de usuario
     @Override
@@ -66,7 +70,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
         botonEncendido = new javax.swing.JToggleButton();
         botonAcelerador = new javax.swing.JToggleButton();
         botonFreno = new javax.swing.JToggleButton();
-        salpicadero = c.getGestorFiltros().getCadenaFiltros().getSalpicadero();
+        //salpicadero//= new Salpicadero();//c.getGestorFiltros().getCadenaFiltros().getSalpicadero();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
