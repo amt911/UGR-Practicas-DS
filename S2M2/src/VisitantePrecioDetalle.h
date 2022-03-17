@@ -1,7 +1,11 @@
 #ifndef __VisitantePrecioDetalle_h__
 #define __VisitantePrecioDetalle_h__
 #include "VisitanteEquipo.h"
-class VisitantePrecioDetalle: public VisitanteEquipo
+#include "Disco.h"
+#include "Tarjeta.h"
+#include "Bus.h"
+#include "Equipo.h"
+class VisitantePrecioDetalle : public VisitanteEquipo
 {
 	public:
 	void visitarDisco(Disco * aD) override;

@@ -2,8 +2,9 @@
 #define __Equipo_h__
 #include "VisitanteEquipo.h"
 #include "ComponenteEquipo.h"
-class VisitanteEquipo;
-class ComponenteEquipo;
+#include <string>
+
+using namespace std;
 
 class Equipo{
     private:

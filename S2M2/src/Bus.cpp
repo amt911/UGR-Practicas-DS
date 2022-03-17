@@ -4,7 +4,7 @@ void Bus::aceptar(VisitanteEquipo *V) {
 	V->visitarBus(this);
 }
 
-int Bus::getPrecio(){
+double Bus::getPrecio(){
 	return precio;
 }
 

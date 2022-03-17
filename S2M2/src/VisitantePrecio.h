@@ -1,9 +1,10 @@
 #ifndef __VisitantePrecio_h__
 #define __VisitantePrecio_h__
-
-
 #include "VisitanteEquipo.h"
-class VisitantePrecio: public VisitanteEquipo
+#include "Disco.h"
+#include "Tarjeta.h"
+#include "Bus.h"
+class VisitantePrecio : public VisitanteEquipo
 {
 	private: 
 		int precioTotal;

@@ -6,16 +6,14 @@
 
 using namespace std;
 
-class VisitanteEquipo;
-
-class Disco: public ComponenteEquipo{
+class Disco : public ComponenteEquipo{
 	private:
-		int precio;
+		double precio;
 		string nombre;
 
 	public:
 		Disco(): precio(100), nombre("Disco duro"){}
-		Disco(double p,string n);
+		Disco(double precio,string nombre);
 		void aceptar(VisitanteEquipo *V);
 		double getPrecio();
 		string getNombre();

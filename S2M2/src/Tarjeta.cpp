@@ -1,5 +1,4 @@
 #include "Tarjeta.h"
-
 #include <string>
 
 Tarjeta::Tarjeta(double p,string n): precio(p),nombre(n){}

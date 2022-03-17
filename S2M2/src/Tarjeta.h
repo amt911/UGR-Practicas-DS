@@ -1,21 +1,19 @@
 #ifndef __Tarjeta_h__
 #define __Tarjeta_h__
-
 #include <string>
+#include "ComponenteEquipo.h"
+#include "VisitanteEquipo.h"
 
 using namespace std;
 
-class VisitanteEquipo;
-
-class Tarjeta: public ComponenteEquipo
-{
+class Tarjeta : public ComponenteEquipo {
 	private:
-	int precio;
+	double precio;
 	string nombre;
 	
 	public:
 		Tarjeta():precio(1000), nombre("GPU"){}
-		Tarjeta(double p,string n);
+		Tarjeta(double precio,string nombre);
 		void aceptar(VisitanteEquipo *V);
 		double getPrecio();
 		string getNombre();

@@ -1,15 +1,11 @@
 #ifndef __VisitanteEquipo_h__
 #define __VisitanteEquipo_h__
 
-#include "Disco.h"
-#include "Tarjeta.h"
-#include "Bus.h"
-#include "Equipo.h"
-
-class Bus;
 class Disco;
-class Equipo;
 class Tarjeta;
+class Bus;
+class Equipo;
+
 
 class VisitanteEquipo{
 	public:
