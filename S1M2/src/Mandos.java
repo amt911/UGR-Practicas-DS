@@ -43,8 +43,8 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     @Override
     public void run(){
         while(true){
-            salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
             c.peticion(comandoActual);  //Se manda la peticion a los Filtros para su posterior actualizacion en el Salpicadero
+            salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
             try {
                 Thread.sleep(Mandos.DELAY);
             } catch (InterruptedException ex) {
