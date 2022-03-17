@@ -15,9 +15,15 @@ int main(){
     
     Equipo *e1=new Equipo(&t1, &b1, &d1);
     Equipo *e2=new Equipo(&t2, &b2, &d2);
+    
+    Cliente estudiante("estudiante");
+    Cliente comun("comun");
+    Cliente mayorista("mayorista");
+
     VisitantePrecio *vp=new VisitantePrecio();
     VisitantePrecioDetalle *vpd=new VisitantePrecioDetalle();
 
+    vp->setDescuento(estudiante);
     e1->aceptar(vp);
     e1->aceptar(vpd);
 

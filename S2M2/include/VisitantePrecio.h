@@ -4,6 +4,7 @@
 #include "Disco.h"
 #include "Tarjeta.h"
 #include "Bus.h"
+
 class VisitantePrecio : public VisitanteEquipo
 {
 	private: 
@@ -16,6 +17,7 @@ class VisitantePrecio : public VisitanteEquipo
 	void visitarBus(Bus *aB) override;
 	int getPrecioTotal();
 	void restablecerPrecio();
+
 };
 
 #endif
