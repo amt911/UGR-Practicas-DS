@@ -5,17 +5,20 @@ public class GestorFiltros {
         
         
         //Constructor por defecto con parametros basicos para que sea usable
-	public GestorFiltros(){
-		this(5000, 0.15, -37);
+	public GestorFiltros(Salpicadero s){
+		//this(5000, 0.15, -37, s);
+		cadenaFiltros=new CadenaFiltros(s);
+
 	}
 
-	public GestorFiltros(ArrayList<Filtro> filtros, double radioObjetivo){
-		cadenaFiltros=new CadenaFiltros(radioObjetivo);
+	/*
+	public GestorFiltros(ArrayList<Filtro> filtros, double radioObjetivo, Salpicadero s){
+		cadenaFiltros=new CadenaFiltros(radioObjetivo, s);
 
 		for(Filtro aux : filtros)
 			cadenaFiltros.addFilter(aux);
-	}
-
+	}*/
+/*
 	//Constructor especifico para probar los parametros del vehiculo
 	public GestorFiltros(double maxR, double radio, int roz){
 		cadenaFiltros=new CadenaFiltros(radio);
@@ -27,7 +30,7 @@ public class GestorFiltros {
 	public GestorFiltros(ArrayList<Filtro> filtros){
 		this(filtros, 0.15);
 	}
-
+*/
 	public void addFilter(Filtro filtro){
 		cadenaFiltros.addFilter(filtro);
 	}

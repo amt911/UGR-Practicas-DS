@@ -1,27 +1,31 @@
 
-import java.util.ArrayList;
-
 public class Cliente {
-	public GestorFiltros salpicadero;
+	public GestorFiltros gestor;
 
-	public Cliente(){
-		salpicadero=new GestorFiltros();
+	public Cliente(GestorFiltros g) {
+		gestor = g;
 	}
 
-	//Constructor especial para poder modificar los parametros de rozamiento, revoluciones maximas y el radio de las ruedas
-	public Cliente(double maxR, double radio, int roz){
-		salpicadero=new GestorFiltros(maxR, radio, roz);
-	}
-        
-        public Cliente(ArrayList<Filtro> filtros){
-            salpicadero=new GestorFiltros(filtros);
-        }
-        
+	// Constructor especial para poder modificar los parametros de rozamiento,
+	// revoluciones maximas y el radio de las ruedas
+	/*
+	 * public Cliente(double maxR, double radio, int roz, GestorFiltros g){
+	 * gestor=new GestorFiltros(maxR, radio, roz);
+	 * }
+	 */
+	/*
+	 * public Cliente(ArrayList<Filtro> filtros){
+	 * gestor=new GestorFiltros(filtros);
+	 * }
+	 */
+
 	public void peticion(EstadoMotor estado) {
-		salpicadero.peticionFiltros(estado);
+		gestor.peticionFiltros(estado);
 	}
 
-	public GestorFiltros getGestorFiltros(){
-		return salpicadero;
-	}
+	/*
+	 * public GestorFiltros getGestorFiltros(){
+	 * return gestor;
+	 * }
+	 */
 }
