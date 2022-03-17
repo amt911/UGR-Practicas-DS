@@ -4,6 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JToggleButton;
 
+/**
+ * COMPROBAR LA LOGICA QUE CUANDO SE ESTA ACELERANDO O FRENANDO Y SE APAGA EL MOTOR SE MANTIENE PULSADO EL BOTON
+ * http://www.w3big.com/design-pattern/intercepting-filter-pattern.html
+ */
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
