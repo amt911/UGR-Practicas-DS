@@ -24,7 +24,7 @@ public class CuentaKilometros extends javax.swing.JPanel {
      }
  
      public void addDistancia(double velocidadActual){
-         double res=velocidadActual*(Mandos.DELAY/3600000.0);    //Obtenido de la formula de la velocidad y despejando la distancia
+         double res=velocidadActual*(Interfaz.DELAY/3600000.0);    //Obtenido de la formula de la velocidad y despejando la distancia
          distancia+=res;
          distanciaAbs+=res;
      }
@@ -108,4 +108,3 @@ public class CuentaKilometros extends javax.swing.JPanel {
      private javax.swing.JLabel contadorTotal;
      // End of variables declaration//GEN-END:variables
  }
- 

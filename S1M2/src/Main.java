@@ -17,9 +17,9 @@ public class Main {
 
         Cliente cliente = new Cliente(gestor); // Añadimos al cliente el gestor de filtros
 
-        // Creamos las hebras pasandole un objeto Mandos (JFrame) y pasandole el cliente
+        // Creamos las hebras pasandole un objeto Mandos2 (JFrame) y pasandole el cliente
         // y el salpicadero
-        Thread hebra = new Thread(new Mandos(cliente, salpicadero));
+        Thread hebra = new Thread(new Interfaz(cliente, salpicadero));
         hebra.start();
     }
 }
