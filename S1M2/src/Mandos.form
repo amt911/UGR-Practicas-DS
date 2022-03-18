@@ -53,10 +53,6 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="botonFreno" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
-                          <Component id="salpicadero" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
                   <EmptySpace pref="114" max="32767" attributes="0"/>
               </Group>
@@ -73,9 +69,7 @@
                       <Component id="botonAcelerador" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botonFreno" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="salpicadero" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="378" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -112,11 +106,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonFreno"/>
           </Events>
-        </Component>
-        <Component class="Salpicadero" name="salpicadero">
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="c.getGestorFiltros().getCadenaFiltros().getSalpicadero()"/>
-          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

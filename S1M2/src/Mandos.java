@@ -31,31 +31,17 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     /**
      * Creates new form Mandos
      */
-    public Mandos(Cliente client, Salpicadero s) {
+    public Mandos(Cliente client) {
         comandoActual=EstadoMotor.APAGADO;
         c=client;
-        salpicadero=s;
+        //salpicadero=s;
      
         //Iniciamos el JFrame
         initComponents();
-        
-        //Mostramos el panel
-        setVisible(true);
+
     }
 
     //Parte de la hebra de la interfaz de usuario
-    @Override
-    public void run(){
-        while(true){
-            c.peticion(comandoActual);  //Se manda la peticion a los Filtros para su posterior actualizacion en el Salpicadero
-            salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
-            try {
-                Thread.sleep(Mandos.DELAY);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Mandos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,7 +58,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
         botonFreno = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Mandos");
+        setTitle("Mandos y salpicadero motor");
 
         estado.setText("APAGADO");
 
@@ -113,10 +99,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonAcelerador)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonFreno))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(salpicadero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonFreno)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
@@ -129,9 +112,7 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
                     .addComponent(botonEncendido)
                     .addComponent(botonAcelerador)
                     .addComponent(botonFreno))
-                .addGap(18, 18, 18)
-                .addComponent(salpicadero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(378, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,6 +225,5 @@ public class Mandos extends javax.swing.JFrame implements Runnable{
     private javax.swing.JToggleButton botonFreno;
     private javax.swing.JLabel estado;
     private javax.swing.JPanel panelPrincipal;
-    private Salpicadero salpicadero;
     // End of variables declaration//GEN-END:variables
 }
