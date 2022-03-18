@@ -23,6 +23,7 @@ int main(){
     VisitantePrecio *vp=new VisitantePrecio();
     VisitantePrecioDetalle *vpd=new VisitantePrecioDetalle();
 
+    vpd->setDescuento(estudiante);
     vp->setDescuento(estudiante);
     e1->aceptar(vp);
     e1->aceptar(vpd);

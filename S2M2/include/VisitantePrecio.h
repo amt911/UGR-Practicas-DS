@@ -8,7 +8,7 @@
 class VisitantePrecio : public VisitanteEquipo
 {
 	private: 
-		int precioTotal;
+		float precioTotal;
 	
 	public:
 	VisitantePrecio();
