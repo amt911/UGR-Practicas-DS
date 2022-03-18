@@ -8,5 +8,5 @@
 /S2M1/build.xml
 /S2M1/manifest.mf
 .vscode
-S2M2/src/*.o
-S2M2/src/salida
+S2M2/obj/*.o
+S2M2/bin/salida
