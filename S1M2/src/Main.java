@@ -17,10 +17,13 @@ public class Main {
 
         Cliente cliente = new Cliente(gestor); // Añadimos al cliente el gestor de filtros
 
-        Mandos mandos=new Mandos(cliente, salpicadero);
-        Thread hebra=new Thread(mandos);
-        hebra.start();
-        
+        Mandos mandos=new Mandos(cliente);
+        Thread hebraMandos=new Thread(mandos);
+        Thread hebraSalpicadero=new Thread(salpicadero);
+
+        hebraMandos.start();
+        hebraSalpicadero.start();
+
         new Interfaz(mandos, "Mandos");
         new Interfaz(salpicadero, "Salpicadero");
     }

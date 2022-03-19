@@ -15,16 +15,16 @@ import java.util.logging.Logger;
 public class Mandos extends javax.swing.JPanel implements Runnable{
     private EstadoMotor comandoActual;
     private Cliente client;
-    private Salpicadero salpicadero;
-    public static final int DELAY=100;
+    //private Salpicadero salpicadero;
+    public static final int DELAY_MANDOS=1;
     
     /**
      * Creates new form Mandos2
      * 
      */
-    public Mandos(Cliente c, Salpicadero s) {
+    public Mandos(Cliente c) {
         client=c;
-        salpicadero=s;
+        //salpicadero=s;
         comandoActual=EstadoMotor.APAGADO;
         initComponents();
     }
@@ -33,10 +33,10 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
     public void run(){
         while(true){
             client.peticion(comandoActual);
-            salpicadero.actualizarInfo();
+            //salpicadero.actualizarInfo();
             
             try {
-                Thread.sleep(DELAY);
+                Thread.sleep(DELAY_MANDOS);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Mandos.class.getName()).log(Level.SEVERE, null, ex);
             }

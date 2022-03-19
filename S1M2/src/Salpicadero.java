@@ -7,9 +7,25 @@
  *
  * @author andres
  */
-public class Salpicadero extends javax.swing.JPanel {
+public class Salpicadero extends javax.swing.JPanel implements Runnable {
     //Los demas metodos los pone NetBeans abajo
     final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
+    private static final int DELAY=1;
+
+    @Override
+    public void run(){
+        while(true){
+            actualizarInfo();
+
+            try {
+                Thread.sleep(DELAY);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public Salpicadero(){
         //En initComponents se inicializa el CuentaRrevoluciones,
