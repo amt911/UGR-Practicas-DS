@@ -38,7 +38,9 @@ public class Mandos extends javax.swing.JPanel {
         botonFreno = new javax.swing.JToggleButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Mandos"));
+        setMaximumSize(new java.awt.Dimension(613, 168));
 
+        estado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         estado.setText("APAGADO");
 
         botonEncendido.setForeground(new java.awt.Color(0, 255, 0));
@@ -50,6 +52,7 @@ public class Mandos extends javax.swing.JPanel {
         });
 
         botonAcelerador.setText("ACELERAR");
+        botonAcelerador.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonAcelerador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAcelerar(evt);
@@ -68,23 +71,25 @@ public class Mandos extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(botonEncendido)
-                .addGap(29, 29, 29)
-                .addComponent(botonAcelerador)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(botonFreno)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(estado)
-                .addGap(194, 194, 194))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botonEncendido, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                        .addGap(46, 46, 46)
+                        .addComponent(botonAcelerador, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                        .addGap(44, 44, 44)
+                        .addComponent(botonFreno, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                        .addGap(52, 52, 52))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(estado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonEncendido)
                     .addComponent(botonAcelerador)
@@ -92,6 +97,8 @@ public class Mandos extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+
 
     private void botonEncender(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEncender
         if(botonEncendido.isSelected()){

@@ -52,49 +52,47 @@ public class CuentaKilometros extends javax.swing.JPanel {
     
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
- 
-         contadorReciente = new javax.swing.JLabel();
-         contadorTotal = new javax.swing.JLabel();
-         botonReset = new javax.swing.JButton();
- 
-         setBorder(javax.swing.BorderFactory.createTitledBorder("CuentaKilometros"));
- 
-         contadorReciente.setText("jLabel1");
-         contadorReciente.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador reciente"));
- 
-         contadorTotal.setText("jLabel2");
-         contadorTotal.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador total"));
- 
-         botonReset.setText("Reset");
-         botonReset.addActionListener(new java.awt.event.ActionListener() {
-             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                 botonResetActionPerformed(evt);
-             }
-         });
- 
-         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-         this.setLayout(layout);
-         layout.setHorizontalGroup(
-             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-             .addComponent(contadorTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-             .addComponent(contadorReciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-             .addGroup(layout.createSequentialGroup()
-                 .addGap(56, 56, 56)
-                 .addComponent(botonReset)
-                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-         );
-         layout.setVerticalGroup(
-             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-             .addGroup(layout.createSequentialGroup()
-                 .addComponent(contadorReciente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                 .addComponent(contadorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                 .addGap(18, 18, 18)
-                 .addComponent(botonReset)
-                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-         );
-     }// </editor-fold>//GEN-END:initComponents
- 
+
+        contadorReciente = new javax.swing.JLabel();
+        contadorTotal = new javax.swing.JLabel();
+        botonReset = new javax.swing.JButton();
+
+        setBorder(javax.swing.BorderFactory.createTitledBorder("CuentaKilometros"));
+
+        contadorReciente.setText("jLabel1");
+        contadorReciente.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador reciente"));
+
+        contadorTotal.setText("jLabel2");
+        contadorTotal.setBorder(javax.swing.BorderFactory.createTitledBorder("Contador total"));
+
+        botonReset.setText("Reset");
+        botonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonResetActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(botonReset, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+            .addComponent(contadorTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+            .addComponent(contadorReciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(contadorReciente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(contadorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botonReset)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
+     
+
      //Boton reset del cuentakilometros para poner a 0 la distancia cuando se pulse
      private void botonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonResetActionPerformed
          // TODO add your handling code here:

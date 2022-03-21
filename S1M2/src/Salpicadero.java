@@ -8,8 +8,7 @@
  * @author andres
  */
 public class Salpicadero extends javax.swing.JPanel {
-    //Los demas meotods los pone NetBeans abajo
-    private EstadoMotor estadoMotor;
+    //Los demas meotodos los pone NetBeans abajo
     final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
 
     public Salpicadero(){
@@ -18,7 +17,6 @@ public class Salpicadero extends javax.swing.JPanel {
         //NetBeans lo realiza asi obligatoriamente cuando se tratan de JPanels
         initComponents();
         RADIO=0.15;
-        estadoMotor=EstadoMotor.APAGADO;
     }
 
 
@@ -31,14 +29,11 @@ public class Salpicadero extends javax.swing.JPanel {
     public Salpicadero(double rads){
         initComponents();
         RADIO=(rads>0)?rads:0.1;
-
-        estadoMotor=EstadoMotor.APAGADO;
     }
 
     public double ejecutar(double revoluciones, EstadoMotor estado) {
         revs.setRevs(revoluciones);
 
-        estadoMotor=estado;
         velocidad.calcularVelocidad(RADIO, revs.getRevs());	//MEJORABLE
 
         distancia.addDistancia(velocidad.getVelocidad());
@@ -50,10 +45,6 @@ public class Salpicadero extends javax.swing.JPanel {
     //Seguramente esto este mal, hay que comprobarlo
     public double getRevs(){
         return revs.getRevs();
-    }
-
-    public EstadoMotor getEstado(){
-        return estadoMotor;
     }
 
     /**
@@ -74,9 +65,9 @@ public class Salpicadero extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(distancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(velocidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(revs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(distancia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+            .addComponent(velocidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(revs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,10 +76,10 @@ public class Salpicadero extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(velocidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(revs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(revs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private CuentaKilometros distancia;
