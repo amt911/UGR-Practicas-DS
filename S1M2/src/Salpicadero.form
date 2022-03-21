@@ -23,9 +23,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="distancia" alignment="0" min="-2" max="-2" attributes="0"/>
-          <Component id="velocidad" alignment="0" min="-2" max="-2" attributes="0"/>
-          <Component id="revs" min="-2" max="-2" attributes="0"/>
+          <Component id="distancia" alignment="1" pref="282" max="32767" attributes="0"/>
+          <Component id="velocidad" alignment="1" max="32767" attributes="0"/>
+          <Component id="revs" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -36,6 +36,7 @@
               <Component id="velocidad" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="revs" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
