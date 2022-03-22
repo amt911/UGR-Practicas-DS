@@ -25,6 +25,9 @@ public class ControlAutomatico {
 
     public void setEstado(EstadoSCACV e){
         estado = e;
+
+        if(e==EstadoSCACV.MANTENER)
+            velocidadAlmacenada = o.getVelocidad();        
     }
     //IMPLEMENTAR FUNCIONALIDAD PLS
 
@@ -32,7 +35,8 @@ public class ControlAutomatico {
         switch(estado){
             case APAGAR:
                 //velocidadAlmacenada=-1;
-                //mando.comandoActual=EstadoMotor.ENCENDIDO;
+                //if(mando.comandoActual!=EstadoMotor.APAGADO)
+                    //mando.comandoActual=EstadoMotor.ENCENDIDO;
             break;
 
             case REINICIAR:
@@ -50,10 +54,12 @@ public class ControlAutomatico {
                     }*/
                 //}
 
-                if(o.getVelocidad()<velocidadAlmacenada)
-                    mando.comandoActual=EstadoMotor.ACELERANDO;
-                else
-                    mando.comandoActual=EstadoMotor.FRENANDO;                
+                if(velocidadAlmacenada!=-1){
+                    if(o.getVelocidad()<velocidadAlmacenada)
+                        mando.comandoActual=EstadoMotor.ACELERANDO;
+                    else
+                        mando.comandoActual=EstadoMotor.FRENANDO;                
+                }
             break;
 
             case ACELERAR:
@@ -61,12 +67,11 @@ public class ControlAutomatico {
             break;
 
             case MANTENER:
-                velocidadAlmacenada = o.getVelocidad();
-
                 if(o.getVelocidad()<velocidadAlmacenada)
                     mando.comandoActual=EstadoMotor.ACELERANDO;
                 else
                     mando.comandoActual=EstadoMotor.FRENANDO;
+        
             break;
         }
     }

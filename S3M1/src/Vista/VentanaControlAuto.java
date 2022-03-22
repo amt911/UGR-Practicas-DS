@@ -114,8 +114,11 @@ public class VentanaControlAuto extends javax.swing.JPanel{
 
     
     public void updateInfo(){
-        gauge.setValueAnimated(ca.getObjetivo().getVelocidad());
-        revs.setValueAnimated(ca.getObjetivo().getRevs());
+        //gauge.setValueAnimated(ca.getObjetivo().getVelocidad());
+        //revs.setValueAnimated(ca.getObjetivo().getRevs());
+
+        gauge.setValue(ca.getObjetivo().getVelocidad());
+        revs.setValue(ca.getObjetivo().getRevs());        
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
