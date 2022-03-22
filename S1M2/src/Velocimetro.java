@@ -9,29 +9,33 @@
  * @author andres
  */
 public class Velocimetro extends javax.swing.JPanel {
-    private double velocidad;
-
+    //private double velocidad;
+    Salpicadero salpicadero;
+/*
     public double getVelocidad(){
         return velocidad;
     }
-    
-
+*/
+/*
     //A partir de las revoluciones filtradas y con la formula proporcionada, se obtiene la velocidad actual
     public void calcularVelocidad(double radio, double revs){
         velocidad=2*Math.PI*radio*revs*0.06;
     }
+*/
     /**
      * Creates new form Velocimetro
      */
-    public Velocimetro() {
-        velocidad=0;
+    public Velocimetro(Salpicadero s) {
+        salpicadero=s;
+        //velocidad=0;
         initComponents();
     }
 
-    
+
     public void actualizarVelocimetro(){
-        velDisplay.setText(String.format("%.2f", getVelocidad()));
+        velDisplay.setText(String.format("%.2f", salpicadero.getObjetivo().getVelocidad()));
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,7 +50,7 @@ public class Velocimetro extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createTitledBorder("Velocimetro"));
         setName("ejemplo"); // NOI18N
 
-        velDisplay.setText(""+getVelocidad());
+        velDisplay.setText(""+salpicadero.getObjetivo().getVelocidad());
         velDisplay.setBorder(javax.swing.BorderFactory.createTitledBorder("Km/h"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -1,7 +1,7 @@
 {
     "java.project.sourcePaths": [
-        //"S1M2/src",
         "S1M2/src"
+        //"S1M2/src"
     ],
     "files.associations": {
         "array": "cpp",

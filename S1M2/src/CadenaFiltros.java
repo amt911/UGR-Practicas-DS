@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class CadenaFiltros {
 	private ArrayList<Filtro> filtros;
-	private Salpicadero salpicadero;
+	private Objetivo objetivo;
 
-	public CadenaFiltros(Salpicadero s) {
+	public CadenaFiltros(Objetivo o) {
 		filtros = new ArrayList<>();
-		salpicadero = s;
+		objetivo=o;
 	}
 
 	public void addFilter(Filtro filtro) {
@@ -14,12 +14,12 @@ public class CadenaFiltros {
 	}
 
 	public double ejecutar(EstadoMotor estado) {
-		double inicial = salpicadero.getRevs();
+		double inicial = objetivo.getRevs();
 
 		for (Filtro aux : filtros)
 			inicial = aux.ejecutar(inicial, estado);
 
-		salpicadero.ejecutar(inicial, estado);
+		objetivo.ejecutar(inicial, estado);
 
 		return inicial;
 	}

@@ -10,8 +10,8 @@
 
 public class Main {
     public static void main(String args[]) {
-        Salpicadero salpicadero = new Salpicadero(0.15); // Radio de las ruedas
-        GestorFiltros gestor = new GestorFiltros(salpicadero); // Añadimos al GestorFiltros el Salpicadero recien creado
+        Objetivo objetivo = new Objetivo(0.15); // Radio de las ruedas
+        GestorFiltros gestor = new GestorFiltros(objetivo); // Añadimos al GestorFiltros el Salpicadero recien creado
         gestor.addFilter(new CalcularVelocidad(10000)); // Revoluciones maximas
         gestor.addFilter(new RepercutirRozamiento(-24)); // Rozamiento que se aplica
 
@@ -19,7 +19,7 @@ public class Main {
 
         // Creamos las hebras pasandole un objeto Mandos2 (JFrame) y pasandole el cliente
         // y el salpicadero
-        Thread hebra = new Thread(new Interfaz(cliente, salpicadero));
+        Thread hebra = new Thread(new Interfaz(cliente, objetivo));
         hebra.start();
     }
 }

@@ -7,26 +7,17 @@
  * @author andres
  */
 public class CuentaRrevoluciones extends javax.swing.JPanel {
-    private double revs;
-
-    public double getRevs(){
-        return revs;
-    }
-
-    public void setRevs(double nuevo){
-        revs=nuevo;
-    }
-
+    Salpicadero s;
     /**
      * Creates new form CuentaRevoluciones
      */
-    public CuentaRrevoluciones() {
-        revs=0;
+    public CuentaRrevoluciones(Salpicadero s) {
+        this.s=s;
         initComponents();
     }
     
     public void actualizarCuentaRevoluciones(){
-        revsLabel.setText(String.format("%.0f", getRevs()));
+        revsLabel.setText(String.format("%.0f", s.getObjetivo().getRevs()));
     }
     
     

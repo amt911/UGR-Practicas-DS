@@ -13,12 +13,13 @@ import java.util.logging.Logger;
  */
 public class Interfaz extends javax.swing.JFrame implements Runnable {
     private Cliente c;
+    private Objetivo o;
     public static int DELAY=100;
     /**
      * Creates new form Interfaz
      */
-    public Interfaz(Cliente c, Salpicadero s) {
-        salpicadero=s;
+    public Interfaz(Cliente c, Objetivo o) {
+        this.o=o;
         this.c=c;
 
         initComponents();
@@ -34,6 +35,7 @@ public class Interfaz extends javax.swing.JFrame implements Runnable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         mandos=new Mandos();
+        salpicadero=new Salpicadero(o);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vehiculo");
 
