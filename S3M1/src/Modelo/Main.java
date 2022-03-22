@@ -1,3 +1,9 @@
+package Modelo;
+import java.util.ResourceBundle.Control;
+
+import Controlador.*;
+
+import Vista.*;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -17,8 +23,12 @@ public class Main {
 
         Cliente cliente = new Cliente(gestor); // Añadimos al cliente el gestor de filtros
         Salpicadero s=new Salpicadero(objetivo);
-        Mandos mando=new Mandos(cliente, s);
-        new Interfaz(mando, s);
+        ControlAutomatico ca=new ControlAutomatico(objetivo);
+        VentanaControlAuto w=new VentanaControlAuto(ca);
+        Mandos mando=new Mandos(cliente, s, ca, w);
+        ca.setMando(mando);             //CUTRISIMO ARREGARLO PLS
+
+        new Interfaz(mando, s, w);
         // Creamos las hebras pasandole un objeto Mandos2 (JFrame) y pasandole el cliente
         // y el salpicadero
         Thread hebra = new Thread(mando);

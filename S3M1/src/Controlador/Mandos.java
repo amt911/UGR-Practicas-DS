@@ -1,6 +1,9 @@
-
+package Controlador;
 import java.awt.Color;
+import java.util.ResourceBundle.Control;
 
+import Modelo.*;
+import Vista.*;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -15,15 +18,19 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
     Cliente c;
     Salpicadero salpicadero;
     public static int DELAY=100;
+    private ControlAutomatico ca;
+    private VentanaControlAuto vca;
     /**
      * Creates new form Mandos2
      * @param cliente
      */
     
-    public Mandos(Cliente cliente, Salpicadero s) {
+    public Mandos(Cliente cliente, Salpicadero s, ControlAutomatico a, VentanaControlAuto ventana) {
         c=cliente;
         salpicadero=s;
+        vca=ventana;
         comandoActual=EstadoMotor.APAGADO;
+        ca=a;
         initComponents();
     }
     
@@ -31,8 +38,11 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
      @Override
      public void run(){
          while(true){
+             ca.caca();
+             System.out.println("Estado: "+comandoActual);
              c.peticion(getComandoActual());  //Se manda la peticion a los Filtros para su posterior actualizacion en el Salpicadero
              salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
+             vca.updateInfo();
 
              try {
                 Thread.sleep(DELAY);

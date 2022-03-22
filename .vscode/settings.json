@@ -1,6 +1,6 @@
 {
     "java.project.sourcePaths": [
-        "S1M2/src"
+        "S3M1/src"
         //"S1M2/src"
     ],
     "files.associations": {
@@ -70,5 +70,10 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp"
-    }
+    },
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "S3M1/lib/SteelSeries-3.9.2.jar",
+        "S3M1/lib/trident-6.2.jar"
+    ]
 }
