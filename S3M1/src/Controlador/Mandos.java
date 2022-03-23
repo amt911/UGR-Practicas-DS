@@ -17,7 +17,7 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
     EstadoMotor comandoActual;
     Cliente c;
     Salpicadero salpicadero;
-    public static int DELAY=150;
+    public static int DELAY=100;
     private ControlAutomatico ca;
     private VentanaControlAuto vca;
     
@@ -40,6 +40,9 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
          while(true){
              ca.accionarControlAutomatico();
              //System.out.println("Estado: "+comandoActual);
+             if(ca.getObjetivo().getCombustible()==0 && (getComandoActual()==EstadoMotor.ACELERANDO || getComandoActual()==EstadoMotor.ACELERANDO_SCACV))
+                c.peticion(EstadoMotor.ENCENDIDO);
+            else
              c.peticion(getComandoActual());  //Se manda la peticion a los Filtros para su posterior actualizacion en el Salpicadero
              salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
              vca.updateInfo();

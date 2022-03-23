@@ -1,3 +1,5 @@
+import Controlador.Mandos;
+
 public class Objetivo {
     private double distancia, distanciaAbs, revs, velocidad;
 
@@ -40,7 +42,7 @@ public class Objetivo {
     }
 
     private void addDistancia(double velocidadActual){
-        double res=velocidadActual*(100/3600000.0);    //Obtenido de la formula de la velocidad y despejando la distancia
+        double res=velocidadActual*(Mandos.DELAY/3600000.0);    //Obtenido de la formula de la velocidad y despejando la distancia
         distancia+=res;
         distanciaAbs+=res;
     }

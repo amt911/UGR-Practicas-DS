@@ -96,7 +96,7 @@ public class Combustible extends JPanel{
 
     public void updateGauges(){
         //System.out.println("CONSUMO: "+s.getObjetivo().getConsumo());
-        radial1Square1.setValue(100*s.getObjetivo().getConsumo());
+        radial1Square1.setValue(140*s.getObjetivo().getConsumo());
         radial1Vertical1.setValue((s.getObjetivo().getCombustible()/s.getObjetivo().getCombustibleMax())*100);
     }
 
