@@ -14,7 +14,7 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
     EstadoMotor comandoActual;
     Cliente c;
     Salpicadero salpicadero;
-    public static int DELAY=100;
+    public static int DELAY=500;
     /**
      * Creates new form Mandos2
      * @param cliente

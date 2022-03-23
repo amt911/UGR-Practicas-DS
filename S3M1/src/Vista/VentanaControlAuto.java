@@ -2,8 +2,9 @@ package Vista;
 
 import Controlador.ControlAutomatico;
 import Controlador.EstadoSCACV;
+//import Modelo.CalcularVelocidad;
 import eu.hansolo.steelseries.gauges.*;
-import org.pushingpixels.trident.*;
+//import org.pushingpixels.trident.*;
 
 public class VentanaControlAuto extends javax.swing.JPanel{
     ControlAutomatico ca;
@@ -27,7 +28,7 @@ public class VentanaControlAuto extends javax.swing.JPanel{
         gauge = new eu.hansolo.steelseries.gauges.Radial();
         revs = new eu.hansolo.steelseries.gauges.Linear();
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("ARREGLAR ESTO CON EVENTOS PLS");
 
         jButton1.setText("ACELERAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -57,13 +58,13 @@ public class VentanaControlAuto extends javax.swing.JPanel{
             }
         });
 
-        gauge.setMaxValue(500.0);
+        gauge.setMaxValue(360.0);
         gauge.setTitle("Velocidad");
         gauge.setUnitString("km/h");
 
         revs.setLcdUnitString("RPM");
-        revs.setMaxValue(6969.0);
-        revs.setTitle("Revoluciones");
+        revs.setMaxValue(8.0);
+        revs.setTitle("RPMx1000");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -118,10 +119,10 @@ public class VentanaControlAuto extends javax.swing.JPanel{
         //revs.setValueAnimated(ca.getObjetivo().getRevs());
 
         gauge.setValue(ca.getObjetivo().getVelocidad());
-        revs.setValue(ca.getObjetivo().getRevs());        
+        revs.setValue(ca.getObjetivo().getRevs()/1000.0);        
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {   
         ca.setEstado(EstadoSCACV.ACELERAR);
     }                                        
 

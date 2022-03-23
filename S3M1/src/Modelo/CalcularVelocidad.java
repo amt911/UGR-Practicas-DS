@@ -20,10 +20,12 @@ public class CalcularVelocidad implements Filtro {
 
 		switch (estado) {
 			case ACELERANDO:
+			case ACELERANDO_SCACV:
 				incrementoVelocidad = 100;
 				break;
 
 			case FRENANDO:
+			case FRENANDO_SCACV:
 				incrementoVelocidad = -100;
 				break;
 

@@ -8,97 +8,123 @@ public class ControlAutomatico {
     private Objetivo o;
     private EstadoSCACV estado;
     private boolean estaApagado;
+    //private EstadoSCACV estadoAnterior;
 
-    public Objetivo getObjetivo(){
+    public Objetivo getObjetivo() {
         return o;
     }
 
-
-    public ControlAutomatico(Objetivo ob){
-        estaApagado=true;
-        velocidadAlmacenada=-1;
-        o=ob;
-        estado=EstadoSCACV.APAGAR;
+    public ControlAutomatico(Objetivo ob) {
+        estaApagado = true;
+        //estadoAnterior = EstadoSCACV.APAGAR;
+        velocidadAlmacenada = -1;
+        o = ob;
+        estado = EstadoSCACV.APAGAR;
     }
 
-    public void setMando(Mandos m){
-        mando=m;
+    public void setMando(Mandos m) {
+        mando = m;
     }
 
-    public void setEstado(EstadoSCACV nuevo){
-        estado = nuevo;     
+    public void setEstado(EstadoSCACV nuevo) {
+        estado = nuevo;
 
-        if(nuevo==EstadoSCACV.MANTENER)     //hmmm
-            velocidadAlmacenada = o.getVelocidad();        //hmmm
+        if (nuevo == EstadoSCACV.MANTENER && !estaApagado) // hmmm
+            velocidadAlmacenada = o.getVelocidad(); // hmmm
     }
-    //IMPLEMENTAR FUNCIONALIDAD PLS
+    // IMPLEMENTAR FUNCIONALIDAD PLS
 
-    void caca(){
-
-        if(mando.comandoActual==EstadoMotor.APAGADO){       //hmmm
-            estado=EstadoSCACV.APAGAR;
-            velocidadAlmacenada=-1;
+    void accionarControlAutomatico() {
+        /*
+        if (mando.comandoActual == EstadoMotor.APAGADO) { // hmmm
+            estado = EstadoSCACV.APAGAR;
+            velocidadAlmacenada = -1;
         }
+        */
 
-        switch(estado){
+        //System.out.println("estaApagado: "+estaApagado);
+        //System.out.println("Velocidad Alamcenada: "+velocidadAlmacenada);
+
+        switch (estado) {
             case APAGAR:
-                //velocidadAlmacenada=-1;
-                //if(mando.comandoActual!=EstadoMotor.APAGADO)
-                    //mando.comandoActual=EstadoMotor.ENCENDIDO;
-                switch(mando.comandoActual){
+                switch (mando.comandoActual) {
                     case ACELERANDO:
-                        mando.comandoActual = EstadoMotor.ENCENDIDO;
-                    break;
+                        if (estaApagado)
+                            mando.comandoActual = EstadoMotor.ACELERANDO;
+                        else
+                            mando.comandoActual = EstadoMotor.ENCENDIDO;
+                        break;
                     case FRENANDO:
-                        mando.comandoActual = EstadoMotor.ENCENDIDO;
-                    break;
+                        if (estaApagado)
+                            mando.comandoActual = EstadoMotor.FRENANDO;
+                        else
+                            mando.comandoActual = EstadoMotor.ENCENDIDO;
+                        break;
                     case ENCENDIDO:
                         mando.comandoActual = EstadoMotor.ENCENDIDO;
-                    break;
+                        break;
                     case APAGADO:
                         mando.comandoActual = EstadoMotor.APAGADO;
-                    break;
+                        velocidadAlmacenada=-1;
+                        break;
+
+                    case FRENANDO_SCACV:
+                        mando.comandoActual=EstadoMotor.ENCENDIDO;
+                        break;
+
+                    case ACELERANDO_SCACV:
+                    if(estaApagado)
+                        mando.comandoActual=EstadoMotor.ACELERANDO;
+                    else
+                        mando.comandoActual=EstadoMotor.ENCENDIDO;
+                    
+                        break;
                 }
                 estaApagado = true;
-                    //mando.comandoActual = EstadoMotor.ENCENDIDO;
-            break;
+                break;
 
             case REINICIAR:
-                //if(velocidadAlmacenada!=-1){
-                    /*
-                    if(velocidadAlmacenada>o.getVelocidad())
-                        mando.comandoActual=EstadoMotor.ACELERANDO;
-
-                    else if(velocidadAlmacenada<o.getVelocidad())
-                        mando.comandoActual=EstadoMotor.FRENANDO;
-
-                    else{
-                        mando.comandoActual=EstadoMotor.ENCENDIDO;
-                        estado=EstadoSCACV.MANTENER;
-                    }*/
-                //}
-
-                if(velocidadAlmacenada!=-1 && !estaApagado){
-                    if(o.getVelocidad()<velocidadAlmacenada)
-                        mando.comandoActual=EstadoMotor.ACELERANDO;
+                if (velocidadAlmacenada != -1 && mando.comandoActual!=EstadoMotor.FRENANDO) {
+                    estaApagado=false;
+                    if (o.getVelocidad() < velocidadAlmacenada)
+                        mando.comandoActual = EstadoMotor.ACELERANDO_SCACV;
                     else
-                        mando.comandoActual=EstadoMotor.FRENANDO;                
+                        mando.comandoActual = EstadoMotor.FRENANDO_SCACV;
+                
+                } else{
+                    estado = EstadoSCACV.APAGAR;
+                    estaApagado=true;
                 }
-            break;
+                
+
+                break;
 
             case ACELERAR:
-                estaApagado=false;
-                mando.comandoActual=EstadoMotor.ACELERANDO;
-            break;
-
-            case MANTENER:
-                if(!estaApagado){
-                    if(o.getVelocidad()<velocidadAlmacenada)
-                        mando.comandoActual=EstadoMotor.ACELERANDO;
-                    else
-                        mando.comandoActual=EstadoMotor.FRENANDO;
+                if (o.getVelocidad() > 0 && mando.comandoActual!=EstadoMotor.FRENANDO && mando.comandoActual != EstadoMotor.ACELERANDO) {
+                    mando.comandoActual = EstadoMotor.ACELERANDO_SCACV;
+                    estaApagado = false;
+                } else{
+                    estado = EstadoSCACV.APAGAR;
+                    estaApagado=true;
                 }
-            break;
+                break;
+
+            case MANTENER:      //estaManteniendo
+               // if(velocidadAlmacenada==-1 && !estaApagado)
+                 //   velocidadAlmacenada = o.getVelocidad();
+                
+                if (!estaApagado && mando.comandoActual!=EstadoMotor.FRENANDO) {
+                    if (o.getVelocidad() < velocidadAlmacenada)
+                        mando.comandoActual = EstadoMotor.ACELERANDO_SCACV;
+                    else
+                        mando.comandoActual = EstadoMotor.FRENANDO_SCACV;
+                }
+                else{
+                    estado=EstadoSCACV.APAGAR;
+                    estaApagado=true;
+                }
+
+                break;
         }
     }
 }

@@ -1,6 +1,6 @@
 package Controlador;
 import java.awt.Color;
-import java.util.ResourceBundle.Control;
+//import java.util.ResourceBundle.Control;
 
 import Modelo.*;
 import Vista.*;
@@ -17,7 +17,7 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
     EstadoMotor comandoActual;
     Cliente c;
     Salpicadero salpicadero;
-    public static int DELAY=100;
+    public static int DELAY=150;
     private ControlAutomatico ca;
     private VentanaControlAuto vca;
     /**
@@ -38,8 +38,8 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
      @Override
      public void run(){
          while(true){
-             ca.caca();
-             System.out.println("Estado: "+comandoActual);
+             ca.accionarControlAutomatico();
+             //System.out.println("Estado: "+comandoActual);
              c.peticion(getComandoActual());  //Se manda la peticion a los Filtros para su posterior actualizacion en el Salpicadero
              salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
              vca.updateInfo();
