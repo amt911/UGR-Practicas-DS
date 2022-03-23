@@ -8,7 +8,14 @@ public class ControlAutomatico {
     private Objetivo o;
     private EstadoSCACV estado;
     private boolean estaApagado;
-    //private EstadoSCACV estadoAnterior;
+
+    public EstadoSCACV getEstadoSCACV(){
+        return estado;
+    }
+
+    public double getVelocidadAlmacenada(){
+        return velocidadAlmacenada;
+    }
 
     public Objetivo getObjetivo() {
         return o;

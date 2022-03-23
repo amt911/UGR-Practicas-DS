@@ -28,7 +28,7 @@ public class VentanaControlAuto extends javax.swing.JPanel{
         gauge = new eu.hansolo.steelseries.gauges.Radial();
         revs = new eu.hansolo.steelseries.gauges.Linear();
 
-        jLabel1.setText("ARREGLAR ESTO CON EVENTOS PLS");
+        jLabel1.setText("APAGADO");
 
         jButton1.setText("ACELERAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +117,7 @@ public class VentanaControlAuto extends javax.swing.JPanel{
     public void updateInfo(){
         //gauge.setValueAnimated(ca.getObjetivo().getVelocidad());
         //revs.setValueAnimated(ca.getObjetivo().getRevs());
-
+        jLabel1.setText(ca.getEstadoSCACV().toString());
         gauge.setValue(ca.getObjetivo().getVelocidad());
         revs.setValue(ca.getObjetivo().getRevs()/1000.0);        
     }
@@ -146,7 +146,6 @@ public class VentanaControlAuto extends javax.swing.JPanel{
     private javax.swing.JButton jButton4;
     private Radial gauge;
     private Linear revs;
-    //private javax.swing.JButton gauge;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration    
 }
