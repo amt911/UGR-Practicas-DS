@@ -93,11 +93,8 @@ public class ControlAutomatico {
             case REINICIAR:
                 if (velocidadAlmacenada != -1 && mando.comandoActual!=EstadoMotor.FRENANDO) {
                     estaApagado=false;
-                    if (o.getVelocidad() < velocidadAlmacenada)
-                        mando.comandoActual = EstadoMotor.ACELERANDO_SCACV;
-                    else
-                        mando.comandoActual = EstadoMotor.FRENANDO_SCACV;
-                
+                    estado=EstadoSCACV.MANTENER;
+                    
                 } else{
                     estado = EstadoSCACV.APAGAR;
                     estaApagado=true;
