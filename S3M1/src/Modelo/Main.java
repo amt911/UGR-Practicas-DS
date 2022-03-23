@@ -16,7 +16,7 @@ import Vista.*;
 
 public class Main {
     public static void main(String args[]) {
-        Objetivo objetivo = new Objetivo(0.15); // Radio de las ruedas
+        Objetivo objetivo = new Objetivo(0.15, 52); // Radio de las ruedas
         GestorFiltros gestor = new GestorFiltros(objetivo); // Añadimos al GestorFiltros el Salpicadero recien creado
         gestor.addFilter(new CalcularVelocidad(5000)); // Revoluciones maximas
         gestor.addFilter(new RepercutirRozamiento(-60)); // Rozamiento que se aplica

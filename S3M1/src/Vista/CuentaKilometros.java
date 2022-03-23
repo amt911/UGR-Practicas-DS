@@ -89,7 +89,6 @@ public class CuentaKilometros extends javax.swing.JPanel {
 
      //Boton reset del cuentakilometros para poner a 0 la distancia cuando se pulse
      private void botonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonResetActionPerformed
-         // TODO add your handling code here:
          salpicadero.getObjetivo().resetDistancia();
      }//GEN-LAST:event_botonResetActionPerformed
  

@@ -104,7 +104,7 @@ public class ControlAutomatico {
                 break;
 
             case ACELERAR:
-                if (o.getVelocidad() > 0 && mando.comandoActual!=EstadoMotor.FRENANDO && mando.comandoActual != EstadoMotor.ACELERANDO) {
+                if (o.getVelocidad() > 0 && mando.comandoActual!=EstadoMotor.FRENANDO && mando.comandoActual != EstadoMotor.ACELERANDO && mando.comandoActual!=EstadoMotor.APAGADO) {
                     mando.comandoActual = EstadoMotor.ACELERANDO_SCACV;
                     estaApagado = false;
                 } else{

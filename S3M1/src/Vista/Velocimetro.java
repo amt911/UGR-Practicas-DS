@@ -59,11 +59,11 @@ public class Velocimetro extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(velDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+            .addComponent(velDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(velDisplay, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(velDisplay)
         );
     }// </editor-fold>//GEN-END:initComponents
 

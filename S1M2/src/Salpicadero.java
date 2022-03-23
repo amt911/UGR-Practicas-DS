@@ -36,28 +36,6 @@ public class Salpicadero extends javax.swing.JPanel {
         distancia.actualizarCuentaKilometros();
         revs.actualizarCuentaRevoluciones();
     }
-/*
-    public Salpicadero(double rads){
-        initComponents();
-        RADIO=(rads>0)?rads:0.1;
-    }
-*
-    public double ejecutar(double revoluciones, EstadoMotor estado) {
-        revs.setRevs(revoluciones);
-
-        velocidad.calcularVelocidad(RADIO, revs.getRevs());	//MEJORABLE
-
-        distancia.addDistancia(velocidad.getVelocidad());
-
-        return  revs.getRevs();
-    }
-*/
-/*
-    //Seguramente esto este mal, hay que comprobarlo
-    public double getRevs(){
-        return revs.getRevs();
-    }
-*/
 
     /**
      * This method is called from within the constructor to initialize the form.
