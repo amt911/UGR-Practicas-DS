@@ -24,4 +24,6 @@ class CarreraMontanna < Carrera
     def acabar_carrera
         puts "La carrera de montaña ha terminado"
     end
+
+    public_class_method :new
 end

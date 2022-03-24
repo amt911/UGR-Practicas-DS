@@ -1,9 +1,9 @@
 class Bicicleta
     attr_accessor :dorsal, :acabado
     
-    def initialize(dorsal, tengoAcabar)
+    def initialize(dorsal, tengo_acabar)
         @dorsal = dorsal
-        @acabado = tengoAcabar
+        @acabado = tengo_acabar
     end
 
     def acabar_carrera
@@ -14,4 +14,6 @@ class Bicicleta
         @dorsal = val # `self` is an instance of Foo, it has `bar=` method
         @dorsal
     end
+
+    private_class_method :new
 end

@@ -33,4 +33,5 @@ class Carrera
         puts "No implementado"
     end
 
+    private_class_method :new
 end

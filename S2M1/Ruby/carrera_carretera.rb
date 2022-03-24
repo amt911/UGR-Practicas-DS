@@ -5,18 +5,6 @@ class CarreraCarretera < Carrera
         @@TASA
     end
 
-#    @Override
-#    public void run(){
-#        comenzarCarrera();
-#         try {
-#            Thread.sleep(60000);    //El padre (la carrera) espera a las bicicletas
-#        } catch (InterruptedException e) {
-#            e.printStackTrace();
-#        }
-#        
-#        acabarCarrera();        
-#    }
-
     def run
         comenzar_carrera
         sleep(@@DURACION)
@@ -37,4 +25,6 @@ class CarreraCarretera < Carrera
     def acabar_carrera
         puts "La carrera de carretera ha terminado"
     end
+
+    public_class_method :new
 end
