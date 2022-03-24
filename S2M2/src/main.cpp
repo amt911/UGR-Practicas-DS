@@ -16,9 +16,9 @@ int main(){
     Equipo *e1=new Equipo(&t1, &b1, &d1);
     Equipo *e2=new Equipo(&t2, &b2, &d2);
     
-    Cliente estudiante("estudiante");
-    Cliente comun("comun");
-    Cliente mayorista("mayorista");
+    Cliente estudiante(TipoCliente::Estudiante);
+    Cliente comun(TipoCliente::Comun);
+    Cliente mayorista(TipoCliente::Mayorista);
 
     VisitantePrecio *vp=new VisitantePrecio();
     VisitantePrecioDetalle *vpd=new VisitantePrecioDetalle();
@@ -28,12 +28,16 @@ int main(){
     e1->aceptar(vp);
     e1->aceptar(vpd);
 
-    cout << "Precio total de e1: " << vp->getPrecioTotal() << endl <<endl;
 
+    cout << "Precio total del equipo 1: " << vp->getPrecioTotal() << "€" << endl <<endl;
+    
+    
+    vpd->setDescuento(mayorista);
+    vp->setDescuento(mayorista);
     vp->restablecerPrecio();
     e2->aceptar(vp);
     e2->aceptar(vpd);
-    cout << "Precio total de e2: " << vp->getPrecioTotal() << endl;
+    cout << "Precio total del equipo 2: " << vp->getPrecioTotal() << "€" << endl;
   
 
     delete e1;

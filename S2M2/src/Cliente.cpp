@@ -1,15 +1,15 @@
 #include "Cliente.h"
-    Cliente::Cliente(string tipo)
+    Cliente::Cliente(TipoCliente tipo)
     {
-        if (tipo == "comun")
+        if (tipo == TipoCliente::Comun)
         {
             descuento = 0;
         }
-        else if (tipo == "estudiante")
+        else if (tipo == TipoCliente::Estudiante)
         {
             descuento = 0.1;
         }
-        else if (tipo == "mayorista")
+        else if (tipo == TipoCliente::Mayorista)
         {
             descuento = 0.15;
         }
