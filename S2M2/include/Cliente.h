@@ -2,7 +2,7 @@
 #define __ComponenteCliente_h__
 
 #include <string>
-
+#include <TipoCliente.h>
 using namespace std;
 
 class Cliente
@@ -11,7 +11,7 @@ private:
     float descuento;
 
 public:
-    Cliente(string tipo);
+    Cliente(TipoCliente tipo);
     float getDescuento();
 };
 #endif
