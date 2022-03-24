@@ -22,7 +22,7 @@ public class Main {
         Salpicadero s=new Salpicadero(objetivo);
         Mandos mando=new Mandos(cliente, s);
         new Interfaz(mando, s);
-        // Creamos las hebras pasandole un objeto Mandos2 (JFrame) y pasandole el cliente
+        // Creamos las hebras pasandole un objeto Mandos (JFrame) y pasandole el cliente
         // y el salpicadero
         Thread hebra = new Thread(mando);
         hebra.start();

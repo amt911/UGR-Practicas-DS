@@ -10,7 +10,7 @@ import Modelo.*;
  * @author andres
  */
 public class Salpicadero extends javax.swing.JPanel {
-    //Los demas meotodos los pone NetBeans abajo
+    //Los demas atributos los pone NetBeans abajo
     private Objetivo o;
 
     public Salpicadero(Objetivo o){

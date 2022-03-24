@@ -18,10 +18,6 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
     private Cliente c;
     private Salpicadero salpicadero;
     public static int DELAY=200;
-    /**
-     * Creates new form Mandos2
-     * @param cliente
-     */
     
     public Mandos(Cliente cliente, Salpicadero s) {
         c=cliente;

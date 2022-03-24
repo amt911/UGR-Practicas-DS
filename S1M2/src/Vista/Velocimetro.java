@@ -15,7 +15,6 @@ public class Velocimetro extends javax.swing.JPanel {
 
     public Velocimetro(Salpicadero s) {
         salpicadero=s;
-        //velocidad=0;
         initComponents();
     }
 
