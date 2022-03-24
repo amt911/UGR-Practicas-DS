@@ -118,7 +118,6 @@ public class GraficaTemp extends Combo {
 
     public void mostrarGrafica() {
         //inicialización contexto de la gráfica
-        if (ult_pos >= 6) {
             //this.setVisible(false);
             DefaultCategoryDataset dataset = crearDataset();
             //crea una grafica de puntos
@@ -135,7 +134,6 @@ public class GraficaTemp extends Combo {
             this.pack();                 //redimensiona la pagina dinamicamente
             this.setSize(600, 400);      // tamaño de la ventana base
             this.setVisible(true);          //vuelve a poner la ventana visile tras actualziar
-        }
 
     }
 
