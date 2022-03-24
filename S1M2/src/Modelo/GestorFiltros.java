@@ -1,5 +1,7 @@
 package Modelo;
 
+import Controlador.EstadoMotor;
+
 public class GestorFiltros {
 	private CadenaFiltros cadenaFiltros;
 

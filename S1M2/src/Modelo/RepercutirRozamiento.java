@@ -1,5 +1,7 @@
 package Modelo;
 
+import Controlador.EstadoMotor;
+
 public class RepercutirRozamiento implements Filtro {
     private final int ROZAMIENTO;
 

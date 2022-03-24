@@ -2,6 +2,8 @@ package Modelo;
 
 import java.util.ArrayList;
 
+import Controlador.EstadoMotor;
+
 public class CadenaFiltros {
 	private ArrayList<Filtro> filtros;
 	private Objetivo objetivo;

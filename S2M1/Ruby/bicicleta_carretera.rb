@@ -7,7 +7,7 @@ class BicicletaCarretera < Bicicleta
     def run
         puts "La bicicleta de carretera #{dorsal} ha comenzado la carrera"
         if(acabado)
-            sleep(Carrera.abandono_tiempo)  #PETA SEGURO
+            sleep(Carrera.abandono_tiempo)
             puts "La bicicleta de carretera #{dorsal} ha abandonado la carrera" 
         else
             sleep(Carrera.DURACION)
