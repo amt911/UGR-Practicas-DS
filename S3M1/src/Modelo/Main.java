@@ -1,5 +1,4 @@
 package Modelo;
-//import java.util.ResourceBundle.Control;
 
 import Controlador.*;
 
