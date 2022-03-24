@@ -31,6 +31,7 @@ public class Mandos extends javax.swing.JPanel implements Runnable{
         vca=ventana;
         comandoActual=EstadoMotor.APAGADO;
         ca=a;
+        ca.setMando(this);
         initComponents();
     }
     

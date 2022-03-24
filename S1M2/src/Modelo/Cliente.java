@@ -1,5 +1,7 @@
+package Modelo;
+
 public class Cliente {
-	public GestorFiltros gestor;
+	private GestorFiltros gestor;
 
 	public Cliente(GestorFiltros g) {
 		gestor = g;

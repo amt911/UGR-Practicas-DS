@@ -1,8 +1,10 @@
+package Modelo;
+
 public class GestorFiltros {
 	private CadenaFiltros cadenaFiltros;
 
-	public GestorFiltros(Salpicadero s) {
-		cadenaFiltros = new CadenaFiltros(s);
+	public GestorFiltros(Objetivo o) {
+		cadenaFiltros = new CadenaFiltros(o);
 	}
 
 	public void addFilter(Filtro filtro) {

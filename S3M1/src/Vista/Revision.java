@@ -48,21 +48,21 @@ public class Revision extends JPanel{
 
         rotRevisionLabel.setText("jLabel6");
 
-        pastillasReset.setText("jButton1");
+        pastillasReset.setText("Reset");
         pastillasReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pastillasResetActionPerformed(evt);
             }
         });
 
-        aceiteReset.setText("jButton2");
+        aceiteReset.setText("Reset");
         aceiteReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aceiteResetActionPerformed(evt);
             }
         });
 
-        revisionReset.setText("jButton3");
+        revisionReset.setText("Reset");
         revisionReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 revisionResetActionPerformed(evt);

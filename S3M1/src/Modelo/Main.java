@@ -26,7 +26,7 @@ public class Main {
         ControlAutomatico ca=new ControlAutomatico(objetivo);
         VentanaControlAuto w=new VentanaControlAuto(ca);
         Mandos mando=new Mandos(cliente, s, ca, w);
-        ca.setMando(mando);             //CUTRISIMO ARREGARLO PLS
+        //ca.setMando(mando);             //CUTRISIMO ARREGARLO PLS
 
         new Interfaz(mando, s, w);
         // Creamos las hebras pasandole un objeto Mandos2 (JFrame) y pasandole el cliente

@@ -1,3 +1,5 @@
+package Vista;
+import Controlador.*;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -54,22 +56,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-/*
-     //Parte de la hebra de la interfaz de usuario
-    @Override
-    public void run(){
-        while(true){
-            c.peticion(mandos.getComandoActual());  //Se manda la peticion a los Filtros para su posterior actualizacion en el Salpicadero
-            salpicadero.actualizarInfo();   //Se pide actualizar los jLabels
-            try {
-                Thread.sleep(DELAY);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Mandos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-*/  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Mandos mandos;

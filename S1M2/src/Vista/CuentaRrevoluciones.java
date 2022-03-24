@@ -1,3 +1,5 @@
+package Vista;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -7,7 +9,7 @@
  * @author andres
  */
 public class CuentaRrevoluciones extends javax.swing.JPanel {
-    Salpicadero s;
+    private Salpicadero s;
     /**
      * Creates new form CuentaRevoluciones
      */

@@ -1,3 +1,5 @@
+package Vista;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -8,40 +10,16 @@
  * @author andres
  */
 public class CuentaKilometros extends javax.swing.JPanel {
-    private double distancia;
-    private double distanciaAbs;
- 
-     public double getDistancia(){
-         return distancia;
-     }
-     
-     public double getDistanciaAbs(){
-         return distanciaAbs;
-     }    
-     
-     private void resetDistancia(){
-         distancia=0;
-     }
- 
-     public void addDistancia(double velocidadActual){
-         double res=velocidadActual*(Interfaz.DELAY/3600000.0);    //Obtenido de la formula de la velocidad y despejando la distancia
-         distancia+=res;
-         distanciaAbs+=res;
-     }
-     
-     /**
-      * Creates new form CuentaKilometros
-      */
-     public CuentaKilometros() {
-         distancia=0;
-         distanciaAbs=0;
-         
+    private Salpicadero salpicadero;
+    
+     public CuentaKilometros(Salpicadero s) {
+         salpicadero=s;
          initComponents();
      }
      
      public void actualizarCuentaKilometros(){
-         contadorReciente.setText(String.format("%.2f", getDistancia()));
-         contadorTotal.setText(String.format("%.2f", getDistanciaAbs()));      
+         contadorReciente.setText(String.format("%.2f", salpicadero.getObjetivo().getDistancia()));
+         contadorTotal.setText(String.format("%.2f", salpicadero.getObjetivo().getDistanciaAbs()));      
      }
  
      /**
@@ -95,8 +73,7 @@ public class CuentaKilometros extends javax.swing.JPanel {
 
      //Boton reset del cuentakilometros para poner a 0 la distancia cuando se pulse
      private void botonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonResetActionPerformed
-         // TODO add your handling code here:
-         resetDistancia();
+         salpicadero.getObjetivo().resetDistancia();
      }//GEN-LAST:event_botonResetActionPerformed
  
  

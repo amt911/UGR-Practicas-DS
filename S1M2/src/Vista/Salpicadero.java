@@ -1,3 +1,5 @@
+package Vista;
+import Modelo.*;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -9,18 +11,7 @@
  */
 public class Salpicadero extends javax.swing.JPanel {
     //Los demas meotodos los pone NetBeans abajo
-    //final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
-    Objetivo o;
-/*
-    public Salpicadero(){
-        //En initComponents se inicializa el CuentaRrevoluciones,
-        //CuentaKilometros y Velocimetro, esto es debido a que 
-        //NetBeans lo realiza asi obligatoriamente cuando se tratan de JPanels
-        initComponents();
-        RADIO=0.15;
-    }
-
-*/
+    private Objetivo o;
 
     public Salpicadero(Objetivo o){
         this.o=o;

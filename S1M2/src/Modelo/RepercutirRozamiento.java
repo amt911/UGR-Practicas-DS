@@ -1,3 +1,5 @@
+package Modelo;
+
 public class RepercutirRozamiento implements Filtro {
     private final int ROZAMIENTO;
 

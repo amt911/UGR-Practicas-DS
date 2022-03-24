@@ -1,8 +1,8 @@
-import Controlador.Mandos;
+package Modelo;
+import Controlador.*;
 
 public class Objetivo {
     private double distancia, distanciaAbs, revs, velocidad;
-
     final private double RADIO;
 
     public Objetivo(){

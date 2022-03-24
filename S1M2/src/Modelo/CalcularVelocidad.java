@@ -1,3 +1,5 @@
+package Modelo;
+
 public class CalcularVelocidad implements Filtro {
 	private double incrementoVelocidad;
 	private final double MAX_REVS;
