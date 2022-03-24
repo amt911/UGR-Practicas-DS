@@ -9,8 +9,9 @@
  */
 public class Salpicadero extends javax.swing.JPanel {
     //Los demas meotodos los pone NetBeans abajo
-    final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
-
+    //final private double RADIO;	//Se pone de instancia por si se quiere crear otra con otros parametros
+    Objetivo o;
+/*
     public Salpicadero(){
         //En initComponents se inicializa el CuentaRrevoluciones,
         //CuentaKilometros y Velocimetro, esto es debido a que 
@@ -19,32 +20,21 @@ public class Salpicadero extends javax.swing.JPanel {
         RADIO=0.15;
     }
 
+*/
+
+    public Salpicadero(Objetivo o){
+        this.o=o;
+        initComponents();
+    }
+
+    public Objetivo getObjetivo(){
+        return o;
+    }
 
     public void actualizarInfo(){
         velocidad.actualizarVelocimetro();
         distancia.actualizarCuentaKilometros();
         revs.actualizarCuentaRevoluciones();
-    }
-
-    public Salpicadero(double rads){
-        initComponents();
-        RADIO=(rads>0)?rads:0.1;
-    }
-
-    public double ejecutar(double revoluciones, EstadoMotor estado) {
-        revs.setRevs(revoluciones);
-
-        velocidad.calcularVelocidad(RADIO, revs.getRevs());	//MEJORABLE
-
-        distancia.addDistancia(velocidad.getVelocidad());
-
-        return  revs.getRevs();
-    }
-
-
-    //Seguramente esto este mal, hay que comprobarlo
-    public double getRevs(){
-        return revs.getRevs();
     }
 
     /**
@@ -55,9 +45,9 @@ public class Salpicadero extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        distancia = new CuentaKilometros();
-        velocidad = new Velocimetro();
-        revs = new CuentaRrevoluciones();
+        distancia = new CuentaKilometros(this);
+        velocidad = new Velocimetro(this);
+        revs = new CuentaRrevoluciones(this);
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Salpicadero"));
 

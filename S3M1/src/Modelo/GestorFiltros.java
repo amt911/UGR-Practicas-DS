@@ -1,3 +1,5 @@
+package Modelo;
+
 public class GestorFiltros {
 	private CadenaFiltros cadenaFiltros;
 

@@ -1,7 +1,3 @@
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -11,16 +7,13 @@ import java.util.logging.Logger;
  *
  * @author andres
  */
-public class Interfaz extends javax.swing.JFrame implements Runnable {
-    private Cliente c;
-    public static int DELAY=100;
+public class Interfaz extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz
      */
-    public Interfaz(Cliente c, Salpicadero s) {
+    public Interfaz(Mandos m, Salpicadero s) {
+        mandos=m;
         salpicadero=s;
-        this.c=c;
-
         initComponents();
         setVisible(true);
     }
@@ -33,7 +26,6 @@ public class Interfaz extends javax.swing.JFrame implements Runnable {
     //@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        mandos=new Mandos();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vehiculo");
 
@@ -63,7 +55,7 @@ public class Interfaz extends javax.swing.JFrame implements Runnable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-
+/*
      //Parte de la hebra de la interfaz de usuario
     @Override
     public void run(){
@@ -77,7 +69,7 @@ public class Interfaz extends javax.swing.JFrame implements Runnable {
             }
         }
     }
-    
+*/  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Mandos mandos;
