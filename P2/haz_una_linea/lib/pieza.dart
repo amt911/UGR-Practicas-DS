@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'bloque.dart';
 
 abstract class Pieza {
@@ -5,7 +7,7 @@ abstract class Pieza {
   late Bloque centroPieza; //Sirve para luego poder rotar la pieza
 
   Pieza() {
-    bloques = List.filled(4, Bloque(0, 0));
+    bloques = List.filled(4, Bloque(0, 0, Colors.black));
     centroPieza = bloques[0];
   }
 

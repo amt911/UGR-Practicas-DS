@@ -43,9 +43,7 @@ class _Tablero extends State<Tablero> {
       //El 3
 
       setState(() {
-        piezaActual.mover(3);
-        //print(
-        //    "x: ${piezaActual.bloques[0].x}, y: ${piezaActual.bloques[0].y}\n");
+          piezaActual.mover(3);
       });
     });
   }
@@ -65,15 +63,16 @@ class _Tablero extends State<Tablero> {
     for (Bloque aux in piezaActual.bloques) {
       bloquesActivos.add(Positioned(
           //Ejemplo que muestra como se pinta un bloque
-          top:
-              ((aux.y * (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
-                      Tablero.inicioTableroY),
-          left: ((aux.x *
-                      (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS))+Tablero.inicioTableroX),
+          top: ((aux.y *
+                  (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+              Tablero.inicioTableroY),
+          left:
+              ((aux.x * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+                  Tablero.inicioTableroX),
           child: Container(
               width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
               height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
-              color: Colors.red)));
+              color: aux.color)));
     }
 
     return Stack(children: bloquesActivos);
@@ -190,7 +189,9 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        piezaActual.girar(true);
+                        setState(() {  
+                          piezaActual.girar(true);
+                        });
                       },
                       child: const Icon(Icons.rotate_left, size: 32),
                     ),
@@ -200,13 +201,17 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        piezaActual.girar(false);
+                        setState(() {
+                          piezaActual.girar(false);
+                        });
                       },
                       child: const Icon(Icons.rotate_right, size: 32),
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        piezaActual.mover(2);
+                        setState(() {
+                          piezaActual.mover(2);  
+                        });
                       },
                       child: const Icon(Icons.arrow_forward, size: 32),
                     ),
