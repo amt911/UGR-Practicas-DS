@@ -14,7 +14,7 @@ class IPieza extends Pieza {
     //Comprobar el centro de esta pieza
     //centroPieza = bloques[1];
 
-    centroPieza = Bloque((bloques[1].x + bloques[2].x) / 2, /*-2.5*/ -3, Colors.black);
+    centroPieza = Bloque((bloques[1].x + bloques[2].x) / 2, /*-2.5*/ -2.5, Colors.black);
   }
 
   @override
@@ -40,10 +40,12 @@ class IPieza extends Pieza {
 
     switch (direccion) {
       case 1: //Izquierda
+      if(!colisionLateral(true))
         centroPieza.x -= 1;
         break;
 
       case 2: //Derecha
+      if(!colisionLateral(false))
         centroPieza.x += 1;
         break;
 
