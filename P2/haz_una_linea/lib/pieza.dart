@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haz_una_linea/tablero.dart';
 
 import 'bloque.dart';
 
@@ -16,15 +17,19 @@ abstract class Pieza {
   void mover(int dir) {
     switch (dir) {
       case 1: //Izquierda
-        for (Bloque element in bloques) {
-          element.x -= 1;
+        if (!colisionLateral(true)) {
+          for (Bloque element in bloques) {
+            element.x -= 1;
+          }
         }
         //centroPieza.x -= 1;
         break;
 
       case 2: //Derecha
-        for (Bloque element in bloques) {
-          element.x += 1;
+        if (!colisionLateral(false)) {
+          for (Bloque element in bloques) {
+            element.x += 1;
+          }
         }
         //centroPieza.x += 1;
         break;
@@ -36,6 +41,22 @@ abstract class Pieza {
         //centroPieza.y += 1;
         break;
     }
+  }
+
+  bool colisionLateral(bool esIzquierda) {
+    bool res = false;
+    if (esIzquierda) {
+      for (Bloque aux in bloques) {
+        if (aux.x == 0) res = true;
+      }
+    }
+    else{
+      for (Bloque aux in bloques) {
+        if (aux.x == (Tablero.TABLERO_WIDTH_PIEZAS - 1)) res = true;
+      }      
+    }
+
+    return res;
   }
 
   void girar(bool esIzquierda) {
