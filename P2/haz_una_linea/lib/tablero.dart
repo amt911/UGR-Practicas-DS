@@ -26,7 +26,10 @@ class Tablero extends StatelessWidget {
                   Expanded(
                     flex: 20,
                     child: Column(
-                      children: [
+                      //mainAxisSize: MainAxisSize.min,
+                      //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [                     
                         ElevatedButton(
                           onPressed: () {
                           },
@@ -34,8 +37,36 @@ class Tablero extends StatelessWidget {
                         ),  
 
                         Expanded(
-                          
-                        )                  
+                          flex: 3,
+                          child: Container(
+                          //Container(
+                            color: Colors.red,
+                            child: const Center(child: Text("Pieza siguiente"))
+                          )
+                        ),                
+
+                        const SizedBox(height: 20,),  //Para darle un espacio entre containers
+
+                        Expanded(
+                          flex: 10,
+                          child: Container(
+                            color: Colors.yellow,
+                            child: const Text("Siguientes piezas"),
+                          )
+                        ),
+
+                        const SizedBox(height: 20,),  //Para darle un espacio entre containers
+
+                        Expanded(
+                          flex: 10,
+                          child: Container(color: Colors.green, child: Text("Texto"))
+                        ),
+
+                        ElevatedButton(
+                          onPressed: () {
+                          },
+                          child: const Text("Save")
+                        ),                         
                       ],
                     )
                   ),                  
