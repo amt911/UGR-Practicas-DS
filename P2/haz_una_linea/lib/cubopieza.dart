@@ -1,9 +1,19 @@
+import 'dart:html';
+
 import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/pieza.dart';
+import 'package:haz_una_linea/tablero.dart';
 
 class CuboPieza extends Pieza{
   CuboPieza(){
-    
+      int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+      bloques[0] = Bloque(centro - 1, -3);
+      bloques[1] = Bloque(centro, -3);
+      bloques[2] = Bloque(centro-1, -4);
+      bloques[3] = Bloque(centro, -4);
+
+      //Comprobar el centro de esta pieza
+      centroPieza = bloques[1];                
   }
 
   @override
@@ -22,4 +32,9 @@ class CuboPieza extends Pieza{
 
     return resultado;
   }  
+
+  @override
+  void girar(bool esIzquierda){   //Las piezas que son cubos no giran
+
+  }
 }

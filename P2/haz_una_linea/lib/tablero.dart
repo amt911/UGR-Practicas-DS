@@ -1,8 +1,13 @@
 //import 'dart:html';
 
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class Tablero extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:haz_una_linea/bloque.dart';
+import 'package:haz_una_linea/ipieza.dart';
+import 'package:haz_una_linea/pieza.dart';
+
+class Tablero extends StatefulWidget {
   static double tableroWidth = 0; // = MediaQuery.of(context).size.width;
   static double tableroHeight = 0; // = 640;
   static double widthPantalla = 0;
@@ -12,28 +17,59 @@ class Tablero extends StatelessWidget {
   static const double TABLERO_WIDTH_PIEZAS = 10;
   static const double TABLERO_HEIGHT_PIEZAS = 20;
 
+  @override
+  State<Tablero> createState() => _Tablero();
+}
+
+class _Tablero extends State<Tablero> {
+  Timer? timerPrincipal;
+  Pieza piezaActual = IPieza();
+
+  @override
+  void initState() {
+    super.initState();
+    comenzar();
+  }
+
+  void comenzar() {
+    timerPrincipal = Timer.periodic(const Duration(milliseconds: 1000), (timer) {
+      //El 3
+
+      setState(() {
+        piezaActual.mover(3);
+        //print(
+        //    "x: ${piezaActual.bloques[0].x}, y: ${piezaActual.bloques[0].y}\n");
+      });
+    });
+  }
+
   Stack pintarTableroPiezas() {
-    //Sirve para pintar el tablero junto a las piezas
-    return Stack(
-      //Para dibujar las piezas encima del propio tablero
-      children: [
-        Container(
-          //El propio tablero
-          margin: const EdgeInsets.all(3),
-          width: tableroWidth,
-          height: tableroHeight,
-          color: Colors.grey,
-        ),
-        Positioned(
-            //Ejemplo que muestra como se pinta un bloque
-            top: inicioTableroX,
-            left: inicioTableroY,
-            child: Container(
-                width: tableroWidth / TABLERO_WIDTH_PIEZAS,
-                height: tableroHeight / TABLERO_HEIGHT_PIEZAS,
-                color: Colors.red)),
-      ],
-    );
+    //Primero se crea una lista con los bloques de la pieza actual
+    List<Widget>? bloquesActivos = List.empty(growable: true);
+
+    bloquesActivos.add(Container(
+      //El propio tablero
+      margin: const EdgeInsets.all(3),
+      width: Tablero.tableroWidth,
+      height: Tablero.tableroHeight,
+      color: Colors.grey,
+    ));
+
+    for (Bloque aux in piezaActual.bloques) {
+      bloquesActivos.add(Positioned(
+          //Ejemplo que muestra como se pinta un bloque
+          top: (aux.y * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+              3,
+          left: (aux.x *
+                  (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+              3,
+          child: Container(
+              width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
+              height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
+              color: Colors.red)));
+    }
+
+    return Stack(children: bloquesActivos);
   }
 
   @override
@@ -44,15 +80,16 @@ class Tablero extends StatelessWidget {
       title: const Text("Jueguecito del diablo"),
     );
 
-    widthPantalla = MediaQuery.of(context).size.width;
-    heightPantalla = MediaQuery.of(context).size.height;
+    Tablero.widthPantalla = MediaQuery.of(context).size.width;
+    Tablero.heightPantalla = MediaQuery.of(context).size.height;
 
-    tableroWidth = 0.75 * widthPantalla;
-    tableroHeight = 0.9 *
-        (heightPantalla - appBar.preferredSize.height); //2 * tableroWidth;
+    Tablero.tableroWidth = 0.75 * Tablero.widthPantalla;
+    Tablero.tableroHeight = 0.9 *
+        (Tablero.heightPantalla -
+            appBar.preferredSize.height); //2 * tableroWidth;
 
-    inicioTableroX = 3;
-    inicioTableroY = 3;
+    Tablero.inicioTableroX = 3;
+    Tablero.inicioTableroY = 3;
     //tableroHeight = 0.95 * MediaQuery.of(context).size.height;
     //tableroHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -79,12 +116,9 @@ class Tablero extends StatelessWidget {
                               child: const Icon(Icons.pause, size: 32),
                             ),
 
-                            //Expanded(
-                            //  flex: 3,
-                            //child: Container(
                             Container(
                                 height: 0.12 *
-                                    (heightPantalla -
+                                    (Tablero.heightPantalla -
                                         appBar.preferredSize.height),
                                 color: Colors.red,
                                 child:
@@ -96,12 +130,9 @@ class Tablero extends StatelessWidget {
                               height: 8,
                             ), //Para darle un espacio entre containers
 
-                            //Expanded(
-                            //  flex: 10,
-                            //child: Container(
                             Container(
                               height: 0.36 *
-                                  (heightPantalla -
+                                  (Tablero.heightPantalla -
                                       appBar.preferredSize.height),
                               color: Colors.yellow,
                               child: const Text("Siguientes piezas"),
@@ -111,9 +142,7 @@ class Tablero extends StatelessWidget {
                               height: 8,
                             ), //Para darle un espacio entre containers
 
-                            //Expanded(
-                            //child: Column(    //???Quizas esto se pueda hacer con un grid
-                            Column(
+                            Column(//???Quizas esto se pueda hacer con un grid
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Container(
@@ -127,14 +156,12 @@ class Tablero extends StatelessWidget {
                                     child: const Text("Lines: ")),
                               ],
                             ),
-                            //),
 
                             ElevatedButton(
                                 onPressed: () {}, child: const Text("Save")),
                           ],
                         ))),
               ],
-              //)
             ),
             Expanded(
                 flex: 5,
@@ -146,11 +173,17 @@ class Tablero extends StatelessWidget {
 
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          piezaActual.mover(1);
+                        });
+                      },
                       child: const Icon(Icons.arrow_back, size: 32),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        piezaActual.girar(true);
+                      },
                       child: const Icon(Icons.rotate_left, size: 32),
                     ),
                     ElevatedButton(
@@ -158,11 +191,15 @@ class Tablero extends StatelessWidget {
                       child: const Icon(Icons.arrow_downward, size: 32),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        piezaActual.girar(false);
+                      },
                       child: const Icon(Icons.rotate_right, size: 32),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        piezaActual.mover(2);
+                      },
                       child: const Icon(Icons.arrow_forward, size: 32),
                     ),
                   ],

@@ -17,21 +17,21 @@ abstract class Pieza {
         for (Bloque element in bloques) {
           element.x -= 1;
         }
-        centroPieza.x -= 1;
+        //centroPieza.x -= 1;
         break;
 
       case 2: //Derecha
         for (Bloque element in bloques) {
           element.x += 1;
         }
-        centroPieza.x += 1;
+        //centroPieza.x += 1;
         break;
 
       case 3: //Abajo
         for (Bloque element in bloques) {
           element.y += 1;
         }
-        centroPieza.y += 1;
+        //centroPieza.y += 1;
         break;
     }
   }
