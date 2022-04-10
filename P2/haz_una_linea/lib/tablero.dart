@@ -102,16 +102,10 @@ class _Tablero extends State<Tablero> {
         appBar: appBar,
         body: Column(
           children: [
-            //Expanded(
-            //Sirve para poder usar flex como si de un css se tratara
-            //flex: 95,
-            /*child:*/ Row(
-              //crossAxisAlignment: CrossAxisAlignment.stretch,   //Sirve para ajustar verticalmente
+            Row(
               children: [
                 pintarTableroPiezas(),
                 Expanded(
-
-                    //child: Column(
                     child: Padding(
                         //Padding para que no se pegue con el tablero
                         padding: const EdgeInsets.all(3),
@@ -129,7 +123,6 @@ class _Tablero extends State<Tablero> {
                                 color: Colors.red,
                                 child:
                                     const Center(child: Text("Pieza siguiente"))
-                                //),
                                 ),
 
                             const SizedBox(
@@ -196,7 +189,17 @@ class _Tablero extends State<Tablero> {
                       child: const Icon(Icons.rotate_left, size: 32),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          piezaActual.mover(3);
+                        });                        
+                      },
+
+                      onLongPress: (){
+                        setState(() {
+                          piezaActual.mover(3);
+                        });                                                
+                      },
                       child: const Icon(Icons.arrow_downward, size: 32),
                     ),
                     ElevatedButton(
