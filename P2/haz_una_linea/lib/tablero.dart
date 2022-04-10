@@ -31,8 +31,15 @@ class _Tablero extends State<Tablero> {
     comenzar();
   }
 
+  @override
+  void dispose() {
+    timerPrincipal!.cancel();
+    super.dispose();
+  }
+
   void comenzar() {
-    timerPrincipal = Timer.periodic(const Duration(milliseconds: 1000), (timer) {
+    timerPrincipal =
+        Timer.periodic(const Duration(milliseconds: 1000), (timer) {
       //El 3
 
       setState(() {
@@ -58,11 +65,11 @@ class _Tablero extends State<Tablero> {
     for (Bloque aux in piezaActual.bloques) {
       bloquesActivos.add(Positioned(
           //Ejemplo que muestra como se pinta un bloque
-          top: (aux.y * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
-              3,
-          left: (aux.x *
-                  (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
-              3,
+          top:
+              ((aux.y * (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+                      Tablero.inicioTableroY),
+          left: ((aux.x *
+                      (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS))+Tablero.inicioTableroX),
           child: Container(
               width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
               height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
@@ -142,7 +149,8 @@ class _Tablero extends State<Tablero> {
                               height: 8,
                             ), //Para darle un espacio entre containers
 
-                            Column(//???Quizas esto se pueda hacer con un grid
+                            Column(
+                              //???Quizas esto se pueda hacer con un grid
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Container(

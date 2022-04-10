@@ -7,7 +7,7 @@ class LPieza extends Pieza{
     if(inverso){
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -3);
-      bloques[1] = Bloque(centro, -3);
+      bloques[1] = Bloque(centro+0, -3);
       bloques[2] = Bloque(centro + 1, -3);
       bloques[3] = Bloque(centro + 1, -4);
 
@@ -17,7 +17,7 @@ class LPieza extends Pieza{
     else{
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -3);
-      bloques[1] = Bloque(centro, -3);
+      bloques[1] = Bloque(centro+0, -3);
       bloques[2] = Bloque(centro + 1, -3);
       bloques[3] = Bloque(centro + 1, -2);
 

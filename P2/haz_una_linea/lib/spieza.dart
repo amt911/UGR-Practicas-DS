@@ -8,8 +8,8 @@ class SPieza extends Pieza {
     if(inverso){
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -3);
-      bloques[1] = Bloque(centro, -3);
-      bloques[2] = Bloque(centro, -4);
+      bloques[1] = Bloque(centro+0, -3);
+      bloques[2] = Bloque(centro+0, -4);
       bloques[3] = Bloque(centro + 1, -4);
 
       //Comprobar el centro de esta pieza
@@ -18,8 +18,8 @@ class SPieza extends Pieza {
     else{
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -4);
-      bloques[1] = Bloque(centro, -4);
-      bloques[2] = Bloque(centro, -3);
+      bloques[1] = Bloque(centro+0, -4);
+      bloques[2] = Bloque(centro+0, -3);
       bloques[3] = Bloque(centro + 1, -3);
 
       //Comprobar el centro de esta pieza

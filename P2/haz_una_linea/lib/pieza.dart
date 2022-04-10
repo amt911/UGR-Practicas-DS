@@ -40,13 +40,19 @@ abstract class Pieza {
     //Formulas obtenidas de la asignatura IG
     if (esIzquierda) {
       for (Bloque element in bloques) {
+        double x = element.x;
+        print("ANTES: x: ${element.x}, y: ${element.y}\n");
+        print("CENTROPIEZA, X: ${centroPieza.x}, y: ${centroPieza.y}\n");
         element.x = centroPieza.x + centroPieza.y - element.y;
-        element.y = centroPieza.y + element.x - centroPieza.x;
+        element.y = centroPieza.y + x - centroPieza.x;
+        print("CENTROPIEZA, X: ${centroPieza.x}, y: ${centroPieza.y}\n");
+        print("DESPUES: x: ${element.x}, y: ${element.y}\n");
       }
     } else {
       for (Bloque element in bloques) {
+        double x = element.x;
         element.x = centroPieza.x - centroPieza.y + element.y;
-        element.y = centroPieza.y - element.x + centroPieza.x;
+        element.y = centroPieza.y - x + centroPieza.x;
       }
     }
   }

@@ -1,8 +1,8 @@
 class Bloque {
-  int _x, _y;
+  double _x, _y;
 
-  int get x => _x;
-  int get y => _y;
+  double get x => _x;
+  double get y => _y;
   set x(x) => _x = x;
   set y(y) => _y = y;
 

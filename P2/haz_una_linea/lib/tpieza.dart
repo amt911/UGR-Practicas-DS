@@ -6,9 +6,9 @@ class TPieza extends Pieza{
   TPieza(){
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -3);
-      bloques[1] = Bloque(centro, -3);
+      bloques[1] = Bloque(centro+0, -3);
       bloques[2] = Bloque(centro+1, -3);
-      bloques[3] = Bloque(centro, -4);
+      bloques[3] = Bloque(centro+0, -4);
 
       //Comprobar el centro de esta pieza
       centroPieza = bloques[1];                
