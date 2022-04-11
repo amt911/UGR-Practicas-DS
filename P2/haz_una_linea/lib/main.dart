@@ -68,9 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual, overlays: []
-    );
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -104,11 +102,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     builder: (context) => Tablero()));
                           },
                           icon: const Icon(Icons.play_arrow_rounded, size: 18),
-                          label: const Text("Jugaxr"),
+                          label: const Text("Jugar"),
                         )))
               ],
-            ))
-        );
+            )));
   }
 }
 

@@ -33,7 +33,7 @@ class IPieza extends Pieza {
 
     return resultado;
   }
-
+/*
   @override
   void mover(int direccion){
     super.mover(direccion);
@@ -55,5 +55,5 @@ class IPieza extends Pieza {
         centroPieza.y += 1;
         break;
     }
-  }
+  }*/
 }

@@ -21,8 +21,8 @@ abstract class Pieza {
           for (Bloque element in bloques) {
             element.x -= 1;
           }
+          centroPieza.x -= 1;
         }
-        //centroPieza.x -= 1;
         break;
 
       case 2: //Derecha
@@ -30,15 +30,17 @@ abstract class Pieza {
           for (Bloque element in bloques) {
             element.x += 1;
           }
+          centroPieza.x += 1;
         }
-        //centroPieza.x += 1;
         break;
 
       case 3: //Abajo
         for (Bloque element in bloques) {
+          //print("x: ${element.x}, y: ${element.y}\n");
           element.y += 1;
         }
-        //centroPieza.y += 1;
+        //print("CENTROPIEZA x: ${centroPieza.x}, y: ${centroPieza.y}\n");
+        centroPieza.y += 1;
         break;
     }
   }
@@ -58,6 +60,22 @@ abstract class Pieza {
     return res;
   }
 
+  bool colisionLateralGiro(bool esIzquierda) {
+    //Este tipo de colision permite girar justo pegado a la pared
+    bool res = false;
+    if (esIzquierda) {
+      for (Bloque aux in bloques) {
+        if (aux.x < 0) res = true;
+      }
+    } else {
+      for (Bloque aux in bloques) {
+        if (aux.x > (Tablero.TABLERO_WIDTH_PIEZAS - 1)) res = true;
+      }
+    }
+
+    return res;
+  }
+
   void girar(bool esIzquierda) {
     //Formulas obtenidas de la asignatura IG
     if (esIzquierda) {
@@ -67,7 +85,7 @@ abstract class Pieza {
         element.y = centroPieza.y + x - centroPieza.x;
       }
 
-      if (colisionLateral(true) || colisionLateral(false)){
+      if (colisionLateralGiro(true) || colisionLateralGiro(false)) {
         for (Bloque element in bloques) {
           double x = element.x;
           element.x = centroPieza.x - centroPieza.y + element.y;
@@ -81,13 +99,25 @@ abstract class Pieza {
         element.y = centroPieza.y - x + centroPieza.x;
       }
 
-      if (colisionLateral(true) || colisionLateral(false)){
+      if (colisionLateralGiro(true) || colisionLateralGiro(false)) {
         for (Bloque element in bloques) {
           double x = element.x;
           element.x = centroPieza.x + centroPieza.y - element.y;
           element.y = centroPieza.y + x - centroPieza.x;
-        }        
+        }
       }
     }
+  }
+
+  bool estaEnSuelo() {
+    bool res = false;
+
+    for (Bloque aux in bloques) {
+      print("Altura max: ${Tablero.tableroHeight + Tablero.inicioTableroY}\n");
+      print("y: ${aux.y}\n");
+      if (aux.y >= (Tablero.TABLERO_HEIGHT_PIEZAS-1)) res = true;
+    }
+
+    return res;
   }
 }

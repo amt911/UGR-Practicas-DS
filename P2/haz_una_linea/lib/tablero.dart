@@ -4,8 +4,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
+import 'package:haz_una_linea/cubopieza.dart';
+import 'package:haz_una_linea/factoria_abstracta.dart';
+import 'package:haz_una_linea/factoria_concreta.dart';
 import 'package:haz_una_linea/ipieza.dart';
+import 'package:haz_una_linea/lpieza.dart';
 import 'package:haz_una_linea/pieza.dart';
+import 'package:haz_una_linea/spieza.dart';
+import 'package:haz_una_linea/tpieza.dart';
 
 class Tablero extends StatefulWidget {
   static double tableroWidth = 0; // = MediaQuery.of(context).size.width;
@@ -23,7 +29,30 @@ class Tablero extends StatefulWidget {
 
 class _Tablero extends State<Tablero> {
   Timer? timerPrincipal;
-  Pieza piezaActual = IPieza();
+  late Pieza piezaActual;
+  List<Pieza> lista = [
+    IPieza(),
+    LPieza(true),
+    LPieza(false),
+    SPieza(true),
+    SPieza(false),
+    CuboPieza(),
+    TPieza()
+  ];
+  late FactoriaAbstracta fa;
+  late List<List<Bloque?>> bloquesPuestos;
+  //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
+
+  _Tablero() : super() {
+    bloquesPuestos = List.generate(
+        Tablero.TABLERO_HEIGHT_PIEZAS.toInt(),
+        (index) => List.filled(Tablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
+            growable: false),
+        growable: false);
+
+    fa = FactoriaConcreta(lista);
+    piezaActual = fa.crearPieza();
+  }
 
   @override
   void initState() {
@@ -37,13 +66,29 @@ class _Tablero extends State<Tablero> {
     super.dispose();
   }
 
+  void meterEnTablero() {
+    for (Bloque aux in piezaActual.bloques) {
+      bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
+    }
+  }
+
   void comenzar() {
     timerPrincipal =
         Timer.periodic(const Duration(milliseconds: 1000), (timer) {
-      //El 3
-
       setState(() {
-          piezaActual.mover(3);
+        //if (!parar) {
+        //parar = true;
+        //for (int i = 0; i < 10; i++)
+
+        if (!piezaActual.estaEnSuelo()) {
+          piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
+        } else {
+          print("HE ENTRADOLSDJKFLSDKFJLDFKGJLDKFGJDFG\n");
+          //Si esta en el suelo se genera una nueva pieza
+          meterEnTablero();
+          piezaActual = fa.crearPieza();
+        }
+        //}
       });
     });
   }
@@ -75,7 +120,40 @@ class _Tablero extends State<Tablero> {
               color: aux.color)));
     }
 
-    return Stack(children: bloquesActivos);
+    //Ahora toca la parte de pintar los bloques ya puestos
+    for (int i = 0; i < Tablero.TABLERO_HEIGHT_PIEZAS; i++){
+      for (int j = 0; j < Tablero.TABLERO_WIDTH_PIEZAS; j++) {
+        if(bloquesPuestos[i][j]!=null){
+          bloquesActivos.add(Positioned(
+              //Ejemplo que muestra como se pinta un bloque
+              top: ((bloquesPuestos[i][j]!.y *
+                      (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+                  Tablero.inicioTableroY),
+              left:
+                  ((bloquesPuestos[i][j]!.x * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+                      Tablero.inicioTableroX),
+              child: Container(
+                  width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
+                  height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
+                  color: bloquesPuestos[i][j]!.color)));          
+            }
+      }
+    }
+
+      //Comentar esta parte, solo sirve para depurar el centro de rotacion
+      /*bloquesActivos.add(Positioned(
+        //Ejemplo que muestra como se pinta un bloque
+        top: ((piezaActual.centroPieza.y *
+                (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+            Tablero.inicioTableroY),
+        left: ((piezaActual.centroPieza.x *
+                (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+            Tablero.inicioTableroX),
+        child: Container(
+            width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
+            height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
+            color: Colors.white)));*/
+      return Stack(children: bloquesActivos);
   }
 
   @override
@@ -121,9 +199,8 @@ class _Tablero extends State<Tablero> {
                                     (Tablero.heightPantalla -
                                         appBar.preferredSize.height),
                                 color: Colors.red,
-                                child:
-                                    const Center(child: Text("Pieza siguiente"))
-                                ),
+                                child: const Center(
+                                    child: Text("Pieza siguiente"))),
 
                             const SizedBox(
                               height: 8,
@@ -182,7 +259,7 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {  
+                        setState(() {
                           piezaActual.girar(true);
                         });
                       },
@@ -192,13 +269,12 @@ class _Tablero extends State<Tablero> {
                       onPressed: () {
                         setState(() {
                           piezaActual.mover(3);
-                        });                        
+                        });
                       },
-
-                      onLongPress: (){
+                      onLongPress: () {
                         setState(() {
                           piezaActual.mover(3);
-                        });                                                
+                        });
                       },
                       child: const Icon(Icons.arrow_downward, size: 32),
                     ),
@@ -213,7 +289,7 @@ class _Tablero extends State<Tablero> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          piezaActual.mover(2);  
+                          piezaActual.mover(2);
                         });
                       },
                       child: const Icon(Icons.arrow_forward, size: 32),
