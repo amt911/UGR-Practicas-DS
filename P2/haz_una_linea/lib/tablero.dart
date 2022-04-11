@@ -31,18 +31,20 @@ class Tablero extends StatefulWidget {
 class _Tablero extends State<Tablero> {
   Timer? timerPrincipal;
   late Pieza piezaActual;
-  List<Pieza> lista = [
-    IPieza(),
-    LPieza(true),
-    LPieza(false),
-    SPieza(true),
-    SPieza(false),
-    CuboPieza(),
-    TPieza()
-  ];
-  //List<Pieza> lista = [IPieza()];   //Version debug
+  //List<Pieza> lista = [
+  //  IPieza(),
+  //  LPieza(true),
+  //  LPieza(false),
+  //  SPieza(true),
+  //  SPieza(false),
+  //  CuboPieza(),
+  //  TPieza()
+  //];
+  int contadorLineas = 0;
+  List<Pieza> lista = [IPieza()]; //Version debug
   late FactoriaAbstracta fa;
   late List<List<Bloque?>> bloquesPuestos;
+  int delay = 1200;
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
 
   _Tablero() : super() {
@@ -133,9 +135,22 @@ class _Tablero extends State<Tablero> {
     return res;
   }
 
+  void subirNivel() {
+    if (contadorLineas == 2) {
+      contadorLineas = 0;
+      delay -= 500;
+
+      //Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar para que se reinicie
+      timerPrincipal!.cancel();
+
+      comenzar();
+    }
+  }
+
   void moverLineasSuperiores(List<int> lineas) {
     //bloquesPuestos[3][3] = Bloque(3, 3, Colors.black);
     for (int i in lineas) {
+      contadorLineas++;
       //print("i: ${i}\n");
       for (int f = i; f > 1; f--) {
         for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
@@ -182,13 +197,8 @@ class _Tablero extends State<Tablero> {
   }
 
   void comenzar() {
-    timerPrincipal =
-        Timer.periodic(const Duration(milliseconds: 1000), (timer) {
+    timerPrincipal = Timer.periodic(Duration(milliseconds: delay), (timer) {
       setState(() {
-        //if (!parar) {
-        //parar = true;
-        //for (int i = 0; i < 10; i++)
-
         if (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual)) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
@@ -196,8 +206,8 @@ class _Tablero extends State<Tablero> {
           eliminarLineasCompletas();
 
           piezaActual = fa.crearPieza();
+          subirNivel();
         }
-        //}
       });
     });
   }
