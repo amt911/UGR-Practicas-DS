@@ -76,6 +76,7 @@ class _Tablero extends State<Tablero> {
   int delay = 1200;
   bool esPausa = false; //false para pausar
   late Queue<Pieza> piezasSiguientes;
+  int puntuacion = 0;
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
 
   _Tablero() : super() {
@@ -183,8 +184,6 @@ class _Tablero extends State<Tablero> {
           nivel == 19 ||
           nivel == 29) indiceDelay++;
 
-      //print("delay: ${delay}\n");
-
       //Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar para que se reinicie
       timerPrincipal!.cancel();
 
@@ -211,6 +210,26 @@ class _Tablero extends State<Tablero> {
     }
   }
 
+  void calcularPuntuacion(int lineas) {
+    switch (lineas) {
+      case 1:
+        puntuacion += 40 * (nivel + 1);
+        break;
+
+      case 2:
+        puntuacion += 100 * (nivel + 1);
+        break;
+
+      case 3:
+        puntuacion += 300 * (nivel + 1);
+        break;
+
+      default:
+        puntuacion += 1200 * (nivel + 1);
+        break;
+    }
+  }
+
   void eliminarLineasCompletas() {
     List<int> lineas = lineasCompletas();
     //print(lineas.length);
@@ -221,12 +240,16 @@ class _Tablero extends State<Tablero> {
       }
     }
 
+    if (lineas.isNotEmpty) {
+      calcularPuntuacion(lineas.length);
+    }
+
     moverLineasSuperiores(lineas);
   }
 
   List<Container> pintarInfo() {
     List<Container> lista = [
-      Container(color: Colors.amber, child: const Text("Score: 6969")),
+      Container(color: Colors.amber, child: Text("Score: $puntuacion")),
       Container(color: Colors.amber, child: Text("Level: $nivel")),
       Container(color: Colors.amber, child: Text("Lines: $lineasAcumuladas")),
     ];
@@ -419,9 +442,10 @@ class _Tablero extends State<Tablero> {
           top: (i.y + 3) *
                   Tablero.piezaReservadaHeight /
                   Tablero.REJILLA_RESERVADA +
-              Tablero.piezaReservadaTextoHeight + Tablero.piezaReservadaHeight,
+              Tablero.piezaReservadaTextoHeight +
+              Tablero.piezaReservadaHeight,
           child: Container(color: i.color)));
-    }    
+    }
 
     for (Bloque i in piezasSiguientes.toList()[2].bloques) {
       listaBloque.add(Positioned(
@@ -433,9 +457,10 @@ class _Tablero extends State<Tablero> {
           top: (i.y + 3) *
                   Tablero.piezaReservadaHeight /
                   Tablero.REJILLA_RESERVADA +
-              Tablero.piezaReservadaTextoHeight + 2*Tablero.piezaReservadaHeight,
+              Tablero.piezaReservadaTextoHeight +
+              2 * Tablero.piezaReservadaHeight,
           child: Container(color: i.color)));
-    }        
+    }
     return listaBloque;
   }
 
@@ -505,41 +530,7 @@ class _Tablero extends State<Tablero> {
                         height: 3 * Tablero.piezaReservadaHeight +
                             Tablero.piezaReservadaTextoHeight,
                         color: Colors.grey,
-                        child: Stack(
-                          children: piezasSiguientesDisplay()/*[
-                            Positioned(
-                                width: Tablero.piezaReservadaTextoWidth,
-                                height: Tablero.piezaReservadaTextoHeight,
-                                child: Container(
-                                  color: Colors.yellow,
-                                  child:
-                                      const Center(child: Text("Siguientes: ")),
-                                )),
-                            Positioned(
-                                width: Tablero.piezaReservadaWidth,
-                                height: Tablero.piezaReservadaHeight,
-                                top: Tablero.piezaReservadaTextoHeight,
-                                child: Container(
-                                    color: Colors.red,
-                                    child: const Text("pieza1"))),
-                            Positioned(
-                                width: Tablero.piezaReservadaWidth,
-                                height: Tablero.piezaReservadaHeight,
-                                top: Tablero.piezaReservadaTextoHeight +
-                                    Tablero.piezaReservadaHeight,
-                                child: Container(
-                                    color: Colors.orange,
-                                    child: const Text("pieza2"))),
-                            Positioned(
-                                width: Tablero.piezaReservadaWidth,
-                                height: Tablero.piezaReservadaHeight,
-                                top: Tablero.piezaReservadaTextoHeight +
-                                    2 * Tablero.piezaReservadaHeight,
-                                child: Container(
-                                    color: Colors.blue,
-                                    child: const Text("pieza3"))),
-                          ],*/
-                        )),
+                        child: Stack(children: piezasSiguientesDisplay())),
 
                     const SizedBox(
                       height: 8,
