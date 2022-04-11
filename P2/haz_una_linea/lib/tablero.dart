@@ -9,8 +9,10 @@ import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/cubopieza.dart';
 import 'package:haz_una_linea/factoria_abstracta.dart';
 import 'package:haz_una_linea/factoria_concreta.dart';
+import 'package:haz_una_linea/game_over.dart';
 import 'package:haz_una_linea/ipieza.dart';
 import 'package:haz_una_linea/lpieza.dart';
+import 'package:haz_una_linea/pausa.dart';
 import 'package:haz_una_linea/pieza.dart';
 import 'package:haz_una_linea/spieza.dart';
 import 'package:haz_una_linea/tpieza.dart';
@@ -242,6 +244,9 @@ class _Tablero extends State<Tablero> {
   void mostrarGameOver() {
     timerPrincipal!.cancel();
     print("GAME OVER JAJAJAJA\n");
+
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => GameOver()));
   }
 
   void calcularPuntuacion(int lineas) {
@@ -318,12 +323,9 @@ class _Tablero extends State<Tablero> {
             !gameOver()) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
-
-          
-          if(fin) {
+          if (fin) {
             mostrarGameOver();
-          }
-          else{
+          } else {
             meterEnTablero();
             eliminarLineasCompletas();
 
@@ -512,7 +514,7 @@ class _Tablero extends State<Tablero> {
     AppBar appBar = AppBar(
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
-      title: const Text("Jueguecitoo del diablo"),
+      title: const Text("Partida nueva"),
     );
 
     Tablero.widthPantalla = MediaQuery.of(context).size.width;
@@ -545,13 +547,17 @@ class _Tablero extends State<Tablero> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          if (!esPausa) {
-                            timerPrincipal!.cancel();
-                            esPausa = true;
-                          } else {
-                            esPausa = false;
-                            comenzar();
-                          }
+                          //if (!esPausa) {
+                          timerPrincipal!.cancel();
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Pausa())).then((value) => comenzar());
+
+                          //print("NO SE SI DEBERIA SEGUIR");
+                          //esPausa = true;
+                          //} else {
+                          //esPausa = false;
+                          //comenzar();
+                          //}
                         });
                       },
                       child: const Icon(Icons.pause, size: 32),
