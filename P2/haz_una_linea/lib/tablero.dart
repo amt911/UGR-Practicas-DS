@@ -70,13 +70,14 @@ class _Tablero extends State<Tablero> {
   int indiceDelay = 0;
   int lineasAcumuladas = 0;
   bool reservado = false; //false permite reservar
-  //List<Pieza> lista = [CuboPieza()]; //Version debug
+  //List<Pieza> lista = [SPieza(true)]; //Version debug
   late FactoriaAbstracta fa;
   late List<List<Bloque?>> bloquesPuestos;
   int delay = 1200;
   bool esPausa = false; //false para pausar
   late Queue<Pieza> piezasSiguientes;
   int puntuacion = 0;
+  bool fin = false;
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
 
   _Tablero() : super() {
@@ -108,9 +109,17 @@ class _Tablero extends State<Tablero> {
   }
 
   void meterEnTablero() {
+    //bool fin = false;
+
     for (Bloque aux in piezaActual.bloques) {
-      bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
+      if (aux.y >= 0) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
+      } else {
+        fin = true;
+      }
     }
+
+    //if (fin) mostrarGameOver();
   }
 
   void bajarRapido() {
@@ -163,7 +172,7 @@ class _Tablero extends State<Tablero> {
     bool res = false;
 
     for (Bloque aux in bloqueAux.bloques) {
-      if ((aux.y >= 0) &&
+      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
           bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) {
         res = true;
       }
@@ -208,6 +217,31 @@ class _Tablero extends State<Tablero> {
         }
       }
     }
+  }
+
+  bool gameOver() {
+    //bool fin = false;
+    if (!fin) {
+      for (Bloque aux in piezaActual.bloques) {
+        if (aux.y >= -1 &&
+            bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
+          fin = true;
+        }
+      }
+    }
+
+    //if (fin) {
+    //  print("HE ACABADO DE VIVIR\n");
+    //  mostrarGameOver();
+    //  //timerPrincipal!.cancel();
+    //}
+
+    return fin;
+  }
+
+  void mostrarGameOver() {
+    timerPrincipal!.cancel();
+    print("GAME OVER JAJAJAJA\n");
   }
 
   void calcularPuntuacion(int lineas) {
@@ -279,19 +313,28 @@ class _Tablero extends State<Tablero> {
     timerPrincipal = Timer.periodic(
         Duration(milliseconds: Tablero.delays[indiceDelay]), (timer) {
       setState(() {
-        if (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual)) {
+        if (!piezaActual.estaEnSuelo() &&
+            !estaEncimaPieza(piezaActual) &&
+            !gameOver()) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
-          meterEnTablero();
-          eliminarLineasCompletas();
 
-          piezaActual = piezasSiguientes.first;
+          
+          if(fin) {
+            mostrarGameOver();
+          }
+          else{
+            meterEnTablero();
+            eliminarLineasCompletas();
 
-          piezasSiguientes.removeFirst();
-          piezasSiguientes.add(fa.crearPieza());
+            piezaActual = piezasSiguientes.first;
 
-          subirNivel();
-          reservado = false;
+            piezasSiguientes.removeFirst();
+            piezasSiguientes.add(fa.crearPieza());
+
+            subirNivel();
+            reservado = false;
+          }
         }
       });
     });
