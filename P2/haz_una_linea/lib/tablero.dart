@@ -1,6 +1,7 @@
 //import 'dart:html';
 
 import 'dart:async';
+import 'dart:collection';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -73,7 +74,8 @@ class _Tablero extends State<Tablero> {
   late FactoriaAbstracta fa;
   late List<List<Bloque?>> bloquesPuestos;
   int delay = 1200;
-  bool esPausa = false;   //false para pausar
+  bool esPausa = false; //false para pausar
+  late Queue<Pieza> piezasSiguientes;
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
 
   _Tablero() : super() {
@@ -85,6 +87,11 @@ class _Tablero extends State<Tablero> {
 
     fa = FactoriaConcreta(lista);
     piezaActual = fa.crearPieza();
+    piezasSiguientes = Queue();
+
+    for (int i = 0; i < 3; i++) {
+      piezasSiguientes.add(fa.crearPieza());
+    }
   }
 
   @override
@@ -255,7 +262,11 @@ class _Tablero extends State<Tablero> {
           meterEnTablero();
           eliminarLineasCompletas();
 
-          piezaActual = fa.crearPieza();
+          piezaActual = piezasSiguientes.first;
+
+          piezasSiguientes.removeFirst();
+          piezasSiguientes.add(fa.crearPieza());
+
           subirNivel();
           reservado = false;
         }
@@ -373,6 +384,61 @@ class _Tablero extends State<Tablero> {
     reservado = true;
   }
 
+  List<Widget> piezasSiguientesDisplay() {
+    List<Widget> listaBloque = [];
+
+    listaBloque.add(Positioned(
+        width: Tablero.piezaReservadaTextoWidth,
+        height: Tablero.piezaReservadaTextoHeight,
+        child: Container(
+          color: Colors.yellow,
+          child: const Center(child: Text("Siguientes: ")),
+        )));
+
+    for (Bloque i in piezasSiguientes.toList()[0].bloques) {
+      listaBloque.add(Positioned(
+          width: Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
+          height: Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA,
+          left: (i.x - 2) *
+              Tablero.piezaReservadaWidth /
+              Tablero.REJILLA_RESERVADA,
+          top: (i.y + 3) *
+                  Tablero.piezaReservadaHeight /
+                  Tablero.REJILLA_RESERVADA +
+              Tablero.piezaReservadaTextoHeight,
+          child: Container(color: i.color)));
+    }
+
+    for (Bloque i in piezasSiguientes.toList()[1].bloques) {
+      listaBloque.add(Positioned(
+          width: Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
+          height: Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA,
+          left: (i.x - 2) *
+              Tablero.piezaReservadaWidth /
+              Tablero.REJILLA_RESERVADA,
+          top: (i.y + 3) *
+                  Tablero.piezaReservadaHeight /
+                  Tablero.REJILLA_RESERVADA +
+              Tablero.piezaReservadaTextoHeight + Tablero.piezaReservadaHeight,
+          child: Container(color: i.color)));
+    }    
+
+    for (Bloque i in piezasSiguientes.toList()[2].bloques) {
+      listaBloque.add(Positioned(
+          width: Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
+          height: Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA,
+          left: (i.x - 2) *
+              Tablero.piezaReservadaWidth /
+              Tablero.REJILLA_RESERVADA,
+          top: (i.y + 3) *
+                  Tablero.piezaReservadaHeight /
+                  Tablero.REJILLA_RESERVADA +
+              Tablero.piezaReservadaTextoHeight + 2*Tablero.piezaReservadaHeight,
+          child: Container(color: i.color)));
+    }        
+    return listaBloque;
+  }
+
   @override
   Widget build(BuildContext context) {
     AppBar appBar = AppBar(
@@ -417,7 +483,7 @@ class _Tablero extends State<Tablero> {
                           } else {
                             esPausa = false;
                             comenzar();
-                          }                          
+                          }
                         });
                       },
                       child: const Icon(Icons.pause, size: 32),
@@ -435,15 +501,45 @@ class _Tablero extends State<Tablero> {
                     ), //Para darle un espacio entre containers
 
                     Container(
-                      width: 0.03 *
-                          (Tablero.heightPantalla -
-                              appBar.preferredSize.height),
-                      height: 0.36 *
-                          (Tablero.heightPantalla -
-                              appBar.preferredSize.height),
-                      color: Colors.yellow,
-                      child: const Text("Siguientes piezas"),
-                    ),
+                        width: Tablero.piezaReservadaWidth,
+                        height: 3 * Tablero.piezaReservadaHeight +
+                            Tablero.piezaReservadaTextoHeight,
+                        color: Colors.grey,
+                        child: Stack(
+                          children: piezasSiguientesDisplay()/*[
+                            Positioned(
+                                width: Tablero.piezaReservadaTextoWidth,
+                                height: Tablero.piezaReservadaTextoHeight,
+                                child: Container(
+                                  color: Colors.yellow,
+                                  child:
+                                      const Center(child: Text("Siguientes: ")),
+                                )),
+                            Positioned(
+                                width: Tablero.piezaReservadaWidth,
+                                height: Tablero.piezaReservadaHeight,
+                                top: Tablero.piezaReservadaTextoHeight,
+                                child: Container(
+                                    color: Colors.red,
+                                    child: const Text("pieza1"))),
+                            Positioned(
+                                width: Tablero.piezaReservadaWidth,
+                                height: Tablero.piezaReservadaHeight,
+                                top: Tablero.piezaReservadaTextoHeight +
+                                    Tablero.piezaReservadaHeight,
+                                child: Container(
+                                    color: Colors.orange,
+                                    child: const Text("pieza2"))),
+                            Positioned(
+                                width: Tablero.piezaReservadaWidth,
+                                height: Tablero.piezaReservadaHeight,
+                                top: Tablero.piezaReservadaTextoHeight +
+                                    2 * Tablero.piezaReservadaHeight,
+                                child: Container(
+                                    color: Colors.blue,
+                                    child: const Text("pieza3"))),
+                          ],*/
+                        )),
 
                     const SizedBox(
                       height: 8,
