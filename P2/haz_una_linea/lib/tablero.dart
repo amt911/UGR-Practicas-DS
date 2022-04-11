@@ -72,6 +72,50 @@ class _Tablero extends State<Tablero> {
     }
   }
 
+  bool estaEncimaPieza() {
+    bool res = false;
+    for (Bloque aux in piezaActual.bloques) {
+      if (bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
+        res = true;
+      }
+    }
+
+    return res;
+  }
+
+  bool colisionLateralPieza(bool esIzquierda) {
+    bool res = false;
+
+    if (esIzquierda) {
+      for (Bloque aux in piezaActual.bloques) {
+        if ((aux.x > 0) &&
+            (bloquesPuestos[aux.y.toInt()][(aux.x - 1).toInt()] != null)) {
+          res = true;
+        }
+
+        //if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
+        //    (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
+        //  res = true;
+        //}
+      }
+    }
+    else{
+      for (Bloque aux in piezaActual.bloques) {
+        //if ((aux.x > 0) &&
+        //    (bloquesPuestos[aux.y.toInt()][(aux.x - 1).toInt()] != null)) {
+        //  res = true;
+        //}
+
+        if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
+            (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
+          res = true;
+        }
+      }      
+    }
+
+    return res;
+  }
+
   void comenzar() {
     timerPrincipal =
         Timer.periodic(const Duration(milliseconds: 1000), (timer) {
@@ -80,10 +124,10 @@ class _Tablero extends State<Tablero> {
         //parar = true;
         //for (int i = 0; i < 10; i++)
 
-        if (!piezaActual.estaEnSuelo()) {
+        if (!piezaActual.estaEnSuelo() && !estaEncimaPieza()) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
-          print("HE ENTRADOLSDJKFLSDKFJLDFKGJLDKFGJDFG\n");
+          //print("HE ENTRADOLSDJKFLSDKFJLDFKGJLDKFGJDFG\n");
           //Si esta en el suelo se genera una nueva pieza
           meterEnTablero();
           piezaActual = fa.crearPieza();
@@ -121,27 +165,27 @@ class _Tablero extends State<Tablero> {
     }
 
     //Ahora toca la parte de pintar los bloques ya puestos
-    for (int i = 0; i < Tablero.TABLERO_HEIGHT_PIEZAS; i++){
+    for (int i = 0; i < Tablero.TABLERO_HEIGHT_PIEZAS; i++) {
       for (int j = 0; j < Tablero.TABLERO_WIDTH_PIEZAS; j++) {
-        if(bloquesPuestos[i][j]!=null){
+        if (bloquesPuestos[i][j] != null) {
           bloquesActivos.add(Positioned(
               //Ejemplo que muestra como se pinta un bloque
               top: ((bloquesPuestos[i][j]!.y *
                       (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
                   Tablero.inicioTableroY),
-              left:
-                  ((bloquesPuestos[i][j]!.x * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
-                      Tablero.inicioTableroX),
+              left: ((bloquesPuestos[i][j]!.x *
+                      (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+                  Tablero.inicioTableroX),
               child: Container(
                   width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
                   height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
-                  color: bloquesPuestos[i][j]!.color)));          
-            }
+                  color: bloquesPuestos[i][j]!.color)));
+        }
       }
     }
 
-      //Comentar esta parte, solo sirve para depurar el centro de rotacion
-      /*bloquesActivos.add(Positioned(
+    //Comentar esta parte, solo sirve para depurar el centro de rotacion
+    /*bloquesActivos.add(Positioned(
         //Ejemplo que muestra como se pinta un bloque
         top: ((piezaActual.centroPieza.y *
                 (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
@@ -153,7 +197,7 @@ class _Tablero extends State<Tablero> {
             width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
             height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
             color: Colors.white)));*/
-      return Stack(children: bloquesActivos);
+    return Stack(children: bloquesActivos);
   }
 
   @override
@@ -251,9 +295,11 @@ class _Tablero extends State<Tablero> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          piezaActual.mover(1);
-                        });
+                        if (!colisionLateralPieza(true)) {
+                          setState(() {
+                            piezaActual.mover(1);
+                          });
+                        }
                       },
                       child: const Icon(Icons.arrow_back, size: 32),
                     ),
@@ -288,9 +334,11 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          piezaActual.mover(2);
-                        });
+                        if (!colisionLateralPieza(false)) {
+                          setState(() {
+                            piezaActual.mover(2);
+                          });
+                        }
                       },
                       child: const Icon(Icons.arrow_forward, size: 32),
                     ),
