@@ -54,24 +54,26 @@ class Tablero extends StatefulWidget {
 class _Tablero extends State<Tablero> {
   Timer? timerPrincipal;
   late Pieza piezaActual;
-  Pieza piezaReservada = TPieza();
-  //List<Pieza> lista = [
-  //  IPieza(),
-  //  LPieza(true),
-  //  LPieza(false),
-  //  SPieza(true),
-  //  SPieza(false),
-  //  CuboPieza(),
-  //  TPieza()
-  //];
+  Pieza? piezaReservada = null; // = TPieza();
+  List<Pieza> lista = [
+    IPieza(),
+    LPieza(true),
+    LPieza(false),
+    SPieza(true),
+    SPieza(false),
+    CuboPieza(),
+    TPieza()
+  ];
   int contadorLineas = 0;
   int nivel = 0;
   int indiceDelay = 0;
   int lineasAcumuladas = 0;
-  List<Pieza> lista = [IPieza()]; //Version debug
+  bool reservado = false; //false permite reservar
+  //List<Pieza> lista = [CuboPieza()]; //Version debug
   late FactoriaAbstracta fa;
   late List<List<Bloque?>> bloquesPuestos;
   int delay = 1200;
+  bool esPausa = false;   //false para pausar
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
 
   _Tablero() : super() {
@@ -255,6 +257,7 @@ class _Tablero extends State<Tablero> {
 
           piezaActual = fa.crearPieza();
           subirNivel();
+          reservado = false;
         }
       });
     });
@@ -335,19 +338,39 @@ class _Tablero extends State<Tablero> {
           child: const Center(child: Text("Reservada")), color: Colors.red),
     ));
 
-    for (Bloque i in piezaReservada.bloques) {
-      print(
-          "SI: ${i.x /* * Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA*/}\n");
-      listaBloque.add(Positioned(
-          width: Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
-          height: Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA,
-          left:
-              (i.x-2) * Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
-          top: (i.y+3) * Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA + Tablero.piezaReservadaTextoHeight,
-          child: Container(color: i.color)));
+    if (piezaReservada != null) {
+      for (Bloque i in piezaReservada!.bloques) {
+        print(
+            "SI: ${i.x /* * Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA*/}\n");
+        listaBloque.add(Positioned(
+            width: Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
+            height: Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA,
+            left: (i.x - 2) *
+                Tablero.piezaReservadaWidth /
+                Tablero.REJILLA_RESERVADA,
+            top: (i.y + 3) *
+                    Tablero.piezaReservadaHeight /
+                    Tablero.REJILLA_RESERVADA +
+                Tablero.piezaReservadaTextoHeight,
+            child: Container(color: i.color)));
+      }
     }
-
     return listaBloque;
+  }
+
+  void reservarPieza() {
+    if (piezaReservada == null) {
+      piezaReservada = piezaActual;
+      piezaReservada!.resetPosicion();
+      piezaActual = fa.crearPieza(); //hay que cambiarlo
+    } else if (!reservado) {
+      Pieza aux = piezaActual;
+      piezaActual = piezaReservada!;
+      piezaReservada = aux;
+
+      piezaReservada!.resetPosicion();
+    }
+    reservado = true;
   }
 
   @override
@@ -386,7 +409,17 @@ class _Tablero extends State<Tablero> {
                 Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if (!esPausa) {
+                            timerPrincipal!.cancel();
+                            esPausa = true;
+                          } else {
+                            esPausa = false;
+                            comenzar();
+                          }                          
+                        });
+                      },
                       child: const Icon(Icons.pause, size: 32),
                     ),
 
@@ -421,7 +454,13 @@ class _Tablero extends State<Tablero> {
                       children: pintarInfo(),
                     ),
 
-                    ElevatedButton(onPressed: () {}, child: const Text("Save")),
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            reservarPieza();
+                          });
+                        },
+                        child: const Text("Save")),
                   ],
                 ),
               ],

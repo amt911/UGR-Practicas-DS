@@ -3,16 +3,30 @@ import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/pieza.dart';
 import 'package:haz_una_linea/tablero.dart';
 
-class TPieza extends Pieza{
-  TPieza(){
-      int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -1, Colors.purple);
-      bloques[1] = Bloque(centro+0, -1, Colors.purple);
-      bloques[2] = Bloque(centro+1, -1, Colors.purple);
-      bloques[3] = Bloque(centro+0, -2, Colors.purple);
+class TPieza extends Pieza {
+  TPieza() {
+    int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+    bloques[0] = Bloque(centro - 1, -1, Colors.purple);
+    bloques[1] = Bloque(centro + 0, -1, Colors.purple);
+    bloques[2] = Bloque(centro + 1, -1, Colors.purple);
+    bloques[3] = Bloque(centro + 0, -2, Colors.purple);
 
-      //Comprobar el centro de esta pieza
-      centroPieza = bloques[1];                
+    //Comprobar el centro de esta pieza
+    centroPieza = Bloque(centro + 0, -1, Colors.white);
+
+    //if (identical(centroPieza, bloques[1])) print("SON IGUALES EN CONSTRUCTOR\n");
+  }
+
+  @override
+  void resetPosicion() {
+    int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+    bloques[0].setXY(centro - 1, -1);
+    bloques[1].setXY(centro + 0, -1);
+    bloques[2].setXY(centro + 1, -1);
+    bloques[3].setXY(centro + 0, -2);
+
+    //Comprobar el centro de esta pieza
+    centroPieza.setXY(centro + 0, -1);
   }
 
   @override
@@ -30,5 +44,5 @@ class TPieza extends Pieza{
     resultado.centroPieza = newCentro;
 
     return resultado;
-  }  
+  }
 }

@@ -12,6 +12,11 @@ class Bloque {
   set y(y) => _y = y;
   set color(color) => _color = color;
 
+  void setXY(double x, double y) {
+    _x = x;
+    _y = y;
+  }
+
   Bloque(this._x, this._y, this._color);
 
   Bloque clone() {

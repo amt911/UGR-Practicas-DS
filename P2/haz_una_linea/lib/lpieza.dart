@@ -13,7 +13,7 @@ class LPieza extends Pieza{
       bloques[3] = Bloque(centro + 1, -2, Colors.orange);
 
       //Comprobar el centro de esta pieza
-      centroPieza = bloques[1];      
+      centroPieza = Bloque(centro+0, -1, Colors.orange);
     }
     else{
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
@@ -23,9 +23,34 @@ class LPieza extends Pieza{
       bloques[3] = Bloque(centro + 1, -1, Colors.blue);
 
       //Comprobar el centro de esta pieza
-      centroPieza = bloques[1];      
+      centroPieza = Bloque(centro+0, -2, Colors.blue);
     }
   }  
+
+  @override
+  void resetPosicion() {
+    if(inverso){
+      int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+      bloques[0].setXY(centro - 1, -1);
+      bloques[1].setXY(centro+0, -1);
+      bloques[2].setXY(centro + 1, -1);
+      bloques[3].setXY(centro + 1, -2);
+
+      //Comprobar el centro de esta pieza
+      centroPieza.setXY(centro+0, -1);
+    }
+    else{
+      int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+      bloques[0].setXY(centro - 1, -2);
+      bloques[1].setXY(centro + 0, -2);
+      bloques[2].setXY(centro + 1, -2);
+      bloques[3].setXY(centro + 1, -1);
+
+      //Comprobar el centro de esta pieza
+      centroPieza.setXY(centro + 0, -2);
+    }
+  }
+
 
   @override
   Pieza clone() {

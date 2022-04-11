@@ -7,6 +7,8 @@ abstract class Pieza {
   late List<Bloque> bloques; //Una pieza es un conjunto de bloques
   late Bloque centroPieza; //Sirve para luego poder rotar la pieza
 
+  void resetPosicion();
+
   Pieza() {
     bloques = List.filled(4, Bloque(0, 0, Colors.black));
     centroPieza = bloques[0];
@@ -79,7 +81,8 @@ abstract class Pieza {
 
   void girar(bool esIzquierda) {
     //Formulas obtenidas de la asignatura IG
-    if (!esIzquierda) {   //Giros a la derecha
+    if (!esIzquierda) {
+      //Giros a la derecha
       for (Bloque element in bloques) {
         double x = element.x;
         element.x = centroPieza.x + centroPieza.y - element.y;
@@ -118,7 +121,7 @@ abstract class Pieza {
     for (Bloque aux in bloques) {
       //print("Altura max: ${Tablero.tableroHeight + Tablero.inicioTableroY}\n");
       //print("y: ${aux.y}\n");
-      if (aux.y >= (Tablero.TABLERO_HEIGHT_PIEZAS-1)) res = true;
+      if (aux.y >= (Tablero.TABLERO_HEIGHT_PIEZAS - 1)) res = true;
     }
 
     return res;
