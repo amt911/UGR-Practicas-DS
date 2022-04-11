@@ -47,13 +47,12 @@ abstract class Pieza {
     bool res = false;
     if (esIzquierda) {
       for (Bloque aux in bloques) {
-        if (aux.x == 0) res = true;
+        if (aux.x <= 0) res = true;
       }
-    }
-    else{
+    } else {
       for (Bloque aux in bloques) {
-        if (aux.x == (Tablero.TABLERO_WIDTH_PIEZAS - 1)) res = true;
-      }      
+        if (aux.x >= (Tablero.TABLERO_WIDTH_PIEZAS - 1)) res = true;
+      }
     }
 
     return res;
@@ -64,18 +63,30 @@ abstract class Pieza {
     if (esIzquierda) {
       for (Bloque element in bloques) {
         double x = element.x;
-        print("ANTES: x: ${element.x}, y: ${element.y}\n");
-        print("CENTROPIEZA, X: ${centroPieza.x}, y: ${centroPieza.y}\n");
         element.x = centroPieza.x + centroPieza.y - element.y;
         element.y = centroPieza.y + x - centroPieza.x;
-        print("CENTROPIEZA, X: ${centroPieza.x}, y: ${centroPieza.y}\n");
-        print("DESPUES: x: ${element.x}, y: ${element.y}\n");
+      }
+
+      if (colisionLateral(true) || colisionLateral(false)){
+        for (Bloque element in bloques) {
+          double x = element.x;
+          element.x = centroPieza.x - centroPieza.y + element.y;
+          element.y = centroPieza.y - x + centroPieza.x;
+        }
       }
     } else {
       for (Bloque element in bloques) {
         double x = element.x;
         element.x = centroPieza.x - centroPieza.y + element.y;
         element.y = centroPieza.y - x + centroPieza.x;
+      }
+
+      if (colisionLateral(true) || colisionLateral(false)){
+        for (Bloque element in bloques) {
+          double x = element.x;
+          element.x = centroPieza.x + centroPieza.y - element.y;
+          element.y = centroPieza.y + x - centroPieza.x;
+        }        
       }
     }
   }

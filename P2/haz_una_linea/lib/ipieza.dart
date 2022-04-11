@@ -40,13 +40,15 @@ class IPieza extends Pieza {
 
     switch (direccion) {
       case 1: //Izquierda
-      if(!colisionLateral(true))
+      if(!colisionLateral(true)) {
         centroPieza.x -= 1;
+      }
         break;
 
       case 2: //Derecha
-      if(!colisionLateral(false))
+      if(!colisionLateral(false)) {
         centroPieza.x += 1;
+      }
         break;
 
       case 3: //Abajo
