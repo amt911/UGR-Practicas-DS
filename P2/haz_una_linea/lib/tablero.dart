@@ -23,6 +23,29 @@ class Tablero extends StatefulWidget {
   static double inicioTableroY = 0;
   static const double TABLERO_WIDTH_PIEZAS = 10;
   static const double TABLERO_HEIGHT_PIEZAS = 20;
+  static double piezaReservadaTextoWidth = 0;
+  static double piezaReservadaTextoHeight = 0;
+  static double piezaReservadaWidth = 0;
+  static double piezaReservadaHeight = 0;
+  static const double REJILLA_RESERVADA = 6;
+
+  static const List<int> delays = [
+    1600,
+    1434,
+    1267,
+    1100,
+    934,
+    767,
+    600,
+    434,
+    267,
+    200,
+    167,
+    134,
+    100,
+    67,
+    34
+  ];
 
   @override
   State<Tablero> createState() => _Tablero();
@@ -31,6 +54,7 @@ class Tablero extends StatefulWidget {
 class _Tablero extends State<Tablero> {
   Timer? timerPrincipal;
   late Pieza piezaActual;
+  Pieza piezaReservada = TPieza();
   //List<Pieza> lista = [
   //  IPieza(),
   //  LPieza(true),
@@ -41,6 +65,9 @@ class _Tablero extends State<Tablero> {
   //  TPieza()
   //];
   int contadorLineas = 0;
+  int nivel = 0;
+  int indiceDelay = 0;
+  int lineasAcumuladas = 0;
   List<Pieza> lista = [IPieza()]; //Version debug
   late FactoriaAbstracta fa;
   late List<List<Bloque?>> bloquesPuestos;
@@ -136,9 +163,18 @@ class _Tablero extends State<Tablero> {
   }
 
   void subirNivel() {
-    if (contadorLineas == 2) {
+    if (contadorLineas >= 10) {
+      //lineasAcumuladas += contadorLineas;
       contadorLineas = 0;
-      delay -= 500;
+      nivel++;
+      if (nivel <= 9 ||
+          nivel == 10 ||
+          nivel == 13 ||
+          nivel == 16 ||
+          nivel == 19 ||
+          nivel == 29) indiceDelay++;
+
+      //print("delay: ${delay}\n");
 
       //Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar para que se reinicie
       timerPrincipal!.cancel();
@@ -151,6 +187,7 @@ class _Tablero extends State<Tablero> {
     //bloquesPuestos[3][3] = Bloque(3, 3, Colors.black);
     for (int i in lineas) {
       contadorLineas++;
+      lineasAcumuladas++;
       //print("i: ${i}\n");
       for (int f = i; f > 1; f--) {
         for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
@@ -178,6 +215,16 @@ class _Tablero extends State<Tablero> {
     moverLineasSuperiores(lineas);
   }
 
+  List<Container> pintarInfo() {
+    List<Container> lista = [
+      Container(color: Colors.amber, child: const Text("Score: 6969")),
+      Container(color: Colors.amber, child: Text("Level: $nivel")),
+      Container(color: Colors.amber, child: Text("Lines: $lineasAcumuladas")),
+    ];
+
+    return lista;
+  }
+
   List<int> lineasCompletas() {
     bool linea;
     List<int> lineas = [];
@@ -197,7 +244,8 @@ class _Tablero extends State<Tablero> {
   }
 
   void comenzar() {
-    timerPrincipal = Timer.periodic(Duration(milliseconds: delay), (timer) {
+    timerPrincipal = Timer.periodic(
+        Duration(milliseconds: Tablero.delays[indiceDelay]), (timer) {
       setState(() {
         if (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual)) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
@@ -277,6 +325,31 @@ class _Tablero extends State<Tablero> {
     return Stack(children: bloquesActivos);
   }
 
+  List<Widget> piezaReservadaDisplay() {
+    List<Widget> listaBloque = [];
+
+    listaBloque.add(Positioned(
+      width: Tablero.piezaReservadaTextoWidth,
+      height: Tablero.piezaReservadaTextoHeight,
+      child: Container(
+          child: const Center(child: Text("Reservada")), color: Colors.red),
+    ));
+
+    for (Bloque i in piezaReservada.bloques) {
+      print(
+          "SI: ${i.x /* * Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA*/}\n");
+      listaBloque.add(Positioned(
+          width: Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
+          height: Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA,
+          left:
+              (i.x-2) * Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
+          top: (i.y+3) * Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA + Tablero.piezaReservadaTextoHeight,
+          child: Container(color: i.color)));
+    }
+
+    return listaBloque;
+  }
+
   @override
   Widget build(BuildContext context) {
     AppBar appBar = AppBar(
@@ -295,8 +368,12 @@ class _Tablero extends State<Tablero> {
 
     Tablero.inicioTableroX = 3;
     Tablero.inicioTableroY = 3;
-    //tableroHeight = 0.95 * MediaQuery.of(context).size.height;
-    //tableroHeight = MediaQuery.of(context).size.height;
+
+    Tablero.piezaReservadaTextoWidth = 0.23 * Tablero.widthPantalla;
+    Tablero.piezaReservadaTextoHeight = 0.05 * Tablero.widthPantalla;
+    Tablero.piezaReservadaWidth = 0.23 * Tablero.widthPantalla;
+    Tablero.piezaReservadaHeight = 0.23 * Tablero.widthPantalla;
+
     return Scaffold(
         appBar: appBar,
         body: Column(
@@ -304,61 +381,49 @@ class _Tablero extends State<Tablero> {
             Row(
               children: [
                 pintarTableroPiezas(),
-                Expanded(
-                    child: Padding(
-                        //Padding para que no se pegue con el tablero
-                        padding: const EdgeInsets.all(3),
-                        child: Column(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: const Icon(Icons.pause, size: 32),
-                            ),
+                //Expanded(
+                //child: Column(
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Icon(Icons.pause, size: 32),
+                    ),
 
-                            Container(
-                                height: 0.12 *
-                                    (Tablero.heightPantalla -
-                                        appBar.preferredSize.height),
-                                color: Colors.red,
-                                child: const Center(
-                                    child: Text("Pieza siguiente"))),
+                    Container(
+                      height: Tablero.piezaReservadaHeight,
+                      width: Tablero.piezaReservadaWidth,
+                      color: Colors.grey,
+                      child: Stack(children: piezaReservadaDisplay()),
+                    ),
 
-                            const SizedBox(
-                              height: 8,
-                            ), //Para darle un espacio entre containers
+                    const SizedBox(
+                      height: 8,
+                    ), //Para darle un espacio entre containers
 
-                            Container(
-                              height: 0.36 *
-                                  (Tablero.heightPantalla -
-                                      appBar.preferredSize.height),
-                              color: Colors.yellow,
-                              child: const Text("Siguientes piezas"),
-                            ),
+                    Container(
+                      width: 0.03 *
+                          (Tablero.heightPantalla -
+                              appBar.preferredSize.height),
+                      height: 0.36 *
+                          (Tablero.heightPantalla -
+                              appBar.preferredSize.height),
+                      color: Colors.yellow,
+                      child: const Text("Siguientes piezas"),
+                    ),
 
-                            const SizedBox(
-                              height: 8,
-                            ), //Para darle un espacio entre containers
+                    const SizedBox(
+                      height: 8,
+                    ), //Para darle un espacio entre containers
 
-                            Column(
-                              //???Quizas esto se pueda hacer con un grid
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Container(
-                                    color: Colors.amber,
-                                    child: const Text("Score: ")),
-                                Container(
-                                    color: Colors.amber,
-                                    child: const Text("Level: ")),
-                                Container(
-                                    color: Colors.amber,
-                                    child: const Text("Lines: ")),
-                              ],
-                            ),
+                    Column(
+                      //???Quizas esto se pueda hacer con un grid
+                      children: pintarInfo(),
+                    ),
 
-                            ElevatedButton(
-                                onPressed: () {}, child: const Text("Save")),
-                          ],
-                        ))),
+                    ElevatedButton(onPressed: () {}, child: const Text("Save")),
+                  ],
+                ),
               ],
             ),
             Expanded(
