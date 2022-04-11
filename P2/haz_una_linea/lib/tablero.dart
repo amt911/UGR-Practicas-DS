@@ -74,9 +74,15 @@ class _Tablero extends State<Tablero> {
     }
   }
 
-  bool estaEncimaPieza() {
+  void bajarRapido() {
+    while (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual)) {
+      piezaActual.mover(3);
+    }
+  }
+
+  bool estaEncimaPieza(Pieza pieza) {
     bool res = false;
-    for (Bloque aux in piezaActual.bloques) {
+    for (Bloque aux in pieza.bloques) {
       //Solamente se comprueba si el bloque se encuentra dentro del tablero
       if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
           bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
@@ -118,8 +124,10 @@ class _Tablero extends State<Tablero> {
     bool res = false;
 
     for (Bloque aux in bloqueAux.bloques) {
-      if ((aux.y >= 0) && bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null)
+      if ((aux.y >= 0) &&
+          bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) {
         res = true;
+      }
     }
 
     return res;
@@ -133,7 +141,8 @@ class _Tablero extends State<Tablero> {
         for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
           bloquesPuestos[f][c] = bloquesPuestos[f - 1][c];
 
-          if(bloquesPuestos[f][c]!=null) {    //Si no esta vacio se mueve la componente interna del bloque
+          if (bloquesPuestos[f][c] != null) {
+            //Si no esta vacio se mueve la componente interna del bloque
             bloquesPuestos[f][c]!.y += 1;
           }
         }
@@ -180,7 +189,7 @@ class _Tablero extends State<Tablero> {
         //parar = true;
         //for (int i = 0; i < 10; i++)
 
-        if (!piezaActual.estaEnSuelo() && !estaEncimaPieza()) {
+        if (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual)) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
           meterEnTablero();
@@ -373,7 +382,8 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        if (!piezaActual.estaEnSuelo() && !estaEncimaPieza()) {
+                        if (!piezaActual.estaEnSuelo() &&
+                            !estaEncimaPieza(piezaActual)) {
                           setState(() {
                             piezaActual.mover(3);
                           });
@@ -381,7 +391,8 @@ class _Tablero extends State<Tablero> {
                       },
                       onLongPress: () {
                         setState(() {
-                          piezaActual.mover(3);
+                          //piezaActual.mover(3);
+                          bajarRapido();
                         });
                       },
                       child: const Icon(Icons.arrow_downward, size: 32),
