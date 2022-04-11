@@ -83,28 +83,28 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Container(
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              //crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/tetris.jpg"),
+          //mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset("assets/images/tetris.jpg"),
 
-                //Container(
-                Expanded(
-                    //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Tablero()));
-                          },
-                          icon: const Icon(Icons.play_arrow_rounded, size: 18),
-                          label: const Text("Jugar"),
-                        )))
-              ],
-            )));
+            //Container(
+            Expanded(
+                //decoration: BoxDecoration(border: Border.all(color: Colors.red)),
+                child: Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Tablero()));
+                      },
+                      icon: const Icon(Icons.play_arrow_rounded, size: 18),
+                      label: const Text("Jugar"),
+                    ))),
+
+            ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.play_arrow_rounded, size: 18), label: const Text("Créditos"))
+          ],
+        )));
   }
 }
 

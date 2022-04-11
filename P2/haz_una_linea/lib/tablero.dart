@@ -547,17 +547,9 @@ class _Tablero extends State<Tablero> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          //if (!esPausa) {
                           timerPrincipal!.cancel();
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Pausa())).then((value) => comenzar());
-
-                          //print("NO SE SI DEBERIA SEGUIR");
-                          //esPausa = true;
-                          //} else {
-                          //esPausa = false;
-                          //comenzar();
-                          //}
+                          
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Pausa())).then((value) => comenzar());
                         });
                       },
                       child: const Icon(Icons.pause, size: 32),

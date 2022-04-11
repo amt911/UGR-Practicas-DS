@@ -14,26 +14,39 @@ class Pausa extends StatelessWidget {
         body: Column(
       children: [
         const Center(
-          child: Text("PAUSA"),
+          child: Text("PAUSA",
+              style: TextStyle(fontSize: 100, fontWeight: FontWeight.bold)),
         ),
         Expanded(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Reanudar la partida")
+                ),
+              ),
 
-                    Timer(const Duration(seconds: 1), () {
-                      
-                    });
-                    
-                    
-                  },
-                  child: const Text("Reaundar la partida")),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text("Placeholder 1")),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text("Placeholder 2")),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                    onPressed: () {}, child: const Text("Sonido On/Off")),
+              ),
+
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .popUntil((route) => route.isFirst);
+                    },
+                    child: const Text("Salir de la partida")
+                ),
+              )
             ],
           ),
         )
