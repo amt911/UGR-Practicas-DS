@@ -6,10 +6,10 @@ import 'package:haz_una_linea/tablero.dart';
 class CuboPieza extends Pieza{
   CuboPieza(){
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -3, Colors.yellow);
-      bloques[1] = Bloque(centro+0, -3, Colors.yellow);
-      bloques[2] = Bloque(centro-1, -4, Colors.yellow);
-      bloques[3] = Bloque(centro+0, -4, Colors.yellow);
+      bloques[0] = Bloque(centro - 1, -1, Colors.yellow);
+      bloques[1] = Bloque(centro+0, -1, Colors.yellow);
+      bloques[2] = Bloque(centro-1, -2, Colors.yellow);
+      bloques[3] = Bloque(centro+0, -2, Colors.yellow);
 
       //Comprobar el centro de esta pieza
       centroPieza = bloques[1];                

@@ -36,10 +36,8 @@ abstract class Pieza {
 
       case 3: //Abajo
         for (Bloque element in bloques) {
-          //print("x: ${element.x}, y: ${element.y}\n");
           element.y += 1;
         }
-        //print("CENTROPIEZA x: ${centroPieza.x}, y: ${centroPieza.y}\n");
         centroPieza.y += 1;
         break;
     }
@@ -47,6 +45,8 @@ abstract class Pieza {
 
   bool colisionLateral(bool esIzquierda) {
     bool res = false;
+
+    //Permite comprobar solo la parte izquierda o derecha
     if (esIzquierda) {
       for (Bloque aux in bloques) {
         if (aux.x <= 0) res = true;
@@ -63,6 +63,7 @@ abstract class Pieza {
   bool colisionLateralGiro(bool esIzquierda) {
     //Este tipo de colision permite girar justo pegado a la pared
     bool res = false;
+    //UNIR ESTOS DOS, ES UN POCO INUTIL SEPARARLOS
     if (esIzquierda) {
       for (Bloque aux in bloques) {
         if (aux.x < 0) res = true;
@@ -78,13 +79,14 @@ abstract class Pieza {
 
   void girar(bool esIzquierda) {
     //Formulas obtenidas de la asignatura IG
-    if (!esIzquierda) {
+    if (!esIzquierda) {   //Giros a la derecha
       for (Bloque element in bloques) {
         double x = element.x;
         element.x = centroPieza.x + centroPieza.y - element.y;
         element.y = centroPieza.y + x - centroPieza.x;
       }
 
+      //Si al girar se colisiona se pone de nuevo como estaba
       if (colisionLateralGiro(true) || colisionLateralGiro(false)) {
         for (Bloque element in bloques) {
           double x = element.x;
@@ -99,6 +101,7 @@ abstract class Pieza {
         element.y = centroPieza.y - x + centroPieza.x;
       }
 
+      //Si al girar se colisiona se pone de nuevo como estaba
       if (colisionLateralGiro(true) || colisionLateralGiro(false)) {
         for (Bloque element in bloques) {
           double x = element.x;

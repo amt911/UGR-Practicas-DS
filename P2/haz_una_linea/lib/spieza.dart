@@ -8,20 +8,20 @@ class SPieza extends Pieza {
   SPieza(this.inverso) {
     if(inverso){
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -3, Colors.green);
-      bloques[1] = Bloque(centro+0, -3, Colors.green);
-      bloques[2] = Bloque(centro+0, -4, Colors.green);
-      bloques[3] = Bloque(centro + 1, -4, Colors.green);
+      bloques[0] = Bloque(centro - 1, -1, Colors.green);
+      bloques[1] = Bloque(centro+0, -1, Colors.green);
+      bloques[2] = Bloque(centro+0, -2, Colors.green);
+      bloques[3] = Bloque(centro + 1, -2, Colors.green);
 
       //Comprobar el centro de esta pieza
       centroPieza = bloques[1];            
     } 
     else{
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -4, Colors.red);
-      bloques[1] = Bloque(centro+0, -4, Colors.red);
-      bloques[2] = Bloque(centro+0, -3, Colors.red);
-      bloques[3] = Bloque(centro + 1, -3, Colors.red);
+      bloques[0] = Bloque(centro - 1, -2, Colors.red);
+      bloques[1] = Bloque(centro+0, -2, Colors.red);
+      bloques[2] = Bloque(centro+0, -1, Colors.red);
+      bloques[3] = Bloque(centro + 1, -1, Colors.red);
 
       //Comprobar el centro de esta pieza
       centroPieza = bloques[2];            

@@ -75,7 +75,9 @@ class _Tablero extends State<Tablero> {
   bool estaEncimaPieza() {
     bool res = false;
     for (Bloque aux in piezaActual.bloques) {
-      if (bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
+      //Solamente se comprueba si el bloque se encuentra dentro del tablero
+      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
+          bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
         res = true;
       }
     }
@@ -114,7 +116,7 @@ class _Tablero extends State<Tablero> {
     for (Bloque aux in bloqueAux.bloques) {
       if (bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) res = true;
     }
-    
+
     return res;
   }
 
@@ -150,18 +152,20 @@ class _Tablero extends State<Tablero> {
     ));
 
     for (Bloque aux in piezaActual.bloques) {
-      bloquesActivos.add(Positioned(
-          //Ejemplo que muestra como se pinta un bloque
-          top: ((aux.y *
-                  (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
-              Tablero.inicioTableroY),
-          left:
-              ((aux.x * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
-                  Tablero.inicioTableroX),
-          child: Container(
-              width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
-              height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
-              color: aux.color)));
+      if (aux.y >= 0) {
+        bloquesActivos.add(Positioned(
+            //Ejemplo que muestra como se pinta un bloque
+            top: ((aux.y *
+                    (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+                Tablero.inicioTableroY),
+            left: ((aux.x *
+                    (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+                Tablero.inicioTableroX),
+            child: Container(
+                width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
+                height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
+                color: aux.color)));
+      }
     }
 
     //Ahora toca la parte de pintar los bloques ya puestos
@@ -315,9 +319,11 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          piezaActual.mover(3);
-                        });
+                        if (!piezaActual.estaEnSuelo() && !estaEncimaPieza()) {
+                          setState(() {
+                            piezaActual.mover(3);
+                          });
+                        }
                       },
                       onLongPress: () {
                         setState(() {

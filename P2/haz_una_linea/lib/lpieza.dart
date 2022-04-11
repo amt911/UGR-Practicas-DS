@@ -7,20 +7,20 @@ class LPieza extends Pieza{
   LPieza(this.inverso){
     if(inverso){
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -3, Colors.orange);
-      bloques[1] = Bloque(centro+0, -3, Colors.orange);
-      bloques[2] = Bloque(centro + 1, -3, Colors.orange);
-      bloques[3] = Bloque(centro + 1, -4, Colors.orange);
+      bloques[0] = Bloque(centro - 1, -1, Colors.orange);
+      bloques[1] = Bloque(centro+0, -1, Colors.orange);
+      bloques[2] = Bloque(centro + 1, -1, Colors.orange);
+      bloques[3] = Bloque(centro + 1, -2, Colors.orange);
 
       //Comprobar el centro de esta pieza
       centroPieza = bloques[1];      
     }
     else{
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -3, Colors.blue);
-      bloques[1] = Bloque(centro+0, -3, Colors.blue);
-      bloques[2] = Bloque(centro + 1, -3, Colors.blue);
-      bloques[3] = Bloque(centro + 1, -2, Colors.blue);
+      bloques[0] = Bloque(centro - 1, -2, Colors.blue);
+      bloques[1] = Bloque(centro+0, -2, Colors.blue);
+      bloques[2] = Bloque(centro + 1, -2, Colors.blue);
+      bloques[3] = Bloque(centro + 1, -1, Colors.blue);
 
       //Comprobar el centro de esta pieza
       centroPieza = bloques[1];      
