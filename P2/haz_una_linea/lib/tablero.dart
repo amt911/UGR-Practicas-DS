@@ -1,6 +1,7 @@
 //import 'dart:html';
 
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
@@ -120,6 +121,46 @@ class _Tablero extends State<Tablero> {
     return res;
   }
 
+  void moverLineasSuperiores(List<int> lineas) {
+    for (int i in lineas) {
+      for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
+        bloquesPuestos[i][c] = bloquesPuestos[i - 1]
+            [c]; //ESTO ESTÁ MAL, HAY QUE DECIDIR EL MÉTODO DE LIMPIEZA
+      }
+    }
+  }
+
+  void eliminarLineasCompletas() {
+    List<int> lineas = lineasCompletas();
+    print(lineas.length);
+
+    for (int i in lineas) {
+      for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
+        bloquesPuestos[i][c] = null;
+      }
+    }
+
+    moverLineasSuperiores(lineas);
+  }
+
+  List<int> lineasCompletas() {
+    bool linea;
+    List<int> lineas = [];
+    for (int f = 0; f < Tablero.TABLERO_HEIGHT_PIEZAS; f++) {
+      linea = true;
+      for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
+        if (bloquesPuestos[f][c] == null) {
+          linea = false;
+        }
+      }
+
+      if (linea) {
+        lineas.add(f);
+      }
+    }
+    return lineas;
+  }
+
   void comenzar() {
     timerPrincipal =
         Timer.periodic(const Duration(milliseconds: 1000), (timer) {
@@ -132,6 +173,8 @@ class _Tablero extends State<Tablero> {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
           meterEnTablero();
+          eliminarLineasCompletas();
+
           piezaActual = fa.crearPieza();
         }
         //}
@@ -209,7 +252,7 @@ class _Tablero extends State<Tablero> {
     AppBar appBar = AppBar(
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
-      title: const Text("Jueguecito del diablo"),
+      title: const Text("Jueguecitoo del diablo"),
     );
 
     Tablero.widthPantalla = MediaQuery.of(context).size.width;
