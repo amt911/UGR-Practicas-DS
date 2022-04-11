@@ -40,6 +40,7 @@ class _Tablero extends State<Tablero> {
     CuboPieza(),
     TPieza()
   ];
+  //List<Pieza> lista = [IPieza()];   //Version debug
   late FactoriaAbstracta fa;
   late List<List<Bloque?>> bloquesPuestos;
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
@@ -92,6 +93,7 @@ class _Tablero extends State<Tablero> {
     if (esIzquierda) {
       for (Bloque aux in piezaActual.bloques) {
         if ((aux.x > 0) &&
+            (aux.y >= 0) &&
             (bloquesPuestos[aux.y.toInt()][(aux.x - 1).toInt()] != null)) {
           res = true;
         }
@@ -99,6 +101,7 @@ class _Tablero extends State<Tablero> {
     } else {
       for (Bloque aux in piezaActual.bloques) {
         if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
+            (aux.y >= 0) &&
             (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
           res = true;
         }
@@ -115,24 +118,32 @@ class _Tablero extends State<Tablero> {
     bool res = false;
 
     for (Bloque aux in bloqueAux.bloques) {
-      if (bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) res = true;
+      if ((aux.y >= 0) && bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null)
+        res = true;
     }
 
     return res;
   }
 
   void moverLineasSuperiores(List<int> lineas) {
+    //bloquesPuestos[3][3] = Bloque(3, 3, Colors.black);
     for (int i in lineas) {
-      for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
-        bloquesPuestos[i][c] = bloquesPuestos[i - 1]
-            [c]; //ESTO ESTÁ MAL, HAY QUE DECIDIR EL MÉTODO DE LIMPIEZA
+      //print("i: ${i}\n");
+      for (int f = i; f > 1; f--) {
+        for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
+          bloquesPuestos[f][c] = bloquesPuestos[f - 1][c];
+
+          if(bloquesPuestos[f][c]!=null) {    //Si no esta vacio se mueve la componente interna del bloque
+            bloquesPuestos[f][c]!.y += 1;
+          }
+        }
       }
     }
   }
 
   void eliminarLineasCompletas() {
     List<int> lineas = lineasCompletas();
-    print(lineas.length);
+    //print(lineas.length);
 
     for (int i in lineas) {
       for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {

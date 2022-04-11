@@ -116,8 +116,8 @@ abstract class Pieza {
     bool res = false;
 
     for (Bloque aux in bloques) {
-      print("Altura max: ${Tablero.tableroHeight + Tablero.inicioTableroY}\n");
-      print("y: ${aux.y}\n");
+      //print("Altura max: ${Tablero.tableroHeight + Tablero.inicioTableroY}\n");
+      //print("y: ${aux.y}\n");
       if (aux.y >= (Tablero.TABLERO_HEIGHT_PIEZAS-1)) res = true;
     }
 
