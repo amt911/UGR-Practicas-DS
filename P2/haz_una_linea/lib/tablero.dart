@@ -92,27 +92,29 @@ class _Tablero extends State<Tablero> {
             (bloquesPuestos[aux.y.toInt()][(aux.x - 1).toInt()] != null)) {
           res = true;
         }
-
-        //if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
-        //    (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
-        //  res = true;
-        //}
       }
-    }
-    else{
+    } else {
       for (Bloque aux in piezaActual.bloques) {
-        //if ((aux.x > 0) &&
-        //    (bloquesPuestos[aux.y.toInt()][(aux.x - 1).toInt()] != null)) {
-        //  res = true;
-        //}
-
         if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
             (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
           res = true;
         }
-      }      
+      }
     }
 
+    return res;
+  }
+
+  bool giroChoque(bool esIzquierda) {
+    Pieza bloqueAux = piezaActual.clone(); //Para no modificar la pieza actual
+    bloqueAux.girar(
+        esIzquierda); //Se gira (incluye las restricciones laterales) para comprobar si se solapan
+    bool res = false;
+
+    for (Bloque aux in bloqueAux.bloques) {
+      if (bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) res = true;
+    }
+    
     return res;
   }
 
@@ -127,8 +129,6 @@ class _Tablero extends State<Tablero> {
         if (!piezaActual.estaEnSuelo() && !estaEncimaPieza()) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
-          //print("HE ENTRADOLSDJKFLSDKFJLDFKGJLDKFGJDFG\n");
-          //Si esta en el suelo se genera una nueva pieza
           meterEnTablero();
           piezaActual = fa.crearPieza();
         }
@@ -305,9 +305,11 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          piezaActual.girar(true);
-                        });
+                        if (!giroChoque(true)) {
+                          setState(() {
+                            piezaActual.girar(true);
+                          });
+                        }
                       },
                       child: const Icon(Icons.rotate_left, size: 32),
                     ),
@@ -326,9 +328,11 @@ class _Tablero extends State<Tablero> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          piezaActual.girar(false);
-                        });
+                        if (!giroChoque(false)) {
+                          setState(() {
+                            piezaActual.girar(false);
+                          });
+                        }
                       },
                       child: const Icon(Icons.rotate_right, size: 32),
                     ),
@@ -348,5 +352,3 @@ class _Tablero extends State<Tablero> {
         ));
   }
 }
-
-//https://stackoverflow.com/questions/43122113/sizing-elements-to-percentage-of-screen-width-height

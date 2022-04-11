@@ -78,7 +78,7 @@ abstract class Pieza {
 
   void girar(bool esIzquierda) {
     //Formulas obtenidas de la asignatura IG
-    if (esIzquierda) {
+    if (!esIzquierda) {
       for (Bloque element in bloques) {
         double x = element.x;
         element.x = centroPieza.x + centroPieza.y - element.y;
