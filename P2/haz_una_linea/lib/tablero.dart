@@ -58,6 +58,7 @@ class Tablero extends StatefulWidget {
 }
 
 class _Tablero extends State<Tablero> {
+  double velocidad = 1;
   Musica m = Musica();
   Timer? timerPrincipal;
   late Pieza piezaActual;
@@ -76,7 +77,7 @@ class _Tablero extends State<Tablero> {
   int indiceDelay = 0;
   int lineasAcumuladas = 0;
   bool reservado = false; //false permite reservar
-  //List<Pieza> lista = [SPieza(true)]; //Version debug
+  //List<Pieza> lista = [IPieza()]; //Version debug
   late FactoriaAbstracta fa;
   late List<List<Bloque?>> bloquesPuestos;
   int delay = 1200;
@@ -191,7 +192,7 @@ class _Tablero extends State<Tablero> {
 
   void subirNivel() {
     if (contadorLineas >= 10) {
-      //lineasAcumuladas += contadorLineas;
+
       contadorLineas = 0;
       nivel++;
       if (nivel <= 9 ||
@@ -199,8 +200,14 @@ class _Tablero extends State<Tablero> {
           nivel == 13 ||
           nivel == 16 ||
           nivel == 19 ||
-          nivel == 29) indiceDelay++;
+          nivel == 29) {
+        indiceDelay++;
+        velocidad += 0.034;
+      }
 
+      //print("VELOCIDAD: $velocidad\n");
+      //print("Nivel: $nivel\n");
+      m.setVelocidad(velocidad);
       //Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar para que se reinicie
       timerPrincipal!.cancel();
 
@@ -251,7 +258,7 @@ class _Tablero extends State<Tablero> {
     timerPrincipal!.cancel();
     //print("GAME OVER JAJAJAJA\n");
     m.pararMusica();
-    
+
     Navigator.push(
         context,
         MaterialPageRoute(

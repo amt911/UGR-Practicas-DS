@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Musica {
   bool apagado = true;
-  IconData icono = Icons.volume_up;    
+  IconData icono = Icons.volume_up;
   int volumen = 1;
   static AudioCache cache = AudioCache();
   static AudioPlayer player = AudioPlayer();
@@ -16,11 +16,14 @@ class Musica {
     if (volumen == 1) {
       volumen = 0;
       player.setVolume(volumen.toDouble());
-    }
-    else{
+    } else {
       volumen = 1;
-      player.setVolume(volumen.toDouble());      
+      player.setVolume(volumen.toDouble());
     }
+  }
+
+  void setVelocidad(double velocidad) {
+    player.setPlaybackRate(velocidad);
   }
 
   void pausarMusica() {
