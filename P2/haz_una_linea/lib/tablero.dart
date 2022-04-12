@@ -59,7 +59,7 @@ class Tablero extends StatefulWidget {
   Tablero(this.t);
 
   @override
-  State<Tablero> createState() => _Tablero();
+  State<Tablero> createState() => _Tablero(t);
 }
 
 class _Tablero extends State<Tablero> {
@@ -83,9 +83,9 @@ class _Tablero extends State<Tablero> {
   int puntuacion = 0;
   bool fin = false;
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
-
-  _Tablero() : super() {
-    if (widget.t == 0) {
+  int t;
+  _Tablero(this.t) : super() {
+    if (t == 0) {
       lista = [
         IPiezaNormal(),
         LPieza(true),
