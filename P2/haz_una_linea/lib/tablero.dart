@@ -16,6 +16,9 @@ import 'package:haz_una_linea/pausa.dart';
 import 'package:haz_una_linea/pieza.dart';
 import 'package:haz_una_linea/spieza.dart';
 import 'package:haz_una_linea/tpieza.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+import 'Musica.dart';
 
 class Tablero extends StatefulWidget {
   static double tableroWidth = 0; // = MediaQuery.of(context).size.width;
@@ -55,6 +58,7 @@ class Tablero extends StatefulWidget {
 }
 
 class _Tablero extends State<Tablero> {
+  Musica m = Musica();
   Timer? timerPrincipal;
   late Pieza piezaActual;
   Pieza? piezaReservada = null; // = TPieza();
@@ -96,6 +100,8 @@ class _Tablero extends State<Tablero> {
     for (int i = 0; i < 3; i++) {
       piezasSiguientes.add(fa.crearPieza());
     }
+
+    m.comenzarMusica();
   }
 
   @override
@@ -244,7 +250,8 @@ class _Tablero extends State<Tablero> {
   void mostrarGameOver() {
     timerPrincipal!.cancel();
     //print("GAME OVER JAJAJAJA\n");
-
+    m.pararMusica();
+    
     Navigator.push(
         context,
         MaterialPageRoute(
@@ -719,10 +726,15 @@ class _Tablero extends State<Tablero> {
                   onPressed: () {
                     setState(() {
                       timerPrincipal!.cancel();
-
+                      //player.clearAll();
+                      m.pausarMusica();
                       Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Pausa()))
-                          .then((value) => comenzar());
+                              MaterialPageRoute(builder: (context) => Pausa(m)))
+                          .then((value) {
+                        //player = cache.loop("music/musica.mp3");
+                        //m.reanudarMusica();
+                        comenzar();
+                      });
                     });
                   },
                   child: const Icon(Icons.pause, size: 32),

@@ -27,14 +27,12 @@ class GameOver extends StatelessWidget {
               children: [
                 Text("Puntuación: $puntuacion",
                 style: const TextStyle(
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
                 )
             ),
                 Text("Líneas realizadas: $lineas",
                 style: const TextStyle(
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 30,
                   )
@@ -42,7 +40,6 @@ class GameOver extends StatelessWidget {
 
                 Text("Nivel alcanzado: $nivel",
                 style: const TextStyle(
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 30,                
                   )
