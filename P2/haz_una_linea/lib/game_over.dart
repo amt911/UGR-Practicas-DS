@@ -8,7 +8,7 @@ class GameOver extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 73, 73, 73),
+        //backgroundColor: const Color.fromARGB(255, 73, 73, 73),
         body: Column(
           children: [
             const Text(

@@ -246,7 +246,10 @@ class _Tablero extends State<Tablero> {
     //print("GAME OVER JAJAJAJA\n");
 
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => GameOver(puntuacion, nivel, lineasAcumuladas)));
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                GameOver(puntuacion, nivel, lineasAcumuladas)));
   }
 
   void calcularPuntuacion(int lineas) {
@@ -288,9 +291,18 @@ class _Tablero extends State<Tablero> {
 
   List<Container> pintarInfo() {
     List<Container> lista = [
-      Container(width: Tablero.piezaReservadaWidth, color: Colors.amber, child: Text("Score: $puntuacion")),
-      Container(width: Tablero.piezaReservadaWidth, color: Colors.amber, child: Text("Level:  $nivel")),
-      Container(width: Tablero.piezaReservadaWidth, color: Colors.amber, child: Text("Lines:  $lineasAcumuladas")),
+      Container(
+          width: Tablero.piezaReservadaWidth,
+          color: Colors.amber,
+          child: Text("Score: $puntuacion")),
+      Container(
+          width: Tablero.piezaReservadaWidth,
+          color: Colors.amber,
+          child: Text("Level:  $nivel")),
+      Container(
+          width: Tablero.piezaReservadaWidth,
+          color: Colors.amber,
+          child: Text("Lines:  $lineasAcumuladas")),
     ];
 
     return lista;
@@ -511,19 +523,17 @@ class _Tablero extends State<Tablero> {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = AppBar(
-      // Here we take the value from the MyHomePage object that was created by
-      // the App.build method, and use it to set our appbar title.
-      title: const Text("Partida nueva"),
-    );
+    //AppBar appBar = AppBar(
+    //  title: const Text("Partida nueva"),
+    //);
 
     Tablero.widthPantalla = MediaQuery.of(context).size.width;
     Tablero.heightPantalla = MediaQuery.of(context).size.height;
 
     Tablero.tableroWidth = 0.75 * Tablero.widthPantalla;
     Tablero.tableroHeight = 0.9 *
-        (Tablero.heightPantalla -
-            appBar.preferredSize.height); //2 * tableroWidth;
+        (Tablero
+            .heightPantalla); //- appBar.preferredSize.height); //2 * tableroWidth;
 
     Tablero.inicioTableroX = 3;
     Tablero.inicioTableroY = 3;
@@ -534,7 +544,7 @@ class _Tablero extends State<Tablero> {
     Tablero.piezaReservadaHeight = 0.23 * Tablero.widthPantalla;
 
     return Scaffold(
-        appBar: appBar,
+        //appBar: appBar,
         body: Column(
           children: [
             Row(
@@ -548,8 +558,12 @@ class _Tablero extends State<Tablero> {
                       onPressed: () {
                         setState(() {
                           timerPrincipal!.cancel();
-                          
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Pausa())).then((value) => comenzar());
+
+                          Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Pausa()))
+                              .then((value) => comenzar());
                         });
                       },
                       child: const Icon(Icons.pause, size: 32),
