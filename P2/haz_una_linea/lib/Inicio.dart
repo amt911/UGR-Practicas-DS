@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:haz_una_linea/creditos.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 class MyApp extends StatelessWidget {
@@ -34,7 +35,7 @@ class Inicio extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Image.asset("assets/images/tetris.jpg"),
+            Image.asset("assets/images/LOGO.png"),
 
             //Container(
             Expanded(
@@ -49,7 +50,10 @@ class Inicio extends StatelessWidget {
                       label: const Text("Jugar"),
                     ))),
 
-            ElevatedButton.icon(onPressed: () {}, icon: const Icon(Icons.density_small_rounded, size: 18), label: const Text("Créditos"))
+            ElevatedButton.icon(onPressed: () {
+                                      Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Creditos()));
+            }, icon: const Icon(Icons.density_small_rounded, size: 18), label: const Text("Créditos"))
           ],
         ));
   }
