@@ -12,6 +12,7 @@ class LPiezaNormal extends LPieza {
       bloques[0] = Bloque(centro - 1, -1, Colors.orange);
       bloques[1] = Bloque(centro + 0, -1, Colors.orange);
       bloques[2] = Bloque(centro + 1, -1, Colors.orange);
+      bloques[3] = Bloque(centro + 1, -2, Colors.orange);
 
       //Comprobar el centro de esta pieza
       centroPieza = Bloque(centro + 0, -1, Colors.orange);
