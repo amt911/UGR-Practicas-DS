@@ -354,6 +354,23 @@ class _Tablero extends State<Tablero> {
     });
   }
 
+  Color cambiarColor(Color color, int valor) {
+    int r = color.red + valor;
+    int g = color.green + valor;
+    int b = color.blue + valor;
+
+    if (r > 255) r = 255;
+    if (r < 0) r = 0;
+
+    if (g > 255) g = 255;
+    if (g < 0) g = 0;
+
+    if (b > 255) b = 255;
+    if (b < 0) b = 0;
+
+    return Color.fromARGB(255, r, g, b);
+  }
+
   Stack pintarTableroPiezas() {
     //Primero se crea una lista con los bloques de la pieza actual
     List<Widget>? bloquesActivos = List.empty(growable: true);
@@ -363,23 +380,38 @@ class _Tablero extends State<Tablero> {
       margin: const EdgeInsets.all(3),
       width: Tablero.tableroWidth,
       height: Tablero.tableroHeight,
-      color: Colors.grey,
+      color: Color.fromARGB(255, 0, 0, 0),
     ));
 
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y >= 0) {
         bloquesActivos.add(Positioned(
-            //Ejemplo que muestra como se pinta un bloque
-            top: ((aux.y *
-                    (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
-                Tablero.inicioTableroY),
-            left: ((aux.x *
-                    (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
-                Tablero.inicioTableroX),
-            child: Container(
-                width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
-                height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
-                color: aux.color)));
+          //Ejemplo que muestra como se pinta un bloque
+          top: ((aux.y *
+                  (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+              Tablero.inicioTableroY),
+          left:
+              ((aux.x * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+                  Tablero.inicioTableroX),
+          child: Container(
+            width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
+            height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
+            //color: aux.color,
+            decoration: BoxDecoration(
+                color: aux.color,
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color.fromARGB(255, aux.color.red ~/ 2,
+                            aux.color.green ~/ 2, aux.color.blue ~/ 2),
+                        width: 5),
+                    top: BorderSide(
+                        color: cambiarColor(aux.color, 50), width: 5),
+                    left: BorderSide(
+                        color: cambiarColor(aux.color, -50), width: 5),
+                    right: BorderSide(
+                        color: cambiarColor(aux.color, -50), width: 5))),
+          ),
+        ));
       }
     }
 
@@ -396,9 +428,25 @@ class _Tablero extends State<Tablero> {
                       (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
                   Tablero.inicioTableroX),
               child: Container(
-                  width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
-                  height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
-                  color: bloquesPuestos[i][j]!.color)));
+                width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
+                height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
+                decoration: BoxDecoration(
+                    color: bloquesPuestos[i][j]!.color,
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Color.fromARGB(255, bloquesPuestos[i][j]!.color.red ~/ 2,
+                                bloquesPuestos[i][j]!.color.green ~/ 2, bloquesPuestos[i][j]!.color.blue ~/ 2),
+                            width: 5),
+                        top: BorderSide(
+                            color: cambiarColor(bloquesPuestos[i][j]!.color, 50), width: 5),
+                        left: BorderSide(
+                            color: cambiarColor(bloquesPuestos[i][j]!.color, -50), width: 5),
+                        right: BorderSide(
+                            color: cambiarColor(bloquesPuestos[i][j]!.color, -50), width: 5))),
+                    
+              )
+            )
+          );
         }
       }
     }
@@ -443,7 +491,22 @@ class _Tablero extends State<Tablero> {
                     Tablero.piezaReservadaHeight /
                     Tablero.REJILLA_RESERVADA +
                 Tablero.piezaReservadaTextoHeight,
-            child: Container(color: i.color)));
+            child: Container(
+              //color: i.color
+            decoration: BoxDecoration(
+                color: i.color,
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color.fromARGB(255, i.color.red ~/ 2,
+                            i.color.green ~/ 2, i.color.blue ~/ 2),
+                        width: 3),
+                    top: BorderSide(
+                        color: cambiarColor(i.color, 50), width: 3),
+                    left: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3),
+                    right: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3))),                 
+            )));
       }
     }
     return listaBloque;
@@ -486,7 +549,22 @@ class _Tablero extends State<Tablero> {
                   Tablero.piezaReservadaHeight /
                   Tablero.REJILLA_RESERVADA +
               Tablero.piezaReservadaTextoHeight,
-          child: Container(color: i.color)));
+          child: Container(
+            //color: i.color,
+            decoration: BoxDecoration(
+                color: i.color,
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color.fromARGB(255, i.color.red ~/ 2,
+                            i.color.green ~/ 2, i.color.blue ~/ 2),
+                        width: 3),
+                    top: BorderSide(
+                        color: cambiarColor(i.color, 50), width: 3),
+                    left: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3),
+                    right: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3))),            
+          )));
     }
 
     for (Bloque i in piezasSiguientes.toList()[1].bloques) {
@@ -501,7 +579,22 @@ class _Tablero extends State<Tablero> {
                   Tablero.REJILLA_RESERVADA +
               Tablero.piezaReservadaTextoHeight +
               Tablero.piezaReservadaHeight,
-          child: Container(color: i.color)));
+          child: Container(
+            //color: i.color
+            decoration: BoxDecoration(
+                color: i.color,
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color.fromARGB(255, i.color.red ~/ 2,
+                            i.color.green ~/ 2, i.color.blue ~/ 2),
+                        width: 3),
+                    top: BorderSide(
+                        color: cambiarColor(i.color, 50), width: 3),
+                    left: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3),
+                    right: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3))),               
+          )));
     }
 
     for (Bloque i in piezasSiguientes.toList()[2].bloques) {
@@ -516,7 +609,22 @@ class _Tablero extends State<Tablero> {
                   Tablero.REJILLA_RESERVADA +
               Tablero.piezaReservadaTextoHeight +
               2 * Tablero.piezaReservadaHeight,
-          child: Container(color: i.color)));
+          child: Container(
+            //color: i.color
+            decoration: BoxDecoration(
+                color: i.color,
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color.fromARGB(255, i.color.red ~/ 2,
+                            i.color.green ~/ 2, i.color.blue ~/ 2),
+                        width: 3),
+                    top: BorderSide(
+                        color: cambiarColor(i.color, 50), width: 3),
+                    left: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3),
+                    right: BorderSide(
+                        color: cambiarColor(i.color, -50), width: 3))),               
+          )));
     }
     return listaBloque;
   }
@@ -546,136 +654,134 @@ class _Tablero extends State<Tablero> {
     return Scaffold(
         //appBar: appBar,
         body: Column(
+      children: [
+        Row(
           children: [
-            Row(
+            pintarTableroPiezas(),
+            //Expanded(
+            //child: Column(
+            Column(
               children: [
-                pintarTableroPiezas(),
-                //Expanded(
-                //child: Column(
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          timerPrincipal!.cancel();
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      timerPrincipal!.cancel();
 
-                          Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Pausa()))
-                              .then((value) => comenzar());
-                        });
-                      },
-                      child: const Icon(Icons.pause, size: 32),
-                    ),
-
-                    Container(
-                      height: Tablero.piezaReservadaHeight,
-                      width: Tablero.piezaReservadaWidth,
-                      color: Colors.grey,
-                      child: Stack(children: piezaReservadaDisplay()),
-                    ),
-
-                    const SizedBox(
-                      height: 8,
-                    ), //Para darle un espacio entre containers
-
-                    Container(
-                        width: Tablero.piezaReservadaWidth,
-                        height: 3 * Tablero.piezaReservadaHeight +
-                            Tablero.piezaReservadaTextoHeight,
-                        color: Colors.grey,
-                        child: Stack(children: piezasSiguientesDisplay())),
-
-                    const SizedBox(
-                      height: 8,
-                    ), //Para darle un espacio entre containers
-
-                    Column(
-                      //???Quizas esto se pueda hacer con un grid
-                      children: pintarInfo(),
-                    ),
-
-                    ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            reservarPieza();
-                          });
-                        },
-                        child: const Text("Save")),
-                  ],
+                      Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Pausa()))
+                          .then((value) => comenzar());
+                    });
+                  },
+                  child: const Icon(Icons.pause, size: 32),
                 ),
+
+                Container(
+                  height: Tablero.piezaReservadaHeight,
+                  width: Tablero.piezaReservadaWidth,
+                  color: Colors.grey,
+                  child: Stack(children: piezaReservadaDisplay()),
+                ),
+
+                const SizedBox(
+                  height: 8,
+                ), //Para darle un espacio entre containers
+
+                Container(
+                    width: Tablero.piezaReservadaWidth,
+                    height: 3 * Tablero.piezaReservadaHeight +
+                        Tablero.piezaReservadaTextoHeight,
+                    color: Colors.grey,
+                    child: Stack(children: piezasSiguientesDisplay())),
+
+                const SizedBox(
+                  height: 8,
+                ), //Para darle un espacio entre containers
+
+                Column(
+                  //???Quizas esto se pueda hacer con un grid
+                  children: pintarInfo(),
+                ),
+
+                ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        reservarPieza();
+                      });
+                    },
+                    child: const Text("Save")),
               ],
             ),
-            Expanded(
-                flex: 5,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max, //Para que se centre
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceEvenly, //Para que se dejen un espacio uniforme
-                  //crossAxisAlignment: CrossAxisAlignment.stretch,
-
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!colisionLateralPieza(true)) {
-                          setState(() {
-                            piezaActual.mover(1);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.arrow_back, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!giroChoque(true)) {
-                          setState(() {
-                            piezaActual.girar(true);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.rotate_left, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!piezaActual.estaEnSuelo() &&
-                            !estaEncimaPieza(piezaActual)) {
-                          setState(() {
-                            piezaActual.mover(3);
-                          });
-                        }
-                      },
-                      onLongPress: () {
-                        setState(() {
-                          //piezaActual.mover(3);
-                          bajarRapido();
-                        });
-                      },
-                      child: const Icon(Icons.arrow_downward, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!giroChoque(false)) {
-                          setState(() {
-                            piezaActual.girar(false);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.rotate_right, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!colisionLateralPieza(false)) {
-                          setState(() {
-                            piezaActual.mover(2);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.arrow_forward, size: 32),
-                    ),
-                  ],
-                )),
           ],
-        ));
+        ),
+        Expanded(
+            flex: 5,
+            child: Row(
+              mainAxisSize: MainAxisSize.max, //Para que se centre
+              mainAxisAlignment: MainAxisAlignment
+                  .spaceEvenly, //Para que se dejen un espacio uniforme
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
+
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (!colisionLateralPieza(true)) {
+                      setState(() {
+                        piezaActual.mover(1);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.arrow_back, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!giroChoque(true)) {
+                      setState(() {
+                        piezaActual.girar(true);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.rotate_left, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!piezaActual.estaEnSuelo() &&
+                        !estaEncimaPieza(piezaActual)) {
+                      setState(() {
+                        piezaActual.mover(3);
+                      });
+                    }
+                  },
+                  onLongPress: () {
+                    setState(() {
+                      //piezaActual.mover(3);
+                      bajarRapido();
+                    });
+                  },
+                  child: const Icon(Icons.arrow_downward, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!giroChoque(false)) {
+                      setState(() {
+                        piezaActual.girar(false);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.rotate_right, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!colisionLateralPieza(false)) {
+                      setState(() {
+                        piezaActual.mover(2);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.arrow_forward, size: 32),
+                ),
+              ],
+            )),
+      ],
+    ));
   }
 }
