@@ -243,10 +243,10 @@ class _Tablero extends State<Tablero> {
 
   void mostrarGameOver() {
     timerPrincipal!.cancel();
-    print("GAME OVER JAJAJAJA\n");
+    //print("GAME OVER JAJAJAJA\n");
 
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => GameOver()));
+        context, MaterialPageRoute(builder: (context) => GameOver(puntuacion, nivel, lineasAcumuladas)));
   }
 
   void calcularPuntuacion(int lineas) {
@@ -288,9 +288,9 @@ class _Tablero extends State<Tablero> {
 
   List<Container> pintarInfo() {
     List<Container> lista = [
-      Container(color: Colors.amber, child: Text("Score: $puntuacion")),
-      Container(color: Colors.amber, child: Text("Level: $nivel")),
-      Container(color: Colors.amber, child: Text("Lines: $lineasAcumuladas")),
+      Container(width: Tablero.piezaReservadaWidth, color: Colors.amber, child: Text("Score: $puntuacion")),
+      Container(width: Tablero.piezaReservadaWidth, color: Colors.amber, child: Text("Level:  $nivel")),
+      Container(width: Tablero.piezaReservadaWidth, color: Colors.amber, child: Text("Lines:  $lineasAcumuladas")),
     ];
 
     return lista;
