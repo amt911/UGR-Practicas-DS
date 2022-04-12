@@ -380,9 +380,31 @@ class _Tablero extends State<Tablero> {
       margin: const EdgeInsets.all(3),
       width: Tablero.tableroWidth,
       height: Tablero.tableroHeight,
-      color: Color.fromARGB(255, 0, 0, 0),
+      color: Colors.black, //Color.fromARGB(255, 0, 0, 0),
     ));
 
+    for (int i = 0; i < Tablero.TABLERO_HEIGHT_PIEZAS; i++) {
+      for (int j = 0; j < Tablero.TABLERO_WIDTH_PIEZAS; j++){
+        bloquesActivos.add(Positioned(
+          top: ((i *
+                  (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+              Tablero.inicioTableroY),
+          left:
+              ((j * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+                  Tablero.inicioTableroX),
+          child: Container(
+            width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
+            height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,            
+            //color: Colors.white
+            decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(
+                  color: const Color.fromARGB(255, 131, 131, 131)
+                )),
+            ),
+        ));
+      }
+    }
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y >= 0) {
         bloquesActivos.add(Positioned(
@@ -434,19 +456,25 @@ class _Tablero extends State<Tablero> {
                     color: bloquesPuestos[i][j]!.color,
                     border: Border(
                         bottom: BorderSide(
-                            color: Color.fromARGB(255, bloquesPuestos[i][j]!.color.red ~/ 2,
-                                bloquesPuestos[i][j]!.color.green ~/ 2, bloquesPuestos[i][j]!.color.blue ~/ 2),
+                            color: Color.fromARGB(
+                                255,
+                                bloquesPuestos[i][j]!.color.red ~/ 2,
+                                bloquesPuestos[i][j]!.color.green ~/ 2,
+                                bloquesPuestos[i][j]!.color.blue ~/ 2),
                             width: 5),
                         top: BorderSide(
-                            color: cambiarColor(bloquesPuestos[i][j]!.color, 50), width: 5),
+                            color:
+                                cambiarColor(bloquesPuestos[i][j]!.color, 50),
+                            width: 5),
                         left: BorderSide(
-                            color: cambiarColor(bloquesPuestos[i][j]!.color, -50), width: 5),
+                            color:
+                                cambiarColor(bloquesPuestos[i][j]!.color, -50),
+                            width: 5),
                         right: BorderSide(
-                            color: cambiarColor(bloquesPuestos[i][j]!.color, -50), width: 5))),
-                    
-              )
-            )
-          );
+                            color:
+                                cambiarColor(bloquesPuestos[i][j]!.color, -50),
+                            width: 5))),
+              )));
         }
       }
     }
@@ -493,19 +521,19 @@ class _Tablero extends State<Tablero> {
                 Tablero.piezaReservadaTextoHeight,
             child: Container(
               //color: i.color
-            decoration: BoxDecoration(
-                color: i.color,
-                border: Border(
-                    bottom: BorderSide(
-                        color: Color.fromARGB(255, i.color.red ~/ 2,
-                            i.color.green ~/ 2, i.color.blue ~/ 2),
-                        width: 3),
-                    top: BorderSide(
-                        color: cambiarColor(i.color, 50), width: 3),
-                    left: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3),
-                    right: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3))),                 
+              decoration: BoxDecoration(
+                  color: i.color,
+                  border: Border(
+                      bottom: BorderSide(
+                          color: Color.fromARGB(255, i.color.red ~/ 2,
+                              i.color.green ~/ 2, i.color.blue ~/ 2),
+                          width: 3),
+                      top: BorderSide(
+                          color: cambiarColor(i.color, 50), width: 3),
+                      left: BorderSide(
+                          color: cambiarColor(i.color, -50), width: 3),
+                      right: BorderSide(
+                          color: cambiarColor(i.color, -50), width: 3))),
             )));
       }
     }
@@ -558,12 +586,11 @@ class _Tablero extends State<Tablero> {
                         color: Color.fromARGB(255, i.color.red ~/ 2,
                             i.color.green ~/ 2, i.color.blue ~/ 2),
                         width: 3),
-                    top: BorderSide(
-                        color: cambiarColor(i.color, 50), width: 3),
-                    left: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3),
+                    top: BorderSide(color: cambiarColor(i.color, 50), width: 3),
+                    left:
+                        BorderSide(color: cambiarColor(i.color, -50), width: 3),
                     right: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3))),            
+                        color: cambiarColor(i.color, -50), width: 3))),
           )));
     }
 
@@ -588,12 +615,11 @@ class _Tablero extends State<Tablero> {
                         color: Color.fromARGB(255, i.color.red ~/ 2,
                             i.color.green ~/ 2, i.color.blue ~/ 2),
                         width: 3),
-                    top: BorderSide(
-                        color: cambiarColor(i.color, 50), width: 3),
-                    left: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3),
+                    top: BorderSide(color: cambiarColor(i.color, 50), width: 3),
+                    left:
+                        BorderSide(color: cambiarColor(i.color, -50), width: 3),
                     right: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3))),               
+                        color: cambiarColor(i.color, -50), width: 3))),
           )));
     }
 
@@ -618,12 +644,11 @@ class _Tablero extends State<Tablero> {
                         color: Color.fromARGB(255, i.color.red ~/ 2,
                             i.color.green ~/ 2, i.color.blue ~/ 2),
                         width: 3),
-                    top: BorderSide(
-                        color: cambiarColor(i.color, 50), width: 3),
-                    left: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3),
+                    top: BorderSide(color: cambiarColor(i.color, 50), width: 3),
+                    left:
+                        BorderSide(color: cambiarColor(i.color, -50), width: 3),
                     right: BorderSide(
-                        color: cambiarColor(i.color, -50), width: 3))),               
+                        color: cambiarColor(i.color, -50), width: 3))),
           )));
     }
     return listaBloque;
