@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.blueGrey
-      ),
+          brightness: Brightness.dark, primarySwatch: Colors.blueGrey),
       themeMode: ThemeMode.system,
       home: Inicio(),
     );
@@ -31,8 +29,9 @@ class Inicio extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Página principal"),)
-        ),
+            title: const Center(
+          child: Text("Página principal"),
+        )),
         body: Column(
           children: [
             Image.asset("assets/images/LOGO.png"),
@@ -43,17 +42,22 @@ class Inicio extends StatelessWidget {
                     alignment: Alignment.center,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Tablero()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Tablero(1)));
                       },
                       icon: const Icon(Icons.play_arrow_rounded, size: 18),
                       label: const Text("Jugar"),
                     ))),
 
-            ElevatedButton.icon(onPressed: () {
-                                      Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Creditos()));
-            }, icon: const Icon(Icons.density_small_rounded, size: 18), label: const Text("Créditos"))
+            ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Creditos()));
+                },
+                icon: const Icon(Icons.density_small_rounded, size: 18),
+                label: const Text("Créditos"))
           ],
         ));
   }

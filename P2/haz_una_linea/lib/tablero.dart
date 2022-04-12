@@ -11,6 +11,8 @@ import 'package:haz_una_linea/factoria_abstracta.dart';
 import 'package:haz_una_linea/factoria_concreta.dart';
 import 'package:haz_una_linea/game_over.dart';
 import 'package:haz_una_linea/ipieza.dart';
+import 'package:haz_una_linea/ipiezanormal.dart';
+import 'package:haz_una_linea/ipiezabomba.dart';
 import 'package:haz_una_linea/lpieza.dart';
 import 'package:haz_una_linea/pausa.dart';
 import 'package:haz_una_linea/pieza.dart';
@@ -52,6 +54,9 @@ class Tablero extends StatefulWidget {
     67,
     34
   ];
+  int t = 1;
+
+  Tablero(this.t);
 
   @override
   State<Tablero> createState() => _Tablero();
@@ -63,15 +68,7 @@ class _Tablero extends State<Tablero> {
   Timer? timerPrincipal;
   late Pieza piezaActual;
   Pieza? piezaReservada = null; // = TPieza();
-  List<Pieza> lista = [
-    IPieza(),
-    LPieza(true),
-    LPieza(false),
-    SPieza(true),
-    SPieza(false),
-    CuboPieza(),
-    TPieza()
-  ];
+  List<Pieza> lista = [];
   int contadorLineas = 0;
   int nivel = 0;
   int indiceDelay = 0;
@@ -88,6 +85,21 @@ class _Tablero extends State<Tablero> {
   //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
 
   _Tablero() : super() {
+    if (widget.t == 0) {
+      lista = [
+        IPiezaNormal(),
+        LPieza(true),
+        LPieza(false),
+        SPieza(true),
+        SPieza(false),
+        CuboPieza(),
+        TPieza()
+      ];
+    } else {
+      lista = [
+        IPiezaBomba(),
+      ];
+    }
     bloquesPuestos = List.generate(
         Tablero.TABLERO_HEIGHT_PIEZAS.toInt(),
         (index) => List.filled(Tablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
@@ -132,7 +144,9 @@ class _Tablero extends State<Tablero> {
   }
 
   void bajarRapido() {
-    while (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual) && !gameOver()) {
+    while (!piezaActual.estaEnSuelo() &&
+        !estaEncimaPieza(piezaActual) &&
+        !gameOver()) {
       piezaActual.mover(3);
     }
   }
@@ -583,7 +597,6 @@ class _Tablero extends State<Tablero> {
 
       piezasSiguientes.removeFirst();
       piezasSiguientes.add(fa.crearPieza());
-
     } else if (!reservado) {
       Pieza aux = piezaActual;
       piezaActual = piezaReservada!;
@@ -820,7 +833,8 @@ class _Tablero extends State<Tablero> {
                 ElevatedButton(
                   onPressed: () {
                     if (!piezaActual.estaEnSuelo() &&
-                        !estaEncimaPieza(piezaActual) && !gameOver()) {
+                        !estaEncimaPieza(piezaActual) &&
+                        !gameOver()) {
                       setState(() {
                         piezaActual.mover(3);
                       });
