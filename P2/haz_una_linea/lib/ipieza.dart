@@ -4,20 +4,6 @@ import 'package:haz_una_linea/pieza.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 abstract class IPieza extends Pieza {
-  IPieza() : super() {
-    int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-    bloques[0] = Bloque(centro - 2, -1, Colors.cyan);
-    bloques[1] = Bloque(centro - 1, -1, Colors.cyan);
-    bloques[2] = Bloque(centro + 0, -1, Colors.cyan);
-    bloques[3] = Bloque(centro + 1, -1, Colors.cyan);
-
-    //Comprobar el centro de esta pieza
-    //centroPieza = bloques[1];
-
-    centroPieza =
-        Bloque((bloques[1].x + bloques[2].x) / 2, /*-2.5*/ -1.5, Colors.black);
-  }
-
   @override
   void resetPosicion() {
     int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();

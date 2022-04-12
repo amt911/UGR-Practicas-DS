@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
-import 'package:haz_una_linea/ipieza.dart';
 import 'package:haz_una_linea/pieza.dart';
 import 'package:haz_una_linea/tablero.dart';
+import 'package:haz_una_linea/tpieza.dart';
 
-class IPiezaBomba extends IPieza {
-  IPiezaBomba() : super() {
-    bomba = true;
+class TPiezaNormal extends TPieza {
+  TPiezaNormal() {
     int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-    bloques[0] = Bloque(centro - 2, -1, Color.fromARGB(255, 0, 55, 62));
-    bloques[1] = Bloque(centro - 1, -1, Color.fromARGB(255, 0, 55, 62));
-    bloques[2] = Bloque(centro + 0, -1, Color.fromARGB(255, 0, 55, 62));
-    bloques[3] = Bloque(centro + 1, -1, Color.fromARGB(255, 0, 55, 62));
+    bloques[0] = Bloque(centro - 1, -1, Colors.purple);
+    bloques[1] = Bloque(centro + 0, -1, Colors.purple);
+    bloques[2] = Bloque(centro + 1, -1, Colors.purple);
+    bloques[3] = Bloque(centro + 0, -2, Colors.purple);
 
     //Comprobar el centro de esta pieza
-    //centroPieza = bloques[1];
+    centroPieza = Bloque(centro + 0, -1, Colors.white);
 
-    centroPieza =
-        Bloque((bloques[1].x + bloques[2].x) / 2, /*-2.5*/ -1.5, Colors.black);
+    //if (identical(centroPieza, bloques[1])) print("SON IGUALES EN CONSTRUCTOR\n");
   }
 
   @override
@@ -29,7 +27,7 @@ class IPiezaBomba extends IPieza {
       newBloques[i] = bloques[i].clone();
     }
 
-    Pieza resultado = IPiezaBomba();
+    Pieza resultado = TPiezaNormal();
 
     resultado.bloques = newBloques;
     resultado.centroPieza = newCentro;

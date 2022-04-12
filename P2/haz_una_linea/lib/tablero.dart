@@ -7,6 +7,8 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/cubopieza.dart';
+import 'package:haz_una_linea/cubopiezabomba.dart';
+import 'package:haz_una_linea/cubopiezanormal.dart';
 import 'package:haz_una_linea/factoria_abstracta.dart';
 import 'package:haz_una_linea/factoria_concreta.dart';
 import 'package:haz_una_linea/game_over.dart';
@@ -14,11 +16,17 @@ import 'package:haz_una_linea/ipieza.dart';
 import 'package:haz_una_linea/ipiezanormal.dart';
 import 'package:haz_una_linea/ipiezabomba.dart';
 import 'package:haz_una_linea/lpieza.dart';
+import 'package:haz_una_linea/lpiezabomba.dart';
+import 'package:haz_una_linea/lpiezanormal.dart';
 import 'package:haz_una_linea/pausa.dart';
 import 'package:haz_una_linea/pieza.dart';
 import 'package:haz_una_linea/spieza.dart';
+import 'package:haz_una_linea/spiezabomba.dart';
+import 'package:haz_una_linea/spiezanormal.dart';
 import 'package:haz_una_linea/tpieza.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:haz_una_linea/tpiezabomba.dart';
+import 'package:haz_una_linea/tpiezanormal.dart';
 
 import 'Musica.dart';
 
@@ -88,16 +96,29 @@ class _Tablero extends State<Tablero> {
     if (t == 0) {
       lista = [
         IPiezaNormal(),
-        LPieza(true),
-        LPieza(false),
-        SPieza(true),
-        SPieza(false),
-        CuboPieza(),
-        TPieza()
+        LPiezaNormal(true),
+        LPiezaNormal(false),
+        SPiezaNormal(true),
+        SPiezaNormal(false),
+        CuboPiezaNormal(),
+        TPiezaNormal()
       ];
     } else {
       lista = [
         IPiezaBomba(),
+        LPiezaBomba(false),
+        LPiezaBomba(true),
+        CuboPiezaBomba(),
+        SPiezaBomba(false),
+        SPiezaBomba(true),
+        TPiezaBomba(),
+        IPiezaNormal(),
+        LPiezaNormal(true),
+        LPiezaNormal(false),
+        SPiezaNormal(true),
+        SPiezaNormal(false),
+        CuboPiezaNormal(),
+        TPiezaNormal()
       ];
     }
     bloquesPuestos = List.generate(
@@ -131,13 +152,15 @@ class _Tablero extends State<Tablero> {
 
   void meterEnTablero() {
     //bool fin = false;
-
+    List<Bloque> b = [];
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y >= 0) {
         bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
+        b.add(aux);
       } else {
         fin = true;
       }
+      if (t == 1 && piezaActual.esbomba()) explotar(b);
     }
 
     //if (fin) mostrarGameOver();
@@ -314,6 +337,36 @@ class _Tablero extends State<Tablero> {
     }
 
     moverLineasSuperiores(lineas);
+  }
+
+  void explotar(List<Bloque> b) {
+    for (Bloque aux in b) {
+      bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = null;
+      if (aux.y.toInt() > 0) {
+        bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt()] = null;
+        if (aux.x.toInt() > 0) {
+          bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() - 1] = null;
+        }
+        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
+          bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() + 1] = null;
+        }
+      }
+      if (aux.y.toInt() < Tablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1) {
+        bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt()] = null;
+        if (aux.x.toInt() > 0) {
+          bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() - 1] = null;
+        }
+        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
+          bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() + 1] = null;
+        }
+      }
+      if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS - 1) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt() + 1] = null;
+      }
+      if (aux.x.toInt() > 0) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt() - 1] = null;
+      }
+    }
   }
 
   List<Widget> pintarInfo() {
