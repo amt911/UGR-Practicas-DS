@@ -192,7 +192,7 @@ class _Tablero extends State<Tablero> {
 
   void subirNivel() {
     if (contadorLineas >= 10) {
-      contadorLineas = 0;
+      contadorLineas -= 10;
       nivel++;
       if (nivel <= 9 ||
           nivel == 10 ||
@@ -580,7 +580,7 @@ class _Tablero extends State<Tablero> {
       piezaReservada = piezaActual;
       piezaReservada!.resetPosicion();
       piezaActual = piezasSiguientes.first;
-      
+
       piezasSiguientes.removeFirst();
       piezasSiguientes.add(fa.crearPieza());
 
