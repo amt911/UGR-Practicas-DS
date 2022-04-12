@@ -132,7 +132,7 @@ class _Tablero extends State<Tablero> {
   }
 
   void bajarRapido() {
-    while (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual)) {
+    while (!piezaActual.estaEnSuelo() && !estaEncimaPieza(piezaActual) && !gameOver()) {
       piezaActual.mover(3);
     }
   }
@@ -820,7 +820,7 @@ class _Tablero extends State<Tablero> {
                 ElevatedButton(
                   onPressed: () {
                     if (!piezaActual.estaEnSuelo() &&
-                        !estaEncimaPieza(piezaActual)) {
+                        !estaEncimaPieza(piezaActual) && !gameOver()) {
                       setState(() {
                         piezaActual.mover(3);
                       });
