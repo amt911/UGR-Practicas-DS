@@ -289,20 +289,41 @@ class _Tablero extends State<Tablero> {
     moverLineasSuperiores(lineas);
   }
 
-  List<Container> pintarInfo() {
-    List<Container> lista = [
+  List<Widget> pintarInfo() {
+    Color lima = Colors.lime;
+    Color naranja = Colors.orange;
+    Color rojo = Colors.red;
+
+    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+      lima = Colors.lime.shade900;
+      naranja = Colors.orange.shade900;
+      rojo = Colors.red.shade900;
+    }
+    List<Widget> lista = [
+      const SizedBox(
+        height: 20,
+      ),
       Container(
           width: Tablero.piezaReservadaWidth,
-          color: Colors.amber,
+          color: lima,
           child: Text("Score: $puntuacion")),
+      const SizedBox(
+        height: 20,
+      ),
       Container(
           width: Tablero.piezaReservadaWidth,
-          color: Colors.amber,
+          color: naranja,
           child: Text("Level:  $nivel")),
+      const SizedBox(
+        height: 20,
+      ),
       Container(
           width: Tablero.piezaReservadaWidth,
-          color: Colors.amber,
+          color: rojo,
           child: Text("Lines:  $lineasAcumuladas")),
+      const SizedBox(
+        height: 20,
+      ),
     ];
 
     return lista;
@@ -384,24 +405,21 @@ class _Tablero extends State<Tablero> {
     ));
 
     for (int i = 0; i < Tablero.TABLERO_HEIGHT_PIEZAS; i++) {
-      for (int j = 0; j < Tablero.TABLERO_WIDTH_PIEZAS; j++){
+      for (int j = 0; j < Tablero.TABLERO_WIDTH_PIEZAS; j++) {
         bloquesActivos.add(Positioned(
-          top: ((i *
-                  (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
+          top: ((i * (Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS)) +
               Tablero.inicioTableroY),
-          left:
-              ((j * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
-                  Tablero.inicioTableroX),
+          left: ((j * (Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS)) +
+              Tablero.inicioTableroX),
           child: Container(
             width: Tablero.tableroWidth / Tablero.TABLERO_WIDTH_PIEZAS,
-            height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,            
+            height: Tablero.tableroHeight / Tablero.TABLERO_HEIGHT_PIEZAS,
             //color: Colors.white
             decoration: BoxDecoration(
                 color: Colors.black,
                 border: Border.all(
-                  color: const Color.fromARGB(255, 131, 131, 131)
-                )),
-            ),
+                    color: const Color.fromARGB(255, 131, 131, 131))),
+          ),
         ));
       }
     }
@@ -498,17 +516,21 @@ class _Tablero extends State<Tablero> {
   List<Widget> piezaReservadaDisplay() {
     List<Widget> listaBloque = [];
 
+    Color color = Colors.cyan;
+
+    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+      color = Colors.cyan.shade900;
+    }
+
     listaBloque.add(Positioned(
       width: Tablero.piezaReservadaTextoWidth,
       height: Tablero.piezaReservadaTextoHeight,
       child: Container(
-          child: const Center(child: Text("Reservada")), color: Colors.red),
+          child: const Center(child: Text("Reservada")), color: color),
     ));
 
     if (piezaReservada != null) {
       for (Bloque i in piezaReservada!.bloques) {
-        print(
-            "SI: ${i.x /* * Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA*/}\n");
         listaBloque.add(Positioned(
             width: Tablero.piezaReservadaWidth / Tablero.REJILLA_RESERVADA,
             height: Tablero.piezaReservadaHeight / Tablero.REJILLA_RESERVADA,
@@ -558,11 +580,17 @@ class _Tablero extends State<Tablero> {
   List<Widget> piezasSiguientesDisplay() {
     List<Widget> listaBloque = [];
 
+    Color color = Colors.green;
+
+    if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
+      color = Colors.green.shade900;
+    }
+
     listaBloque.add(Positioned(
         width: Tablero.piezaReservadaTextoWidth,
         height: Tablero.piezaReservadaTextoHeight,
         child: Container(
-          color: Colors.yellow,
+          color: color,
           child: const Center(child: Text("Siguientes: ")),
         )));
 
