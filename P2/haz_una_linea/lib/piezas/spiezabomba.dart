@@ -6,7 +6,7 @@ import 'package:haz_una_linea/tablero.dart';
 
 class SPiezaBomba extends SPieza {
   SPiezaBomba(inverso) : super(inverso) {
-    bomba = true;
+    //bomba = true;
     if (inverso) {
       int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -1, Color.fromARGB(255, 35, 78, 37));
@@ -44,4 +44,38 @@ class SPiezaBomba extends SPieza {
 
     return resultado;
   }
+
+  @override
+  void explotar(List<List<Bloque?>> bloquesPuestos) {
+    for (Bloque aux in bloques) {
+      if (aux.y.toInt() >= 0) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = null;
+      }
+      if (aux.y.toInt() > 0) {
+        bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt()] = null;
+        if (aux.x.toInt() > 0) {
+          bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() - 1] = null;
+        }
+        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
+          bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() + 1] = null;
+        }
+      }
+      if (aux.y >= 0 &&
+          aux.y.toInt() < Tablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1) {
+        bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt()] = null;
+        if (aux.x.toInt() > 0) {
+          bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() - 1] = null;
+        }
+        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
+          bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() + 1] = null;
+        }
+      }
+      if (aux.y >= 0 && aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS - 1) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt() + 1] = null;
+      }
+      if (aux.y >= 0 && aux.x.toInt() > 0) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt() - 1] = null;
+      }
+    }
+  }  
 }

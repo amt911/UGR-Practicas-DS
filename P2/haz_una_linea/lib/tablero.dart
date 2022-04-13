@@ -156,7 +156,7 @@ class _Tablero extends State<Tablero> {
         fin = true;
       }
     }
-      if (t == 1 && piezaActual.esbomba()) explotar();
+      if (t == 1/* && piezaActual.esbomba()*/) piezaActual.explotar(bloquesPuestos);
   }
 
   void bajarRapido() {
@@ -326,6 +326,7 @@ class _Tablero extends State<Tablero> {
     moverLineasSuperiores(lineas);
   }
 
+/*
   void explotar() {
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y.toInt() >= 0) {
@@ -358,6 +359,7 @@ class _Tablero extends State<Tablero> {
       }
     }
   }
+*/
 
   List<Widget> pintarInfo() {
     Color lima = Colors.lime;

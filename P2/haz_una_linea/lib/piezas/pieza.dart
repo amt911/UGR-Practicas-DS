@@ -5,7 +5,7 @@ import 'package:haz_una_linea/tablero.dart';
 abstract class Pieza {
   late List<Bloque> bloques; //Una pieza es un conjunto de bloques
   late Bloque centroPieza; //Sirve para luego poder rotar la pieza
-  late bool bomba = false;
+  //late bool bomba = false;
   void resetPosicion();
 
   Pieza() {
@@ -15,9 +15,11 @@ abstract class Pieza {
 
   Pieza clone();
 
-  bool esbomba() {
-    return bomba;
-  }
+  //bool esbomba() {
+  //  return bomba;
+  //}
+
+  void explotar(List<List<Bloque?>> bloquesPuestos) {}
 
   void mover(int dir) {
     switch (dir) {
