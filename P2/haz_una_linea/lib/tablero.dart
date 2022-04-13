@@ -7,6 +7,7 @@ import 'package:haz_una_linea/factoria_abstracta.dart';
 import 'package:haz_una_linea/factoria_concreta.dart';
 import 'package:haz_una_linea/factoria_concreta_bomba.dart';
 import 'package:haz_una_linea/game_over.dart';
+import 'package:haz_una_linea/movimientos.dart';
 import 'package:haz_una_linea/pausa.dart';
 import 'package:haz_una_linea/piezas/cubopiezabomba.dart';
 import 'package:haz_una_linea/piezas/cubopiezanormal.dart';
@@ -150,15 +151,16 @@ class _Tablero extends State<Tablero> {
         fin = true;
       }
     }
-    if (t == 1 /* && piezaActual.esbomba()*/)
+    if (t == 1 /* && piezaActual.esbomba()*/) {
       piezaActual.explotar(bloquesPuestos);
+    }
   }
 
   void bajarRapido() {
     while (!piezaActual.estaEnSuelo() &&
         !piezaActual.estaEncimaPieza(bloquesPuestos) &&
         !gameOver()) {
-      piezaActual.mover(3);
+      piezaActual.mover(Movimientos.BAJAR);
     }
   }
 
@@ -329,7 +331,7 @@ class _Tablero extends State<Tablero> {
         if (!piezaActual.estaEnSuelo() &&
             !piezaActual.estaEncimaPieza(bloquesPuestos) &&
             !gameOver()) {
-          piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
+          piezaActual.mover(Movimientos.BAJAR);
         } else {
           if (fin) {
             mostrarGameOver();
@@ -763,7 +765,7 @@ class _Tablero extends State<Tablero> {
                     if (!piezaActual.colisionLateralPieza(
                         true, bloquesPuestos)) {
                       setState(() {
-                        piezaActual.mover(1);
+                        piezaActual.mover(Movimientos.IZQUIERDA);
                       });
                     }
                   },
@@ -771,9 +773,9 @@ class _Tablero extends State<Tablero> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (!piezaActual.giroChoque(true, bloquesPuestos)) {
+                    if (!piezaActual.giroChoque(Movimientos.GIRAR_IZDA, bloquesPuestos)) {
                       setState(() {
-                        piezaActual.girar(true);
+                        piezaActual.girar(Movimientos.GIRAR_IZDA);
                       });
                     }
                   },
@@ -785,7 +787,7 @@ class _Tablero extends State<Tablero> {
                         !piezaActual.estaEncimaPieza(bloquesPuestos) &&
                         !gameOver()) {
                       setState(() {
-                        piezaActual.mover(3);
+                        piezaActual.mover(Movimientos.BAJAR);
                       });
                     }
                   },
@@ -799,9 +801,9 @@ class _Tablero extends State<Tablero> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (!piezaActual.giroChoque(false, bloquesPuestos)) {
+                    if (!piezaActual.giroChoque(Movimientos.GIRAR_DCHA, bloquesPuestos)) {
                       setState(() {
-                        piezaActual.girar(false);
+                        piezaActual.girar(Movimientos.GIRAR_DCHA);
                       });
                     }
                   },
@@ -812,7 +814,7 @@ class _Tablero extends State<Tablero> {
                     if (!piezaActual.colisionLateralPieza(
                         false, bloquesPuestos)) {
                       setState(() {
-                        piezaActual.mover(2);
+                        piezaActual.mover(Movimientos.DERECHA);
                       });
                     }
                   },

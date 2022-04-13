@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
+import 'package:haz_una_linea/movimientos.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 abstract class Pieza {
@@ -21,9 +22,9 @@ abstract class Pieza {
 
   void explotar(List<List<Bloque?>> bloquesPuestos) {}
 
-  void mover(int dir) {
-    switch (dir) {
-      case 1: //Izquierda
+  void mover(Movimientos mov) {
+    switch (mov) {
+      case Movimientos.IZQUIERDA: //Izquierda
         if (!colisionLateral(true)) {
           for (Bloque element in bloques) {
             element.x -= 1;
@@ -32,7 +33,7 @@ abstract class Pieza {
         }
         break;
 
-      case 2: //Derecha
+      case Movimientos.DERECHA: //Derecha
         if (!colisionLateral(false)) {
           for (Bloque element in bloques) {
             element.x += 1;
@@ -41,11 +42,14 @@ abstract class Pieza {
         }
         break;
 
-      case 3: //Abajo
+      case Movimientos.BAJAR: //Abajo
         for (Bloque element in bloques) {
           element.y += 1;
         }
         centroPieza.y += 1;
+        break;
+
+      default:
         break;
     }
   }
@@ -67,26 +71,22 @@ abstract class Pieza {
     return res;
   }
 
-  bool colisionLateralGiro(bool esIzquierda) {
+  bool colisionLateralGiro() {
     //Este tipo de colision permite girar justo pegado a la pared
     bool res = false;
-    //UNIR ESTOS DOS, ES UN POCO INUTIL SEPARARLOS
-    if (esIzquierda) {
-      for (Bloque aux in bloques) {
-        if (aux.x < 0) res = true;
-      }
-    } else {
-      for (Bloque aux in bloques) {
-        if (aux.x > (Tablero.TABLERO_WIDTH_PIEZAS - 1)) res = true;
+
+    for (Bloque aux in bloques) {
+      if (aux.x < 0 || aux.x > (Tablero.TABLERO_WIDTH_PIEZAS - 1)) {
+        res = true;
       }
     }
 
     return res;
   }
 
-  void girar(bool esIzquierda) {
+  void girar(Movimientos mov) {
     //Formulas obtenidas de la asignatura IG
-    if (!esIzquierda) {
+    if (mov == Movimientos.GIRAR_DCHA) {
       //Giros a la derecha
       for (Bloque element in bloques) {
         double x = element.x;
@@ -95,7 +95,7 @@ abstract class Pieza {
       }
 
       //Si al girar se colisiona se pone de nuevo como estaba
-      if (colisionLateralGiro(true) || colisionLateralGiro(false)) {
+      if (colisionLateralGiro()) {
         for (Bloque element in bloques) {
           double x = element.x;
           element.x = centroPieza.x - centroPieza.y + element.y;
@@ -110,7 +110,7 @@ abstract class Pieza {
       }
 
       //Si al girar se colisiona se pone de nuevo como estaba
-      if (colisionLateralGiro(true) || colisionLateralGiro(false)) {
+      if (colisionLateralGiro()) {
         for (Bloque element in bloques) {
           double x = element.x;
           element.x = centroPieza.x + centroPieza.y - element.y;
@@ -124,8 +124,6 @@ abstract class Pieza {
     bool res = false;
 
     for (Bloque aux in bloques) {
-      //print("Altura max: ${Tablero.tableroHeight + Tablero.inicioTableroY}\n");
-      //print("y: ${aux.y}\n");
       if (aux.y >= (Tablero.TABLERO_HEIGHT_PIEZAS - 1)) res = true;
     }
 
@@ -143,10 +141,10 @@ abstract class Pieza {
     }
 
     return res;
-  }  
+  }
 
-
-  bool colisionLateralPieza(bool esIzquierda, List<List<Bloque?>> bloquesPuestos) {
+  bool colisionLateralPieza(
+      bool esIzquierda, List<List<Bloque?>> bloquesPuestos) {
     bool res = false;
 
     if (esIzquierda) {
@@ -168,12 +166,12 @@ abstract class Pieza {
     }
 
     return res;
-  }  
+  }
 
-  bool giroChoque(bool esIzquierda, List<List<Bloque?>> bloquesPuestos) {
+  bool giroChoque(Movimientos mov, List<List<Bloque?>> bloquesPuestos) {
     Pieza bloqueAux = clone(); //Para no modificar la pieza actual
     bloqueAux.girar(
-        esIzquierda); //Se gira (incluye las restricciones laterales) para comprobar si se solapan
+        mov); //Se gira (incluye las restricciones laterales) para comprobar si se solapan
     bool res = false;
 
     for (Bloque aux in bloqueAux.bloques) {
@@ -184,5 +182,5 @@ abstract class Pieza {
     }
 
     return res;
-  }   
+  }
 }
