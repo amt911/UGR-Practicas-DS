@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
-import 'package:haz_una_linea/piezas/cubopieza.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
+import 'package:haz_una_linea/piezas/s_pieza.dart';
 import 'package:haz_una_linea/tablero.dart';
 
-class CuboPiezaBomba extends CuboPieza {
-  CuboPiezaBomba() {
+class SPiezaBomba extends SPieza {
+  SPiezaBomba(inverso) : super(inverso) {
     //bomba = true;
-    int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-    bloques[0] = Bloque(centro - 1, -1, Color.fromARGB(255, 154, 142, 32));
-    bloques[1] = Bloque(centro + 0, -1, Color.fromARGB(255, 154, 142, 32));
-    bloques[2] = Bloque(centro - 1, -2, Color.fromARGB(255, 154, 142, 32));
-    bloques[3] = Bloque(centro + 0, -2, Color.fromARGB(255, 154, 142, 32));
+    if (inverso) {
+      int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+      bloques[0] = Bloque(centro - 1, -1, Color.fromARGB(255, 35, 78, 37));
+      bloques[1] = Bloque(centro + 0, -1, Color.fromARGB(255, 35, 78, 37));
+      bloques[2] = Bloque(centro + 0, -2, Color.fromARGB(255, 35, 78, 37));
+      bloques[3] = Bloque(centro + 1, -2, Color.fromARGB(255, 35, 78, 37));
 
-    //Comprobar el centro de esta pieza
-    centroPieza = Bloque(centro + 0, -1, Color.fromARGB(255, 154, 142, 32));
+      //Comprobar el centro de esta pieza
+      centroPieza = Bloque(centro + 0, -1, Color.fromARGB(255, 35, 78, 37));
+    } else {
+      int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+      bloques[0] = Bloque(centro - 1, -2, Color.fromARGB(255, 118, 32, 26));
+      bloques[1] = Bloque(centro + 0, -2, Color.fromARGB(255, 118, 32, 26));
+      bloques[2] = Bloque(centro + 0, -1, Color.fromARGB(255, 118, 32, 26));
+      bloques[3] = Bloque(centro + 1, -1, Color.fromARGB(255, 118, 32, 26));
+
+      //Comprobar el centro de esta pieza
+      centroPieza = Bloque(centro + 0, -1, Color.fromARGB(255, 118, 32, 26));
+    }
   }
 
   @override
@@ -27,7 +38,7 @@ class CuboPiezaBomba extends CuboPieza {
       newBloques[i] = bloques[i].clone();
     }
 
-    Pieza resultado = CuboPiezaBomba();
+    Pieza resultado = SPiezaBomba(inverso);
 
     resultado.bloques = newBloques;
     resultado.centroPieza = newCentro;

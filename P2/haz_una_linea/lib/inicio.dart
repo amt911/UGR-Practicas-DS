@@ -58,7 +58,7 @@ class Inicio extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Tablero()));
                     },
                     icon: const Icon(Icons.play_arrow_rounded, size: 18),
-                    label: const Text("Partida con bombas"),
+                    label: const Text("Partida con bombas y pieza +"),
                   )
                 ])),
             ElevatedButton.icon(

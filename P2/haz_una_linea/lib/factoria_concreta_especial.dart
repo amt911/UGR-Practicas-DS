@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:haz_una_linea/factoria_abstracta.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 
-class FactoriaConcretaBomba extends FactoriaAbstracta {
+class FactoriaConcretaEspecial extends FactoriaAbstracta {
   late List<bool> saco; //Indica si ya se ha cogido=true
   List<Pieza>
       especiales; //Lista con piezas especiales para poder sacarlas con una probabilidad distinta a la estipulada por tetris (que salen demasiado frecuentemente)
   double probabilidad; //Probabilidad de que salga una pieza especial
-  FactoriaConcretaBomba(List<Pieza> piezas, this.especiales, this.probabilidad)
+  FactoriaConcretaEspecial(List<Pieza> piezas, this.especiales, this.probabilidad)
       : super(piezas) {
     saco = List.filled(piezas.length, false);
   }
@@ -27,10 +27,10 @@ class FactoriaConcretaBomba extends FactoriaAbstracta {
 
   @override
   Pieza crearPieza() {
-    int especial = Random().nextInt((probabilidad * 100).toInt());
+    int especial = Random().nextInt(100);
     Pieza res = piezasPrototipo[0].clone();
 
-    if (especial == 0) {
+    if (especial < (probabilidad*100)) {
       int indiceEspecial = Random().nextInt(especiales.length);
       res = especiales[indiceEspecial].clone();
     } else {

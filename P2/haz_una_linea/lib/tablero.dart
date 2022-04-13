@@ -5,22 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/factoria_abstracta.dart';
 import 'package:haz_una_linea/factoria_concreta.dart';
-import 'package:haz_una_linea/factoria_concreta_bomba.dart';
+import 'package:haz_una_linea/factoria_concreta_especial.dart';
 import 'package:haz_una_linea/game_over.dart';
 import 'package:haz_una_linea/movimientos.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/pausa.dart';
-import 'package:haz_una_linea/piezas/cubopiezabomba.dart';
-import 'package:haz_una_linea/piezas/cubopiezanormal.dart';
-import 'package:haz_una_linea/piezas/ipiezabomba.dart';
-import 'package:haz_una_linea/piezas/ipiezanormal.dart';
-import 'package:haz_una_linea/piezas/lpiezabomba.dart';
-import 'package:haz_una_linea/piezas/lpiezanormal.dart';
+import 'package:haz_una_linea/piezas/cubo_pieza_bomba.dart';
+import 'package:haz_una_linea/piezas/cubo_pieza_normal.dart';
+import 'package:haz_una_linea/piezas/i_pieza_bomba.dart';
+import 'package:haz_una_linea/piezas/i_pieza_normal.dart';
+import 'package:haz_una_linea/piezas/l_pieza_bomba.dart';
+import 'package:haz_una_linea/piezas/l_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
-import 'package:haz_una_linea/piezas/spiezabomba.dart';
-import 'package:haz_una_linea/piezas/spiezanormal.dart';
-import 'package:haz_una_linea/piezas/tpiezabomba.dart';
-import 'package:haz_una_linea/piezas/tpiezanormal.dart';
+import 'package:haz_una_linea/piezas/pieza_mas.dart';
+import 'package:haz_una_linea/piezas/pieza_mas_bomba.dart';
+import 'package:haz_una_linea/piezas/pieza_mas_normal.dart';
+import 'package:haz_una_linea/piezas/s_pieza_bomba.dart';
+import 'package:haz_una_linea/piezas/s_pieza_normal.dart';
+import 'package:haz_una_linea/piezas/t_pieza_bomba.dart';
+import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
 import 'Musica.dart';
 
@@ -106,6 +109,8 @@ class _Tablero extends State<Tablero> {
       fa = FactoriaConcreta(lista);
     } else {
       listaBombas = [
+        PiezaMasNormal(),
+        PiezaMasBomba(),
         IPiezaBomba(),
         LPiezaBomba(false),
         LPiezaBomba(true),
@@ -115,7 +120,7 @@ class _Tablero extends State<Tablero> {
         TPiezaBomba(),
       ];
 
-      fa = FactoriaConcretaBomba(lista, listaBombas, 1 / 10);
+      fa = FactoriaConcretaEspecial(lista, listaBombas, 0.1);
     }
     bloquesPuestos = List.generate(
         ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
@@ -516,7 +521,7 @@ class _Tablero extends State<Tablero> {
             left: (i.x - 2) *
                 ParametrosTablero.piezaReservadaWidth /
                 ParametrosTablero.REJILLA_RESERVADA,
-            top: (i.y + 3) *
+            top: (i.y + 4) *
                     ParametrosTablero.piezaReservadaHeight /
                     ParametrosTablero.REJILLA_RESERVADA +
                 ParametrosTablero.piezaReservadaTextoHeight,
@@ -583,7 +588,7 @@ class _Tablero extends State<Tablero> {
           left: (i.x - 2) *
               ParametrosTablero.piezaReservadaWidth /
               ParametrosTablero.REJILLA_RESERVADA,
-          top: (i.y + 3) *
+          top: (i.y + 4) *
                   ParametrosTablero.piezaReservadaHeight /
                   ParametrosTablero.REJILLA_RESERVADA +
               ParametrosTablero.piezaReservadaTextoHeight,
@@ -611,7 +616,7 @@ class _Tablero extends State<Tablero> {
           left: (i.x - 2) *
               ParametrosTablero.piezaReservadaWidth /
               ParametrosTablero.REJILLA_RESERVADA,
-          top: (i.y + 3) *
+          top: (i.y + 4) *
                   ParametrosTablero.piezaReservadaHeight /
                   ParametrosTablero.REJILLA_RESERVADA +
               ParametrosTablero.piezaReservadaTextoHeight +
@@ -640,7 +645,7 @@ class _Tablero extends State<Tablero> {
           left: (i.x - 2) *
               ParametrosTablero.piezaReservadaWidth /
               ParametrosTablero.REJILLA_RESERVADA,
-          top: (i.y + 3) *
+          top: (i.y + 4) *
                   ParametrosTablero.piezaReservadaHeight /
                   ParametrosTablero.REJILLA_RESERVADA +
               ParametrosTablero.piezaReservadaTextoHeight +
