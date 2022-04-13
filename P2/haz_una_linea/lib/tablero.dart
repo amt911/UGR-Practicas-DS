@@ -3,22 +3,22 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
-import 'package:haz_una_linea/cubopiezabomba.dart';
-import 'package:haz_una_linea/cubopiezanormal.dart';
 import 'package:haz_una_linea/factoria_abstracta.dart';
 import 'package:haz_una_linea/factoria_concreta.dart';
 import 'package:haz_una_linea/factoria_concreta_bomba.dart';
 import 'package:haz_una_linea/game_over.dart';
-import 'package:haz_una_linea/ipiezanormal.dart';
-import 'package:haz_una_linea/ipiezabomba.dart';
-import 'package:haz_una_linea/lpiezabomba.dart';
-import 'package:haz_una_linea/lpiezanormal.dart';
 import 'package:haz_una_linea/pausa.dart';
-import 'package:haz_una_linea/pieza.dart';
-import 'package:haz_una_linea/spiezabomba.dart';
-import 'package:haz_una_linea/spiezanormal.dart';
-import 'package:haz_una_linea/tpiezabomba.dart';
-import 'package:haz_una_linea/tpiezanormal.dart';
+import 'package:haz_una_linea/piezas/cubopiezabomba.dart';
+import 'package:haz_una_linea/piezas/cubopiezanormal.dart';
+import 'package:haz_una_linea/piezas/ipiezabomba.dart';
+import 'package:haz_una_linea/piezas/ipiezanormal.dart';
+import 'package:haz_una_linea/piezas/lpiezabomba.dart';
+import 'package:haz_una_linea/piezas/lpiezanormal.dart';
+import 'package:haz_una_linea/piezas/pieza.dart';
+import 'package:haz_una_linea/piezas/spiezabomba.dart';
+import 'package:haz_una_linea/piezas/spiezanormal.dart';
+import 'package:haz_una_linea/piezas/tpiezabomba.dart';
+import 'package:haz_una_linea/piezas/tpiezanormal.dart';
 
 import 'Musica.dart';
 
@@ -149,19 +149,14 @@ class _Tablero extends State<Tablero> {
   }
 
   void meterEnTablero() {
-    //bool fin = false;
-    //List<Bloque> b = [];
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y >= 0) {
         bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
-        //b.add(aux);
       } else {
         fin = true;
       }
-      if (t == 1 && piezaActual.esbomba()) explotar(); //b);
     }
-
-    //if (fin) mostrarGameOver();
+      if (t == 1 && piezaActual.esbomba()) explotar();
   }
 
   void bajarRapido() {

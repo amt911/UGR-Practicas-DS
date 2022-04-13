@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
-import 'package:haz_una_linea/ipieza.dart';
-import 'package:haz_una_linea/pieza.dart';
+import 'package:haz_una_linea/piezas/pieza.dart';
 import 'package:haz_una_linea/tablero.dart';
+
+import 'ipieza.dart';
 
 class IPiezaNormal extends IPieza {
   IPiezaNormal() : super() {

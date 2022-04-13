@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:haz_una_linea/factoria_abstracta.dart';
-import 'package:haz_una_linea/pieza.dart';
+import 'package:haz_una_linea/piezas/pieza.dart';
 
 class FactoriaConcretaBomba extends FactoriaAbstracta {
   late List<bool> saco; //Indica si ya se ha cogido=true
