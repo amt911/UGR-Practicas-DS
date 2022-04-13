@@ -161,12 +161,12 @@ class _Tablero extends State<Tablero> {
 
   void bajarRapido() {
     while (!piezaActual.estaEnSuelo() &&
-        !estaEncimaPieza(piezaActual) &&
+        !piezaActual.estaEncimaPieza(bloquesPuestos) &&
         !gameOver()) {
       piezaActual.mover(3);
     }
   }
-
+/*
   bool estaEncimaPieza(Pieza pieza) {
     bool res = false;
     for (Bloque aux in pieza.bloques) {
@@ -179,7 +179,7 @@ class _Tablero extends State<Tablero> {
 
     return res;
   }
-
+*/
   bool colisionLateralPieza(bool esIzquierda) {
     bool res = false;
 
@@ -326,41 +326,6 @@ class _Tablero extends State<Tablero> {
     moverLineasSuperiores(lineas);
   }
 
-/*
-  void explotar() {
-    for (Bloque aux in piezaActual.bloques) {
-      if (aux.y.toInt() >= 0) {
-        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = null;
-      }
-      if (aux.y.toInt() > 0) {
-        bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt()] = null;
-        if (aux.x.toInt() > 0) {
-          bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() - 1] = null;
-        }
-        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
-          bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() + 1] = null;
-        }
-      }
-      if (aux.y >= 0 &&
-          aux.y.toInt() < Tablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1) {
-        bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt()] = null;
-        if (aux.x.toInt() > 0) {
-          bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() - 1] = null;
-        }
-        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
-          bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() + 1] = null;
-        }
-      }
-      if (aux.y >= 0 && aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS - 1) {
-        bloquesPuestos[aux.y.toInt()][aux.x.toInt() + 1] = null;
-      }
-      if (aux.y >= 0 && aux.x.toInt() > 0) {
-        bloquesPuestos[aux.y.toInt()][aux.x.toInt() - 1] = null;
-      }
-    }
-  }
-*/
-
   List<Widget> pintarInfo() {
     Color lima = Colors.lime;
     Color naranja = Colors.orange;
@@ -424,7 +389,7 @@ class _Tablero extends State<Tablero> {
         Duration(milliseconds: Tablero.delays[indiceDelay]), (timer) {
       setState(() {
         if (!piezaActual.estaEnSuelo() &&
-            !estaEncimaPieza(piezaActual) &&
+            !piezaActual.estaEncimaPieza(bloquesPuestos) &&
             !gameOver()) {
           piezaActual.mover(3); //PASAR EL MOVIMIENTO A ENUMERADO???
         } else {
@@ -878,7 +843,7 @@ class _Tablero extends State<Tablero> {
                 ElevatedButton(
                   onPressed: () {
                     if (!piezaActual.estaEnSuelo() &&
-                        !estaEncimaPieza(piezaActual) &&
+                        !piezaActual.estaEncimaPieza(bloquesPuestos) &&
                         !gameOver()) {
                       setState(() {
                         piezaActual.mover(3);

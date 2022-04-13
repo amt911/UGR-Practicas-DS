@@ -131,4 +131,17 @@ abstract class Pieza {
 
     return res;
   }
+
+  bool estaEncimaPieza(List<List<Bloque?>> bloquesPuestos) {
+    bool res = false;
+    for (Bloque aux in bloques) {
+      //Solamente se comprueba si el bloque se encuentra dentro del tablero
+      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
+          bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
+        res = true;
+      }
+    }
+
+    return res;
+  }  
 }
