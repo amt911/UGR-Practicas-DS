@@ -9,7 +9,7 @@ abstract class Pieza {
   void resetPosicion();
 
   Pieza() {
-    bloques = List.filled(4, Bloque(0, 0, Colors.black));
+    bloques = List.filled(4, Bloque(0, 0, Colors.black), growable: true);
     centroPieza = bloques[0];
   }
 
@@ -144,4 +144,45 @@ abstract class Pieza {
 
     return res;
   }  
+
+
+  bool colisionLateralPieza(bool esIzquierda, List<List<Bloque?>> bloquesPuestos) {
+    bool res = false;
+
+    if (esIzquierda) {
+      for (Bloque aux in bloques) {
+        if ((aux.x > 0) &&
+            (aux.y >= 0) &&
+            (bloquesPuestos[aux.y.toInt()][(aux.x - 1).toInt()] != null)) {
+          res = true;
+        }
+      }
+    } else {
+      for (Bloque aux in bloques) {
+        if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
+            (aux.y >= 0) &&
+            (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
+          res = true;
+        }
+      }
+    }
+
+    return res;
+  }  
+
+  bool giroChoque(bool esIzquierda, List<List<Bloque?>> bloquesPuestos) {
+    Pieza bloqueAux = clone(); //Para no modificar la pieza actual
+    bloqueAux.girar(
+        esIzquierda); //Se gira (incluye las restricciones laterales) para comprobar si se solapan
+    bool res = false;
+
+    for (Bloque aux in bloqueAux.bloques) {
+      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
+          bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) {
+        res = true;
+      }
+    }
+
+    return res;
+  }   
 }

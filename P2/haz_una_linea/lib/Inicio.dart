@@ -38,9 +38,10 @@ class Inicio extends StatelessWidget {
 
             //Container(
             Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton.icon(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton.icon(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -49,11 +50,8 @@ class Inicio extends StatelessWidget {
                       },
                       icon: const Icon(Icons.play_arrow_rounded, size: 18),
                       label: const Text("Partida normal"),
-                    ))),
-            Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: ElevatedButton.icon(
+                    ),
+                    ElevatedButton.icon(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -62,7 +60,10 @@ class Inicio extends StatelessWidget {
                       },
                       icon: const Icon(Icons.play_arrow_rounded, size: 18),
                       label: const Text("Partida con bombas"),
-                    ))),
+                    )
+                    ]
+                  )
+            ),
             ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(context,

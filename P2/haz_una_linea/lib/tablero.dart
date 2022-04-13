@@ -56,18 +56,18 @@ class Tablero extends StatefulWidget {
   ];
   int t = 1;
 
-  Tablero(this.t);
+  Tablero(this.t, {Key? key}) : super(key: key);
 
   @override
   State<Tablero> createState() => _Tablero(t);
 }
 
 class _Tablero extends State<Tablero> {
-  double velocidad = 1;
+  double velocidad = 1;   //Velocidad de la musica
   Musica m = Musica();
   Timer? timerPrincipal;
   late Pieza piezaActual;
-  Pieza? piezaReservada = null; // = TPieza();
+  Pieza? piezaReservada; // = TPieza();
   List<Pieza> lista = [];
   int contadorLineas = 0;
   int nivel = 0;
@@ -82,32 +82,26 @@ class _Tablero extends State<Tablero> {
   late Queue<Pieza> piezasSiguientes;
   int puntuacion = 0;
   bool fin = false;
-  //bool parar = false;   //Solamente sirve para parar las piezas y depurarlas
+
   int t;
   List<Pieza> listaBombas = [];
   _Tablero(this.t) : super() {
+    piezaReservada = null;
+    
+    lista = [
+      IPiezaNormal(),
+      LPiezaNormal(true),
+      LPiezaNormal(false),
+      SPiezaNormal(true),
+      SPiezaNormal(false),
+      CuboPiezaNormal(),
+      TPiezaNormal()
+    ];
+
     if (t == 0) {
-      lista = [
-        IPiezaNormal(),
-        LPiezaNormal(true),
-        LPiezaNormal(false),
-        SPiezaNormal(true),
-        SPiezaNormal(false),
-        CuboPiezaNormal(),
-        TPiezaNormal()
-      ];
 
       fa = FactoriaConcreta(lista);
     } else {
-      lista = [
-        IPiezaNormal(),
-        LPiezaNormal(true),
-        LPiezaNormal(false),
-        SPiezaNormal(true),
-        SPiezaNormal(false),
-        CuboPiezaNormal(),
-        TPiezaNormal()
-      ];
       listaBombas = [
         IPiezaBomba(),
         LPiezaBomba(false),
@@ -118,7 +112,7 @@ class _Tablero extends State<Tablero> {
         TPiezaBomba(),
       ];
 
-      fa = FactoriaConcretaBomba(lista, listaBombas, 1/10);
+      fa = FactoriaConcretaBomba(lista, listaBombas, 1 / 10);
     }
     bloquesPuestos = List.generate(
         Tablero.TABLERO_HEIGHT_PIEZAS.toInt(),
@@ -156,7 +150,8 @@ class _Tablero extends State<Tablero> {
         fin = true;
       }
     }
-      if (t == 1/* && piezaActual.esbomba()*/) piezaActual.explotar(bloquesPuestos);
+    if (t == 1 /* && piezaActual.esbomba()*/)
+      piezaActual.explotar(bloquesPuestos);
   }
 
   void bajarRapido() {
@@ -165,59 +160,6 @@ class _Tablero extends State<Tablero> {
         !gameOver()) {
       piezaActual.mover(3);
     }
-  }
-/*
-  bool estaEncimaPieza(Pieza pieza) {
-    bool res = false;
-    for (Bloque aux in pieza.bloques) {
-      //Solamente se comprueba si el bloque se encuentra dentro del tablero
-      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
-          bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
-        res = true;
-      }
-    }
-
-    return res;
-  }
-*/
-  bool colisionLateralPieza(bool esIzquierda) {
-    bool res = false;
-
-    if (esIzquierda) {
-      for (Bloque aux in piezaActual.bloques) {
-        if ((aux.x > 0) &&
-            (aux.y >= 0) &&
-            (bloquesPuestos[aux.y.toInt()][(aux.x - 1).toInt()] != null)) {
-          res = true;
-        }
-      }
-    } else {
-      for (Bloque aux in piezaActual.bloques) {
-        if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
-            (aux.y >= 0) &&
-            (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
-          res = true;
-        }
-      }
-    }
-
-    return res;
-  }
-
-  bool giroChoque(bool esIzquierda) {
-    Pieza bloqueAux = piezaActual.clone(); //Para no modificar la pieza actual
-    bloqueAux.girar(
-        esIzquierda); //Se gira (incluye las restricciones laterales) para comprobar si se solapan
-    bool res = false;
-
-    for (Bloque aux in bloqueAux.bloques) {
-      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
-          bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) {
-        res = true;
-      }
-    }
-
-    return res;
   }
 
   void subirNivel() {
@@ -234,9 +176,8 @@ class _Tablero extends State<Tablero> {
         velocidad += 0.034;
       }
 
-      //print("VELOCIDAD: $velocidad\n");
-      //print("Nivel: $nivel\n");
       m.setVelocidad(velocidad);
+
       //Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar para que se reinicie
       timerPrincipal!.cancel();
 
@@ -245,11 +186,10 @@ class _Tablero extends State<Tablero> {
   }
 
   void moverLineasSuperiores(List<int> lineas) {
-    //bloquesPuestos[3][3] = Bloque(3, 3, Colors.black);
     for (int i in lineas) {
       contadorLineas++;
       lineasAcumuladas++;
-      //print("i: ${i}\n");
+
       for (int f = i; f > 1; f--) {
         for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
           bloquesPuestos[f][c] = bloquesPuestos[f - 1][c];
@@ -279,7 +219,6 @@ class _Tablero extends State<Tablero> {
 
   void mostrarGameOver() {
     timerPrincipal!.cancel();
-    //print("GAME OVER JAJAJAJA\n");
     m.pararMusica();
 
     Navigator.push(
@@ -311,7 +250,6 @@ class _Tablero extends State<Tablero> {
 
   void eliminarLineasCompletas() {
     List<int> lineas = lineasCompletas();
-    //print(lineas.length);
 
     for (int i in lineas) {
       for (int c = 0; c < Tablero.TABLERO_WIDTH_PIEZAS; c++) {
@@ -822,7 +760,8 @@ class _Tablero extends State<Tablero> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    if (!colisionLateralPieza(true)) {
+                    if (!piezaActual.colisionLateralPieza(
+                        true, bloquesPuestos)) {
                       setState(() {
                         piezaActual.mover(1);
                       });
@@ -832,7 +771,7 @@ class _Tablero extends State<Tablero> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (!giroChoque(true)) {
+                    if (!piezaActual.giroChoque(true, bloquesPuestos)) {
                       setState(() {
                         piezaActual.girar(true);
                       });
@@ -860,7 +799,7 @@ class _Tablero extends State<Tablero> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (!giroChoque(false)) {
+                    if (!piezaActual.giroChoque(false, bloquesPuestos)) {
                       setState(() {
                         piezaActual.girar(false);
                       });
@@ -870,7 +809,8 @@ class _Tablero extends State<Tablero> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (!colisionLateralPieza(false)) {
+                    if (!piezaActual.colisionLateralPieza(
+                        false, bloquesPuestos)) {
                       setState(() {
                         piezaActual.mover(2);
                       });
