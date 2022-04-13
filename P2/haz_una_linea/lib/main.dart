@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Inicio.dart';
+import 'inicio.dart';
 
 void main() {
   runApp(const MyApp());

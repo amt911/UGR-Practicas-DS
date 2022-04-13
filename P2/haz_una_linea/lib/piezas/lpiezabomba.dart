@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
+import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/lpieza.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 import 'package:haz_una_linea/tablero.dart';
@@ -9,7 +10,7 @@ class LPiezaBomba extends LPieza {
     //bomba = true;
 
     if (inverso) {
-      int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+      int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -1, Color.fromARGB(255, 133, 80, 0));
       bloques[1] = Bloque(centro + 0, -1, Color.fromARGB(255, 133, 80, 0));
       bloques[2] = Bloque(centro + 1, -1, Color.fromARGB(255, 133, 80, 0));
@@ -18,7 +19,7 @@ class LPiezaBomba extends LPieza {
       //Comprobar el centro de esta pieza
       centroPieza = Bloque(centro + 0, -1, Color.fromARGB(255, 133, 80, 0));
     } else {
-      int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+      int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
       bloques[0] = Bloque(centro - 1, -2, Color.fromARGB(255, 12, 58, 95));
       bloques[1] = Bloque(centro + 0, -2, Color.fromARGB(255, 12, 58, 95));
       bloques[2] = Bloque(centro + 1, -2, Color.fromARGB(255, 12, 58, 95));
@@ -56,21 +57,21 @@ class LPiezaBomba extends LPieza {
         if (aux.x.toInt() > 0) {
           bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() - 1] = null;
         }
-        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
+        if (aux.x.toInt() < ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
           bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() + 1] = null;
         }
       }
       if (aux.y >= 0 &&
-          aux.y.toInt() < Tablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1) {
+          aux.y.toInt() < ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1) {
         bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt()] = null;
         if (aux.x.toInt() > 0) {
           bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() - 1] = null;
         }
-        if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
+        if (aux.x.toInt() < ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() - 1) {
           bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() + 1] = null;
         }
       }
-      if (aux.y >= 0 && aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS - 1) {
+      if (aux.y >= 0 && aux.x.toInt() < ParametrosTablero.TABLERO_WIDTH_PIEZAS - 1) {
         bloquesPuestos[aux.y.toInt()][aux.x.toInt() + 1] = null;
       }
       if (aux.y >= 0 && aux.x.toInt() > 0) {

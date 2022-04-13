@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/movimientos.dart';
+import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 abstract class Pieza {
@@ -64,7 +65,7 @@ abstract class Pieza {
       }
     } else {
       for (Bloque aux in bloques) {
-        if (aux.x >= (Tablero.TABLERO_WIDTH_PIEZAS - 1)) res = true;
+        if (aux.x >= (ParametrosTablero.TABLERO_WIDTH_PIEZAS - 1)) res = true;
       }
     }
 
@@ -76,7 +77,7 @@ abstract class Pieza {
     bool res = false;
 
     for (Bloque aux in bloques) {
-      if (aux.x < 0 || aux.x > (Tablero.TABLERO_WIDTH_PIEZAS - 1)) {
+      if (aux.x < 0 || aux.x > (ParametrosTablero.TABLERO_WIDTH_PIEZAS - 1)) {
         res = true;
       }
     }
@@ -124,7 +125,7 @@ abstract class Pieza {
     bool res = false;
 
     for (Bloque aux in bloques) {
-      if (aux.y >= (Tablero.TABLERO_HEIGHT_PIEZAS - 1)) res = true;
+      if (aux.y >= (ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1)) res = true;
     }
 
     return res;
@@ -134,7 +135,7 @@ abstract class Pieza {
     bool res = false;
     for (Bloque aux in bloques) {
       //Solamente se comprueba si el bloque se encuentra dentro del tablero
-      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
+      if ((aux.y >= 0 && aux.y < ParametrosTablero.TABLERO_HEIGHT_PIEZAS) &&
           bloquesPuestos[(aux.y + 1).toInt()][aux.x.toInt()] != null) {
         res = true;
       }
@@ -157,7 +158,7 @@ abstract class Pieza {
       }
     } else {
       for (Bloque aux in bloques) {
-        if ((aux.x < (Tablero.TABLERO_WIDTH_PIEZAS - 1)) &&
+        if ((aux.x < (ParametrosTablero.TABLERO_WIDTH_PIEZAS - 1)) &&
             (aux.y >= 0) &&
             (bloquesPuestos[aux.y.toInt()][(aux.x + 1).toInt()] != null)) {
           res = true;
@@ -175,7 +176,7 @@ abstract class Pieza {
     bool res = false;
 
     for (Bloque aux in bloqueAux.bloques) {
-      if ((aux.y >= 0 && aux.y < Tablero.TABLERO_HEIGHT_PIEZAS) &&
+      if ((aux.y >= 0 && aux.y < ParametrosTablero.TABLERO_HEIGHT_PIEZAS) &&
           bloquesPuestos[aux.y.toInt()][aux.x.toInt()] != null) {
         res = true;
       }

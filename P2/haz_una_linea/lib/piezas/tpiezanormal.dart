@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
+import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 import 'package:haz_una_linea/piezas/tpieza.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 class TPiezaNormal extends TPieza {
   TPiezaNormal() {
-    int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+    int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
     bloques[0] = Bloque(centro - 1, -1, Colors.purple);
     bloques[1] = Bloque(centro + 0, -1, Colors.purple);
     bloques[2] = Bloque(centro + 1, -1, Colors.purple);

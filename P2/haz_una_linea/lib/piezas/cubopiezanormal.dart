@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
+import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/cubopieza.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 class CuboPiezaNormal extends CuboPieza {
   CuboPiezaNormal() {
-    int centro = (Tablero.TABLERO_WIDTH_PIEZAS / 2).floor();
+    int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
     bloques[0] = Bloque(centro - 1, -1, Colors.yellow);
     bloques[1] = Bloque(centro + 0, -1, Colors.yellow);
     bloques[2] = Bloque(centro - 1, -2, Colors.yellow);

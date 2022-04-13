@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:haz_una_linea/creditos.dart';
+import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 class MyApp extends StatelessWidget {
@@ -38,32 +39,28 @@ class Inicio extends StatelessWidget {
 
             //Container(
             Expanded(
-                  child: Column(
+                child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Tablero(0)));
-                      },
-                      icon: const Icon(Icons.play_arrow_rounded, size: 18),
-                      label: const Text("Partida normal"),
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Tablero(1)));
-                      },
-                      icon: const Icon(Icons.play_arrow_rounded, size: 18),
-                      label: const Text("Partida con bombas"),
-                    )
-                    ]
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      ParametrosTablero.t = 0;
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Tablero()));
+                    },
+                    icon: const Icon(Icons.play_arrow_rounded, size: 18),
+                    label: const Text("Partida normal"),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      ParametrosTablero.t = 1;
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Tablero()));
+                    },
+                    icon: const Icon(Icons.play_arrow_rounded, size: 18),
+                    label: const Text("Partida con bombas"),
                   )
-            ),
+                ])),
             ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(context,
