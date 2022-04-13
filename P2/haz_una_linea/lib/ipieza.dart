@@ -17,28 +17,4 @@ abstract class IPieza extends Pieza {
 
     centroPieza.setXY((bloques[1].x + bloques[2].x) / 2, -1.5);
   }
-
-/*
-  @override
-  void mover(int direccion){
-    super.mover(direccion);
-
-    switch (direccion) {
-      case 1: //Izquierda
-      if(!colisionLateral(true)) {
-        centroPieza.x -= 1;
-      }
-        break;
-
-      case 2: //Derecha
-      if(!colisionLateral(false)) {
-        centroPieza.x += 1;
-      }
-        break;
-
-      case 3: //Abajo
-        centroPieza.y += 1;
-        break;
-    }
-  }*/
 }
