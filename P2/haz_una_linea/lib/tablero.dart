@@ -339,7 +339,7 @@ class _Tablero extends State<Tablero> {
     moverLineasSuperiores(lineas);
   }
 
-  void explotar(/*List<Bloque> b*/) {
+  void explotar() {
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y.toInt() >= 0) {
         bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = null;
