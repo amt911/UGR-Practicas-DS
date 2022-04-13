@@ -152,15 +152,15 @@ class _Tablero extends State<Tablero> {
 
   void meterEnTablero() {
     //bool fin = false;
-    List<Bloque> b = [];
+    //List<Bloque> b = [];
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y >= 0) {
         bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
-        b.add(aux);
+        //b.add(aux);
       } else {
         fin = true;
       }
-      if (t == 1 && piezaActual.esbomba()) explotar(b);
+      if (t == 1 && piezaActual.esbomba()) explotar(); //b);
     }
 
     //if (fin) mostrarGameOver();
@@ -339,9 +339,11 @@ class _Tablero extends State<Tablero> {
     moverLineasSuperiores(lineas);
   }
 
-  void explotar(List<Bloque> b) {
-    for (Bloque aux in b) {
-      bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = null;
+  void explotar(/*List<Bloque> b*/) {
+    for (Bloque aux in piezaActual.bloques) {
+      if (aux.y.toInt() >= 0) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = null;
+      }
       if (aux.y.toInt() > 0) {
         bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt()] = null;
         if (aux.x.toInt() > 0) {
@@ -351,7 +353,7 @@ class _Tablero extends State<Tablero> {
           bloquesPuestos[aux.y.toInt() - 1][aux.x.toInt() + 1] = null;
         }
       }
-      if (aux.y.toInt() < Tablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1) {
+      if (aux.y>=0 && aux.y.toInt() < Tablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1) {
         bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt()] = null;
         if (aux.x.toInt() > 0) {
           bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() - 1] = null;
@@ -360,10 +362,10 @@ class _Tablero extends State<Tablero> {
           bloquesPuestos[aux.y.toInt() + 1][aux.x.toInt() + 1] = null;
         }
       }
-      if (aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS - 1) {
+      if (aux.y>=0 && aux.x.toInt() < Tablero.TABLERO_WIDTH_PIEZAS - 1) {
         bloquesPuestos[aux.y.toInt()][aux.x.toInt() + 1] = null;
       }
-      if (aux.x.toInt() > 0) {
+      if (aux.y>=0 && aux.x.toInt() > 0) {
         bloquesPuestos[aux.y.toInt()][aux.x.toInt() - 1] = null;
       }
     }
