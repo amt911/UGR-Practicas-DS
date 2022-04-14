@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.haz_una_linea">
    <application
-        android:label="haz_una_linea"
+        android:label="Haz una Linea"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

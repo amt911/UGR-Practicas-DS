@@ -24,7 +24,7 @@ import 'package:haz_una_linea/piezas/s_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/t_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
-import 'Musica.dart';
+import 'musica.dart';
 
 // ignore: use_key_in_widget_constructors
 class Tablero extends StatefulWidget {

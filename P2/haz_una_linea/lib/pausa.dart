@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:haz_una_linea/Musica.dart';
+import 'package:haz_una_linea/musica.dart';
 
 class Pausa extends StatefulWidget {
   final Musica m;
@@ -12,11 +12,6 @@ class Pausa extends StatefulWidget {
 }
 
 class _Pausa extends State<Pausa> {
-//  bool apagado = true;
-//  IconData icono = Icons.volume_up;
-
-  //_Pausa(this.m);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

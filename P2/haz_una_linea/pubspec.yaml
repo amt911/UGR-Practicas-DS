@@ -33,6 +33,7 @@ dependencies:
   #audioplayers: ^0.10.0
   #cache_audio_player: ^1.0.0
   audioplayers: ^0.20.1
+  flutter_launcher_icons: ^0.9.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -95,3 +96,9 @@ flutter:
   assets:
     - assets/images/
     - assets/music/
+
+
+flutter_icons:
+  android: true
+  image_path: "assets/icons/icono.png"
+  adaptive_icon_background: "#1b68af"
