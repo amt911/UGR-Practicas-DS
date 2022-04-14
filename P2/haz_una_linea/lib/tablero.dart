@@ -17,7 +17,6 @@ import 'package:haz_una_linea/piezas/i_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/l_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/l_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
-import 'package:haz_una_linea/piezas/pieza_mas.dart';
 import 'package:haz_una_linea/piezas/pieza_mas_bomba.dart';
 import 'package:haz_una_linea/piezas/pieza_mas_normal.dart';
 import 'package:haz_una_linea/piezas/s_pieza_bomba.dart';
@@ -27,44 +26,8 @@ import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
 import 'Musica.dart';
 
+// ignore: use_key_in_widget_constructors
 class Tablero extends StatefulWidget {
-  /*
-  static double tableroWidth = 0;
-  static double tableroHeight = 0;
-  static double widthPantalla = 0;
-  static double heightPantalla = 0;
-  static double inicioTableroX = 0;
-  static double inicioTableroY = 0;
-  static const double TABLERO_WIDTH_PIEZAS = 10;
-  static const double TABLERO_HEIGHT_PIEZAS = 20;
-  static double piezaReservadaTextoWidth = 0;
-  static double piezaReservadaTextoHeight = 0;
-  static double piezaReservadaWidth = 0;
-  static double piezaReservadaHeight = 0;
-  static const double REJILLA_RESERVADA = 6;
-
-  static const List<int> delays = [
-    1600,
-    1434,
-    1267,
-    1100,
-    934,
-    767,
-    600,
-    434,
-    267,
-    200,
-    167,
-    134,
-    100,
-    67,
-    34
-  ];
-  */
-  //int t = 1;
-
-  //Tablero(this.t, {Key? key}) : super(key: key);
-
   @override
   State<Tablero> createState() => _Tablero();
 }

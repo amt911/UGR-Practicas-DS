@@ -3,7 +3,6 @@ import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/l_pieza.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
-import 'package:haz_una_linea/tablero.dart';
 
 class LPiezaBomba extends LPieza {
   LPiezaBomba(inverso) : super(inverso) {
@@ -11,19 +10,19 @@ class LPiezaBomba extends LPieza {
 
     if (inverso) {
       int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -1, Color.fromARGB(255, 133, 80, 0));
-      bloques[1] = Bloque(centro + 0, -1, Color.fromARGB(255, 133, 80, 0));
-      bloques[2] = Bloque(centro + 1, -1, Color.fromARGB(255, 133, 80, 0));
-      bloques[3] = Bloque(centro + 1, -2, Color.fromARGB(255, 133, 80, 0));
+      bloques[0] = Bloque(centro - 1, -1, const Color.fromARGB(255, 133, 80, 0));
+      bloques[1] = Bloque(centro + 0, -1, const Color.fromARGB(255, 133, 80, 0));
+      bloques[2] = Bloque(centro + 1, -1, const Color.fromARGB(255, 133, 80, 0));
+      bloques[3] = Bloque(centro + 1, -2, const Color.fromARGB(255, 133, 80, 0));
 
       //Comprobar el centro de esta pieza
-      centroPieza = Bloque(centro + 0, -1, Color.fromARGB(255, 133, 80, 0));
+      centroPieza = Bloque(centro + 0, -1, const Color.fromARGB(255, 133, 80, 0));
     } else {
       int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-      bloques[0] = Bloque(centro - 1, -2, Color.fromARGB(255, 12, 58, 95));
-      bloques[1] = Bloque(centro + 0, -2, Color.fromARGB(255, 12, 58, 95));
-      bloques[2] = Bloque(centro + 1, -2, Color.fromARGB(255, 12, 58, 95));
-      bloques[3] = Bloque(centro + 1, -1, Color.fromARGB(255, 12, 58, 95));
+      bloques[0] = Bloque(centro - 1, -2, const Color.fromARGB(255, 12, 58, 95));
+      bloques[1] = Bloque(centro + 0, -2, const Color.fromARGB(255, 12, 58, 95));
+      bloques[2] = Bloque(centro + 1, -2, const Color.fromARGB(255, 12, 58, 95));
+      bloques[3] = Bloque(centro + 1, -1, const Color.fromARGB(255, 12, 58, 95));
 
       //Comprobar el centro de esta pieza
       centroPieza = Bloque(centro + 0, -2, Colors.blue);

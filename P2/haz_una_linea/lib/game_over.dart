@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class GameOver extends StatelessWidget {
-  int puntuacion, nivel, lineas;
+  final int puntuacion, nivel, lineas;
 
-  GameOver(this.puntuacion, this.nivel, this.lineas);
+  // ignore: use_key_in_widget_constructors
+  const GameOver(this.puntuacion, this.nivel, this.lineas);
 
   @override
   Widget build(BuildContext context) {

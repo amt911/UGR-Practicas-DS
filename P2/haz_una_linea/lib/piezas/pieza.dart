@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/movimientos.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
-import 'package:haz_una_linea/tablero.dart';
 
 abstract class Pieza {
   late List<Bloque> bloques; //Una pieza es un conjunto de bloques

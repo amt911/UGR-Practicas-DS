@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
-import 'package:haz_una_linea/tablero.dart';
 
 import 'i_pieza.dart';
 
@@ -10,10 +9,10 @@ class IPiezaBomba extends IPieza {
   IPiezaBomba() : super() {
     //bomba = true;
     int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-    bloques[0] = Bloque(centro - 2, -1, Color.fromARGB(255, 0, 55, 62));
-    bloques[1] = Bloque(centro - 1, -1, Color.fromARGB(255, 0, 55, 62));
-    bloques[2] = Bloque(centro + 0, -1, Color.fromARGB(255, 0, 55, 62));
-    bloques[3] = Bloque(centro + 1, -1, Color.fromARGB(255, 0, 55, 62));
+    bloques[0] = Bloque(centro - 2, -1, const Color.fromARGB(255, 0, 55, 62));
+    bloques[1] = Bloque(centro - 1, -1, const Color.fromARGB(255, 0, 55, 62));
+    bloques[2] = Bloque(centro + 0, -1, const Color.fromARGB(255, 0, 55, 62));
+    bloques[3] = Bloque(centro + 1, -1, const Color.fromARGB(255, 0, 55, 62));
 
     //Comprobar el centro de esta pieza
     //centroPieza = bloques[1];

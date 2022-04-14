@@ -3,19 +3,18 @@ import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/cubo_pieza.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
-import 'package:haz_una_linea/tablero.dart';
 
 class CuboPiezaBomba extends CuboPieza {
   CuboPiezaBomba() {
     //bomba = true;
     int centro = (ParametrosTablero.TABLERO_WIDTH_PIEZAS / 2).floor();
-    bloques[0] = Bloque(centro - 1, -1, Color.fromARGB(255, 154, 142, 32));
-    bloques[1] = Bloque(centro + 0, -1, Color.fromARGB(255, 154, 142, 32));
-    bloques[2] = Bloque(centro - 1, -2, Color.fromARGB(255, 154, 142, 32));
-    bloques[3] = Bloque(centro + 0, -2, Color.fromARGB(255, 154, 142, 32));
+    bloques[0] = Bloque(centro - 1, -1, const Color.fromARGB(255, 154, 142, 32));
+    bloques[1] = Bloque(centro + 0, -1, const Color.fromARGB(255, 154, 142, 32));
+    bloques[2] = Bloque(centro - 1, -2, const Color.fromARGB(255, 154, 142, 32));
+    bloques[3] = Bloque(centro + 0, -2, const Color.fromARGB(255, 154, 142, 32));
 
     //Comprobar el centro de esta pieza
-    centroPieza = Bloque(centro + 0, -1, Color.fromARGB(255, 154, 142, 32));
+    centroPieza = Bloque(centro + 0, -1, const Color.fromARGB(255, 154, 142, 32));
   }
 
   @override

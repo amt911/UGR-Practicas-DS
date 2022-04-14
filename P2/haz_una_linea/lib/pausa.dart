@@ -1,13 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/Musica.dart';
-import 'package:haz_una_linea/tablero.dart';
 
 class Pausa extends StatefulWidget {
-  Musica m;
+  final Musica m;
 
-  Pausa(this.m);
+  // ignore: use_key_in_widget_constructors
+  const Pausa(this.m);
 
   @override
   State<Pausa> createState() => _Pausa();

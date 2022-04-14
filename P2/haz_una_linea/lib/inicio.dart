@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: use_key_in_widget_constructors
 class Inicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
