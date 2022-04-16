@@ -1,3 +1,4 @@
+
 class ParametrosTablero {
   static double tableroWidth = 0;
   static double tableroHeight = 0;
@@ -12,7 +13,7 @@ class ParametrosTablero {
   static double piezaReservadaWidth = 0;
   static double piezaReservadaHeight = 0;
   static const double REJILLA_RESERVADA = 6;
-  static int t=1;
+  static int t = 1;
   static const List<int> delays = [
     1600,
     1434,

@@ -32,7 +32,7 @@ class Tablero extends StatefulWidget {
   State<Tablero> createState() => _Tablero();
 }
 
-class _Tablero extends State<Tablero> {
+class _Tablero extends State<Tablero> with WidgetsBindingObserver {
   late Pieza sombra;
 
   double velocidad = 1; //Velocidad de la musica
@@ -106,6 +106,25 @@ class _Tablero extends State<Tablero> {
     m.comenzarMusica();
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.paused) {
+      timerPrincipal!.cancel();
+      m.pausarMusica();
+      Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Pausa(m)))
+          .then((value) {
+        //player = cache.loop("music/musica.mp3");
+        //m.reanudarMusica();
+        comenzar();
+      });
+    } //else {
+  }
+
   void actualizarSombra() {
     sombra = piezaActual.clone();
     bajarRapido(sombra);
@@ -113,12 +132,14 @@ class _Tablero extends State<Tablero> {
 
   @override
   void initState() {
+    WidgetsBinding.instance?.addObserver(this);
     super.initState();
     comenzar();
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
     timerPrincipal!.cancel();
     super.dispose();
   }
@@ -729,155 +750,160 @@ class _Tablero extends State<Tablero> {
     ParametrosTablero.piezaReservadaHeight =
         0.23 * ParametrosTablero.widthPantalla;
 
-    return Scaffold(
-        //appBar: appBar,
-        body: Column(
-      children: [
-        Row(
+    return WillPopScope(
+        onWillPop: () async {
+          m.pararMusica();
+          return true;
+        },
+        child: Scaffold(
+            //appBar: appBar,
+            body: Column(
           children: [
-            pintarTableroPiezas(),
-            //Expanded(
-            //child: Column(
-            Column(
+            Row(
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      timerPrincipal!.cancel();
-                      //player.clearAll();
-                      m.pausarMusica();
-                      Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Pausa(m)))
-                          .then((value) {
-                        //player = cache.loop("music/musica.mp3");
-                        //m.reanudarMusica();
-                        comenzar();
-                      });
-                    });
-                  },
-                  child: const Icon(Icons.pause, size: 32),
-                ),
-
-                Container(
-                  height: ParametrosTablero.piezaReservadaHeight,
-                  width: ParametrosTablero.piezaReservadaWidth,
-                  color: Colors.grey,
-                  child: Stack(children: piezaReservadaDisplay()),
-                ),
-
-                const SizedBox(
-                  height: 8,
-                ), //Para darle un espacio entre containers
-
-                Container(
-                    width: ParametrosTablero.piezaReservadaWidth,
-                    height: 3 * ParametrosTablero.piezaReservadaHeight +
-                        ParametrosTablero.piezaReservadaTextoHeight,
-                    color: Colors.grey,
-                    child: Stack(children: piezasSiguientesDisplay())),
-
-                const SizedBox(
-                  height: 8,
-                ), //Para darle un espacio entre containers
-
+                pintarTableroPiezas(),
+                //Expanded(
+                //child: Column(
                 Column(
-                  //???Quizas esto se pueda hacer con un grid
-                  children: pintarInfo(),
-                ),
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          timerPrincipal!.cancel();
+                          //player.clearAll();
+                          m.pausarMusica();
+                        Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => Pausa(m)))
+                            .then((value) {
+                          //player = cache.loop("music/musica.mp3");
+                          //m.reanudarMusica();
+                          comenzar();
+                        });
+                        });
+                      },
+                      child: const Icon(Icons.pause, size: 32),
+                    ),
 
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        reservarPieza();
-                      });
-                    },
-                    child: const Text("Save")),
+                    Container(
+                      height: ParametrosTablero.piezaReservadaHeight,
+                      width: ParametrosTablero.piezaReservadaWidth,
+                      color: Colors.grey,
+                      child: Stack(children: piezaReservadaDisplay()),
+                    ),
+
+                    const SizedBox(
+                      height: 8,
+                    ), //Para darle un espacio entre containers
+
+                    Container(
+                        width: ParametrosTablero.piezaReservadaWidth,
+                        height: 3 * ParametrosTablero.piezaReservadaHeight +
+                            ParametrosTablero.piezaReservadaTextoHeight,
+                        color: Colors.grey,
+                        child: Stack(children: piezasSiguientesDisplay())),
+
+                    const SizedBox(
+                      height: 8,
+                    ), //Para darle un espacio entre containers
+
+                    Column(
+                      //???Quizas esto se pueda hacer con un grid
+                      children: pintarInfo(),
+                    ),
+
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            reservarPieza();
+                          });
+                        },
+                        child: const Text("Save")),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-        Expanded(
-            flex: 5,
-            child: Row(
-              mainAxisSize: MainAxisSize.max, //Para que se centre
-              mainAxisAlignment: MainAxisAlignment
-                  .spaceEvenly, //Para que se dejen un espacio uniforme
-              //crossAxisAlignment: CrossAxisAlignment.stretch,
+            Expanded(
+                flex: 5,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max, //Para que se centre
+                  mainAxisAlignment: MainAxisAlignment
+                      .spaceEvenly, //Para que se dejen un espacio uniforme
+                  //crossAxisAlignment: CrossAxisAlignment.stretch,
 
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    if (!piezaActual.colisionLateralPieza(
-                        true, bloquesPuestos)) {
-                      setState(() {
-                        piezaActual.mover(Movimientos.IZQUIERDA);
-                        actualizarSombra();
-                        //sombra.mover(Movimientos.IZQUIERDA);                        
-                      });
-                    }
-                  },
-                  child: const Icon(Icons.arrow_back, size: 32),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!piezaActual.giroChoque(
-                        Movimientos.GIRAR_IZDA, bloquesPuestos)) {
-                      setState(() {
-                        piezaActual.girar(Movimientos.GIRAR_IZDA);
-                        actualizarSombra();
-                        //sombra.girar(Movimientos.GIRAR_IZDA);
-                      });
-                    }
-                  },
-                  child: const Icon(Icons.rotate_left, size: 32),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!piezaActual.estaEnSuelo() &&
-                        !piezaActual.estaEncimaPieza(bloquesPuestos) &&
-                        !gameOver()) {
-                      setState(() {
-                        piezaActual.mover(Movimientos.BAJAR);
-                      });
-                    }
-                  },
-                  onLongPress: () {
-                    setState(() {
-                      //piezaActual.mover(3);
-                      bajarRapido(piezaActual);
-                    });
-                  },
-                  child: const Icon(Icons.arrow_downward, size: 32),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!piezaActual.giroChoque(
-                        Movimientos.GIRAR_DCHA, bloquesPuestos)) {
-                      setState(() {
-                        piezaActual.girar(Movimientos.GIRAR_DCHA);
-                        actualizarSombra();
-                        //sombra.girar(Movimientos.GIRAR_DCHA);
-                      });
-                    }
-                  },
-                  child: const Icon(Icons.rotate_right, size: 32),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (!piezaActual.colisionLateralPieza(
-                        false, bloquesPuestos)) {
-                      setState(() {
-                        piezaActual.mover(Movimientos.DERECHA);
-                        actualizarSombra();
-                        //sombra.mover(Movimientos.DERECHA);
-                      });
-                    }
-                  },
-                  child: const Icon(Icons.arrow_forward, size: 32),
-                ),
-              ],
-            )),
-      ],
-    ));
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!piezaActual.colisionLateralPieza(
+                            true, bloquesPuestos)) {
+                          setState(() {
+                            piezaActual.mover(Movimientos.IZQUIERDA);
+                            actualizarSombra();
+                            //sombra.mover(Movimientos.IZQUIERDA);
+                          });
+                        }
+                      },
+                      child: const Icon(Icons.arrow_back, size: 32),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!piezaActual.giroChoque(
+                            Movimientos.GIRAR_IZDA, bloquesPuestos)) {
+                          setState(() {
+                            piezaActual.girar(Movimientos.GIRAR_IZDA);
+                            actualizarSombra();
+                            //sombra.girar(Movimientos.GIRAR_IZDA);
+                          });
+                        }
+                      },
+                      child: const Icon(Icons.rotate_left, size: 32),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!piezaActual.estaEnSuelo() &&
+                            !piezaActual.estaEncimaPieza(bloquesPuestos) &&
+                            !gameOver()) {
+                          setState(() {
+                            piezaActual.mover(Movimientos.BAJAR);
+                          });
+                        }
+                      },
+                      onLongPress: () {
+                        setState(() {
+                          //piezaActual.mover(3);
+                          bajarRapido(piezaActual);
+                        });
+                      },
+                      child: const Icon(Icons.arrow_downward, size: 32),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!piezaActual.giroChoque(
+                            Movimientos.GIRAR_DCHA, bloquesPuestos)) {
+                          setState(() {
+                            piezaActual.girar(Movimientos.GIRAR_DCHA);
+                            actualizarSombra();
+                            //sombra.girar(Movimientos.GIRAR_DCHA);
+                          });
+                        }
+                      },
+                      child: const Icon(Icons.rotate_right, size: 32),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (!piezaActual.colisionLateralPieza(
+                            false, bloquesPuestos)) {
+                          setState(() {
+                            piezaActual.mover(Movimientos.DERECHA);
+                            actualizarSombra();
+                            //sombra.mover(Movimientos.DERECHA);
+                          });
+                        }
+                      },
+                      child: const Icon(Icons.arrow_forward, size: 32),
+                    ),
+                  ],
+                )),
+          ],
+        )));
   }
 }
