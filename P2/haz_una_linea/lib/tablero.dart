@@ -33,6 +33,8 @@ class Tablero extends StatefulWidget {
 }
 
 class _Tablero extends State<Tablero> {
+  late Pieza sombra;
+
   double velocidad = 1; //Velocidad de la musica
   Musica m = Musica();
   Timer? timerPrincipal;
@@ -53,7 +55,7 @@ class _Tablero extends State<Tablero> {
   int puntuacion = 0;
   bool fin = false;
 
-  int t=ParametrosTablero.t;
+  int t = ParametrosTablero.t;
   List<Pieza> listaBombas = [];
   _Tablero() : super() {
     piezaReservada = null;
@@ -87,7 +89,8 @@ class _Tablero extends State<Tablero> {
     }
     bloquesPuestos = List.generate(
         ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-        (index) => List.filled(ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
+        (index) => List.filled(
+            ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
             growable: false),
         growable: false);
 
@@ -98,7 +101,14 @@ class _Tablero extends State<Tablero> {
       piezasSiguientes.add(fa.crearPieza());
     }
 
+    actualizarSombra();
+
     m.comenzarMusica();
+  }
+
+  void actualizarSombra() {
+    sombra = piezaActual.clone();
+    bajarRapido(sombra);
   }
 
   @override
@@ -126,11 +136,11 @@ class _Tablero extends State<Tablero> {
     }
   }
 
-  void bajarRapido() {
-    while (!piezaActual.estaEnSuelo() &&
-        !piezaActual.estaEncimaPieza(bloquesPuestos) &&
+  void bajarRapido(Pieza pieza) {
+    while (!pieza.estaEnSuelo() &&
+        !pieza.estaEncimaPieza(bloquesPuestos) &&
         !gameOver()) {
-      piezaActual.mover(Movimientos.BAJAR);
+      pieza.mover(Movimientos.BAJAR);
     }
   }
 
@@ -316,6 +326,8 @@ class _Tablero extends State<Tablero> {
 
             subirNivel();
             reservado = false;
+
+            actualizarSombra();
           }
         }
       });
@@ -354,13 +366,19 @@ class _Tablero extends State<Tablero> {
     for (int i = 0; i < ParametrosTablero.TABLERO_HEIGHT_PIEZAS; i++) {
       for (int j = 0; j < ParametrosTablero.TABLERO_WIDTH_PIEZAS; j++) {
         bloquesActivos.add(Positioned(
-          top: ((i * (ParametrosTablero.tableroHeight / ParametrosTablero.TABLERO_HEIGHT_PIEZAS)) +
+          top: ((i *
+                  (ParametrosTablero.tableroHeight /
+                      ParametrosTablero.TABLERO_HEIGHT_PIEZAS)) +
               ParametrosTablero.inicioTableroY),
-          left: ((j * (ParametrosTablero.tableroWidth / ParametrosTablero.TABLERO_WIDTH_PIEZAS)) +
+          left: ((j *
+                  (ParametrosTablero.tableroWidth /
+                      ParametrosTablero.TABLERO_WIDTH_PIEZAS)) +
               ParametrosTablero.inicioTableroX),
           child: Container(
-            width: ParametrosTablero.tableroWidth / ParametrosTablero.TABLERO_WIDTH_PIEZAS,
-            height: ParametrosTablero.tableroHeight / ParametrosTablero.TABLERO_HEIGHT_PIEZAS,
+            width: ParametrosTablero.tableroWidth /
+                ParametrosTablero.TABLERO_WIDTH_PIEZAS,
+            height: ParametrosTablero.tableroHeight /
+                ParametrosTablero.TABLERO_HEIGHT_PIEZAS,
             //color: Colors.white
             decoration: BoxDecoration(
                 color: Colors.black,
@@ -370,19 +388,60 @@ class _Tablero extends State<Tablero> {
         ));
       }
     }
+
+    for (Bloque aux in sombra.bloques) {
+      if (aux.y >= 0) {
+        bloquesActivos.add(Positioned(
+          //Ejemplo que muestra como se pinta un bloque
+          top: ((aux.y *
+                  (ParametrosTablero.tableroHeight /
+                      ParametrosTablero.TABLERO_HEIGHT_PIEZAS)) +
+              ParametrosTablero.inicioTableroY),
+          left: ((aux.x *
+                  (ParametrosTablero.tableroWidth /
+                      ParametrosTablero.TABLERO_WIDTH_PIEZAS)) +
+              ParametrosTablero.inicioTableroX),
+          child: Container(
+            width: ParametrosTablero.tableroWidth /
+                ParametrosTablero.TABLERO_WIDTH_PIEZAS,
+            height: ParametrosTablero.tableroHeight /
+                ParametrosTablero.TABLERO_HEIGHT_PIEZAS,
+            //color: aux.color,
+            decoration: BoxDecoration(
+                color: Colors.grey,
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color.fromARGB(255, Colors.grey.red ~/ 2,
+                            Colors.grey.green ~/ 2, Colors.grey.blue ~/ 2),
+                        width: 5),
+                    top: BorderSide(
+                        color: cambiarColor(Colors.grey, 50), width: 5),
+                    left: BorderSide(
+                        color: cambiarColor(Colors.grey, -50), width: 5),
+                    right: BorderSide(
+                        color: cambiarColor(Colors.grey, -50), width: 5))),
+          ),
+        ));
+      }
+    }
+
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y >= 0) {
         bloquesActivos.add(Positioned(
           //Ejemplo que muestra como se pinta un bloque
           top: ((aux.y *
-                  (ParametrosTablero.tableroHeight / ParametrosTablero.TABLERO_HEIGHT_PIEZAS)) +
+                  (ParametrosTablero.tableroHeight /
+                      ParametrosTablero.TABLERO_HEIGHT_PIEZAS)) +
               ParametrosTablero.inicioTableroY),
-          left:
-              ((aux.x * (ParametrosTablero.tableroWidth / ParametrosTablero.TABLERO_WIDTH_PIEZAS)) +
-                  ParametrosTablero.inicioTableroX),
+          left: ((aux.x *
+                  (ParametrosTablero.tableroWidth /
+                      ParametrosTablero.TABLERO_WIDTH_PIEZAS)) +
+              ParametrosTablero.inicioTableroX),
           child: Container(
-            width: ParametrosTablero.tableroWidth / ParametrosTablero.TABLERO_WIDTH_PIEZAS,
-            height: ParametrosTablero.tableroHeight / ParametrosTablero.TABLERO_HEIGHT_PIEZAS,
+            width: ParametrosTablero.tableroWidth /
+                ParametrosTablero.TABLERO_WIDTH_PIEZAS,
+            height: ParametrosTablero.tableroHeight /
+                ParametrosTablero.TABLERO_HEIGHT_PIEZAS,
             //color: aux.color,
             decoration: BoxDecoration(
                 color: aux.color,
@@ -409,14 +468,18 @@ class _Tablero extends State<Tablero> {
           bloquesActivos.add(Positioned(
               //Ejemplo que muestra como se pinta un bloque
               top: ((bloquesPuestos[i][j]!.y *
-                      (ParametrosTablero.tableroHeight / ParametrosTablero.TABLERO_HEIGHT_PIEZAS)) +
+                      (ParametrosTablero.tableroHeight /
+                          ParametrosTablero.TABLERO_HEIGHT_PIEZAS)) +
                   ParametrosTablero.inicioTableroY),
               left: ((bloquesPuestos[i][j]!.x *
-                      (ParametrosTablero.tableroWidth / ParametrosTablero.TABLERO_WIDTH_PIEZAS)) +
+                      (ParametrosTablero.tableroWidth /
+                          ParametrosTablero.TABLERO_WIDTH_PIEZAS)) +
                   ParametrosTablero.inicioTableroX),
               child: Container(
-                width: ParametrosTablero.tableroWidth / ParametrosTablero.TABLERO_WIDTH_PIEZAS,
-                height: ParametrosTablero.tableroHeight / ParametrosTablero.TABLERO_HEIGHT_PIEZAS,
+                width: ParametrosTablero.tableroWidth /
+                    ParametrosTablero.TABLERO_WIDTH_PIEZAS,
+                height: ParametrosTablero.tableroHeight /
+                    ParametrosTablero.TABLERO_HEIGHT_PIEZAS,
                 decoration: BoxDecoration(
                     color: bloquesPuestos[i][j]!.color,
                     border: Border(
@@ -479,8 +542,10 @@ class _Tablero extends State<Tablero> {
     if (piezaReservada != null) {
       for (Bloque i in piezaReservada!.bloques) {
         listaBloque.add(Positioned(
-            width: ParametrosTablero.piezaReservadaWidth / ParametrosTablero.REJILLA_RESERVADA,
-            height: ParametrosTablero.piezaReservadaHeight / ParametrosTablero.REJILLA_RESERVADA,
+            width: ParametrosTablero.piezaReservadaWidth /
+                ParametrosTablero.REJILLA_RESERVADA,
+            height: ParametrosTablero.piezaReservadaHeight /
+                ParametrosTablero.REJILLA_RESERVADA,
             left: (i.x - 2) *
                 ParametrosTablero.piezaReservadaWidth /
                 ParametrosTablero.REJILLA_RESERVADA,
@@ -546,8 +611,10 @@ class _Tablero extends State<Tablero> {
 
     for (Bloque i in piezasSiguientes.toList()[0].bloques) {
       listaBloque.add(Positioned(
-          width: ParametrosTablero.piezaReservadaWidth / ParametrosTablero.REJILLA_RESERVADA,
-          height: ParametrosTablero.piezaReservadaHeight / ParametrosTablero.REJILLA_RESERVADA,
+          width: ParametrosTablero.piezaReservadaWidth /
+              ParametrosTablero.REJILLA_RESERVADA,
+          height: ParametrosTablero.piezaReservadaHeight /
+              ParametrosTablero.REJILLA_RESERVADA,
           left: (i.x - 2) *
               ParametrosTablero.piezaReservadaWidth /
               ParametrosTablero.REJILLA_RESERVADA,
@@ -574,8 +641,10 @@ class _Tablero extends State<Tablero> {
 
     for (Bloque i in piezasSiguientes.toList()[1].bloques) {
       listaBloque.add(Positioned(
-          width: ParametrosTablero.piezaReservadaWidth / ParametrosTablero.REJILLA_RESERVADA,
-          height: ParametrosTablero.piezaReservadaHeight / ParametrosTablero.REJILLA_RESERVADA,
+          width: ParametrosTablero.piezaReservadaWidth /
+              ParametrosTablero.REJILLA_RESERVADA,
+          height: ParametrosTablero.piezaReservadaHeight /
+              ParametrosTablero.REJILLA_RESERVADA,
           left: (i.x - 2) *
               ParametrosTablero.piezaReservadaWidth /
               ParametrosTablero.REJILLA_RESERVADA,
@@ -603,8 +672,10 @@ class _Tablero extends State<Tablero> {
 
     for (Bloque i in piezasSiguientes.toList()[2].bloques) {
       listaBloque.add(Positioned(
-          width: ParametrosTablero.piezaReservadaWidth / ParametrosTablero.REJILLA_RESERVADA,
-          height: ParametrosTablero.piezaReservadaHeight / ParametrosTablero.REJILLA_RESERVADA,
+          width: ParametrosTablero.piezaReservadaWidth /
+              ParametrosTablero.REJILLA_RESERVADA,
+          height: ParametrosTablero.piezaReservadaHeight /
+              ParametrosTablero.REJILLA_RESERVADA,
           left: (i.x - 2) *
               ParametrosTablero.piezaReservadaWidth /
               ParametrosTablero.REJILLA_RESERVADA,
@@ -643,15 +714,20 @@ class _Tablero extends State<Tablero> {
 
     ParametrosTablero.tableroWidth = 0.75 * ParametrosTablero.widthPantalla;
     ParametrosTablero.tableroHeight = 0.9 *
-        (ParametrosTablero.heightPantalla); //- appBar.preferredSize.height); //2 * tableroWidth;
+        (ParametrosTablero
+            .heightPantalla); //- appBar.preferredSize.height); //2 * tableroWidth;
 
     ParametrosTablero.inicioTableroX = 3;
     ParametrosTablero.inicioTableroY = 3;
 
-    ParametrosTablero.piezaReservadaTextoWidth = 0.23 * ParametrosTablero.widthPantalla;
-    ParametrosTablero.piezaReservadaTextoHeight = 0.05 * ParametrosTablero.widthPantalla;
-    ParametrosTablero.piezaReservadaWidth = 0.23 * ParametrosTablero.widthPantalla;
-    ParametrosTablero.piezaReservadaHeight = 0.23 * ParametrosTablero.widthPantalla;
+    ParametrosTablero.piezaReservadaTextoWidth =
+        0.23 * ParametrosTablero.widthPantalla;
+    ParametrosTablero.piezaReservadaTextoHeight =
+        0.05 * ParametrosTablero.widthPantalla;
+    ParametrosTablero.piezaReservadaWidth =
+        0.23 * ParametrosTablero.widthPantalla;
+    ParametrosTablero.piezaReservadaHeight =
+        0.23 * ParametrosTablero.widthPantalla;
 
     return Scaffold(
         //appBar: appBar,
@@ -735,6 +811,8 @@ class _Tablero extends State<Tablero> {
                         true, bloquesPuestos)) {
                       setState(() {
                         piezaActual.mover(Movimientos.IZQUIERDA);
+                        actualizarSombra();
+                        //sombra.mover(Movimientos.IZQUIERDA);                        
                       });
                     }
                   },
@@ -746,6 +824,8 @@ class _Tablero extends State<Tablero> {
                         Movimientos.GIRAR_IZDA, bloquesPuestos)) {
                       setState(() {
                         piezaActual.girar(Movimientos.GIRAR_IZDA);
+                        actualizarSombra();
+                        //sombra.girar(Movimientos.GIRAR_IZDA);
                       });
                     }
                   },
@@ -764,7 +844,7 @@ class _Tablero extends State<Tablero> {
                   onLongPress: () {
                     setState(() {
                       //piezaActual.mover(3);
-                      bajarRapido();
+                      bajarRapido(piezaActual);
                     });
                   },
                   child: const Icon(Icons.arrow_downward, size: 32),
@@ -775,6 +855,8 @@ class _Tablero extends State<Tablero> {
                         Movimientos.GIRAR_DCHA, bloquesPuestos)) {
                       setState(() {
                         piezaActual.girar(Movimientos.GIRAR_DCHA);
+                        actualizarSombra();
+                        //sombra.girar(Movimientos.GIRAR_DCHA);
                       });
                     }
                   },
@@ -786,6 +868,8 @@ class _Tablero extends State<Tablero> {
                         false, bloquesPuestos)) {
                       setState(() {
                         piezaActual.mover(Movimientos.DERECHA);
+                        actualizarSombra();
+                        //sombra.mover(Movimientos.DERECHA);
                       });
                     }
                   },

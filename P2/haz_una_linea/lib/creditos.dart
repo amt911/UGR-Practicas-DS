@@ -22,7 +22,9 @@ class Creditos extends StatelessWidget {
               Text("Javier Serrano Lucas",
               style: TextStyle(fontSize: 40),),
               Text("Sergio Hervás Cobo",
-              style: TextStyle(fontSize: 40),)
+              style: TextStyle(fontSize: 40),),
+              Text("Ricardo Molina Rodríguez",
+              style: TextStyle(fontSize: 35),)              
             ])));
   }
 }
