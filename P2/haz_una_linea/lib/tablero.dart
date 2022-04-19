@@ -113,10 +113,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused) {
       timerPrincipal!.cancel();
       m.pausarMusica();
-      Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Pausa(m)))
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Pausa(m)))
           .then((value) {
         //player = cache.loop("music/musica.mp3");
         //m.reanudarMusica();
@@ -772,13 +769,15 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
                           timerPrincipal!.cancel();
                           //player.clearAll();
                           m.pausarMusica();
-                        Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => Pausa(m)))
-                            .then((value) {
-                          //player = cache.loop("music/musica.mp3");
-                          //m.reanudarMusica();
-                          comenzar();
-                        });
+                          Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Pausa(m)))
+                              .then((value) {
+                            //player = cache.loop("music/musica.mp3");
+                            //m.reanudarMusica();
+                            comenzar();
+                          });
                         });
                       },
                       child: const Icon(Icons.pause, size: 32),
@@ -815,6 +814,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
                         onPressed: () {
                           setState(() {
                             reservarPieza();
+                            actualizarSombra();
                           });
                         },
                         child: const Text("Save")),
