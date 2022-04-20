@@ -1,4 +1,5 @@
 import 'package:haz_una_linea/parametros_tablero.dart';
+import 'package:haz_una_linea/piezas/movimientos.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 
 abstract class PiezaMas extends Pieza {
@@ -16,4 +17,9 @@ abstract class PiezaMas extends Pieza {
     //Comprobar el centro de esta pieza
     centroPieza.setXY(centro + 0, -2);
   }
+
+  @override
+  void girar(Movimientos mov) {
+    //Las piezas que son más no giran
+  }    
 }

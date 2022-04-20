@@ -2,34 +2,94 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx, graphics, float}
 \usepackage[a4paper, total={6in, 9in}]{geometry}
+\usepackage[spanish]{babel}
 \title{Haz Una Línea\\
 \large Memoria DS - Práctica 2}
 \author{Andrés Merlo Trujillo\\ Sergio Hervás Cobo\\ Javier Serrano Lucas\\ Ricardo Molina Rodríguez}
 
-\date{Abril 2022}
 \begin{document}
+\date{Abril 2022}
 \maketitle
 \section{Introducción}
-En esta práctica hemos decidido realizar con Flutter un videojuego semejante al conocido "Tetris".
+En esta práctica hemos decidido realizar con Flutter y Dart un videojuego de móvil
+semejante al conocido ``Tetris'' con algunas funcionalidades y modificaciones adicionales
+que hemos inventado para darle una mayor jugabilidad.
+
+A continuación se describirá la funcionalidad de la aplicación así como los Requisitos
+funcionales y no funcionales para su correcta comprensión:
 
 \section{Descripción del sistema}
-\subsection{Requisitos funcionales} 
+Para realizar la aplicación se ha utilizado el patrón de diseño creacional
+ ``Factoría Abstracta'' junto con el de ``Prototipo''.\\
+
+En la parte de creación de las piezas, que se realiza en la Factoría, hemos
+ decidido usar el algoritmo que utilizan la mayoría de juegos de este tipo que
+ consiste en idear un ``saco'' con las 7 piezas del juego. De este, se escoge una pieza al azar,
+ causando así que haya una menos dentro. Posteriormente, de las piezas restantes se coge otra al azar
+  y así sucesivamente hasta que no queden piezas. Cuando no queden piezas en el saco se vuelve
+  a llenar con otras 7 piezas nuevas, todas distintas.
+
+La ventaja de usar este algoritmo en vez de haber usado uno aleatorio puro es
+ que el reparto de piezas distintas es uniforme, a diferencia de aleatorio puro
+ que podía darse el caso de que saliera varias veces la misma pieza causando una
+ mala experiencia para el jugador.\\
+
+
+El tablero consta de una matriz de 20x10, donde van cayendo piezas sucesivamente
+hasta que el tablero tenga bloques que lleguen hasta arriba del todo y no haya
+opción de poder bajar la pieza siguiente dentro de los límites del tablero, en
+ese caso será el GameOver. Para superar el juego tendremos que colocar
+las piezas que van bajando de manera periódica alineando sus bloques mediante
+giros y movimientos laterales para realizar una línea (o varias) horizontal de
+10 bloques consecutivos. La linea completada desaparecerá del tablero y cada 10 líneas
+completadas, el nivel de dificultad aumentará provocando un aumento de la velocidad de
+bajada de la pieza y de la música del juego, causando un mayor reto al jugador.
+
+%voyporaqui
+
+Cabe destacar que la figura tiene una sombra, que es donde va a caer. Esto es
+ útil para poder guiar al usuario sobre la posición en la que se encontraría
+  la pieza si se pusiese definitivamente.
+
+Para determinar si ha caído o no tendremos que detectar una colisión con otra
+ pieza o con el suelo, en cuanto colisione se añaden sus bloques al tablero y
+ se escoge la siguiente pieza.
+
+También se mostrará en pantalla la pieza reservada actual y las 3 piezas siguientes para poder realizar estrategias.
+
+
+\subsection{Requisitos funcionales}
 \begin{itemize}
     \item El sistema debe permitir pausar la partida en cualquier
     momento.
     \item El sistema debe permitir al usuario manejar el movimiento de
     las piezas (traslación y rotación)
+    \item El sistema debe permitir al usuario reservar una pieza
     \item El sistema debe permitir iniciar la partida.
+    \item El sistema debe mostrar una lista de piezas siguientes.
+    \item El sistema debe mostrar la puntuación, el nivel y las filas por cada pieza puesta.
 \end{itemize}
 \subsection{Requisitos no funcionales}
 \begin{itemize}
-    \item El sistema debe trabajar en tiempo real para evitar
-    inconsistencias.
-    \item El sistema tendrá una interfaz para el menú para elegir los
-modos y comenzar la partida.
-    \item Las físicas del sistema no deben estar unidas a los fotogramas
-por segundo (FPS).
+    \item El sistema debe trabajar en tiempo real para evitar inconsistencias.
+    \item El sistema tendrá una interfaz para el menú para elegir modos y comenzar la partida.
+    \item Las físicas del sistema no deben estar unidas a los fotogramas por segundo (FPS).
+
 \end{itemize}
-\subsection{Diagrama de algo no se de que xd}
+\subsection{Diagramas del sistema}
+\begin{figure}[H]
+        \includegraphics[width=\textwidth]{imagenes/paquetes.png}
+        \caption{Diagrama de paquetes}
+\end{figure}
+
+\begin{figure}[H]
+        \includegraphics[width=\textwidth]{imagenes/estados.png}
+        \caption{Diagrama de estados (autómata)}
+\end{figure}
+
 \subsection{Diagrama de clases}
+\begin{figure}[H]
+        \includegraphics[width=\textwidth]{imagenes/clase.png}
+        \caption{Diagrama de clases}
+\end{figure}
 \end{document}

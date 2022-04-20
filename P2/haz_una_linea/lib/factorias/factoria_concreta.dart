@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:haz_una_linea/factoria_abstracta.dart';
+import 'package:haz_una_linea/factorias/factoria_abstracta.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 
 class FactoriaConcreta extends FactoriaAbstracta {

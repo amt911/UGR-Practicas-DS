@@ -1,21 +1,23 @@
+// ignore: use_key_in_widget_constructors
 import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:haz_una_linea/bloque.dart';
-import 'package:haz_una_linea/factoria_abstracta.dart';
-import 'package:haz_una_linea/factoria_concreta.dart';
-import 'package:haz_una_linea/factoria_concreta_especial.dart';
-import 'package:haz_una_linea/game_over.dart';
-import 'package:haz_una_linea/movimientos.dart';
+import 'package:haz_una_linea/factorias/factoria_abstracta.dart';
+import 'package:haz_una_linea/factorias/factoria_concreta.dart';
+import 'package:haz_una_linea/factorias/factoria_concreta_especial.dart';
+import 'package:haz_una_linea/musica.dart';
+import 'package:haz_una_linea/pantallas/game_over.dart';
+import 'package:haz_una_linea/pantallas/pausa.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
-import 'package:haz_una_linea/pausa.dart';
+import 'package:haz_una_linea/piezas/bloque.dart';
 import 'package:haz_una_linea/piezas/cubo_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/cubo_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/i_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/i_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/l_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/l_pieza_normal.dart';
+import 'package:haz_una_linea/piezas/movimientos.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 import 'package:haz_una_linea/piezas/pieza_mas_bomba.dart';
 import 'package:haz_una_linea/piezas/pieza_mas_normal.dart';
@@ -24,9 +26,6 @@ import 'package:haz_una_linea/piezas/s_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/t_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
-import 'musica.dart';
-
-// ignore: use_key_in_widget_constructors
 class Tablero extends StatefulWidget {
   @override
   State<Tablero> createState() => _Tablero();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:haz_una_linea/creditos.dart';
+import 'package:haz_una_linea/pantallas/creditos.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
 

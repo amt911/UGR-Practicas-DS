@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:haz_una_linea/bloque.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
+import 'package:haz_una_linea/piezas/bloque.dart';
 import 'package:haz_una_linea/piezas/l_pieza.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 

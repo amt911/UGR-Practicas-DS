@@ -1,4 +1,3 @@
-
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 

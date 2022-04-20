@@ -1,4 +1,3 @@
-
 class ParametrosTablero {
   static double tableroWidth = 0;
   static double tableroHeight = 0;
