@@ -5,5 +5,6 @@ abstract class FactoriaAbstracta {
 
   FactoriaAbstracta(this.piezasPrototipo);
 
+  ///Metodo para crear piezas
   Pieza crearPieza();
 }

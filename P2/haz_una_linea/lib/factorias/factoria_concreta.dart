@@ -10,6 +10,7 @@ class FactoriaConcreta extends FactoriaAbstracta {
     saco = List.filled(piezas.length, false);
   }
 
+  //Comprueba si todas las piezas han sido cogidas del saco
   bool _todosCogidos() {
     bool res = true;
 
@@ -37,7 +38,7 @@ class FactoriaConcreta extends FactoriaAbstracta {
     } while (saco[valorAleatorio] == true);
 
     saco[valorAleatorio] = true;
-    
+
     Pieza res = piezasPrototipo[valorAleatorio].clone();
 
     return res;

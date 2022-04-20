@@ -8,11 +8,14 @@ class FactoriaConcretaEspecial extends FactoriaAbstracta {
   List<Pieza>
       especiales; //Lista con piezas especiales para poder sacarlas con una probabilidad distinta a la estipulada por tetris (que salen demasiado frecuentemente)
   double probabilidad; //Probabilidad de que salga una pieza especial
+
+  //Constructor
   FactoriaConcretaEspecial(List<Pieza> piezas, this.especiales, this.probabilidad)
       : super(piezas) {
     saco = List.filled(piezas.length, false);
   }
 
+  //Comprueba si todas las piezas han sido cogidas del saco
   bool _todosCogidos() {
     bool res = true;
 
@@ -50,7 +53,7 @@ class FactoriaConcretaEspecial extends FactoriaAbstracta {
 
       res = piezasPrototipo[valorAleatorio].clone();
     }
-    
+
     return res;
   }
 }
