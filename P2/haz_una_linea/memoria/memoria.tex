@@ -3,6 +3,7 @@
 \usepackage{graphicx, graphics, float}
 \usepackage[a4paper, total={6in, 9in}]{geometry}
 \usepackage[spanish]{babel}
+\usepackage{subcaption}
 \title{Haz Una Línea\\
 \large Memoria DS - Práctica 2}
 \author{Andrés Merlo Trujillo\\ Sergio Hervás Cobo\\ Javier Serrano Lucas\\ Ricardo Molina Rodríguez}
@@ -19,10 +20,7 @@ A continuación se describirá la funcionalidad de la aplicación así como los 
 funcionales y no funcionales para su correcta comprensión:
 
 \section{Descripción del sistema}
-Para realizar la aplicación se ha utilizado el patrón de diseño creacional
- ``Factoría Abstracta'' junto con el de ``Prototipo''.\\
-
-En la parte de creación de las piezas, que se realiza en la Factoría, hemos
+Para empezar, para la parte de creación de las piezas, que se realiza en la Factoría, hemos
  decidido usar el algoritmo que utilizan la mayoría de juegos de este tipo que
  consiste en idear un ``saco'' con las 7 piezas del juego. De este, se escoge una pieza al azar,
  causando así que haya una menos dentro. Posteriormente, de las piezas restantes se coge otra al azar
@@ -33,6 +31,7 @@ La ventaja de usar este algoritmo en vez de haber usado uno aleatorio puro es
  que el reparto de piezas distintas es uniforme, a diferencia de aleatorio puro
  que podía darse el caso de que saliera varias veces la misma pieza causando una
  mala experiencia para el jugador.\\
+
 
 El tablero consta de una matriz de 20x10, donde van cayendo piezas sucesivamente
 hasta que el tablero tenga bloques que lleguen hasta arriba del todo y no haya
@@ -57,7 +56,7 @@ siguientes para poder realizar mejores estrategias al jugar; además de una
 sección que indica el nivel de dificultad, la puntuación y el número de líneas
 completadas.\\
 
-Por último, se ha realizado un modo de juego nuevo para darle más sentido a los
+Además, se ha realizado un modo de juego nuevo para darle más sentido a los
 patrones que hemos escogido. Este modo consta de las siguientes características:
 
 \begin{itemize}
@@ -67,8 +66,36 @@ que las piezas normales, pero un color más oscuro para poder diferenciarlas.\\
 Este tipo de piezas puede ser un arma de doble filo, pues por una parte te ayuda
  a eliminar bloques molestos mientras que por otro lado puede llegar a ser
  contraproducente al eliminar bloques que estaban en filas a punto de ser completadas.
-\item Habrá una pieza '+' que dificultará la partida al jugador por su forma.
+\item Habrá una pieza `+' que dificultará la partida al jugador por su forma.
 \end{itemize}
+
+Por último, se han hecho unos retoques para mejorar la calidad de la aplicación:
+\begin{itemize}
+\item Hemos cambiado el icono de la App
+\item Hemos implementado un modo oscuro que se activa automáticamente con el modo oscuro del móvil
+\item Hemos hecho que se abra el menú de pausa automáticamente cuando se minimice la app en segundo plano
+\end{itemize}
+
+\subsection{Patrones utilizados}
+Para crear las piezas se ha utilizado el patrón de diseño creacional
+ ``Factoría Abstracta'' junto con el de ``Prototipo''. De esta forma permitimos
+ una mayor facilidad para futuras ampliaciones en cuanto a tipos de piezas.
+Se ha usado un prototipo para cada tipo de pieza que se va a usar en el tablero del
+modo de juego seleccionado (normal o bombas) y la factoría crea los objetos de piezas
+ a partir del prototipo mediante el método ``clone''. De esta forma delegamos la
+ creación de nuevos objetos a una clase distinta del Tablero, algo muy necesario
+ al tener que crear constantemente piezas durante el transcurso de la partida.
+
+ Además, también se ha utilizado la clase Tablero como Fachada, pues es la clase que
+ organiza y controla todo el sistema sin que nadie sepa de su existencia (solo el inicio).
+ De esta forma, reducimos el acoplamiento de la aplicación evitando dependencias
+ innecesarias.
+
+En cuanto al estilo arquitectónico, se ha aplicado el estilo Abstracción de Datos
+y Organización OO para lograr una mayor modificabilidad y escalabilidad. No veíamos que
+ ningún otro estilo encajase en el problema que planteamos y en la idea que teníamos para
+ implementar el sistema y, como se nos ha dicho en clase, no es lo más adecuado
+ amoldar el sistema a un estilo o patrón sin ningún sentido.
 
 
 \subsection{Requisitos funcionales}
@@ -111,33 +138,51 @@ Este tipo de piezas puede ser un arma de doble filo, pues por una parte te ayuda
 
 \section{Capturas de pantalla}
 \begin{figure}[H]
-\center
-        \includegraphics[scale=0.28]{imagenes/captura7.jpeg}
-        \caption{Pantalla de inicio de la aplicación}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura7.jpeg}
+          \caption{Modo claro}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura1dark.jpeg}
+          \caption{Modo oscuro}
+  \end{subfigure}
+  \caption{Pantalla de inicio de la aplicación.}
 \end{figure}
 
 \begin{figure}[H]
-\center
-        \includegraphics[scale=0.3]{imagenes/captura1.jpeg}
-        \caption{Ejemplo de tablero}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura1.jpeg}
+          \caption{Modo claro}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura2dark.jpeg}
+          \caption{Modo oscuro}
+  \end{subfigure}
+  \caption{Ejemplo de tablero.}
 \end{figure}
 
 \begin{figure}[H]
-\center
-        \includegraphics[scale=0.3]{imagenes/captura6.jpeg}
-        \caption{Pausa del juego}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura6.jpeg}
+          \caption{Modo claro}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura3dark.jpeg}
+          \caption{Modo oscuro}
+  \end{subfigure}
+  \caption{Pausa del juego.}
 \end{figure}
 
 \begin{figure}[H]
-\center
-        \includegraphics[scale=0.3]{imagenes/captura4.jpeg}
-        \caption{Pantalla de Game Over}
-\end{figure}
-
-\begin{figure}[H]
-\center
-        \includegraphics[scale=0.4]{imagenes/captura2dark.jpeg}
-        \caption{Modo oscuro de la aplicación}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura4.jpeg}
+          \caption{Modo claro}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+          \includegraphics[width=\textwidth]{imagenes/captura4dark.jpeg}
+          \caption{Modo oscuro}
+  \end{subfigure}
+  \caption{Pantalla de Game Over}
 \end{figure}
 
 
