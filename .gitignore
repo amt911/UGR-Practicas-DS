@@ -7,7 +7,6 @@
 /S2M1/nbproject
 /S2M1/build.xml
 /S2M1/manifest.mf
-.vscode
 S2M2/obj/*.o
 S2M2/bin/salida
-.vscode
+.vscode/
