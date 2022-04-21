@@ -1,0 +1,12 @@
+WIDGETS
+Pulsar dos veces la tecla save
+Pulsar una vez la tecla save para ver si se guarda la pieza
+Comprobar que el valor del widget de piezas siguientes cambie.
+
+
+
+UNIDAD
+Comprobar si las piezas bombas eliminan los bloques de alrededor CLASE PIEZA
+Comprobar que cuenta las lineas completas correctamente (10 bloques obligatoriamente) Tablero
+Comprobar que al darle al boton de sonido se pone el volumen a 0 ó 1.   Musica
+Al hacer una linea se deben bajar las piezas superiores.        //Tablero

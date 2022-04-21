@@ -1,6 +1,6 @@
+// ignore: use_key_in_widget_constructors
 import 'package:flutter/material.dart';
 
-// ignore: use_key_in_widget_constructors
 class Creditos extends StatelessWidget {
 
   @override
@@ -24,7 +24,7 @@ class Creditos extends StatelessWidget {
               Text("Sergio Hervás Cobo",
               style: TextStyle(fontSize: 40),),
               Text("Ricardo Molina Rodríguez",
-              style: TextStyle(fontSize: 35),)              
+              style: TextStyle(fontSize: 30),)              
             ])));
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:haz_una_linea/bloque.dart';
-import 'package:haz_una_linea/movimientos.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
+import 'package:haz_una_linea/piezas/bloque.dart';
+import 'package:haz_una_linea/piezas/movimientos.dart';
 
 abstract class Pieza {
   late List<Bloque> bloques; //Una pieza es un conjunto de bloques
   late Bloque centroPieza; //Sirve para luego poder rotar la pieza
-  //late bool bomba = false;
   void resetPosicion();
 
   Pieza() {
@@ -14,14 +13,14 @@ abstract class Pieza {
     centroPieza = bloques[0];
   }
 
+  ///Sirve para hacer un deep clone
   Pieza clone();
 
-  //bool esbomba() {
-  //  return bomba;
-  //}
-
+  ///Metodo para el modo bomba, las piezas que no son bomba no implementan
+  ///este metodo
   void explotar(List<List<Bloque?>> bloquesPuestos) {}
 
+  //Para mover la pieza
   void mover(Movimientos mov) {
     switch (mov) {
       case Movimientos.IZQUIERDA: //Izquierda
@@ -54,6 +53,7 @@ abstract class Pieza {
     }
   }
 
+//Método para detectar una colisión lateral. (por la derecha si 'esIzquierda' es falso)
   bool colisionLateral(bool esIzquierda) {
     bool res = false;
 
@@ -71,6 +71,7 @@ abstract class Pieza {
     return res;
   }
 
+  //Comprueba si al hacer giro se produce una colision
   bool colisionLateralGiro() {
     //Este tipo de colision permite girar justo pegado a la pared
     bool res = false;
@@ -84,6 +85,7 @@ abstract class Pieza {
     return res;
   }
 
+  //Permite girar la pieza
   void girar(Movimientos mov) {
     //Formulas obtenidas de la asignatura IG
     if (mov == Movimientos.GIRAR_DCHA) {
@@ -120,6 +122,7 @@ abstract class Pieza {
     }
   }
 
+//Método para detectar si la pieza se encuentra sobre el suelo del tablero (la parte inferior)
   bool estaEnSuelo() {
     bool res = false;
 
@@ -130,6 +133,7 @@ abstract class Pieza {
     return res;
   }
 
+  //Comprueba si la pieza se encuentra sobre otra pieza ya puesta
   bool estaEncimaPieza(List<List<Bloque?>> bloquesPuestos) {
     bool res = false;
     for (Bloque aux in bloques) {
@@ -143,6 +147,7 @@ abstract class Pieza {
     return res;
   }
 
+  ///Comprueba si al mover la pieza se choca con otra
   bool colisionLateralPieza(
       bool esIzquierda, List<List<Bloque?>> bloquesPuestos) {
     bool res = false;
@@ -168,6 +173,7 @@ abstract class Pieza {
     return res;
   }
 
+  ///Comprueba si al girar choca con otras piezas colocadas en el tablero
   bool giroChoque(Movimientos mov, List<List<Bloque?>> bloquesPuestos) {
     Pieza bloqueAux = clone(); //Para no modificar la pieza actual
     bloqueAux.girar(

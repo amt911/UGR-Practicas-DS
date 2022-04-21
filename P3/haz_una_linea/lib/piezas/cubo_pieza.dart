@@ -1,5 +1,5 @@
-import 'package:haz_una_linea/movimientos.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
+import 'package:haz_una_linea/piezas/movimientos.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 
 abstract class CuboPieza extends Pieza {

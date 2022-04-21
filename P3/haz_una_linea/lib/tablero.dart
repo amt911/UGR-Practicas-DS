@@ -1,21 +1,23 @@
+// ignore: use_key_in_widget_constructors
 import 'dart:async';
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:haz_una_linea/bloque.dart';
-import 'package:haz_una_linea/factoria_abstracta.dart';
-import 'package:haz_una_linea/factoria_concreta.dart';
-import 'package:haz_una_linea/factoria_concreta_especial.dart';
-import 'package:haz_una_linea/game_over.dart';
-import 'package:haz_una_linea/movimientos.dart';
+import 'package:haz_una_linea/factorias/factoria_abstracta.dart';
+import 'package:haz_una_linea/factorias/factoria_concreta.dart';
+import 'package:haz_una_linea/factorias/factoria_concreta_especial.dart';
+import 'package:haz_una_linea/musica.dart';
+import 'package:haz_una_linea/pantallas/game_over.dart';
+import 'package:haz_una_linea/pantallas/pausa.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
-import 'package:haz_una_linea/pausa.dart';
+import 'package:haz_una_linea/piezas/bloque.dart';
 import 'package:haz_una_linea/piezas/cubo_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/cubo_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/i_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/i_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/l_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/l_pieza_normal.dart';
+import 'package:haz_una_linea/piezas/movimientos.dart';
 import 'package:haz_una_linea/piezas/pieza.dart';
 import 'package:haz_una_linea/piezas/pieza_mas_bomba.dart';
 import 'package:haz_una_linea/piezas/pieza_mas_normal.dart';
@@ -24,9 +26,6 @@ import 'package:haz_una_linea/piezas/s_pieza_normal.dart';
 import 'package:haz_una_linea/piezas/t_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
-import 'musica.dart';
-
-// ignore: use_key_in_widget_constructors
 class Tablero extends StatefulWidget {
   @override
   State<Tablero> createState() => _Tablero();
@@ -34,32 +33,33 @@ class Tablero extends StatefulWidget {
 
 class _Tablero extends State<Tablero> with WidgetsBindingObserver {
   late Pieza sombra;
+  late Pieza piezaActual;
+  Pieza? piezaReservada;
+  late Queue<Pieza> piezasSiguientes;
+  List<Pieza> listaBombas = [];
+  List<Pieza> lista = []; //Lista con los prototipos para la factoria
+  late List<List<Bloque?>> bloquesPuestos; //Bloques ya puestos en el tablero
+
+  int contadorLineas = 0; //Lineas realizadas desde las ultimas 10, solo para calculos internos
+  int indiceDelay = 0; //Indice que el delay que hay que usar en el timer ??? QUIZAS PASARLO A PARAMETROS TABLERO
+  int lineasAcumuladas = 0; //Numero de lineas realizadas
+  int nivel = 0; //Nivel actual
+  int puntuacion = 0;
+  int t = ParametrosTablero.t; //Indica si el modo de juego es el normal o el bomba
+
+  bool reservado = false; //false permite reservar
+  bool esPausa = false; //false para pausar
+  bool fin = false; //Indica si ya se ha acabado la partida
 
   double velocidad = 1; //Velocidad de la musica
-  Musica m = Musica();
+  Musica m = Musica(); //Para usar musica
   Timer? timerPrincipal;
-  late Pieza piezaActual;
-  Pieza? piezaReservada; // = TPieza();
-  List<Pieza> lista = [];
-  int contadorLineas = 0;
-  int nivel = 0;
-  int indiceDelay = 0;
-  int lineasAcumuladas = 0;
-  bool reservado = false; //false permite reservar
-  //List<Pieza> lista = [IPieza()]; //Version debug
   late FactoriaAbstracta fa;
-  late List<List<Bloque?>> bloquesPuestos;
-  int delay = 1200;
-  bool esPausa = false; //false para pausar
-  late Queue<Pieza> piezasSiguientes;
-  int puntuacion = 0;
-  bool fin = false;
 
-  int t = ParametrosTablero.t;
-  List<Pieza> listaBombas = [];
   _Tablero() : super() {
-    piezaReservada = null;
+    piezaReservada = null;    //Al principio no hay pieza reservada
 
+    //Se añaden a la lista las piezas normales
     lista = [
       IPiezaNormal(),
       LPiezaNormal(true),
@@ -70,9 +70,10 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
       TPiezaNormal()
     ];
 
+    //Si el modo de juego es normal
     if (ParametrosTablero.t == 0) {
       fa = FactoriaConcreta(lista);
-    } else {
+    } else {  //Si el modo de juego es bomba
       listaBombas = [
         PiezaMasNormal(),
         PiezaMasBomba(),
@@ -85,8 +86,11 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
         TPiezaBomba(),
       ];
 
+      //Se crea la factoria especial con las bombas
       fa = FactoriaConcretaEspecial(lista, listaBombas, 0.1);
     }
+
+    //Se genera la matriz del tablero
     bloquesPuestos = List.generate(
         ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
         (index) => List.filled(
@@ -97,15 +101,17 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     piezaActual = fa.crearPieza();
     piezasSiguientes = Queue();
 
+    //Se añaden mediante la factoria las 3 siguientes piezas
     for (int i = 0; i < 3; i++) {
       piezasSiguientes.add(fa.crearPieza());
     }
 
+    //Se actualiza la sombra
     actualizarSombra();
-
-    m.comenzarMusica();
   }
 
+  ///Permite comprobar el estado de la aplicación para pausar el juego cuando
+  ///se pone en segundo plano.
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -115,32 +121,46 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
       m.pausarMusica();
       Navigator.push(context, MaterialPageRoute(builder: (context) => Pausa(m)))
           .then((value) {
-        //player = cache.loop("music/musica.mp3");
-        //m.reanudarMusica();
         comenzar();
       });
-    } //else {
+    }
   }
 
+  ///Permite actualizar la sombra de la [piezaActual]
   void actualizarSombra() {
     sombra = piezaActual.clone();
+
+    ///Simula como si bajase una pieza normal, para asi aparecer en la posicion
+    /// en la que se encontraria
     bajarRapido(sombra);
   }
 
+  ///initState se llama justo despues del constructor en el momento en el que
+  ///se añade al arbol
   @override
   void initState() {
+    ///Se añade el observador para que detecte cuando la aplicación se pone en
+    ///segundo plano
     WidgetsBinding.instance?.addObserver(this);
     super.initState();
+
+    ///Justo despues de llamar al constructor de la clase se llama a este metodo
+    ///Es por eso que una vez inicializado todo se llama a la música
+    ///y a un timer para que el juego empiece a moverse
+    m.comenzarMusica();
     comenzar();
   }
 
+  ///Destructor que se utiliza al hacerle pop
   @override
   void dispose() {
+    //Eliminamos el observador ya que no va a hacer falta que detecte el estado
     WidgetsBinding.instance?.removeObserver(this);
     timerPrincipal!.cancel();
     super.dispose();
   }
 
+  ///Mete los bloques que componen a [piezaActual] en el tablero
   void meterEnTablero() {
     for (Bloque aux in piezaActual.bloques) {
       if (aux.y >= 0) {
@@ -149,11 +169,12 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
         fin = true;
       }
     }
-    if (t == 1 /* && piezaActual.esbomba()*/) {
+    if (t == 1) {   //Si el modo de juego es bomba se explota la pieza
       piezaActual.explotar(bloquesPuestos);
     }
   }
 
+  ///Baja la pieza directamente a la posicion final
   void bajarRapido(Pieza pieza) {
     while (!pieza.estaEnSuelo() &&
         !pieza.estaEncimaPieza(bloquesPuestos) &&
@@ -162,6 +183,8 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     }
   }
 
+  ///Comprueba si es necesario subir de nivel y realiza los cambios que esto
+  ///conlleva
   void subirNivel() {
     if (contadorLineas >= 10) {
       contadorLineas -= 10;
@@ -172,27 +195,31 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
           nivel == 16 ||
           nivel == 19 ||
           nivel == 29) {
-        indiceDelay++;
-        velocidad += 0.034;
+        indiceDelay++;  //Se aumenta la velocidad de bajada
+        velocidad += 0.034; //Se aumenta la velocidad de la musica
       }
 
       m.setVelocidad(velocidad);
 
-      //Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar para que se reinicie
+      ///Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar
+      ///para que se reinicie
       timerPrincipal!.cancel();
 
       comenzar();
     }
   }
 
+//Al completar una línea, mueve las líneas superiores una casilla abajo.
   void moverLineasSuperiores(List<int> lineas) {
     for (int i in lineas) {
+
+    //Aumentamos los contadores para el nivel y las líneas completadas
       contadorLineas++;
       lineasAcumuladas++;
 
       for (int f = i; f > 1; f--) {
         for (int c = 0; c < ParametrosTablero.TABLERO_WIDTH_PIEZAS; c++) {
-          bloquesPuestos[f][c] = bloquesPuestos[f - 1][c];
+          bloquesPuestos[f][c] = bloquesPuestos[f - 1][c]; //Se mueve el bloque hacia abajo
 
           if (bloquesPuestos[f][c] != null) {
             //Si no esta vacio se mueve la componente interna del bloque
@@ -203,8 +230,8 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     }
   }
 
+  ///Comprueba si es el final de la partida
   bool gameOver() {
-    //bool fin = false;
     if (!fin) {
       for (Bloque aux in piezaActual.bloques) {
         if (aux.y >= -1 &&
@@ -217,6 +244,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     return fin;
   }
 
+  ///Lanza la pantalla de game over para acabar la partida
   void mostrarGameOver() {
     timerPrincipal!.cancel();
     m.pararMusica();
@@ -228,6 +256,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
                 GameOver(puntuacion, nivel, lineasAcumuladas)));
   }
 
+  ///Calcula la puntuacion en funcion del nivel
   void calcularPuntuacion(int lineas) {
     switch (lineas) {
       case 1:
@@ -248,6 +277,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     }
   }
 
+  ///Elimina las lineas que tengan todos los bloques horizontales
   void eliminarLineasCompletas() {
     List<int> lineas = lineasCompletas();
 
@@ -264,11 +294,14 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     moverLineasSuperiores(lineas);
   }
 
+  ///Pinta la informacion relevante de la partida
   List<Widget> pintarInfo() {
+    //Modo claro
     Color lima = Colors.lime;
     Color naranja = Colors.orange;
     Color rojo = Colors.red;
 
+    //Si esta en modo oscuro el dispositivo se cambio el tono de color
     if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
       lima = Colors.lime.shade900;
       naranja = Colors.orange.shade900;
@@ -304,6 +337,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     return lista;
   }
 
+  //Devuelve los indices en los que se encuentran las lineas completas
   List<int> lineasCompletas() {
     bool linea;
     List<int> lineas = [];
@@ -322,10 +356,15 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     return lineas;
   }
 
+
+  ///Se encarga de lanzar el timer periodico y comprobar los distintos estados
+  /// del juego
   void comenzar() {
+    //El delay viene dado por el nivel del juego
     timerPrincipal = Timer.periodic(
         Duration(milliseconds: ParametrosTablero.delays[indiceDelay]), (timer) {
       setState(() {
+        //Si esta la pieza aun en el aire y no ha acabado la partida se baja
         if (!piezaActual.estaEnSuelo() &&
             !piezaActual.estaEncimaPieza(bloquesPuestos) &&
             !gameOver()) {
@@ -352,6 +391,8 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     });
   }
 
+  ///Permite cambiar el color de una manera mas precisa haciendo otra logica en
+  /// los overflow
   Color cambiarColor(Color color, int valor) {
     int r = color.red + valor;
     int g = color.green + valor;
@@ -369,6 +410,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     return Color.fromARGB(255, r, g, b);
   }
 
+  ///Pinta el tablero, las piezas ya puestas, la propia pieza y su sombra
   Stack pintarTableroPiezas() {
     //Primero se crea una lista con los bloques de la pieza actual
     List<Widget>? bloquesActivos = List.empty(growable: true);
@@ -541,11 +583,14 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     return Stack(children: bloquesActivos);
   }
 
+  ///Pinta la pieza reservada en el recuadro
   List<Widget> piezaReservadaDisplay() {
     List<Widget> listaBloque = [];
 
+    //Modo claro
     Color color = Colors.cyan;
 
+    //Modo oscuro
     if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
       color = Colors.cyan.shade900;
     }
@@ -592,7 +637,10 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     return listaBloque;
   }
 
+  ///Permite reservar pieza y ademas se encarga de no hacer trampa reservando
+  /// y sacando infinitamente las piezas para dar mas tiempo
   void reservarPieza() {
+    //Si no habia pieza reservada
     if (piezaReservada == null) {
       piezaReservada = piezaActual;
       piezaReservada!.resetPosicion();
@@ -607,14 +655,17 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
 
       piezaReservada!.resetPosicion();
     }
-    reservado = true;
+    reservado = true;   //Se pone a true para evitar sacar la pieza
   }
 
+  //Pinta las piezas siguientes del recuadro
   List<Widget> piezasSiguientesDisplay() {
     List<Widget> listaBloque = [];
 
+    //Modo claro
     Color color = Colors.green;
 
+    //Modo oscuro
     if (MediaQuery.of(context).platformBrightness == Brightness.dark) {
       color = Colors.green.shade900;
     }
@@ -723,17 +774,13 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    //AppBar appBar = AppBar(
-    //  title: const Text("Partida nueva"),
-    //);
-
     ParametrosTablero.widthPantalla = MediaQuery.of(context).size.width;
     ParametrosTablero.heightPantalla = MediaQuery.of(context).size.height;
 
     ParametrosTablero.tableroWidth = 0.75 * ParametrosTablero.widthPantalla;
     ParametrosTablero.tableroHeight = 0.9 *
         (ParametrosTablero
-            .heightPantalla); //- appBar.preferredSize.height); //2 * tableroWidth;
+            .heightPantalla);
 
     ParametrosTablero.inicioTableroX = 3;
     ParametrosTablero.inicioTableroY = 3;
@@ -806,7 +853,6 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
                     ), //Para darle un espacio entre containers
 
                     Column(
-                      //???Quizas esto se pueda hacer con un grid
                       children: pintarInfo(),
                     ),
 

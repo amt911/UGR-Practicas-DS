@@ -45,5 +45,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 memoria/*
-!memoria/memoria.tex
-.vscode/
+!memoria/Memoria.tex
+!memoria/imagenes
