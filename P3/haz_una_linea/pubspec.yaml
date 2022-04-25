@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
+
   #audioplayers: ^0.10.0
   #cache_audio_player: ^1.0.0
   audioplayers: ^0.20.1
@@ -41,6 +41,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
+  test: any
   flutter_test:
     sdk: flutter
 

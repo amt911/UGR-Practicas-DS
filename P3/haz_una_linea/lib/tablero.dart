@@ -804,6 +804,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
             body: Column(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 pintarTableroPiezas(),
                 //Expanded(
@@ -869,7 +870,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
               ],
             ),
             Expanded(
-                flex: 5,
+                //flex: 5,
                 child: Row(
                   mainAxisSize: MainAxisSize.max, //Para que se centre
                   mainAxisAlignment: MainAxisAlignment
