@@ -3,11 +3,12 @@ import 'package:haz_una_linea/pantallas/inicio.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Cambio de icono al apagar/encender la musica', (WidgetTester tester) async {
+  testWidgets('Cambio de icono al apagar/encender la musica',
+      (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
 
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
     expect(find.text("Partida normal"), findsOneWidget);
 
     //Tablero
@@ -26,5 +27,20 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byIcon(Icons.volume_up), findsOneWidget);
+  });
+
+  testWidgets('Aparece la pantalla de Game Over', (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text("Partida normal"));
+    await tester.pumpAndSettle();
+
+    for (int i = 0; i < 10; i++) {
+      await tester.pump(const Duration(minutes: 1));
+    }
+
+    expect(find.text("GAME OVER"), findsOneWidget);
   });
 }

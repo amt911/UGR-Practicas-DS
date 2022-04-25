@@ -2,9 +2,10 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class Musica {
-  bool apagado = true;              //Indica si esta apagado el reproductor
-  IconData icono = Icons.volume_up; //Muestra el icono actual dependiendo del estado
-  int volumen = 1;                  //El volumen de la musica
+  bool apagado = true; //Indica si esta apagado el reproductor
+  IconData icono =
+      Icons.volume_up; //Muestra el icono actual dependiendo del estado
+  int volumen = 1; //El volumen de la musica
   static AudioCache cache = AudioCache();
   static AudioPlayer player = AudioPlayer();
 
@@ -17,11 +18,15 @@ class Musica {
   void setSonido() {
     if (volumen == 1) {
       volumen = 0;
-      player.setVolume(volumen.toDouble());
+      //player.setVolume(volumen.toDouble());
     } else {
       volumen = 1;
-      player.setVolume(volumen.toDouble());
+      //player.setVolume(volumen.toDouble());
     }
+  }
+
+  void setVolumen(double vol) {
+    player.setVolume(vol);
   }
 
 //Cambia la velocidad de la música

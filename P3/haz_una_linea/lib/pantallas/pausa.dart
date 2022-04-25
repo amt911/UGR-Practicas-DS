@@ -47,6 +47,7 @@ class _Pausa extends State<Pausa> {
                         icon: Icon(widget.m.icono, size: 32),
                         onPressed: () {
                           widget.m.setSonido();
+                          widget.m.setVolumen(widget.m.volumen.toDouble());
                           setState(() {
                             if (!widget.m.apagado) {
                               widget.m.icono = Icons.volume_up;
