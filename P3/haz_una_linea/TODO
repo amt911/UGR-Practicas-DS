@@ -4,15 +4,23 @@ Pulsar una vez la tecla save para ver si se guarda la pieza         //Tablero   
 Comprobar que el valor del widget de piezas siguientes cambie.      //Tablero
 Comprobar que al estar en pausa y poner la app en segundo plano no se lanza otro menu de pausa      //Pausa, Navigator???           //Andres
 Cuando se llene el tablero que aparezca la pantalla de game over        //Game Over     //Sergio
-#Comprobar que el icono de sonido cambia al pulsar el boton en el menu de pausa
 Comprobar que al salir de la partida la musica se pare      //Musica        //Andres
 
 UNIDAD
-#Comprobar que al darle al boton de sonido se pone el volumen a 0 ó 1.   Musica      //Andres
-Comprobar si las piezas bombas eliminan los bloques de alrededor CLASE PIEZA        //Sergio
 Comprobar que cuenta las lineas completas correctamente (10 bloques obligatoriamente) Tablero       //RIKY
 Al hacer una linea se deben bajar las piezas superiores.        //Tablero
-Comprobar que al pegar una pieza al tablero y darle a mover hacia la pared, esta no se mueve        //Pieza
 
 DESCOMENTAR COMENZAR
 https://stackoverflow.com/questions/45109557/flutter-how-to-programmatically-exit-the-app
+
+
+REALIZADO
+WIDGETS
+#Comprobar que el icono de sonido cambia al pulsar el boton en el menu de pausa
+
+
+UNIDAD
+#Comprobar que al darle al boton de sonido se pone el volumen a 0 ó 1.   Musica      //Andres
+Comprobar si las piezas bombas eliminan los bloques de alrededor CLASE PIEZABOMBA        //Sergio
+Comprobar que al pegar una pieza al tablero y darle a mover hacia la pared, esta no se mueve        //Pieza
+La pieza esta en el suelo   Pieza

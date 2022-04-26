@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:haz_una_linea/factorias/factoria_abstracta.dart';
+import 'package:haz_una_linea/factorias/factoria_concreta.dart';
 import 'package:haz_una_linea/musica.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
@@ -102,12 +104,12 @@ void main() {
     });
 
     test('La pieza esta en el suelo', () {
-      List<List<Bloque?>> bloquesPuestos = List.generate(
-          ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-          (index) => List.filled(
-              ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
-              growable: false),
-          growable: false);
+      //List<List<Bloque?>> bloquesPuestos = List.generate(
+      //    ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
+      //    (index) => List.filled(
+      //        ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
+      //        growable: false),
+      //    growable: false);
 
       CuboPiezaNormal pieza = CuboPiezaNormal();
 
@@ -117,6 +119,52 @@ void main() {
 
       bool estaensuelo = pieza.estaEnSuelo();
       expect(estaensuelo, isTrue);
+    });
+
+    test('Todas las piezas creadas son distintas', () {
+      FactoriaAbstracta fa = FactoriaConcreta([
+        IPiezaNormal(),
+        LPiezaNormal(true),
+        LPiezaNormal(false),
+        SPiezaNormal(true),
+        SPiezaNormal(false),
+        CuboPiezaNormal(),
+        TPiezaNormal()
+      ]);
+
+      List<int> contColores = List.filled(7, 0);
+
+      for (int i = 0; i < 7; i++) {
+        Pieza aux = fa.crearPieza();
+      }
+    });
+
+    test('La pieza detecta colision con otra de abajo', () {
+      List<List<Bloque?>> bloquesPuestos = List.generate(
+          ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
+          (index) => List.filled(
+              ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
+              growable: false),
+          growable: false);
+
+      IPiezaNormal a = IPiezaNormal();
+      IPiezaNormal b = IPiezaNormal();
+
+      for (int i = 0; i < 5; i++) {
+        a.mover(Movimientos.BAJAR);
+      }
+
+      for (int i = 0; i < 4; i++) {
+        b.mover(Movimientos.BAJAR);
+      }
+
+      for (Bloque aux in a.bloques) {
+        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
+      }
+
+      bool res = b.estaEncimaPieza(bloquesPuestos);
+
+      expect(res, isTrue);
     });
   });
 }

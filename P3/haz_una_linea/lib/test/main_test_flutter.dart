@@ -43,4 +43,24 @@ void main() {
 
     expect(find.text("GAME OVER"), findsOneWidget);
   });
+
+  testWidgets(
+      'Al salir de la partida desde el menú de pausa regresa al menú principal',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text("Partida normal"));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byIcon(Icons.pause));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Salir de la partida"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("Partida normal"), findsOneWidget);
+  });
 }
