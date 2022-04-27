@@ -198,11 +198,11 @@ void main() {
       }
 
       for (int i = 0; i < 4; i++) {
-        b.mover(Movimientos.DERECHA);
+        c.mover(Movimientos.DERECHA);
       }
 
       for (int i = 0; i < 18; i++) {
-        b.mover(Movimientos.BAJAR);
+        c.mover(Movimientos.BAJAR);
       }
 
       expect(LineasAcumuladas, 1);
