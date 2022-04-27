@@ -82,9 +82,33 @@ void main() {
 
     expect(find.text("Save"), findsOneWidget);
   });
+  
+    testWidgets(
+      'Le doy 2 veces al boton de Save,y no me puede guardar mas de una pieza',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+    await tester.pumpWidget(const MyApp());
+    
+    await tester.tap(find.text("Partida normal"));
+    await tester.pumpAndSettle();
+
+    CuboPiezaNormal a = CuboPiezaNormal();
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+        
+    IPiezaNormal b = IPiezaNormal();
+        
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("Save"), findsOneWidget); //Si fuera verdad que guardaria 2, tendriamos que utilizar un expect(find.text('Save'), findsNWidgets(2));
+  });
 
 /*
-  //No se si estara bien
+  //Version desechada, no borrar hasta que los Saves este bien
   testWidgets(
       'Le doy 2 veces vez al boton de Save',
       (WidgetTester tester) async {
