@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:haz_una_linea/factorias/factoria_abstracta.dart';
 import 'package:haz_una_linea/factorias/factoria_concreta.dart';
 import 'package:haz_una_linea/musica.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:haz_una_linea/tablero.dart';
+import 'package:test/test.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/piezas/bloque.dart';
 import 'package:haz_una_linea/piezas/cubo_pieza_bomba.dart';
@@ -167,70 +168,62 @@ void main() {
       expect(res, isTrue);
     });
 
-
     test('Cuando se forman 10 bloques horizontales se destruye una linea', () {
-      List<List<Bloque?>> bloquesPuestos = List.generate(
-          ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-          (index) => List.filled(
-              ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
-              growable: false),
-          growable: false);
+      TableroState t = TableroState();
 
-      IPiezaNormal a = IPiezaNormal();
-      IPiezaNormal b = IPiezaNormal();
-      CuboPiezaNormal c = CuboPiezaNormal();
-
-      for (int i = 0; i < 3; i++) {
-        a.mover(Movimientos.IZQUIERDA);
-      }
-
-      for (int i = 0; i < 19; i++) {
-        a.mover(Movimientos.BAJAR);
-      }
-
-
-      for (int i = 0; i < 1; i++) {
-        b.mover(Movimientos.DERECHA);
-      }
-
-      for (int i = 0; i < 19; i++) {
-        b.mover(Movimientos.BAJAR);
-      }
+      //Simulamos la caida de las piezas y las metemos en el tablero ya que
+      //el timer no funciona porque se instancia en flutter
+      t.piezaActual = CuboPiezaNormal();
 
       for (int i = 0; i < 4; i++) {
-        c.mover(Movimientos.DERECHA);
+        t.piezaActual.mover(Movimientos.DERECHA);
+      }
+      t.bajarRapido(t.piezaActual);
+      t.meterEnTablero();
+
+      t.piezaActual = CuboPiezaNormal();
+      for (int i = 0; i < 2; i++) {
+        t.piezaActual.mover(Movimientos.DERECHA);
+      }
+      t.bajarRapido(t.piezaActual);
+      t.meterEnTablero();
+
+      t.piezaActual = CuboPiezaNormal();
+      t.bajarRapido(t.piezaActual);
+      t.meterEnTablero();
+
+      t.piezaActual = CuboPiezaNormal();
+      for (int i = 0; i < 4; i++) {
+        t.piezaActual.mover(Movimientos.IZQUIERDA);
+      }
+      t.bajarRapido(t.piezaActual);
+      t.meterEnTablero();
+
+      t.piezaActual = CuboPiezaNormal();
+      for (int i = 0; i < 2; i++) {
+        t.piezaActual.mover(Movimientos.IZQUIERDA);
+      }
+      t.bajarRapido(t.piezaActual);
+      t.meterEnTablero();
+
+      //Eliminamos la linea que hemos creado a base de cubos
+      t.eliminarLineasCompletas();
+
+
+      //Ahora se comprueba que se haya eliminado la linea del tablero
+      bool todosNulos = true;
+
+      for (int i = 0;
+          todosNulos && i < ParametrosTablero.TABLERO_WIDTH_PIEZAS;
+          i++) {
+        if (t.bloquesPuestos[
+                (ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1).toInt()][i] !=
+            null) {
+          todosNulos = false;
+        }
       }
 
-      for (int i = 0; i < 18; i++) {
-        c.mover(Movimientos.BAJAR);
-      }
-
-      for (Bloque aux in a.bloques) {
-        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
-      }
-
-      for (Bloque aux in b.bloques) {
-        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
-      }
-
-      for (Bloque aux in c.bloques) {
-        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
-      }
-
-      expect(bloquesPuestos[0][0], isNull);
-      expect(bloquesPuestos[0][1], isNull);
-      expect(bloquesPuestos[0][2], isNull);
-      expect(bloquesPuestos[0][3], isNull);
-      expect(bloquesPuestos[0][4], isNull);
-      expect(bloquesPuestos[0][5], isNull);
-      expect(bloquesPuestos[0][6], isNull);
-      expect(bloquesPuestos[0][7], isNull);
-
-      
+      expect(todosNulos, isTrue);
     });
-
-
-
-
   });
 }

@@ -28,10 +28,11 @@ import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
 class Tablero extends StatefulWidget {
   @override
-  State<Tablero> createState() => _Tablero();
+  // ignore: no_logic_in_create_state
+  State<Tablero> createState() => TableroState();
 }
 
-class _Tablero extends State<Tablero> with WidgetsBindingObserver {
+class TableroState extends State<Tablero> with WidgetsBindingObserver {
   late Pieza sombra;
   late Pieza piezaActual;
   Pieza? piezaReservada;
@@ -40,12 +41,15 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
   List<Pieza> lista = []; //Lista con los prototipos para la factoria
   late List<List<Bloque?>> bloquesPuestos; //Bloques ya puestos en el tablero
 
-  int contadorLineas = 0; //Lineas realizadas desde las ultimas 10, solo para calculos internos
-  int indiceDelay = 0; //Indice que el delay que hay que usar en el timer ??? QUIZAS PASARLO A PARAMETROS TABLERO
+  int contadorLineas =
+      0; //Lineas realizadas desde las ultimas 10, solo para calculos internos
+  int indiceDelay =
+      0; //Indice que el delay que hay que usar en el timer ??? QUIZAS PASARLO A PARAMETROS TABLERO
   int lineasAcumuladas = 0; //Numero de lineas realizadas
   int nivel = 0; //Nivel actual
   int puntuacion = 0;
-  int t = ParametrosTablero.t; //Indica si el modo de juego es el normal o el bomba
+  int t =
+      ParametrosTablero.t; //Indica si el modo de juego es el normal o el bomba
 
   bool reservado = false; //false permite reservar
   bool esPausa = false; //false para pausar
@@ -56,8 +60,8 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
   Timer? timerPrincipal;
   late FactoriaAbstracta fa;
 
-  _Tablero() : super() {
-    piezaReservada = null;    //Al principio no hay pieza reservada
+  TableroState() : super() {
+    piezaReservada = null; //Al principio no hay pieza reservada
 
     //Se añaden a la lista las piezas normales
     lista = [
@@ -73,7 +77,8 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     //Si el modo de juego es normal
     if (ParametrosTablero.t == 0) {
       fa = FactoriaConcreta(lista);
-    } else {  //Si el modo de juego es bomba
+    } else {
+      //Si el modo de juego es bomba
       listaBombas = [
         PiezaMasNormal(),
         PiezaMasBomba(),
@@ -169,7 +174,8 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
         fin = true;
       }
     }
-    if (t == 1) {   //Si el modo de juego es bomba se explota la pieza
+    if (t == 1) {
+      //Si el modo de juego es bomba se explota la pieza
       piezaActual.explotar(bloquesPuestos);
     }
   }
@@ -195,7 +201,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
           nivel == 16 ||
           nivel == 19 ||
           nivel == 29) {
-        indiceDelay++;  //Se aumenta la velocidad de bajada
+        indiceDelay++; //Se aumenta la velocidad de bajada
         velocidad += 0.034; //Se aumenta la velocidad de la musica
       }
 
@@ -212,14 +218,14 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
 //Al completar una línea, mueve las líneas superiores una casilla abajo.
   void moverLineasSuperiores(List<int> lineas) {
     for (int i in lineas) {
-
-    //Aumentamos los contadores para el nivel y las líneas completadas
+      //Aumentamos los contadores para el nivel y las líneas completadas
       contadorLineas++;
       lineasAcumuladas++;
 
       for (int f = i; f > 1; f--) {
         for (int c = 0; c < ParametrosTablero.TABLERO_WIDTH_PIEZAS; c++) {
-          bloquesPuestos[f][c] = bloquesPuestos[f - 1][c]; //Se mueve el bloque hacia abajo
+          bloquesPuestos[f][c] =
+              bloquesPuestos[f - 1][c]; //Se mueve el bloque hacia abajo
 
           if (bloquesPuestos[f][c] != null) {
             //Si no esta vacio se mueve la componente interna del bloque
@@ -355,7 +361,6 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     }
     return lineas;
   }
-
 
   ///Se encarga de lanzar el timer periodico y comprobar los distintos estados
   /// del juego
@@ -603,8 +608,10 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     ));
 
     if (piezaReservada != null) {
+      int cont = 0;
       for (Bloque i in piezaReservada!.bloques) {
         listaBloque.add(Positioned(
+            key: Key("Pieza Reservada ${cont++}"),
             width: ParametrosTablero.piezaReservadaWidth /
                 ParametrosTablero.REJILLA_RESERVADA,
             height: ParametrosTablero.piezaReservadaHeight /
@@ -655,7 +662,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
 
       piezaReservada!.resetPosicion();
     }
-    reservado = true;   //Se pone a true para evitar sacar la pieza
+    reservado = true; //Se pone a true para evitar sacar la pieza
   }
 
   //Pinta las piezas siguientes del recuadro
@@ -778,9 +785,7 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
     ParametrosTablero.heightPantalla = MediaQuery.of(context).size.height;
 
     ParametrosTablero.tableroWidth = 0.75 * ParametrosTablero.widthPantalla;
-    ParametrosTablero.tableroHeight = 0.9 *
-        (ParametrosTablero
-            .heightPantalla);
+    ParametrosTablero.tableroHeight = 0.9 * (ParametrosTablero.heightPantalla);
 
     ParametrosTablero.inicioTableroX = 3;
     ParametrosTablero.inicioTableroY = 3;
@@ -872,84 +877,84 @@ class _Tablero extends State<Tablero> with WidgetsBindingObserver {
             Expanded(
                 //flex: 5,
                 child: Row(
-                  mainAxisSize: MainAxisSize.max, //Para que se centre
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceEvenly, //Para que se dejen un espacio uniforme
-                  //crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max, //Para que se centre
+              mainAxisAlignment: MainAxisAlignment
+                  .spaceEvenly, //Para que se dejen un espacio uniforme
+              //crossAxisAlignment: CrossAxisAlignment.stretch,
 
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!piezaActual.colisionLateralPieza(
-                            true, bloquesPuestos)) {
-                          setState(() {
-                            piezaActual.mover(Movimientos.IZQUIERDA);
-                            actualizarSombra();
-                            //sombra.mover(Movimientos.IZQUIERDA);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.arrow_back, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!piezaActual.giroChoque(
-                            Movimientos.GIRAR_IZDA, bloquesPuestos)) {
-                          setState(() {
-                            piezaActual.girar(Movimientos.GIRAR_IZDA);
-                            actualizarSombra();
-                            //sombra.girar(Movimientos.GIRAR_IZDA);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.rotate_left, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!piezaActual.estaEnSuelo() &&
-                            !piezaActual.estaEncimaPieza(bloquesPuestos) &&
-                            !gameOver()) {
-                          setState(() {
-                            piezaActual.mover(Movimientos.BAJAR);
-                          });
-                        }
-                      },
-                      onLongPress: () {
-                        setState(() {
-                          //piezaActual.mover(3);
-                          bajarRapido(piezaActual);
-                        });
-                      },
-                      child: const Icon(Icons.arrow_downward, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!piezaActual.giroChoque(
-                            Movimientos.GIRAR_DCHA, bloquesPuestos)) {
-                          setState(() {
-                            piezaActual.girar(Movimientos.GIRAR_DCHA);
-                            actualizarSombra();
-                            //sombra.girar(Movimientos.GIRAR_DCHA);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.rotate_right, size: 32),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (!piezaActual.colisionLateralPieza(
-                            false, bloquesPuestos)) {
-                          setState(() {
-                            piezaActual.mover(Movimientos.DERECHA);
-                            actualizarSombra();
-                            //sombra.mover(Movimientos.DERECHA);
-                          });
-                        }
-                      },
-                      child: const Icon(Icons.arrow_forward, size: 32),
-                    ),
-                  ],
-                )),
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    if (!piezaActual.colisionLateralPieza(
+                        true, bloquesPuestos)) {
+                      setState(() {
+                        piezaActual.mover(Movimientos.IZQUIERDA);
+                        actualizarSombra();
+                        //sombra.mover(Movimientos.IZQUIERDA);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.arrow_back, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!piezaActual.giroChoque(
+                        Movimientos.GIRAR_IZDA, bloquesPuestos)) {
+                      setState(() {
+                        piezaActual.girar(Movimientos.GIRAR_IZDA);
+                        actualizarSombra();
+                        //sombra.girar(Movimientos.GIRAR_IZDA);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.rotate_left, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!piezaActual.estaEnSuelo() &&
+                        !piezaActual.estaEncimaPieza(bloquesPuestos) &&
+                        !gameOver()) {
+                      setState(() {
+                        piezaActual.mover(Movimientos.BAJAR);
+                      });
+                    }
+                  },
+                  onLongPress: () {
+                    setState(() {
+                      //piezaActual.mover(3);
+                      bajarRapido(piezaActual);
+                    });
+                  },
+                  child: const Icon(Icons.arrow_downward, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!piezaActual.giroChoque(
+                        Movimientos.GIRAR_DCHA, bloquesPuestos)) {
+                      setState(() {
+                        piezaActual.girar(Movimientos.GIRAR_DCHA);
+                        actualizarSombra();
+                        //sombra.girar(Movimientos.GIRAR_DCHA);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.rotate_right, size: 32),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (!piezaActual.colisionLateralPieza(
+                        false, bloquesPuestos)) {
+                      setState(() {
+                        piezaActual.mover(Movimientos.DERECHA);
+                        actualizarSombra();
+                        //sombra.mover(Movimientos.DERECHA);
+                      });
+                    }
+                  },
+                  child: const Icon(Icons.arrow_forward, size: 32),
+                ),
+              ],
+            )),
           ],
         )));
   }

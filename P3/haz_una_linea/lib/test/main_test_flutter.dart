@@ -65,7 +65,7 @@ void main() {
   });
 
     testWidgets(
-      'Le doy una vez al boton de Save',
+      'Al reservar pieza, esta aparece en la pantalla',
       (WidgetTester tester) async {
     tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
@@ -75,74 +75,9 @@ void main() {
     await tester.tap(find.text("Partida normal"));
     await tester.pumpAndSettle();
 
-    CuboPiezaNormal a = CuboPiezaNormal();
-
     await tester.tap(find.text("Save"));
     await tester.pumpAndSettle();
 
-    expect(find.text("Save"), findsOneWidget);
+    expect(find.byKey(const Key("Pieza Reservada 1")), findsOneWidget);
   });
-  
-    testWidgets(
-      'Le doy 2 veces al boton de Save,y no me puede guardar mas de una pieza',
-      (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
-
-    await tester.pumpWidget(const MyApp());
-    
-    await tester.tap(find.text("Partida normal"));
-    await tester.pumpAndSettle();
-
-    CuboPiezaNormal a = CuboPiezaNormal();
-
-    await tester.tap(find.text("Save"));
-    await tester.pumpAndSettle();
-        
-    IPiezaNormal b = IPiezaNormal();
-        
-    await tester.tap(find.text("Save"));
-    await tester.pumpAndSettle();
-
-    expect(find.text("Save"), findsOneWidget); //Si fuera verdad que guardaria 2, tendriamos que utilizar un expect(find.text('Save'), findsNWidgets(2));
-  });
-
-/*
-  //Version desechada, no borrar hasta que los Saves este bien
-  testWidgets(
-      'Le doy 2 veces vez al boton de Save',
-      (WidgetTester tester) async {
-    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
-
-    await tester.pumpWidget(const MyApp());
-
-    IPiezaNormal a = IPiezaNormal();
-
-    await tester.tap(find.text("Save"));
-    await tester.pumpAndSettle();
-
-    Pieza aux = a;
-    CuboPiezaNormal b = CuboPiezaNormal();
-
-    await tester.tap(find.text("Save"));
-    await tester.pumpAndSettle();
-
-    //Operacion de igualdad entre piezas
-
-    bool iguales = true;
-
-    for (int i=0;i<3;i++){
-      if (aux.bloques[i].get(_x) != b.bloques[i].get(_x) || aux.bloques[i].get(_y) != PiezaReservada.bloques[i].get(_y) || aux.bloques[i].get(color) != PiezaReservada.bloques[i].get(color) ){
-        iguales = false;
-      }
-    }
-
-    expect(iguales, true);
-  });
-
-*/
-
-//Descartado por ahora
-  
 }
