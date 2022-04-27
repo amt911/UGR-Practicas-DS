@@ -63,4 +63,51 @@ void main() {
 
     expect(find.text("Partida normal"), findsOneWidget);
   });
+
+    testWidgets(
+      'Le doy una vez al boton de Save',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+
+    expect(piezaReservada, !null);
+  });
+
+  //No se si estara bien
+  testWidgets(
+      'Le doy 2 veces vez al boton de Save',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+
+    Pieza aux = PiezaReservada;
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+
+    //Operacion de igualdad entre piezas
+
+    bool iguales = true;
+
+    for (int i=0;i<3;i++){
+      if (aux.bloques[i].get(_x) != PiezaReservada.bloques[i].get(_x) || aux.bloques[i].get(_y) != PiezaReservada.bloques[i].get(_y) || aux.bloques[i].get(color) != PiezaReservada.bloques[i].get(color) ){
+        iguales = false;
+      }
+    }
+
+    expect(iguales, true);
+  });
+
+
+  
 }
