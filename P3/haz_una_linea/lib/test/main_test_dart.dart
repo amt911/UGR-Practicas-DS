@@ -1,217 +1,121 @@
 import 'package:flutter/material.dart';
-import 'package:haz_una_linea/factorias/factoria_abstracta.dart';
-import 'package:haz_una_linea/factorias/factoria_concreta.dart';
-import 'package:haz_una_linea/musica.dart';
+import 'package:haz_una_linea/pantallas/inicio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:haz_una_linea/parametros_tablero.dart';
-import 'package:haz_una_linea/piezas/bloque.dart';
-import 'package:haz_una_linea/piezas/cubo_pieza_bomba.dart';
-import 'package:haz_una_linea/piezas/cubo_pieza_normal.dart';
-import 'package:haz_una_linea/piezas/i_pieza_normal.dart';
-import 'package:haz_una_linea/piezas/l_pieza_normal.dart';
-import 'package:haz_una_linea/piezas/movimientos.dart';
-import 'package:haz_una_linea/piezas/pieza.dart';
-import 'package:haz_una_linea/piezas/s_pieza_normal.dart';
-import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
 void main() {
-  group('HazUnaLinea', () {
-    test('El volumen de la música debería cambiar a 0', () {
-      Musica m = Musica();
+  testWidgets('Cambio de icono al apagar/encender la musica',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
 
-      m.setSonido();
-      expect(m.volumen, 0);
-    });
+    await tester.pumpWidget(const MyApp());
+    expect(find.text("Partida normal"), findsOneWidget);
 
-    test('El volumen de la música debería cambiar a 1', () {
-      Musica m = Musica();
+    //Tablero
+    await tester.tap(find.text("Partida normal"));
+    await tester.pumpAndSettle();
 
-      m.setSonido();
-      m.setSonido();
+    await tester.tap(find.byIcon(Icons.pause));
+    await tester.pumpAndSettle();
 
-      expect(m.volumen, 1);
-    });
+    await tester.tap(find.text("Sonido On/Off"));
+    await tester.pumpAndSettle();
 
-    test('La pieza no se debe mover en los bordes del tablero', () {
-      List<Pieza> lista = [
-        IPiezaNormal(),
-        LPiezaNormal(true),
-        LPiezaNormal(false),
-        SPiezaNormal(true),
-        SPiezaNormal(false),
-        CuboPiezaNormal(),
-        TPiezaNormal()
-      ];
+    expect(find.byIcon(Icons.volume_off), findsOneWidget);
 
-      Pieza piezaActual;
+    await tester.tap(find.text("Sonido On/Off"));
+    await tester.pumpAndSettle();
 
-      for (int i = 0; i < lista.length; i++) {
-        piezaActual = lista[i].clone();
-
-        for (int j = 0; j < 4; j++) {
-          piezaActual.mover(Movimientos.IZQUIERDA);
-        }
-        piezaActual.mover(Movimientos.IZQUIERDA);
-
-        for (Bloque aux in piezaActual.bloques) {
-          expect(aux.x, isNotNull);
-          expect(aux.x, greaterThanOrEqualTo(0));
-        }
-
-        piezaActual.resetPosicion();
-
-        for (int j = 0; j < 4; j++) {
-          piezaActual.mover(Movimientos.DERECHA);
-        }
-
-        piezaActual.mover(Movimientos.DERECHA);
-
-        for (Bloque aux in piezaActual.bloques) {
-          expect(aux.x, isNotNull);
-          expect(aux.x,
-              lessThanOrEqualTo(ParametrosTablero.TABLERO_WIDTH_PIEZAS - 1));
-        }
-      }
-    });
-
-    test('La bomba explota', () {
-      List<List<Bloque?>> bloquesPuestos = List.generate(
-          ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-          (index) => List.filled(
-              ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
-              growable: false),
-          growable: false);
-
-      Bloque a = Bloque(0, 19, Colors.red);
-      Bloque b = Bloque(1, 19, Colors.red);
-      bloquesPuestos[19][0] = a;
-      bloquesPuestos[19][1] = b;
-
-      CuboPiezaBomba bomba = CuboPiezaBomba();
-
-      bomba.mover(Movimientos.IZQUIERDA);
-      bomba.mover(Movimientos.IZQUIERDA);
-      bomba.mover(Movimientos.IZQUIERDA);
-      bomba.mover(Movimientos.IZQUIERDA);
-
-      for (int i = 0; i < 19; i++) {
-        bomba.mover(Movimientos.BAJAR);
-      }
-
-      bomba.explotar(bloquesPuestos);
-      expect(bloquesPuestos[19][0], isNull);
-      expect(bloquesPuestos[19][1], isNull);
-    });
-
-    test('La pieza esta en el suelo', () {
-      //List<List<Bloque?>> bloquesPuestos = List.generate(
-      //    ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-      //    (index) => List.filled(
-      //        ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
-      //        growable: false),
-      //    growable: false);
-
-      CuboPiezaNormal pieza = CuboPiezaNormal();
-
-      for (int i = 0; i < 20; i++) {
-        pieza.mover(Movimientos.BAJAR);
-      }
-
-      bool estaensuelo = pieza.estaEnSuelo();
-      expect(estaensuelo, isTrue);
-    });
-
-    test('Todas las piezas creadas son distintas', () {
-      FactoriaAbstracta fa = FactoriaConcreta([
-        IPiezaNormal(),
-        LPiezaNormal(true),
-        LPiezaNormal(false),
-        SPiezaNormal(true),
-        SPiezaNormal(false),
-        CuboPiezaNormal(),
-        TPiezaNormal()
-      ]);
-
-      List<int> contColores = List.filled(7, 0);
-
-      for (int i = 0; i < 7; i++) {
-        Pieza aux = fa.crearPieza();
-      }
-    });
-
-    test('La pieza detecta colision con otra de abajo', () {
-      List<List<Bloque?>> bloquesPuestos = List.generate(
-          ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-          (index) => List.filled(
-              ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
-              growable: false),
-          growable: false);
-
-      IPiezaNormal a = IPiezaNormal();
-      IPiezaNormal b = IPiezaNormal();
-
-      for (int i = 0; i < 5; i++) {
-        a.mover(Movimientos.BAJAR);
-      }
-
-      for (int i = 0; i < 4; i++) {
-        b.mover(Movimientos.BAJAR);
-      }
-
-      for (Bloque aux in a.bloques) {
-        bloquesPuestos[aux.y.toInt()][aux.x.toInt()] = aux;
-      }
-
-      bool res = b.estaEncimaPieza(bloquesPuestos);
-
-      expect(res, isTrue);
-    });
-
-
-    test('Cuando se forman 10 bloques horizontales se destruye una linea', () {
-      List<List<Bloque?>> bloquesPuestos = List.generate(
-          ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-          (index) => List.filled(
-              ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
-              growable: false),
-          growable: false);
-
-      IPiezaNormal a = IPiezaNormal();
-      IPiezaNormal b = IPiezaNormal();
-      CuboPiezaNormal c = CuboPiezaNormal();
-
-      for (int i = 0; i < 3; i++) {
-        a.mover(Movimientos.IZQUIERDA);
-      }
-
-      for (int i = 0; i < 19; i++) {
-        a.mover(Movimientos.BAJAR);
-      }
-
-
-      for (int i = 0; i < 1; i++) {
-        b.mover(Movimientos.DERECHA);
-      }
-
-      for (int i = 0; i < 19; i++) {
-        b.mover(Movimientos.BAJAR);
-      }
-
-      for (int i = 0; i < 4; i++) {
-        c.mover(Movimientos.DERECHA);
-      }
-
-      for (int i = 0; i < 18; i++) {
-        c.mover(Movimientos.BAJAR);
-      }
-
-      expect(LineasAcumuladas, 1);
-
-      
-    });
-
-
-
-
+    expect(find.byIcon(Icons.volume_up), findsOneWidget);
   });
+
+  testWidgets('Aparece la pantalla de Game Over', (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text("Partida normal"));
+    await tester.pumpAndSettle();
+
+    for (int i = 0; i < 10; i++) {
+      await tester.pump(const Duration(minutes: 1));
+    }
+
+    expect(find.text("GAME OVER"), findsOneWidget);
+  });
+
+  testWidgets(
+      'Al salir de la partida desde el menú de pausa regresa al menú principal',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.text("Partida normal"));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byIcon(Icons.pause));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text("Salir de la partida"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("Partida normal"), findsOneWidget);
+  });
+
+    testWidgets(
+      'Le doy una vez al boton de Save',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+    await tester.pumpWidget(const MyApp());
+
+    CuboPiezaNormal a = CuboPiezaNormal();
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+
+    expect(find.text("Save"), findsOneWidget);
+  });
+
+/*
+  //No se si estara bien
+  testWidgets(
+      'Le doy 2 veces vez al boton de Save',
+      (WidgetTester tester) async {
+    tester.binding.window.physicalSizeTestValue = const Size(720, 1280);
+    tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+    await tester.pumpWidget(const MyApp());
+
+    IPiezaNormal a = IPiezaNormal();
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+
+    Pieza aux = a;
+    CuboPiezaNormal b = CuboPiezaNormal();
+
+    await tester.tap(find.text("Save"));
+    await tester.pumpAndSettle();
+
+    //Operacion de igualdad entre piezas
+
+    bool iguales = true;
+
+    for (int i=0;i<3;i++){
+      if (aux.bloques[i].get(_x) != b.bloques[i].get(_x) || aux.bloques[i].get(_y) != PiezaReservada.bloques[i].get(_y) || aux.bloques[i].get(color) != PiezaReservada.bloques[i].get(color) ){
+        iguales = false;
+      }
+    }
+
+    expect(iguales, true);
+  });
+
+*/
+
+//Descartado por ahora
+  
 }
