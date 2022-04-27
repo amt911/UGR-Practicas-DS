@@ -71,6 +71,9 @@ void main() {
     tester.binding.window.devicePixelRatioTestValue = 1.0;
 
     await tester.pumpWidget(const MyApp());
+    
+    await tester.tap(find.text("Partida normal"));
+    await tester.pumpAndSettle();
 
     CuboPiezaNormal a = CuboPiezaNormal();
 
