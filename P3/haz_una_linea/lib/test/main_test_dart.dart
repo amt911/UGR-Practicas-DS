@@ -168,7 +168,7 @@ void main() {
       expect(res, isTrue);
     });
 
-    test('Cuando se forman 10 bloques horizontales se destruye una linea', () {
+      test('Cuando se forman 10 bloques horizontales se destruye una linea', () {
       TableroState t = TableroState();
 
       //Simulamos la caida de las piezas y las metemos en el tablero ya que
