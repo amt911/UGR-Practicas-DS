@@ -166,5 +166,52 @@ void main() {
 
       expect(res, isTrue);
     });
+
+
+    test('Cuando se forman 10 bloques horizontales se destruye una linea', () {
+      List<List<Bloque?>> bloquesPuestos = List.generate(
+          ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
+          (index) => List.filled(
+              ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
+              growable: false),
+          growable: false);
+
+      IPiezaNormal a = IPiezaNormal();
+      IPiezaNormal b = IPiezaNormal();
+      CuboPiezaNormal c = CuboPiezaNormal();
+
+      for (int i = 0; i < 3; i++) {
+        a.mover(Movimientos.IZQUIERDA);
+      }
+
+      for (int i = 0; i < 19; i++) {
+        a.mover(Movimientos.BAJAR);
+      }
+
+
+      for (int i = 0; i < 1; i++) {
+        b.mover(Movimientos.DERECHA);
+      }
+
+      for (int i = 0; i < 19; i++) {
+        b.mover(Movimientos.BAJAR);
+      }
+
+      for (int i = 0; i < 4; i++) {
+        b.mover(Movimientos.DERECHA);
+      }
+
+      for (int i = 0; i < 18; i++) {
+        b.mover(Movimientos.BAJAR);
+      }
+
+      expect(LineasAcumuladas, 1);
+
+      
+    });
+
+
+
+
   });
 }
