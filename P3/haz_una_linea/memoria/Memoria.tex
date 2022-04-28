@@ -17,7 +17,7 @@ ciertas funcionalidades y métodos de la aplicación realizada en la Práctica 2
 tests de unidad que comprobarán si la ejecución de un método de una clase produce el resultado
 esperado y tests de widgets que buscarán la existencia de algún elemento que permita verificar su buen funcionamiento.
 
-En total se han realido 4 tests de widgets y 8 de unidad que explicaremos a continuación en los siguientes apartados.
+En total se han realizado 4 tests de widgets y 8 de unidad que explicaremos a continuación en los siguientes apartados.
 
 
 \section{Tests de unidad}
@@ -56,22 +56,22 @@ Se dará como correcto este test si la pieza no se sale de los límites del tabl
 
 \item \textbf{Todas las piezas creadas son distintas:} Clase: Factoria
 
-Este test comprueba que el algoritmo usado en la factoria para obtener las piezas es consistente. Se ha hecho un algoritmo tipo ``saco'', en el que un tipo de pieza no vuelve a salir hasta que no salgan las demás. Por tanto este test se encarga de comprobar que las 7 primeras piezas son distintas, como es de esperar.
+Este test comprueba que el algoritmo usado en la factoría para obtener las piezas es consistente. Se ha hecho un algoritmo tipo ``saco'', en el que un tipo de pieza no vuelve a salir hasta que no salgan las demás. Por tanto este test se encarga de comprobar que las 7 primeras piezas son distintas, como es de esperar.
 
 Se dará como correcto el test si al sacar el mismo número de piezas que las pasadas a la factoría al final son todas distintas.
 
-\item \textbf{La pieza detecta colision con otra de abajo:} Clase: Pieza
+\item \textbf{La pieza detecta colisión con otra de abajo:} Clase: Pieza
 
 Este test se encarga de comprobar que al poner una pieza encima de otra no la atraviese y detecte correctamente la colisión.
 
 El test sacará un resultado satisfactorio si al bajar una pieza, hay otra debajo (los bloques debajo del tablero no son nulos).
 
-\item \textbf{Cuando se forman 10 bloques horizontales se destruye una linea:} Clase: Tablero
+\item \textbf{Cuando se forman 10 bloques horizontales se destruye una línea:} Clase: Tablero
 
 Este test consiste en colocar 10 bloques (en este caso 5 cubos) y comprobar que al hacer la línea (2 en esta ocasión) se eliminan del tablero. Se ha realizado una modificación
 en la clase Tablero para poder instanciarlo, ya que al ser un State, la clase es privada por defecto.
 
-El test se dará como correcto cuando todas las casillas del tablero sean null, debido a que hemos colocado 5 pieza de tipo cubo, haciendo dos líneas perfectas sin ningún bloque sobrante.
+El test se dará como correcto cuando todas las casillas del tablero sean null, debido a que hemos colocado 5 piezas de tipo cubo, haciendo dos líneas perfectas sin ningún bloque sobrante.
 \end{itemize}
 
 \begin{figure}[H]
@@ -83,7 +83,7 @@ El test se dará como correcto cuando todas las casillas del tablero sean null, 
 
 \section{Tests de Widgets}
 \begin{itemize}
-\item \textbf{Cambio de icono al apagar/encender la musica:} Clase: Música.
+\item \textbf{Cambio de icono al apagar/encender la música:} Clase: Música.
 
 Se comprobará si el icono del altavoz se alterna al apretarlo para cambiar el volumen de la música.
 Se hace apretando el botón de iniciar partida, luego el icono de pause y luego el botón para cambiar el volumen.
@@ -106,7 +106,7 @@ Se dará como correcto este test cuando al salir desde el menú de pausa se desa
 \item \textbf{Al reservar pieza, esta aparece en la pantalla: }Clase: Tablero.
 
 Se comprueba si al pulsar "Guardar" por primera vez, la pieza actual pasa a ser una pieza reservada mediante
-un find.ByKey (previamente se ha tenido que poner una key a la pieza reservada para poder
+un \textit{find.ByKey} (previamente se ha tenido que poner una key a la pieza reservada para poder
 encontrarla)
 
 Se dará como correcto este test cuando al reservar la primera pieza en la partida, esta salga en el recuadro asignado.
