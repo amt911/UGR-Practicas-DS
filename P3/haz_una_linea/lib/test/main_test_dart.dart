@@ -46,12 +46,17 @@ void main() {
 
       Pieza piezaActual;
 
+      ///En esta parte se mueve cada pieza y luego una vez pegada se mueve de
+      /// de nuevo para comprobar que no se salga del tablero tanto por la izquiera
+      /// como por la derecha.
       for (int i = 0; i < lista.length; i++) {
         piezaActual = lista[i].clone();
 
+        //Se mueve la pieza a la izquierda
         for (int j = 0; j < 4; j++) {
           piezaActual.mover(Movimientos.IZQUIERDA);
         }
+        //Se mueve una vez más para comprobar que no se salga
         piezaActual.mover(Movimientos.IZQUIERDA);
 
         for (Bloque aux in piezaActual.bloques) {
@@ -76,6 +81,7 @@ void main() {
     });
 
     test('La bomba explota', () {
+      //Se simula el tablero del juego
       List<List<Bloque?>> bloquesPuestos = List.generate(
           ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
           (index) => List.filled(
@@ -83,10 +89,15 @@ void main() {
               growable: false),
           growable: false);
 
-      Bloque a = Bloque(0, 19, Colors.red);
-      Bloque b = Bloque(1, 19, Colors.red);
-      bloquesPuestos[19][0] = a;
-      bloquesPuestos[19][1] = b;
+      //Se ponen dos bloques de prueba que deben desaparecer al explotar la bomba
+      Bloque a =
+          Bloque(0, (ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1), Colors.red);
+      Bloque b =
+          Bloque(1, (ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1), Colors.red);
+      bloquesPuestos[(ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1).toInt()][0] =
+          a;
+      bloquesPuestos[(ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1).toInt()][1] =
+          b;
 
       CuboPiezaBomba bomba = CuboPiezaBomba();
 
@@ -95,26 +106,29 @@ void main() {
       bomba.mover(Movimientos.IZQUIERDA);
       bomba.mover(Movimientos.IZQUIERDA);
 
-      for (int i = 0; i < 19; i++) {
+      for (int i = 0;
+          i < (ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1).toInt();
+          i++) {
         bomba.mover(Movimientos.BAJAR);
       }
 
       bomba.explotar(bloquesPuestos);
-      expect(bloquesPuestos[19][0], isNull);
-      expect(bloquesPuestos[19][1], isNull);
+      expect(
+          bloquesPuestos[(ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1).toInt()]
+              [0],
+          isNull);
+      expect(
+          bloquesPuestos[(ParametrosTablero.TABLERO_HEIGHT_PIEZAS - 1).toInt()]
+              [1],
+          isNull);
     });
 
     test('La pieza esta en el suelo', () {
-      //List<List<Bloque?>> bloquesPuestos = List.generate(
-      //    ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
-      //    (index) => List.filled(
-      //        ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt(), null,
-      //        growable: false),
-      //    growable: false);
-
       CuboPiezaNormal pieza = CuboPiezaNormal();
 
-      for (int i = 0; i < 20; i++) {
+      for (int i = 0;
+          i < ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt();
+          i++) {
         pieza.mover(Movimientos.BAJAR);
       }
 
@@ -123,7 +137,7 @@ void main() {
     });
 
     test('Todas las piezas creadas son distintas', () {
-      FactoriaAbstracta fa = FactoriaConcreta([
+      List<Pieza> lista = [
         IPiezaNormal(),
         LPiezaNormal(true),
         LPiezaNormal(false),
@@ -131,16 +145,33 @@ void main() {
         SPiezaNormal(false),
         CuboPiezaNormal(),
         TPiezaNormal()
-      ]);
+      ];
+      FactoriaAbstracta fa = FactoriaConcreta(lista);
 
-      List<int> contColores = List.filled(7, 0);
+      Map contColores = {};
+
+      for (Pieza aux in lista) {
+        contColores[aux.bloques[0].color] = 0;
+      }
 
       for (int i = 0; i < 7; i++) {
         Pieza aux = fa.crearPieza();
+        contColores[aux.bloques[0].color]++;
       }
+
+      bool todosDistintos = true;
+
+      for (var aux in contColores.values) {
+        if (aux > 1) {
+          todosDistintos = false;
+        }
+      }
+
+      expect(todosDistintos, isTrue);
     });
 
     test('La pieza detecta colision con otra de abajo', () {
+      //Creamos un tablero
       List<List<Bloque?>> bloquesPuestos = List.generate(
           ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt(),
           (index) => List.filled(
@@ -168,13 +199,14 @@ void main() {
       expect(res, isTrue);
     });
 
-      test('Cuando se forman 10 bloques horizontales se destruye una linea', () {
+    test('Cuando se forman 10 bloques horizontales se destruye una linea', () {
       TableroState t = TableroState();
 
       //Simulamos la caida de las piezas y las metemos en el tablero ya que
-      //el timer no funciona porque se instancia en flutter
+      //el timer no funciona porque se instancia en initState de flutter
       t.piezaActual = CuboPiezaNormal();
 
+      //Vamos poniendo las piezas formando una linea
       for (int i = 0; i < 4; i++) {
         t.piezaActual.mover(Movimientos.DERECHA);
       }
@@ -208,7 +240,6 @@ void main() {
 
       //Eliminamos la linea que hemos creado a base de cubos
       t.eliminarLineasCompletas();
-
 
       //Ahora se comprueba que se haya eliminado la linea del tablero
       bool todosNulos = true;
