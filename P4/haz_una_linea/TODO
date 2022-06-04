@@ -1,0 +1,14 @@
+- Realizar un ranking mundial
+- Crear un formulario para crear torneos de Tetris
+- Inscribirse en un torneo de Tetris
+- Registro/login básico para la autenticación
+
+
+Almacenar:
+- Usuarios [ nombre de usuario, contraseña]
+- Torneos [id de torneo, plazo de inscripcion, nombre de torneo, plazo de juego]
+
+Por hacer si da tiempotimepotimepotiempotiempotiempotiemootiempotiempotiempotiempotiempotiempotiempotiempotiempotiempotiempotiempotiempoç
+
+Hacer un modo multijugador en tiempo real.
+Intentar hacer un battle royale.
