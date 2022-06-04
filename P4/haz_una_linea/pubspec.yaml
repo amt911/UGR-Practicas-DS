@@ -30,6 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  http:
+
   #audioplayers: ^0.10.0
   #cache_audio_player: ^1.0.0
   audioplayers: ^0.20.1

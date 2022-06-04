@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:haz_una_linea/pantallas/creditos.dart';
+import 'package:haz_una_linea/pantallas/torneos.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
 
@@ -60,15 +61,31 @@ class Inicio extends StatelessWidget {
                     },
                     icon: const Icon(Icons.play_arrow_rounded, size: 18),
                     label: const Text("Partida con bombas y pieza +"),
-                  )
+                  ),
+                  ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => const Torneos()));
+                      },
+                      icon: const Icon(Icons.density_small_rounded, size: 18),
+                      label: const Text("Torneos")),                  
                 ])),
+
             ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Creditos()));
                 },
                 icon: const Icon(Icons.density_small_rounded, size: 18),
-                label: const Text("Créditos"))
+                label: const Text("Inicio de sesión")),
+
+            ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Creditos()));
+                },
+                icon: const Icon(Icons.density_small_rounded, size: 18),
+                label: const Text("Créditos"))                
           ],
         ));
   }
