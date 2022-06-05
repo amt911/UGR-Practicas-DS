@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/api/usuarioAPI.dart';
 
+import '../parametros_tablero.dart';
+
 class FormularioInicioSesion extends StatefulWidget {
   @override
   State<FormularioInicioSesion> createState() => _FormularioInicioSesionState();
@@ -21,8 +23,10 @@ class _FormularioInicioSesionState extends State<FormularioInicioSesion> {
             //return Text('bueno: ${snapshot.error}');
             if (snapshot.hasData) {
               if (snapshot.data!.contrasena == _contrasenaController.text) {
-                //return Text("Bienvenido ${snapshot.data.nombre}");
-                Navigator.pop(context);
+                ParametrosTablero.sesionIniciada = true;
+                //Navigator.pop(context);
+
+                Future.microtask(() => Navigator.pop(context));
               } else {
                 return const Text("Contraseña incorrecta");
               }
@@ -63,13 +67,8 @@ class _FormularioInicioSesionState extends State<FormularioInicioSesion> {
             ElevatedButton(
               child: const Text("Iniciar sesión"),
               onPressed: () {
-                //Navigator.pop(context);
                 setState(() {
                   _futureUsuario = Usuario.getUsuario(_nombreController.text);
-
-                  //print("matenme: ${_nombreController.text}");
-                  //_futureUsuario?.then((value) => print(
-                  //    "matenme: ${_nombreController.text} ${value.nombre}"));
                   _idEntered = true;
                 });
                 //print("usuario: $_futureUsuario");

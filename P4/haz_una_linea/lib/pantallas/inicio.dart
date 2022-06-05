@@ -25,8 +25,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Inicio extends StatefulWidget {
+  const Inicio({Key? key}) : super(key: key);
+
+  @override
+  State<Inicio> createState() => _Inicio();
+}
+
 // ignore: use_key_in_widget_constructors
-class Inicio extends StatelessWidget {
+class _Inicio extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -80,8 +87,10 @@ class Inicio extends StatelessWidget {
             if (ParametrosTablero.sesionIniciada)
               ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Creditos()));
+                    //Navigator.push(context,
+                    //    MaterialPageRoute(builder: (context) => Creditos()));
+                    ParametrosTablero.sesionIniciada = false;
+                    setState(() {});
                   },
                   icon: const Icon(Icons.logout, size: 18),
                   label: const Text("Cerrar sesión")),
@@ -90,9 +99,10 @@ class Inicio extends StatelessWidget {
               ElevatedButton.icon(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FormularioInicioSesion()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FormularioInicioSesion()))
+                        .then((value) => setState(() {}));
                   },
                   icon: const Icon(Icons.login, size: 18),
                   label: const Text("Inicio de sesión")),
