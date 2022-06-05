@@ -5,9 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'torneo.dart';
-
-
+import 'torneoAPI.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +29,6 @@ class MyAppState extends State<MyApp> {
   bool _teamEntered = false;
   bool _nameEntered = false;
   late int _menuItem;
-
 
   @override
   void initState() {
@@ -63,7 +60,8 @@ class MyAppState extends State<MyApp> {
                                         BorderSide(color: Colors.teal))),
                             onSubmitted: (val) {
                               setState(() {
-                                if ((int.tryParse(val) ?? -1 ) > 0) _idEntered = true;
+                                if ((int.tryParse(val) ?? -1) > 0)
+                                  _idEntered = true;
                               });
                             }))),
                 Expanded(
@@ -74,7 +72,7 @@ class MyAppState extends State<MyApp> {
                         value: 1,
                         child: Text("GET"),
                       ),
-                   /* if (_idEntered)
+                    /* if (_idEntered)
                       const PopupMenuItem(
                         value: 2,
                         child: Text("DELETE"),
@@ -93,19 +91,17 @@ class MyAppState extends State<MyApp> {
                   initialValue: 1,
                   onSelected: (value) {
                     setState(() {
-
-                        // find.text('project team').focused=false;
-                      _menuItem=value;
+                      // find.text('project team').focused=false;
+                      _menuItem = value;
                       switch (value) {
                         case 1:
-                          _futureTorneo =
-                              Torneo.getTorneo(_idController.text);
+                          _futureTorneo = Torneo.getTorneo(_idController.text);
                           break;
                         /*case 2:
                           //_futureTorneo =
                             //  TorneodeleteProject(_idController.text);
                           break;*/
-                       /* case 3:
+                        /* case 3:
                           _futureTorneo = Torneo.updateProject(
                               name: _nameController.text,
                               team: _teamController.text,
@@ -123,7 +119,7 @@ class MyAppState extends State<MyApp> {
                           }
                           );
 bre;
-*/                          
+*/
                       }
                       //;
                     });
@@ -143,7 +139,7 @@ bre;
                                 border: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.teal))),
-                            onSubmitted: (val)  {
+                            onSubmitted: (val) {
                               setState(() {
                                 if (_nameController.text != '') {
                                   _nameEntered = true;
@@ -170,26 +166,22 @@ bre;
                             }))),
               ]),
               if (_idEntered)
-
-                  FutureBuilder<Torneo>(
-                      future: _futureTorneo,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.done)
-                          if (snapshot.hasData) {
-                            if (_menuItem == 4) {
-                              _idController.text = snapshot.data!.id.toString();
-                            }
-                            return Text(snapshot.data.toString());
-                          }
-                          else {
-                            if (snapshot.hasError) {
-                              return Text('${snapshot.error}');
-                            }
-                          }
-                        return const CircularProgressIndicator();
-                      })
-
+                FutureBuilder<Torneo>(
+                    future: _futureTorneo,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.done) if (snapshot.hasData) {
+                        if (_menuItem == 4) {
+                          _idController.text = snapshot.data!.id.toString();
+                        }
+                        return Text(snapshot.data.toString());
+                      } else {
+                        if (snapshot.hasError) {
+                          return Text('${snapshot.error}');
+                        }
+                      }
+                      return const CircularProgressIndicator();
+                    })
               else
                 const Text("")
             ]))));

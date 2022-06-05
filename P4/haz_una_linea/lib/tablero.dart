@@ -27,6 +27,10 @@ import 'package:haz_una_linea/piezas/t_pieza_bomba.dart';
 import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
 class Tablero extends StatefulWidget {
+  int lineasHechas = 0;
+
+  Tablero(this.lineasHechas, {Key? key}) : super(key: key);
+
   @override
   // ignore: no_logic_in_create_state
   State<Tablero> createState() => TableroState();
@@ -112,7 +116,7 @@ class TableroState extends State<Tablero> with WidgetsBindingObserver {
     }
 
     //Se actualiza la sombra
-    actualizarSombra();
+    //actualizarSombra();
   }
 
   ///Permite comprobar el estado de la aplicación para pausar el juego cuando
@@ -148,6 +152,30 @@ class TableroState extends State<Tablero> with WidgetsBindingObserver {
     ///segundo plano
     WidgetsBinding.instance?.addObserver(this);
     super.initState();
+
+    int contador = 0;
+    for (int i = 0;
+        i <
+            (ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() %
+                widget.lineasHechas);
+        i++) {
+      for (int j = 0;
+          j < ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() &&
+              contador < widget.lineasHechas;
+          j++) {
+        bloquesPuestos[ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1 - i]
+                [j] =
+            Bloque(
+                j.toDouble(),
+                ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt() -
+                    1 -
+                    i.toDouble(),
+                Colors.pink);
+        contador++;
+      }
+    }
+
+    actualizarSombra();
 
     ///Justo despues de llamar al constructor de la clase se llama a este metodo
     ///Es por eso que una vez inicializado todo se llama a la música

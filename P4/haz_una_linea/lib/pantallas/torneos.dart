@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:haz_una_linea/api/torneo.dart';
+import 'package:haz_una_linea/api/torneoAPI.dart';
+import 'package:haz_una_linea/api/torneosAPI.dart';
+import 'package:haz_una_linea/pantallas/torneoPantalla.dart';
 
 class Torneos extends StatefulWidget {
   const Torneos({Key? key}) : super(key: key);
@@ -9,18 +11,74 @@ class Torneos extends StatefulWidget {
 }
 
 class _Torneos extends State<Torneos> {
-  Future<Torneo>? _futureTorneos;
+  Future<TorneosAPI>? _futureTorneos;
   final int _menuItem = 4;
   final TextEditingController _idController = TextEditingController();
   void actualizarTorneos() {
     setState(() {
-      _futureTorneos = Torneo.getTorneo("1");
+      _futureTorneos = TorneosAPI.getTorneos();
     });
+  }
+
+  Widget getTorneos() {
+    return FutureBuilder<TorneosAPI>(
+        future: _futureTorneos,
+        builder: (context, snapshot) {
+          print(snapshot.data);
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              if (_menuItem == 4) {
+                _idController.text = snapshot.data!.toString();
+              }
+              //return Text(snapshot.data.toString());
+              //_torneos = snapshot.data as List<Torneo>?;
+              Column c = Column(
+                children: [
+                  for (Torneo torneo in snapshot.data!.torneos)
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: InkWell(
+                          onTap: () {
+                            //Navigator.pushNamed(context, '/torneo', arguments: torneo);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TorneoPantalla(
+                                          idTorneo: torneo.id,
+                                        )));
+                          },
+                          child: Container(
+                              color: Colors.green,
+                              child: Column(
+                                children: [
+                                  Text(torneo.nombre),
+                                  Row(children: [
+                                    //Text(torneo.fecha_inscripcion.toString()),
+                                    Text(torneo.fecha_max_juego.toString()),
+                                  ])
+                                ],
+                              )),
+                        )),
+
+                  //Text(torneo.toString())
+                ],
+              );
+
+              return c;
+            } else {
+              if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+            }
+          }
+          return const CircularProgressIndicator();
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     actualizarTorneos();
+    getTorneos();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -42,6 +100,7 @@ class _Torneos extends State<Torneos> {
           ),
         ],*/
       ),
+      /*
       body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         FutureBuilder<Torneo>(
@@ -62,6 +121,32 @@ class _Torneos extends State<Torneos> {
               return const CircularProgressIndicator();
             })
       ])),
+      */
+      body: Center(
+          child: /*Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: //[
+          
+        FutureBuilder<TorneosAPI>(
+            future: _futureTorneos,
+            builder: (context, snapshot) {
+              print(snapshot.data);
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  if (_menuItem == 4) {
+                    _idController.text = snapshot.data!.toString();
+                  }
+                  return Text(snapshot.data.toString());
+                } else {
+                  if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
+                }
+              }
+              return const CircularProgressIndicator();
+            })
+            */
+              getTorneos() /*]*/),
     );
   }
 }

@@ -48,7 +48,7 @@ class Inicio extends StatelessWidget {
                     onPressed: () {
                       ParametrosTablero.t = 0;
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Tablero()));
+                          MaterialPageRoute(builder: (context) => Tablero(12)));
                     },
                     icon: const Icon(Icons.play_arrow_rounded, size: 18),
                     label: const Text("Partida normal"),
@@ -57,18 +57,20 @@ class Inicio extends StatelessWidget {
                     onPressed: () {
                       ParametrosTablero.t = 1;
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Tablero()));
+                          MaterialPageRoute(builder: (context) => Tablero(22)));
                     },
                     icon: const Icon(Icons.play_arrow_rounded, size: 18),
                     label: const Text("Partida con bombas y pieza +"),
                   ),
                   ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const Torneos()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Torneos()));
                       },
                       icon: const Icon(Icons.density_small_rounded, size: 18),
-                      label: const Text("Torneos")),                  
+                      label: const Text("Torneos")),
                 ])),
 
             ElevatedButton.icon(
@@ -85,7 +87,7 @@ class Inicio extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => Creditos()));
                 },
                 icon: const Icon(Icons.density_small_rounded, size: 18),
-                label: const Text("Créditos"))                
+                label: const Text("Créditos"))
           ],
         ));
   }
