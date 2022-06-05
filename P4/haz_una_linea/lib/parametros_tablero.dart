@@ -31,4 +31,6 @@ class ParametrosTablero {
     67,
     34
   ];
+
+  static bool sesionIniciada = false;
 }
