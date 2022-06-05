@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/api/torneoAPI.dart';
+import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
 
 class TorneoPantalla extends StatefulWidget {
@@ -41,9 +42,16 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                     child: const Text("Jugar torneo"),
                     onPressed: () {
                       //Navigator.pop(context);
+                      int esBomba = snapshot.data!.esBomba ? 1 : 0;
+                      ParametrosTablero.t = esBomba;
+                      ParametrosTablero.probabilidad =
+                          snapshot.data!.probabilidad;
 
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Tablero(snapshot.data!.piezasPuestas)));                      
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Tablero(snapshot.data!.piezasPuestas)));
                     }),
               ]);
 /*

@@ -47,6 +47,7 @@ class Inicio extends StatelessWidget {
                   ElevatedButton.icon(
                     onPressed: () {
                       ParametrosTablero.t = 0;
+                      ParametrosTablero.probabilidad = 0.1;
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Tablero(12)));
                     },
@@ -56,6 +57,7 @@ class Inicio extends StatelessWidget {
                   ElevatedButton.icon(
                     onPressed: () {
                       ParametrosTablero.t = 1;
+                      ParametrosTablero.probabilidad = 0.1;
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Tablero(22)));
                     },

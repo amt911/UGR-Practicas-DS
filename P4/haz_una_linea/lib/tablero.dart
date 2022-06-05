@@ -96,7 +96,8 @@ class TableroState extends State<Tablero> with WidgetsBindingObserver {
       ];
 
       //Se crea la factoria especial con las bombas
-      fa = FactoriaConcretaEspecial(lista, listaBombas, 0.1);
+      fa = FactoriaConcretaEspecial(
+          lista, listaBombas, ParametrosTablero.probabilidad);
     }
 
     //Se genera la matriz del tablero
@@ -156,11 +157,11 @@ class TableroState extends State<Tablero> with WidgetsBindingObserver {
     int contador = 0;
     for (int i = 0;
         i <
-            (ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() %
-                widget.lineasHechas);
+            (ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() -
+                1 % widget.lineasHechas);
         i++) {
       for (int j = 0;
-          j < ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() &&
+          j < ParametrosTablero.TABLERO_WIDTH_PIEZAS.toInt() - 1 &&
               contador < widget.lineasHechas;
           j++) {
         bloquesPuestos[ParametrosTablero.TABLERO_HEIGHT_PIEZAS.toInt() - 1 - i]

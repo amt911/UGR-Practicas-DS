@@ -13,6 +13,7 @@ class ParametrosTablero {
   static double piezaReservadaHeight = 0;
   static const double REJILLA_RESERVADA = 6;
   static int t = 1;
+  static double probabilidad = 0.1;
   static const List<int> delays = [
     1600,
     1434,

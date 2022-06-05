@@ -8,7 +8,8 @@ class Torneo {
   DateTime fecha_max_juego;
   bool esBomba;
   int piezasPuestas;
-  int multiplier;
+  double multiplier;
+  double probabilidad;
 
   static const String _baseAddress = 'clados.ugr.es';
 
@@ -22,11 +23,12 @@ class Torneo {
       required this.esBomba,
       required this.multiplier,
       required this.piezasPuestas,
-      required this.descripcion});
+      required this.descripcion,
+      required this.probabilidad});
 
   @override
   String toString() {
-    return "id: $id, nombre: '$nombre', fecha_max_juego: $fecha_max_juego, esBomba: $esBomba, multiplier: $multiplier, piezasPuestas: $piezasPuestas, descripcion: '$descripcion'";
+    return "id: $id, nombre: '$nombre', fecha_max_juego: $fecha_max_juego, esBomba: $esBomba, multiplier: $multiplier, piezasPuestas: $piezasPuestas, descripcion: '$descripcion' probabilidad: $probabilidad";
   }
 
   Map<String, dynamic> toJson() => {
@@ -36,7 +38,8 @@ class Torneo {
         'es_bomba': esBomba,
         'multiplier': multiplier,
         'piezas_puestas': piezasPuestas,
-        'descripcion': descripcion
+        'descripcion': descripcion,
+        'probabilidad': probabilidad
       };
 
   Torneo.fromJson(Map<String, dynamic> json)
@@ -46,7 +49,8 @@ class Torneo {
         esBomba = json['es_bomba'],
         multiplier = json['multiplier'],
         piezasPuestas = json['piezas_puestas'],
-        descripcion = json['descripcion'];
+        descripcion = json['descripcion'],
+        probabilidad = json['probabilidad'];
 
   //////////// get //////////////////
   static Future<Torneo> getTorneo(String id) async {
