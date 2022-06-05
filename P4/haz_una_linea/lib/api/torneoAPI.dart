@@ -53,7 +53,7 @@ class Torneo {
         probabilidad = json['probabilidad'];
 
   //////////// get //////////////////
-  static Future<Torneo> getTorneo(String id) async {
+  static Future<Torneo> getTorneo(int id) async {
     final response = await http.get(
         Uri.https(_baseAddress, '$_applicationName/torneos/$id'),
         headers: <String, String>{

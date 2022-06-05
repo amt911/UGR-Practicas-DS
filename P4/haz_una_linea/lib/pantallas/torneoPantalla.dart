@@ -89,7 +89,7 @@ Column(children: [
 
   @override
   Widget build(BuildContext context) {
-    _futureTorneo = Torneo.getTorneo(widget.idTorneo.toString());
+    _futureTorneo = Torneo.getTorneo(widget.idTorneo);
     getInfo();
     return Scaffold(
         appBar: AppBar(
