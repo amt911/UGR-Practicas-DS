@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:haz_una_linea/parametros_tablero.dart';
+
+import '../api/juegaIndividualAPI.dart';
 
 class GameOver extends StatelessWidget {
   final int puntuacion, nivel, lineas;
+  Future<PuntuacionInd>? _p;
 
   // ignore: use_key_in_widget_constructors
-  const GameOver(this.puntuacion, this.nivel, this.lineas);
+  GameOver(this.puntuacion, this.nivel, this.lineas);
 
   @override
   Widget build(BuildContext context) {
+    if(ParametrosTablero.sesionIniciada) {
+      _p = PuntuacionInd.createPuntuacion(ParametrosTablero.usuario!.id, puntuacion);
+    }
+    
     return Scaffold(
         //backgroundColor: const Color.fromARGB(255, 73, 73, 73),
         body: Column(

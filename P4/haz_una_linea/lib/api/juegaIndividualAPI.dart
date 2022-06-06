@@ -80,4 +80,26 @@ class PuntuacionInd {
       throw Exception('Failed to get puntuaciones');
     }
   }
+
+  ////////////// create ///////////////
+static Future<PuntuacionInd> createPuntuacion(  int usuario_id, int puntuacion ) async {
+    final response = await http.post(
+      Uri.https(_baseAddress, '$_applicationName/juega_individuals'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        "usuario_id": usuario_id.toString(),
+        "puntuacion": puntuacion.toString(),
+        "fecha": DateTime.now().toString()
+      }),
+    );
+    if (response.statusCode == 201) {
+      return PuntuacionInd.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to create project');
+    }
+
+  }
+
 }
