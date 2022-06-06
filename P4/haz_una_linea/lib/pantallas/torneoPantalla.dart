@@ -38,6 +38,7 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                   color: Colors.green,
                   child: Text(snapshot.data!.fecha_max_juego.toString()),
                 ),
+                if(!DateTime.now().isAfter(snapshot.data!.fecha_max_juego))
                 ElevatedButton(
                     child: const Text("Jugar torneo"),
                     onPressed: () {

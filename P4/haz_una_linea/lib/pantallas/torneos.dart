@@ -47,7 +47,19 @@ class _Torneos extends State<Torneos> {
                                           idTorneo: torneo.id,
                                         )));
                           },
-                          child: Container(
+                          child: (DateTime.now().isAfter(torneo.fecha_max_juego))
+                              ? Container(
+                              color: Colors.red,
+                              child: Column(
+                                children: [
+                                  Text(torneo.nombre),
+                                  Row(children: [
+                                    //Text(torneo.fecha_inscripcion.toString()),
+                                    Text(torneo.fecha_max_juego.toString()),
+                                  ])
+                                ],
+                              ))
+                              : Container(
                               color: Colors.green,
                               child: Column(
                                 children: [
@@ -58,6 +70,22 @@ class _Torneos extends State<Torneos> {
                                   ])
                                 ],
                               )),
+
+                        
+                          //if(DateTime.now().isAfter(torneo.fecha_max_juego))
+                          
+                          //if(!DateTime.now().isAfter(torneo.fecha_max_juego))
+                          /*child: Container(
+                              color: Colors.green,
+                              child: Column(
+                                children: [
+                                  Text(torneo.nombre),
+                                  Row(children: [
+                                    //Text(torneo.fecha_inscripcion.toString()),
+                                    Text(torneo.fecha_max_juego.toString()),
+                                  ])
+                                ],
+                              )),*/
                         )),
 
                   //Text(torneo.toString())
