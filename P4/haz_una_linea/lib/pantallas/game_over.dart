@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haz_una_linea/api/participaAPI.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 
 import '../api/juegaIndividualAPI.dart';
@@ -6,14 +7,20 @@ import '../api/juegaIndividualAPI.dart';
 class GameOver extends StatelessWidget {
   final int puntuacion, nivel, lineas;
   Future<PuntuacionInd>? _p;
+  Future<PuntuacionTorneosAPI>? _pTorneos;
 
   // ignore: use_key_in_widget_constructors
   GameOver(this.puntuacion, this.nivel, this.lineas);
 
   @override
   Widget build(BuildContext context) {
-    if(ParametrosTablero.sesionIniciada) {
+    if(ParametrosTablero.sesionIniciada && !ParametrosTablero.esTorneo) {
       _p = PuntuacionInd.createPuntuacion(ParametrosTablero.usuario!.id, puntuacion);
+    }
+    else if(ParametrosTablero.sesionIniciada && ParametrosTablero.esTorneo) {
+      //_p = PuntuacionTorneo.createPuntuacion(ParametrosTablero.usuario!.id, puntuacion);
+      //Incluir la puntuacion del torneo aqui
+      _pTorneos = PuntuacionTorneosAPI.createPuntuacion(ParametrosTablero.usuario!.id, puntuacion, ParametrosTablero.idTorneo);
     }
     
     return Scaffold(
@@ -63,6 +70,8 @@ class GameOver extends StatelessWidget {
                     width: 200,
                     child: ElevatedButton(
                         onPressed: () {
+                          ParametrosTablero.esTorneo = false;
+                          ParametrosTablero.idTorneo=-1;
                           Navigator.of(context)
                               .popUntil((route) => route.isFirst);
                         },

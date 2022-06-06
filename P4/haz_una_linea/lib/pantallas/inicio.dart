@@ -57,6 +57,7 @@ class _Inicio extends State<Inicio> {
                     onPressed: () {
                       ParametrosTablero.t = 0;
                       ParametrosTablero.probabilidad = 0.1;
+                      ParametrosTablero.esTorneo=false;
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Tablero(12)));
                     },
@@ -67,6 +68,7 @@ class _Inicio extends State<Inicio> {
                     onPressed: () {
                       ParametrosTablero.t = 1;
                       ParametrosTablero.probabilidad = 0.1;
+                      ParametrosTablero.esTorneo=false;
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Tablero(22)));
                     },

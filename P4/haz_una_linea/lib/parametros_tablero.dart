@@ -34,6 +34,9 @@ class ParametrosTablero {
     34
   ];
 
+  static bool esTorneo=false;
+  static int idTorneo=-1;
+
   static bool sesionIniciada = false;
   static Usuario? usuario = null;
 }

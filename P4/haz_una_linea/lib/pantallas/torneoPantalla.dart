@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:haz_una_linea/api/participaAPI.dart';
 import 'package:haz_una_linea/api/torneoAPI.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
@@ -14,7 +15,29 @@ class TorneoPantalla extends StatefulWidget {
 
 class _TorneoPantallaState extends State<TorneoPantalla> {
   Future<Torneo>? _futureTorneo;
-  Widget getInfo() {
+  Future<PuntuacionTorneosAPI>? _futurePuntuacionTorneos;
+  List<PuntuacionTorneo>? _puntuacionesTorneo =[];
+
+  void _cargarPuntuacionesTorneo() {
+    FutureBuilder<PuntuacionTorneosAPI>(
+        future: _futurePuntuacionTorneos,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done){
+            if (snapshot.hasData) {
+              _puntuacionesTorneo = snapshot.data!.puntuaciones;
+              //return _crearListaPuntuacionesTorneo();
+            }
+            else {
+              if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+            }
+        }
+          return const CircularProgressIndicator();
+        });
+  }
+
+  Widget _getInfo() {
     return FutureBuilder<Torneo>(
         future: _futureTorneo,
         builder: (context, snapshot) {
@@ -47,12 +70,25 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                       ParametrosTablero.t = esBomba;
                       ParametrosTablero.probabilidad =
                           snapshot.data!.probabilidad;
-
+                      ParametrosTablero.esTorneo=true;
+                      ParametrosTablero.idTorneo=snapshot.data!.id;
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
                                   Tablero(snapshot.data!.piezasPuestas)));
+                    }),
+                
+                //Si existe un registro con el id del usuario en snapshot, se muestra
+                //if(_puntuacionesTorneo!=null && _puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id)!=-1)
+                ElevatedButton(
+                    child: const Text("Mostrar clasificación"),
+                    onPressed: () {
+                      //Navigator.push(
+                      //    context,
+                      //    MaterialPageRoute(
+                      //        builder: (context) =>
+                      //            Tablero(snapshot.data!.piezasPuestas)));
                     }),
               ]);
             } else {
@@ -68,11 +104,16 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
   @override
   Widget build(BuildContext context) {
     _futureTorneo = Torneo.getTorneo(widget.idTorneo);
-    getInfo();
+    _futurePuntuacionTorneos = PuntuacionTorneosAPI.getPuntuaciones(widget.idTorneo);
+    //_getInfo();
+    _cargarPuntuacionesTorneo();
+
+    print("Puntuaciones: " + _puntuacionesTorneo.toString());
+    print("ID: ${widget.idTorneo}");
     return Scaffold(
         appBar: AppBar(
           title: Text('Torneo ${widget.idTorneo}'),
         ),
-        body: Center(child: getInfo()));
+        body: Center(child: _getInfo()));
   }
 }
