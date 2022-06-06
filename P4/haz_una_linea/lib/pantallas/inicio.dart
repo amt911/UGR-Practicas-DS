@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:haz_una_linea/pantallas/creditos.dart';
 import 'package:haz_una_linea/pantallas/formulario_inicio_sesion.dart';
+import 'package:haz_una_linea/pantallas/puntuacionesInd.dart';
 import 'package:haz_una_linea/pantallas/torneos.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
@@ -82,14 +83,26 @@ class _Inicio extends State<Inicio> {
                         },
                         icon: const Icon(Icons.density_small_rounded, size: 18),
                         label: const Text("Torneos")),
+
+                  //
+                  if (ParametrosTablero.sesionIniciada)
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PuntuacionesInd()));
+                        },
+                        icon: const Icon(Icons.emoji_events, size: 18),
+                        label: const Text("Puntuaciones")),
                 ])),
 
             if (ParametrosTablero.sesionIniciada)
               ElevatedButton.icon(
                   onPressed: () {
-                    //Navigator.push(context,
-                    //    MaterialPageRoute(builder: (context) => Creditos()));
                     ParametrosTablero.sesionIniciada = false;
+                    ParametrosTablero.usuario = null;
+
                     setState(() {});
                   },
                   icon: const Icon(Icons.logout, size: 18),

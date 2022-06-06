@@ -25,7 +25,7 @@ class _FormularioInicioSesionState extends State<FormularioInicioSesion> {
               if (snapshot.data!.contrasena == _contrasenaController.text) {
                 ParametrosTablero.sesionIniciada = true;
                 //Navigator.pop(context);
-
+                ParametrosTablero.usuario = snapshot.data;
                 Future.microtask(() => Navigator.pop(context));
               } else {
                 return const Text("Contraseña incorrecta");

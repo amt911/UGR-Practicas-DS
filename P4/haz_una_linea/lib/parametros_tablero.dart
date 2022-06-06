@@ -1,3 +1,5 @@
+import 'package:haz_una_linea/api/usuarioAPI.dart';
+
 class ParametrosTablero {
   static double tableroWidth = 0;
   static double tableroHeight = 0;
@@ -33,4 +35,5 @@ class ParametrosTablero {
   ];
 
   static bool sesionIniciada = false;
+  static Usuario? usuario = null;
 }

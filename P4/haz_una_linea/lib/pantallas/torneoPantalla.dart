@@ -54,29 +54,6 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                                   Tablero(snapshot.data!.piezasPuestas)));
                     }),
               ]);
-/*
-Column(children: [
-          Expanded(
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Torneo ${widget.idTorneo}'),
-                const Text("Una descripción potente para el torneo"),
-              ],
-            ),
-          ),
-          Container(
-            color: Colors.green,
-            child: Text('Torneo ${widget.idTorneo}'),
-          ),
-          ElevatedButton(
-            child: const Text("Jugar torneo"),
-            onPressed: () {
-              //Navigator.pop(context);
-            },
-          ),
-*/
-
             } else {
               if (snapshot.hasError) {
                 return Text('${snapshot.error}');
