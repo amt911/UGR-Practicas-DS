@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/api/participaAPI.dart';
 import 'package:haz_una_linea/api/torneoAPI.dart';
+import 'package:haz_una_linea/pantallas/clasificacion_torneo.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 import 'package:haz_una_linea/tablero.dart';
 
@@ -18,36 +20,12 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
   Future<PuntuacionTorneosAPI>? _futurePuntuacionTorneos;
   List<PuntuacionTorneo>? _puntuacionesTorneo =[];
 
-  void _cargarPuntuacionesTorneo() {
-    FutureBuilder<PuntuacionTorneosAPI>(
-        future: _futurePuntuacionTorneos,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done){
-            if (snapshot.hasData) {
-              _puntuacionesTorneo = snapshot.data!.puntuaciones;
-              //return _crearListaPuntuacionesTorneo();
-            }
-            else {
-              if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-            }
-        }
-          return const CircularProgressIndicator();
-        });
-  }
-
   Widget _getInfo() {
     return FutureBuilder<Torneo>(
         future: _futureTorneo,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              //if (_menuItem == 4) {
-              //  _idController.text = snapshot.data!.id.toString();
-              //}
-              //return Text(snapshot.data.toString());
-
               return Column(children: [
                 Expanded(
                   child: Column(
@@ -61,7 +39,7 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                   color: Colors.green,
                   child: Text(snapshot.data!.fecha_max_juego.toString()),
                 ),
-                if(!DateTime.now().isAfter(snapshot.data!.fecha_max_juego))
+                if(!(_puntuacionesTorneo!=null && _puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id)!=-1) && !DateTime.now().isAfter(snapshot.data!.fecha_max_juego))
                 ElevatedButton(
                     child: const Text("Jugar torneo"),
                     onPressed: () {
@@ -80,16 +58,18 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                     }),
                 
                 //Si existe un registro con el id del usuario en snapshot, se muestra
-                //if(_puntuacionesTorneo!=null && _puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id)!=-1)
+                if(_puntuacionesTorneo!=null && _puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id)!=-1)
                 ElevatedButton(
                     child: const Text("Mostrar clasificación"),
                     onPressed: () {
-                      //Navigator.push(
-                      //    context,
-                      //    MaterialPageRoute(
-                      //        builder: (context) =>
-                      //            Tablero(snapshot.data!.piezasPuestas)));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ClasificacionTorneo(widget.idTorneo)));
                     }),
+                Text(_puntuacionesTorneo.toString()),
+                Text(_puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id).toString()),
               ]);
             } else {
               if (snapshot.hasError) {
@@ -102,18 +82,22 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     _futureTorneo = Torneo.getTorneo(widget.idTorneo);
     _futurePuntuacionTorneos = PuntuacionTorneosAPI.getPuntuaciones(widget.idTorneo);
-    //_getInfo();
-    _cargarPuntuacionesTorneo();
+    _futurePuntuacionTorneos!.then((value) => setState((){_puntuacionesTorneo = value.puntuaciones;}));
 
-    print("Puntuaciones: " + _puntuacionesTorneo.toString());
-    print("ID: ${widget.idTorneo}");
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Torneo ${widget.idTorneo}'),
         ),
-        body: Center(child: _getInfo()));
+        body: Center(
+          child: _getInfo()));
   }
 }

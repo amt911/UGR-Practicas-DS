@@ -153,7 +153,7 @@ class TableroState extends State<Tablero> with WidgetsBindingObserver {
     ///segundo plano
     WidgetsBinding.instance?.addObserver(this);
     super.initState();
-
+if(widget.lineasHechas>0){
     int contador = 0;
     for (int i = 0;
         i <
@@ -175,7 +175,7 @@ class TableroState extends State<Tablero> with WidgetsBindingObserver {
         contador++;
       }
     }
-
+}
     actualizarSombra();
 
     ///Justo despues de llamar al constructor de la clase se llama a este metodo

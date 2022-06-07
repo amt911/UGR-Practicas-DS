@@ -93,12 +93,11 @@ static Future<PuntuacionTorneosAPI> createPuntuacion(  int usuario_id, int puntu
         //"fecha": DateTime.now().toString()
       }),
     );
+    
     if (response.statusCode == 201) {
       return PuntuacionTorneosAPI.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to create project');
     }
-
   }
-
 }
