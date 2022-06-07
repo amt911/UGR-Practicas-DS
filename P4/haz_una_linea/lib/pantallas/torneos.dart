@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/api/torneoAPI.dart';
 import 'package:haz_una_linea/api/torneosAPI.dart';
@@ -97,7 +99,7 @@ class _Torneos extends State<Torneos> {
                                                           fontWeight: FontWeight.bold)),
                                                   Container(
                                                   padding: const EdgeInsets.all(20),
-                                                  child: const Text("02/02/2002")
+                                                  child: Text(torneo.fecha_max_juego.day.toString()+"/"+torneo.fecha_max_juego.month.toString()+"/"+torneo.fecha_max_juego.year.toString())
                                                   )
                                                 ]
                                               ),
@@ -217,8 +219,9 @@ class _Torneos extends State<Torneos> {
         ),
       ),
 
-      body: Center(
-          child: getTorneos()),
+      body: SingleChildScrollView(
+        child: getTorneos()
+          )
     );
   }
 }
