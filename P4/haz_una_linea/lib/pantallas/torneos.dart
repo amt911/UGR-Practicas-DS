@@ -21,10 +21,11 @@ class _Torneos extends State<Torneos> {
   }
 
   Widget getTorneos() {
+    //var colorFinal=(MediaQuery.of(context).platformBrightness == Brightness.dark)? const Color.fromARGB(255, 61, 61, 61) : const Color.fromARGB(255, 223, 223, 223);
     return FutureBuilder<TorneosAPI>(
         future: _futureTorneos,
         builder: (context, snapshot) {
-          print(snapshot.data);
+          //print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               if (_menuItem == 4) {
@@ -48,44 +49,146 @@ class _Torneos extends State<Torneos> {
                                         )));
                           },
                           child: (DateTime.now().isAfter(torneo.fecha_max_juego))
-                              ? Container(
-                              color: Colors.red,
-                              child: Column(
-                                children: [
-                                  Text(torneo.nombre),
-                                  Row(children: [
-                                    //Text(torneo.fecha_inscripcion.toString()),
-                                    Text(torneo.fecha_max_juego.toString()),
-                                  ])
-                                ],
-                              ))
-                              : Container(
-                              color: Colors.green,
-                              child: Column(
-                                children: [
-                                  Text(torneo.nombre),
-                                  Row(children: [
-                                    //Text(torneo.fecha_inscripcion.toString()),
-                                    Text(torneo.fecha_max_juego.toString()),
-                                  ])
-                                ],
-                              )),
-
-                        
-                          //if(DateTime.now().isAfter(torneo.fecha_max_juego))
-                          
-                          //if(!DateTime.now().isAfter(torneo.fecha_max_juego))
-                          /*child: Container(
-                              color: Colors.green,
-                              child: Column(
-                                children: [
-                                  Text(torneo.nombre),
-                                  Row(children: [
-                                    //Text(torneo.fecha_inscripcion.toString()),
-                                    Text(torneo.fecha_max_juego.toString()),
-                                  ])
-                                ],
-                              )),*/
+                              ? 
+                              SizedBox(
+                              width: double.infinity,
+                              child: Card(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          //Borde redondeado
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(4),
+                                              topRight: Radius.circular(4),
+                                            ),
+                                            color: Colors.redAccent,
+                                            ),
+                                          
+                                          padding: const EdgeInsets.all(10),
+                                          width: double.infinity,
+                                          //color: Colors.blueAccent,
+                                          child: Text(
+                                            torneo.nombre,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.bold),
+                                        )),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                          color: (MediaQuery.of(context).platformBrightness == Brightness.dark)?  const Color.fromARGB(255, 133, 17, 17): const Color.fromARGB(255, 255, 168, 168),
+                                            borderRadius: const BorderRadius.only(
+                                              bottomLeft: Radius.circular(4),
+                                              bottomRight: Radius.circular(4),
+                                            ),
+                                            ),                        
+                                          
+                                            padding: const EdgeInsets.all(10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  
+                                                  const Text("Fecha",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight: FontWeight.bold)),
+                                                  Container(
+                                                  padding: const EdgeInsets.all(20),
+                                                  child: const Text("02/02/2002")
+                                                  )
+                                                ]
+                                              ),
+                                              Column(
+                                                children: [
+                                                  
+                                                  const Text("Jugadores",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight: FontWeight.bold)),
+                                                  Container(
+                                                  padding: const EdgeInsets.all(20),
+                                                  child: const Text("02022002")
+                                                  )
+                                                ]
+                                              )                                              
+                                            ],)
+                                        ),
+                                      ],
+                                    )
+                                    ))
+                              : SizedBox(
+                              width: double.infinity,
+                              child: Card(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          //Borde redondeado
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(4),
+                                              topRight: Radius.circular(4),
+                                            ),
+                                            color: Colors.blueAccent,
+                                            ),
+                                          
+                                          padding: const EdgeInsets.all(10),
+                                          width: double.infinity,
+                                          //color: Colors.blueAccent,
+                                          child: Text(
+                                            torneo.nombre,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.bold),
+                                        )),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                          color: (MediaQuery.of(context).platformBrightness == Brightness.dark)? const Color.fromARGB(255, 61, 61, 61) : const Color.fromARGB(255, 223, 223, 223),
+                                            borderRadius: const BorderRadius.only(
+                                              bottomLeft: Radius.circular(4),
+                                              bottomRight: Radius.circular(4),
+                                            ),
+                                            ),                        
+                                          
+                                            padding: const EdgeInsets.all(10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  
+                                                  const Text("Fecha",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight: FontWeight.bold)),
+                                                  Container(
+                                                  padding: const EdgeInsets.all(20),
+                                                  //Dia mes y año como chils
+                                                  child: Text(torneo.fecha_max_juego.day.toString()+"/"+torneo.fecha_max_juego.month.toString()+"/"+torneo.fecha_max_juego.year.toString())
+                                                  )
+                                                ]
+                                              ),
+                                              Column(
+                                                children: [
+                                                  
+                                                  const Text("Jugadores",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight: FontWeight.bold)),
+                                                  Container(
+                                                  padding: const EdgeInsets.all(20),
+                                                  child: const Text("02022002")
+                                                  )
+                                                ]
+                                              )                                              
+                                            ],)
+                                        ),
+                                      ],
+                                    )
+                                    ))
                         )),
 
                   //Text(torneo.toString())
@@ -106,75 +209,16 @@ class _Torneos extends State<Torneos> {
   @override
   Widget build(BuildContext context) {
     actualizarTorneos();
-    getTorneos();
+    //getTorneos();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text("Torneos"),
         ),
-        //Mostrar los nombres de torneos
-        /*
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Torneos(),
-                ),
-              );
-            },
-          ),
-        ],*/
       ),
-      /*
+
       body: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        FutureBuilder<Torneo>(
-            future: _futureTorneos,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  if (_menuItem == 4) {
-                    _idController.text = snapshot.data!.id.toString();
-                  }
-                  return Text(snapshot.data.toString());
-                } else {
-                  if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-                }
-              }
-              return const CircularProgressIndicator();
-            })
-      ])),
-      */
-      body: Center(
-          child: /*Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: //[
-          
-        FutureBuilder<TorneosAPI>(
-            future: _futureTorneos,
-            builder: (context, snapshot) {
-              print(snapshot.data);
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  if (_menuItem == 4) {
-                    _idController.text = snapshot.data!.toString();
-                  }
-                  return Text(snapshot.data.toString());
-                } else {
-                  if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-                }
-              }
-              return const CircularProgressIndicator();
-            })
-            */
-              getTorneos() /*]*/),
+          child: getTorneos()),
     );
   }
 }
