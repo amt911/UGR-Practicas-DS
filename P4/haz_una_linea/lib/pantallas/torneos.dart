@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/api/torneoAPI.dart';
 import 'package:haz_una_linea/api/torneosAPI.dart';
@@ -23,7 +21,6 @@ class _Torneos extends State<Torneos> {
   }
 
   Widget getTorneos() {
-    //var colorFinal=(MediaQuery.of(context).platformBrightness == Brightness.dark)? const Color.fromARGB(255, 61, 61, 61) : const Color.fromARGB(255, 223, 223, 223);
     return FutureBuilder<TorneosAPI>(
         future: _futureTorneos,
         builder: (context, snapshot) {
