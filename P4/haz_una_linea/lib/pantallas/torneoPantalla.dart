@@ -30,15 +30,53 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                 Expanded(
                   child: Column(
                     children: [
-                      Text(snapshot.data!.nombre),
-                      Text(snapshot.data!.descripcion),
+                      const SizedBox(height: 10),
+                      Text(snapshot.data!.nombre, 
+                        style: const TextStyle(fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+
+                      ),
+                      const SizedBox(height: 10),
+                      Card(
+                        child: Column(
+                          children: [
+                        const Text("Descripción",
+                        style: TextStyle(fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      Container(
+                        //Arreglar para poner el overflow a hidden
+                        //clipBehavior: Clip.hardEdge,
+                        //constraints: BoxConstraints.expand(),
+                        //width: double.infinity,
+                        //height: 300,
+                      //Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(snapshot.data!.descripcion,
+                          style: const TextStyle(fontSize: 50),
+                          textAlign: TextAlign.center,
+                        
+                        ))),
+                          ],
+                        ))
                     ],
                   ),
                 ),
-                Container(
-                  color: Colors.green,
-                  child: Text(snapshot.data!.fecha_max_juego.toString()),
-                ),
+                const SizedBox(height: 10),
+                Card(
+                  child: Column(
+                    children: [
+                      Text("Fecha máxima de juego ${snapshot.data!.fecha_max_juego.day}/${snapshot.data!.fecha_max_juego.month}/${snapshot.data!.fecha_max_juego.year}"),
+                    Text(snapshot.data!.fecha_max_juego.toString(),
+                      style: const TextStyle(fontSize: 50),
+                      textAlign: TextAlign.center,
+                    ),
+                    ],
+                  ),
+                  ),
+              
                 if(!(_puntuacionesTorneo!=null && _puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id)!=-1) && !DateTime.now().isAfter(snapshot.data!.fecha_max_juego))
                 ElevatedButton(
                     child: const Text("Jugar torneo"),
@@ -68,8 +106,8 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                               builder: (context) =>
                                   ClasificacionTorneo(widget.idTorneo)));
                     }),
-                Text(_puntuacionesTorneo.toString()),
-                Text(_puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id).toString()),
+                //Text(_puntuacionesTorneo.toString()),
+                //Text(_puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id).toString()),
               ]);
             } else {
               if (snapshot.hasError) {
