@@ -201,7 +201,8 @@ class _Torneos extends State<Torneos> {
               }
             }
           }
-          return const CircularProgressIndicator();
+          //return const CircularProgressIndicator();
+          return const Text("");
         });
   }
 
@@ -216,9 +217,18 @@ class _Torneos extends State<Torneos> {
         ),
       ),
 
-      body: SingleChildScrollView(
+      body: RefreshIndicator(
+        onRefresh: () async{
+          actualizarTorneos();
+
+          setState(() {
+          });
+        },
+        child: ListView(
+          children: [
+            SingleChildScrollView(
         child: getTorneos()
-          )
+          )]))
     );
   }
 }

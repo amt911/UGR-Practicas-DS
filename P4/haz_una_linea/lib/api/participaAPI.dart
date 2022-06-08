@@ -93,7 +93,7 @@ static Future<PuntuacionTorneosAPI> createPuntuacion(  int usuario_id, int puntu
         "torneo_id": torneo_id.toString(),
         "usuario_id": usuario_id.toString(),
         "puntuacion": puntuacion.toString(),
-        //"fecha": DateTime.now().toString()
+        "fecha": DateTime.now().toString()
       }),
     );
     

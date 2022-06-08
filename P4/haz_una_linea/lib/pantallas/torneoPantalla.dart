@@ -136,7 +136,6 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
     _futureTorneo = Torneo.getTorneo(widget.idTorneo);
     _futurePuntuacionTorneos = PuntuacionTorneosAPI.getPuntuaciones(widget.idTorneo);
     _futurePuntuacionTorneos!.then((value) => setState((){_puntuacionesTorneo = value.puntuaciones;}));
-
     super.initState();
   }
 
