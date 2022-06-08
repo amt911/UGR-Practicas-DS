@@ -28,8 +28,9 @@ import 'package:haz_una_linea/piezas/t_pieza_normal.dart';
 
 class Tablero extends StatefulWidget {
   int lineasHechas = 0;
+  double multiplier =1;
 
-  Tablero(this.lineasHechas, {Key? key}) : super(key: key);
+  Tablero(this.lineasHechas, this.multiplier, {Key? key}) : super(key: key);
 
   @override
   // ignore: no_logic_in_create_state
@@ -149,6 +150,9 @@ class TableroState extends State<Tablero> with WidgetsBindingObserver {
   ///se añade al arbol
   @override
   void initState() {
+    if(widget.multiplier<=0){
+      widget.multiplier=1;
+    }
     ///Se añade el observador para que detecte cuando la aplicación se pone en
     ///segundo plano
     WidgetsBinding.instance?.addObserver(this);
@@ -182,7 +186,9 @@ if(widget.lineasHechas>0){
     ///Es por eso que una vez inicializado todo se llama a la música
     ///y a un timer para que el juego empiece a moverse
     m.comenzarMusica();
+    //m.setVelocidad(widget.multiplier*velocidad);
     comenzar();
+    //print("alsdkjlsdfkjlsdkfjlskjldkfjgldkfhgjlkdfjglkdfgjldfkgjldfkjgldfkjdflkjfg ${widget.multiplier}");
   }
 
   ///Destructor que se utiliza al hacerle pop
@@ -234,8 +240,8 @@ if(widget.lineasHechas>0){
         velocidad += 0.034; //Se aumenta la velocidad de la musica
       }
 
-      m.setVelocidad(velocidad);
-
+      m.setVelocidad(widget.multiplier*velocidad);
+      //print("aslkdjalrjklsdkfjlsfjhglkdfjhgkldjfghkldfgh ${widget.multiplier*velocidad}");
       ///Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar
       ///para que se reinicie
       timerPrincipal!.cancel();
@@ -396,7 +402,7 @@ if(widget.lineasHechas>0){
   void comenzar() {
     //El delay viene dado por el nivel del juego
     timerPrincipal = Timer.periodic(
-        Duration(milliseconds: ParametrosTablero.delays[indiceDelay]), (timer) {
+        Duration(milliseconds: (ParametrosTablero.delays[indiceDelay]~/widget.multiplier)), (timer) {
       setState(() {
         //Si esta la pieza aun en el aire y no ha acabado la partida se baja
         if (!piezaActual.estaEnSuelo() &&

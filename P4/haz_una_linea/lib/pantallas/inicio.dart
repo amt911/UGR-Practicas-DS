@@ -59,7 +59,7 @@ class _Inicio extends State<Inicio> {
                       ParametrosTablero.probabilidad = 0.1;
                       ParametrosTablero.esTorneo=false;
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Tablero(0)));
+                          MaterialPageRoute(builder: (context) => Tablero(0, 1)));
                     },
                     icon: const Icon(Icons.play_arrow_rounded, size: 18),
                     label: const Text("Partida normal"),
@@ -70,7 +70,7 @@ class _Inicio extends State<Inicio> {
                       ParametrosTablero.probabilidad = 0.1;
                       ParametrosTablero.esTorneo=false;
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Tablero(0)));
+                          MaterialPageRoute(builder: (context) => Tablero(0, 1)));
                     },
                     icon: const Icon(Icons.play_arrow_rounded, size: 18),
                     label: const Text("Partida con bombas y pieza +"),

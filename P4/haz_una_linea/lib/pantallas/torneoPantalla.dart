@@ -104,7 +104,7 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  Tablero(snapshot.data!.piezasPuestas)));
+                                  Tablero(snapshot.data!.piezasPuestas, snapshot.data!.multiplier)));
                     }),
                 
                 //Si existe un registro con el id del usuario en snapshot, se muestra
