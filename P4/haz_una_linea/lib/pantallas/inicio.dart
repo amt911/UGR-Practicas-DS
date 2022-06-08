@@ -37,6 +37,7 @@ class Inicio extends StatefulWidget {
 class _Inicio extends State<Inicio> {
   @override
   Widget build(BuildContext context) {
+    double width=MediaQuery.of(context).size.width;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     return Scaffold(
@@ -50,7 +51,10 @@ class _Inicio extends State<Inicio> {
 
             //Container(
             Expanded(
+                child: SizedBox(
+                  width: width*0.7,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                   ElevatedButton.icon(
@@ -75,20 +79,10 @@ class _Inicio extends State<Inicio> {
                     icon: const Icon(Icons.play_arrow_rounded, size: 18),
                     label: const Text("Partida con bombas y pieza +"),
                   ),
+                  
                   if (ParametrosTablero.sesionIniciada)
                     ElevatedButton.icon(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Torneos()));
-                        },
-                        icon: const Icon(Icons.density_small_rounded, size: 18),
-                        label: const Text("Torneos")),
-
-                  //
-                  if (ParametrosTablero.sesionIniciada)
-                    ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary: const Color.fromARGB(255, 132, 122, 29)),
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -97,10 +91,25 @@ class _Inicio extends State<Inicio> {
                         },
                         icon: const Icon(Icons.emoji_events, size: 18),
                         label: const Text("Puntuaciones")),
-                ])),
+
+                  if (ParametrosTablero.sesionIniciada)
+                    ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary: Colors.deepPurpleAccent),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Torneos()));
+                        },
+                        icon: const Icon(Icons.density_small_rounded, size: 18),
+                        label: const Text("Torneos")),                        
+                ]))),
 
             if (ParametrosTablero.sesionIniciada)
-              ElevatedButton.icon(
+              SizedBox(
+                width: width*0.4,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary: Colors.redAccent),
                   onPressed: () {
                     ParametrosTablero.sesionIniciada = false;
                     ParametrosTablero.usuario = null;
@@ -108,10 +117,14 @@ class _Inicio extends State<Inicio> {
                     setState(() {});
                   },
                   icon: const Icon(Icons.logout, size: 18),
-                  label: const Text("Cerrar sesión")),
+                  label: const Text("Cerrar sesión"))),
 
             if (!ParametrosTablero.sesionIniciada)
-              ElevatedButton.icon(
+
+              SizedBox(
+                width: width*0.4,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary: Colors.green),
                   onPressed: () {
                     Navigator.push(
                             context,
@@ -120,15 +133,17 @@ class _Inicio extends State<Inicio> {
                         .then((value) => setState(() {}));
                   },
                   icon: const Icon(Icons.login, size: 18),
-                  label: const Text("Inicio de sesión")),
+                  label: const Text("Inicio de sesión"))),
 
-            ElevatedButton.icon(
+            SizedBox(
+              width: width*0.4,
+            child: ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Creditos()));
                 },
                 icon: const Icon(Icons.density_small_rounded, size: 18),
-                label: const Text("Créditos"))
+                label: const Text("Créditos")))
           ],
         ));
   }
