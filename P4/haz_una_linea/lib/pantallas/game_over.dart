@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/api/participaAPI.dart';
+import 'package:haz_una_linea/pantallas/clasificacion_torneo.dart';
 import 'package:haz_una_linea/parametros_tablero.dart';
 
 import '../api/juegaIndividualAPI.dart';
@@ -66,6 +67,22 @@ class GameOver extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  if(ParametrosTablero.sesionIniciada && ParametrosTablero.esTorneo)
+                  SizedBox(
+                    width: 200,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          ParametrosTablero.esTorneo = false;
+                          int idT = ParametrosTablero.idTorneo;
+                          ParametrosTablero.idTorneo=-1;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ClasificacionTorneo(idT)),
+                          );
+                        },
+                        child: const Text("Mostrar clasificación")),
+                  ),
+                  const SizedBox(height: 10,),
                   SizedBox(
                     width: 200,
                     child: ElevatedButton(
@@ -76,7 +93,7 @@ class GameOver extends StatelessWidget {
                               .popUntil((route) => route.isFirst);
                         },
                         child: const Text("Salir de la partida")),
-                  )
+                  ),                            
                 ],
               ),
             )

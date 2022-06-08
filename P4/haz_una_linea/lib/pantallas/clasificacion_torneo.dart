@@ -40,7 +40,7 @@ class _ClasificacionTorneo extends State<ClasificacionTorneo> {
                     DataCell(Text((contador++).toString())),
                     DataCell(Text(puntuacion.nombre)),
                     DataCell(Text(puntuacion.fecha.day.toString() + "/" + puntuacion.fecha.month.toString() + "/" + puntuacion.fecha.year.toString(), 
-                    style: TextStyle(fontSize: 10),
+                    style: const TextStyle(fontSize: 10),
                     )),
                     DataCell(Text(puntuacion.puntuacion.toString())),
                   ],
@@ -55,11 +55,12 @@ class _ClasificacionTorneo extends State<ClasificacionTorneo> {
         });
   }
 
+  @override
   Widget build(BuildContext context) {
     _futurePuntuacionTorneos = PuntuacionTorneosAPI.getPuntuaciones(widget.idTorneo);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Clasificación"),
+        title: const Text("Clasificación"),
       ),
       body: SingleChildScrollView(
         child: _getPuntuacionesTorneo(),

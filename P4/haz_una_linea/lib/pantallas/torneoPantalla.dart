@@ -73,7 +73,8 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                       const SizedBox(height: 10),
                       Text("Fecha máxima de juego: ${snapshot.data!.fecha_max_juego.day}/${snapshot.data!.fecha_max_juego.month}/${snapshot.data!.fecha_max_juego.year}"),
                       const SizedBox(height: 10),
-                      Text("Modo bomba: "+(snapshot.data!.esBomba?"Si":"No")),
+                      //Text("asdasd: ${snapshot.data!.esBomba}"),
+                      Text("Modo bomba: "+(snapshot.data!.esBomba?"Sí":"No")),
                       const SizedBox(height: 10),
                       if(snapshot.data!.esBomba)
                         Text("Probabilidad de bomba: ${snapshot.data!.probabilidad}"),

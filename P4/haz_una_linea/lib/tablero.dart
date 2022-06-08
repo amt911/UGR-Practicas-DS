@@ -186,9 +186,7 @@ if(widget.lineasHechas>0){
     ///Es por eso que una vez inicializado todo se llama a la música
     ///y a un timer para que el juego empiece a moverse
     m.comenzarMusica();
-    //m.setVelocidad(widget.multiplier*velocidad);
     comenzar();
-    //print("alsdkjlsdfkjlsdkfjlskjldkfjgldkfhgjlkdfjglkdfgjldfkgjldfkjgldfkjdflkjfg ${widget.multiplier}");
   }
 
   ///Destructor que se utiliza al hacerle pop
@@ -240,8 +238,7 @@ if(widget.lineasHechas>0){
         velocidad += 0.034; //Se aumenta la velocidad de la musica
       }
 
-      m.setVelocidad(widget.multiplier*velocidad);
-      //print("aslkdjalrjklsdkfjlsfjhglkdfjhgkldjfghkldfgh ${widget.multiplier*velocidad}");
+      m.setVelocidad(velocidad);
       ///Paramos el timer ya que tiene que ser mas rapido y llamamos a comenzar
       ///para que se reinicie
       timerPrincipal!.cancel();

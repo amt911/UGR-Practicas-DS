@@ -50,7 +50,7 @@ class Torneo {
       : id = json['id'],
         nombre = json['nombre'],
         fecha_max_juego = DateTime.tryParse(json['fecha_max_juego'])!,
-        esBomba = (json['es_bomba']==1)?true:false,
+        esBomba = (json['es_bomba']==1 || json['es_bomba']==true)?true:false,
         multiplier = json['multiplier'],
         piezasPuestas = json['piezas_puestas'],
         descripcion = json['descripcion'],
