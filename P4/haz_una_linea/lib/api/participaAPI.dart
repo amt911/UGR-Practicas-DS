@@ -10,33 +10,36 @@ class PuntuacionTorneo {
   int usuario_id;
   int puntuacion;
   String nombre;
-  //DateTime fecha;
+  DateTime fecha;
 
   PuntuacionTorneo({
     required this.torneo_id,
     required this.usuario_id,
     required this.puntuacion,
     required this.nombre,
+    required this.fecha,
   });
 
   @override
   String toString() {
     //return "torneo_id: $torneo_id, usuario_id: $usuario_id, puntuacion: $puntuacion, fecha: $fecha";
-    return "torneo_id: $torneo_id, usuario_id: $usuario_id, puntuacion: $puntuacion, nombre: $nombre";
+    return "torneo_id: $torneo_id, usuario_id: $usuario_id, puntuacion: $puntuacion, nombre: $nombre, fecha: $fecha";
   }
 
   Map<String, dynamic> toJson() => {
         'torneo_id': torneo_id,
         'usuario_id': usuario_id,
         'puntuacion': puntuacion,
-        'nombre': nombre
+        'nombre': nombre,
+        'fecha': fecha,
       };
 
   PuntuacionTorneo.fromJson(Map<String, dynamic> json):
         torneo_id = json['torneo_id'],
         usuario_id = json['usuario_id'],
         puntuacion = json['puntuacion'],
-        nombre = json['nombre'];
+        nombre = json['nombre'],
+        fecha = DateTime.tryParse(json['fecha'])!;
 }
 
 class PuntuacionTorneosAPI {

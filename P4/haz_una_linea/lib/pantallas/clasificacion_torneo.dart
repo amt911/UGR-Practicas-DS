@@ -39,7 +39,7 @@ class _ClasificacionTorneo extends State<ClasificacionTorneo> {
                   cells: [
                     DataCell(Text((contador++).toString())),
                     DataCell(Text(puntuacion.nombre)),
-                    DataCell(Text("placeholder", 
+                    DataCell(Text(puntuacion.fecha.day.toString() + "/" + puntuacion.fecha.month.toString() + "/" + puntuacion.fecha.year.toString(), 
                     style: TextStyle(fontSize: 10),
                     )),
                     DataCell(Text(puntuacion.puntuacion.toString())),

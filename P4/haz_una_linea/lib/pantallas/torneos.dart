@@ -109,7 +109,7 @@ class _Torneos extends State<Torneos> {
                                                           fontWeight: FontWeight.bold)),
                                                   Container(
                                                   padding: const EdgeInsets.all(20),
-                                                  child: const Text("02022002")
+                                                  child: Text(torneo.jugadores.toString())
                                                   )
                                                 ]
                                               )                                              
@@ -179,7 +179,7 @@ class _Torneos extends State<Torneos> {
                                                           fontWeight: FontWeight.bold)),
                                                   Container(
                                                   padding: const EdgeInsets.all(20),
-                                                  child: const Text("02022002")
+                                                  child: Text(torneo.jugadores.toString())
                                                   )
                                                 ]
                                               )                                              
@@ -197,7 +197,7 @@ class _Torneos extends State<Torneos> {
               return c;
             } else {
               if (snapshot.hasError) {
-                return Text('${snapshot.error}');
+                return Text('Error: ${snapshot.error}');
               }
             }
           }

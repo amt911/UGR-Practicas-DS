@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:haz_una_linea/api/participaAPI.dart';
 import 'package:haz_una_linea/api/torneoAPI.dart';
@@ -21,6 +20,7 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
   List<PuntuacionTorneo>? _puntuacionesTorneo =[];
 
   Widget _getInfo() {
+    final double width = MediaQuery.of(context).size.width;
     return FutureBuilder<Torneo>(
         future: _futureTorneo,
         builder: (context, snapshot) {
@@ -38,7 +38,10 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
 
                       ),
                       const SizedBox(height: 10),
-                      Card(
+                      Expanded(
+                        child: SizedBox(
+                          width: width,
+                          child: Card(
                         child: Column(
                           children: [
                         const Text("Descripción",
@@ -46,35 +49,44 @@ class _TorneoPantallaState extends State<TorneoPantalla> {
                           fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
-                      Container(
-                        //Arreglar para poner el overflow a hidden
-                        //clipBehavior: Clip.hardEdge,
-                        //constraints: BoxConstraints.expand(),
-                        //width: double.infinity,
-                        //height: 300,
-                      //Expanded(
+                      //Padding(padding: const EdgeInsets.all(10),
+                      Expanded(
                       child: SingleChildScrollView(
                         child: Text(snapshot.data!.descripcion,
-                          style: const TextStyle(fontSize: 50),
-                          textAlign: TextAlign.center,
-                        
+                          style: const TextStyle(fontSize: 18),
+                          textAlign: TextAlign.justify,
                         ))),
                           ],
-                        ))
+                        ))))
                     ],
                   ),
                 ),
                 const SizedBox(height: 10),
                 Card(
-                  child: Column(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Fecha máxima de juego ${snapshot.data!.fecha_max_juego.day}/${snapshot.data!.fecha_max_juego.month}/${snapshot.data!.fecha_max_juego.year}"),
-                    Text(snapshot.data!.fecha_max_juego.toString(),
-                      style: const TextStyle(fontSize: 50),
-                      textAlign: TextAlign.center,
-                    ),
+                      const SizedBox(height: 10),
+                      Text("Fecha máxima de juego: ${snapshot.data!.fecha_max_juego.day}/${snapshot.data!.fecha_max_juego.month}/${snapshot.data!.fecha_max_juego.year}"),
+                      const SizedBox(height: 10),
+                      Text("Modo bomba: "+(snapshot.data!.esBomba?"Si":"No")),
+                      const SizedBox(height: 10),
+                      if(snapshot.data!.esBomba)
+                        Text("Probabilidad de bomba: ${snapshot.data!.probabilidad}"),
+                      if(snapshot.data!.esBomba)
+                        const SizedBox(height: 10),
+                      
+                      Text("Velocidad: x${snapshot.data!.multiplier}"),
+                      const SizedBox(height: 10),
+
+                      Text("Bloques iniciales: ${snapshot.data!.piezasPuestas}"),
+                      const SizedBox(height: 10),
                     ],
-                  ),
+                ))),
                   ),
               
                 if(!(_puntuacionesTorneo!=null && _puntuacionesTorneo!.indexWhere((i) => i.usuario_id==ParametrosTablero.usuario!.id)!=-1) && !DateTime.now().isAfter(snapshot.data!.fecha_max_juego))

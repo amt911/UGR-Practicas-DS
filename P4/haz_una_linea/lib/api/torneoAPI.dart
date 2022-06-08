@@ -10,6 +10,7 @@ class Torneo {
   int piezasPuestas;
   double multiplier;
   double probabilidad;
+  int jugadores;
 
   static const String _baseAddress = 'clados.ugr.es';
 
@@ -24,33 +25,37 @@ class Torneo {
       required this.multiplier,
       required this.piezasPuestas,
       required this.descripcion,
-      required this.probabilidad});
+      required this.probabilidad,
+      required this.jugadores});
 
   @override
   String toString() {
-    return "id: $id, nombre: '$nombre', fecha_max_juego: $fecha_max_juego, esBomba: $esBomba, multiplier: $multiplier, piezasPuestas: $piezasPuestas, descripcion: '$descripcion' probabilidad: $probabilidad";
+    return "id: $id, nombre: '$nombre', fecha_max_juego: $fecha_max_juego, esBomba: $esBomba, multiplier: $multiplier, piezasPuestas: $piezasPuestas, descripcion: '$descripcion' probabilidad: $probabilidad, jugadores: $jugadores";
+    //return "as";
   }
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'nombre': nombre,
         'fecha_max_juego': fecha_max_juego,
-        'es_bomba': esBomba,
+        'es_bomba': (esBomba)?1:0,
         'multiplier': multiplier,
         'piezas_puestas': piezasPuestas,
         'descripcion': descripcion,
-        'probabilidad': probabilidad
+        'probabilidad': probabilidad,
+        'jugadores': jugadores,
       };
 
   Torneo.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         nombre = json['nombre'],
         fecha_max_juego = DateTime.tryParse(json['fecha_max_juego'])!,
-        esBomba = json['es_bomba'],
+        esBomba = (json['es_bomba']==1)?true:false,
         multiplier = json['multiplier'],
         piezasPuestas = json['piezas_puestas'],
         descripcion = json['descripcion'],
-        probabilidad = json['probabilidad'];
+        probabilidad = json['probabilidad'],
+        jugadores = (json['jugadores']==null)?0:json['jugadores'];
 
   //////////// get //////////////////
   static Future<Torneo> getTorneo(int id) async {
