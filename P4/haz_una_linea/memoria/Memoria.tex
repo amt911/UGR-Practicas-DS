@@ -654,17 +654,25 @@ simplemente realizamos. Mediante un fichero CSS, se dieron ciertas reglas para c
   Se dará como correcto el test si las dos cadenas de caracteres coinciden.
 
   \item \textbf{Test Fixtures 2: Un usuario creado tiene el id esperado.}
-  
+  Se comprobará si un usuario que se ha registrado tiene su id almacenado correctamente, es decir,
+  si es igual al que tiene en la base de datos. 
+
+  Se dará como correcto el test si los dos números enteros del id coinciden.
+
   \item \textbf{Test Modelos 1: Un usuario creado no es admin por defecto.}
   Se comprobará si un nuevo usuario no tiene el rol de administrador por defecto. Es decir,
   el campo de admin tiene que ser falso cuando se crea el usuario.
 
-  Se dará como correcto el test si el campo ``admin'' del usuario es falso. 
+  Se dará como correcto el test si el campo ``admin'' del usuario es 0.
 
   \item \textbf{Test Integración 1: Gestión de torneos} Se comprobará si se puede acceder correctamente a la página para crear torneos por el método GET y
    se puede crear un torneo con el método POST. Redirige correctamente a otra página donde se encuentra un mensaje de éxito.
+
+   Se dará correcto si encuentra el texto de que se ha creado el torneo correctamente
    \item \textbf{Test Integración 2: Gestión de usuarios} Se comprobará si se puede acceder correctamente a la página para crear usuarios por el método GET y
    se puede crear un usuario con el método POST. Redirige correctamente a otra página donde se encuentra un mensaje de éxito.
+
+   Se dará correcto si encuentra el texto de que se ha creado el usuario correctamente
 
 \end{itemize}
 
