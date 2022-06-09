@@ -57,11 +57,6 @@ class PuntuacionInd {
   };
 
   PuntuacionInd.fromJson(List<dynamic> json){
-    //Inserta en la lista de puntuaciones los objetos Puntuacion que se encuentran en el json
-    //for (var i = 0; i < json.length; i++) {
-    //  puntuaciones.add(Puntuacion.fromJson(json[i]));
-    //}
-
     puntuaciones = json.map((puntuacion) => Puntuacion.fromJson(puntuacion)).toList();    
   }
 

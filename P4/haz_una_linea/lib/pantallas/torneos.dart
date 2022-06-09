@@ -12,8 +12,8 @@ class Torneos extends StatefulWidget {
 
 class _Torneos extends State<Torneos> {
   Future<TorneosAPI>? _futureTorneos;
-  final int _menuItem = 4;
-  final TextEditingController _idController = TextEditingController();
+  //final int _menuItem = 4;
+  //final TextEditingController _idController = TextEditingController();
   void actualizarTorneos() {
     setState(() {
       _futureTorneos = TorneosAPI.getTorneos();
@@ -27,9 +27,9 @@ class _Torneos extends State<Torneos> {
           //print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              if (_menuItem == 4) {
-                _idController.text = snapshot.data!.toString();
-              }
+              //if (_menuItem == 4) {
+              //  _idController.text = snapshot.data!.toString();
+              //}
               //return Text(snapshot.data.toString());
               //_torneos = snapshot.data as List<Torneo>?;
               Column c = Column(

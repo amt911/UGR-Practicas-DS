@@ -3,119 +3,578 @@
 \usepackage{graphicx, graphics, float}
 \usepackage[a4paper, total={6in, 9in}]{geometry}
 \usepackage[spanish]{babel}
-\usepackage{subcaption}
-\title{Haz Una Línea\\
-\large Memoria DS - Práctica 3}
+\usepackage{subcaption, tabularx}
+\title{Haz una Línea Tournament\\
+\large Memoria DS - Práctica 4}
 \author{Andrés Merlo Trujillo\\ Sergio Hervás Cobo\\ Javier Serrano Lucas\\ Ricardo Molina Rodríguez}
 
 \begin{document}
-\date{Abril 2022}
+\date{Junio 2022}
 \maketitle
 \section{Introducción}
-En esta práctica se ha realizado una serie de pruebas para comprobar el funcionamiento correcto de
-ciertas funcionalidades y métodos de la aplicación realizada en la Práctica 2 (Haz Una Línea). Se han implementado
-tests de unidad que comprobarán si la ejecución de un método de una clase produce el resultado
-esperado y tests de widgets que buscarán la existencia de algún elemento que permita verificar su buen funcionamiento.
 
-En total se han realizado 4 tests de widgets y 8 de unidad que explicaremos a continuación en los siguientes apartados.
-
-
-\section{Tests de unidad}
+En esta práctica hemos desarrollado un servidor web usando el framework Ruby on Rails y siguiendo el patrón Modelo-Vista-Controlador. La idea principal
+es evolucionar nuestra práctica 2, llamada "Haz Una Línea", que consistía en la implementación de un videojuego para móviles semejante al famoso "Tetris" con ciertas modificaciones.
+Las nuevas funciones planteadas para esta práctica, que se detallarán mediante requisitos posteriormente, son:
 \begin{itemize}
-\item \textbf{El volumen de la música debería cambiar a 0:} Clase: Música.
+\item Permitir al usuario registrarse y logearse
+\item Permitir a los administradores crear torneos
+\item Implementar la gestión (modificación, creación, eliminación) de los distintos datos del modelo (usuarios, participaciones y torneos).
+\item Permitir a los usuarios ver la lista de torneos creados (antiguos y nuevos) y ver los torneos en los que ha jugado.
+\item Permitir a los usuarios jugar un torneo
+\item Mostrar las clasificaciones de un torneo
+\item Mostrar las puntuaciones de un usuario en sus partidas individuales
+\end{itemize}
 
-Para este test se ha comprobado que el volumen de la música es 0 cuando se llama a "setSonido".
-De esta forma se comprobará si de verdad el volumen del sonido cambia dentro de dicho método cuando el usuario aprieta el botón del cambio de volumen.
 
-Se dará como correcto si el valor del volumen que almacena la clase pasa a ser 0.
+Para ello, se ha creado un portal web en el servidor de clados.ugr.es para la gestión de los torneos y las puntuaciones. A través del sitio web creado,
+los administradores podrán crear torneos, pudiendo elegir distintas características para estos como la velocidad, los bloques puestos iniciales, la
+ probabilidad de aparecer piezas bomba (0 = normal), etc. Estos torneos podrán ser jugados en la aplicación desarrollada en Flutter por los usuarios registrados,
+ la cual obtiene la información de este servidor por una API. La lista de los torneos será visible para todos los usuarios, que podrán ver la clasificación del torneo una
+ vez participen en este. Cuando el usuario obtenga una puntuación, esta se subirá a la base de datos y el usuario podrá ver el ranking global de dicho torneo.
+ 
+ Además, las puntuaciones de las partidas individuales también se subirán al servidor y el usuario podrá verlas en cualquier momento desde un nuevo botón en la app. Esta 
+ lista estará ordenada por puntuación en orden descendente.
 
-\item \textbf{El volumen de la música debería cambiar a 1:} Clase: Música.
+Los administradores también podrán gestionar los distintos datos existentes en el modelo como los usuarios, las partidas y los torneos, pudiendo crear, modificar y eliminar tuplas
+de estas tablas.
 
-Para este test se ha comprobado que el volumen de la música es 1 cuando se llama a "setSonido" dos veces.
-De esta forma se comprobará si de verdad el volumen del sonido cambia dentro de dicho método cuando el usuario aprieta dos veces el botón del cambio de volumen.
+\section{Fase de planificación}
+%\begin{itemize}
+%\item \textbf{Distribucion de equipos}
+\subsection{Distribución de equipos}
 
-El test dará resultado correcto si el valor del volumen que almacena la clase acaba siendo 1.
+Los equipos se han repartido entre los participantes, Andrés y Ricardo serán el equipo número 1, y Sergio y Javier serán el equipo número 2.
 
-\item \textbf{La pieza no se debe mover en los bordes del tablero:} Clase: Pieza
+\subsection{Trabajo planeado}
+Para planificar la carga de trabajo y las tareas realizadas o pendientes, se ha utilizado la herramienta de Trello. Con esta aplicación,
+hemos podido crear listas de tareas para la clasificación de estas según la fase de desarrollo en la que estén en cierto momento. Adjuntamos una imagen
+de nuestro Trello para que pueda ver las listas de tareas.
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/trello.png}
+  \caption{Captura de pantalla de nuestro Trello} 
+\end{figure}
 
-Este test verifica si al mover una pieza que está en el borde del tablero en esa misma dirección, esta permanece en el mismo sitio sin salirse del tablero. Se hace
-comprobando cada pieza que puede existir en el tablero y mirando si sus coordenadas están dentro de las del tablero.
+%\item \textbf{Reparto del trabajo}
+\subsection{Reparto del trabajo}
 
-El test se dará como correcto si todas las piezas no se salen del tablero tanto por la izquierda como por la derecha.
+Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayoría de sprints han sido realizados de forma bastante grupal entre todos los integrantes.
 
-\item \textbf{La bomba explota: }Clase: PiezaBomba.
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Sprint} & \textbf{Equipo 1} & \textbf{Equipo 2}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      1 & Planteamos la idea de como va a ser la aplicación y nos organizamos las tareas entre cada equipo & Mejora de la interfaz de las vistas \\
+      \hline
+      2 & Creación de la App Básica (Modelo Vista Controlador) & Modelo E/R y Tablas de la BD\\
+      \hline
+      3 & Creación de la API en RoR & Operaciones básicas accediendo por un navegador web\\
+      \hline
+      4 & Creación de torneos en la App de Flutter & Creación de las puntuaciones en la App de Flutter\\
+      \hline
+      5 & Creación de partidas configuradas en la App de Flutter & Memoria y Presentación\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
 
-Este test se encarga de comprobar que las piezas bombas al detonar eliminan los bloques colindantes a los propios bloques de la pieza bomba.
-Se dará como correcto si los bloques del tablero de alrededor de la bomba y los de la propia pieza bomba son nulos.
+\section{Fase de análisis}
 
-\item \textbf{La pieza esta en el suelo:} Clase: Pieza.
+\subsection {Requisitos Funcionales}
+\begin{itemize}
+    
+    \item RF1 - Interacción con los menús  
+    \begin{itemize}
+      \item RF1.1 - El sistema debe permitir iniciar la partida.
+      \item RF1.2 - El sistema debe permitir salir de la partida y volver a la pantalla de inicio.
+      \item RF1.3 - El sistema permitirá a estos usuarios acceder al apartado de créditos. 
+      \item RF1.4 - El sistema debe adaptar su apariencia al modo claro u oscuro del dispositivo.
+      \item RF1.5 - El sistema debe permitir reanudar la partida desde el menú de pausa.
+      \item RF1.6 - El sistema debe permitir salir de la partida y volver al menú principal desde el menú de pausa.
+    \end{itemize}
 
-Este test comprueba que la pieza al bajarla se encuentre en el suelo del tablero y no se haya pasado más de la cuenta.
+    \item RF2 - Interacción con la partida
+    \begin{itemize}
+      \item RF2.1 - El sistema debe permitir al usuario manejar el movimiento de las
+      piezas (traslación y rotación)
+      \item RF2.2 - El sistema debe permitir al usuario reservar una pieza
+      \item RF2.3 - El sistema debe permitir pausar la partida en cualquier momento como en reproducción (pararla o reanudarla).
+      \item RF2.4 - El sistema debe aumentar la puntuación mediante se van completando filas.
+      \item RF2.5 - El sistema debe de subir de nivel tras completar 10 filas.
+      \item RF2.6 - El sistema debe de aumentar la velocidad de bajada de las piezas al subir de nivel.
+    \end{itemize}
 
-Se dará como correcto este test si la pieza no se sale de los límites del tablero y se encuentra en el suelo.
+    \item RF3 - Información mostrada durante la partida
+    \begin{itemize}
+      \item RF3.1 - El sistema debe mostrar la puntuación, el nivel y las filas
+      \item RF3.2 - El sistema debe mostrar una lista de piezas siguientes.
+      \item RF3.3 - El sistema mostrará un tablero con las piezas que están colocadas y siendo colocada.
+    \end{itemize}
+    
 
-\item \textbf{Todas las piezas creadas son distintas:} Clase: Factoria
+    \item RF4 - Apartado Musical
+    \begin{itemize}
+      \item RF4.1 - El usuario podrá desactivar o activar la música.
+      \item RF4.2 - El sistema debe de aumentar la velocidad de la música al subir de nivel.
+    \end{itemize}
 
-Este test comprueba que el algoritmo usado en la factoría para obtener las piezas es consistente. Se ha hecho un algoritmo tipo ``saco'', en el que un tipo de pieza no vuelve a salir hasta que no salgan las demás. Por tanto este test se encarga de comprobar que las 7 primeras piezas son distintas, como es de esperar.
+     \item RF5 - Posibilidades de los usuarios no registrados
+     \begin{itemize}
+      \item RF5.1 - El sistema permitirá jugar partidas normales a estos usuarios pero no guardar su puntuación.
+      \item RF5.2 - El sistema permitirá jugar partidas bomba a estos usuarios pero no guardar su puntuación.
+    \end{itemize}
 
-Se dará como correcto el test si al sacar el mismo número de piezas que las pasadas a la factoría al final son todas distintas.
+    \item RF6 - Posibilidades de los usuarios registrados
+     \begin{itemize}
+      \item RF6.1 - El sistema permitirá jugar partidas a estos usuarios y guardar su puntuación.
+      \item RF6.2 - El sistema permitirá a cada usuario acceder a sus puntuaciones personales.
+      \item RF6.3 - El sistema permitirá a estos usuarios poder ver la lista de torneos.
+      \item RF6.4 - El sistema permitirá poder ver la información de cada torneo.
+      \item RF6.5 - El sistema permitirá jugar los torneos activos que no hayan sido jugados.
+      \item RF6.5 - El sistema permitirá ver las puntuaciones guardadas por los participantes del torneo.
+      
+    \end{itemize}
 
-\item \textbf{La pieza detecta colisión con otra de abajo:} Clase: Pieza
+    \item RF7 - Gestión por administradores
+    \begin{itemize}
+      \item RF7.1 - El sistema permitirá crear y editar torneos desde la aplicación web.
+      \item RF7.2 - El sistema permitirá crear y editar usuarios desde la aplicación web.
+      \item RF7.3 - El sistema permitirá crear y editar participaciones desde la aplicación web.
 
-Este test se encarga de comprobar que al poner una pieza encima de otra no la atraviese y detecte correctamente la colisión.
+      
+    \end{itemize}
 
-El test sacará un resultado satisfactorio si al bajar una pieza, hay otra debajo (los bloques debajo del tablero no son nulos).
+    \item RF8 - Gestión de usuarios
+    \begin{itemize}
+      \item RF8.1 - El sistema permitirá tanto en la aplicación de web como de móvil iniciar sesión si no está activa una.
+      \item RF8.2 - El sistema permitirá tanto en la aplicación de web como de móvil cerrar sesión si está activa una.
+    \end{itemize}
 
-\item \textbf{Cuando se forman 10 bloques horizontales se destruye una línea:} Clase: Tablero
+    
 
-Este test consiste en colocar 10 bloques (en este caso 5 cubos) y comprobar que al hacer la línea (2 en esta ocasión) se eliminan del tablero. Se ha realizado una modificación
-en la clase Tablero para poder instanciarlo, ya que al ser un State, la clase es privada por defecto.
+\end{itemize}
 
-El test se dará como correcto cuando todas las casillas del tablero sean null, debido a que hemos colocado 5 piezas de tipo cubo, haciendo dos líneas perfectas sin ningún bloque sobrante.
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 1 \\
+      \hline
+      Nombre & Pausar partida\\
+      \hline
+      Descripción & El sistema debe permitir pausar la partida en cualquier momento.\\
+      \hline
+      Entrada & Se pulsa el botón de pausa o se sale de la aplicación.\\
+      \hline
+      Procesamiento & Coloca en la pila la pantalla de pausa\\
+      \hline
+      Salida & Pantalla de pausa\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 2 \\
+      \hline
+      Nombre & Movimiento de las piezas.\\
+      \hline
+      Descripción & El sistema debe permitir al usuario manejar el movimiento de las piezas (traslación y rotación)\\
+      \hline
+      Entrada & Se pulsa el botón de pausa o se sale de la aplicación.\\
+      \hline
+      Procesamiento & Coloca en la pila la pantalla de pausa\\
+      \hline
+      Salida & Pantalla de pausa\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 3 \\
+      \hline
+      Nombre & Reservar pieza.\\
+      \hline
+      Descripción & El sistema debe permitir al usuario reservar una pieza\\
+      \hline
+      Entrada & Pulsación de la tecla para reservar.\\
+      \hline
+      Procesamiento & Se almacena la pieza que estaba cayendo y se pone una nueva en caída.\\
+      \hline
+      Salida & La pieza en el recuadro de reservada.\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 4 \\
+      \hline
+      Nombre & Iniciar partida.\\
+      \hline
+      Descripción &  El sistema debe permitir iniciar la partida.\\
+      \hline
+      Entrada & Se pulsa el botón de Jugar partida\\
+      \hline
+      Procesamiento &  Se prepara el tablero para el usuario\\
+      \hline
+      Salida & Tablero de la partida\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 5 \\
+      \hline
+      Nombre & Movimiento de las piezas.\\
+      \hline
+      Descripción & El sistema debe permitir al usuario manejar el movimiento de las piezas (traslación y rotación)\\
+      \hline
+      Entrada & Se pulsa el botón de pausa o se sale de la aplicación.\\
+      \hline
+      Procesamiento & Coloca en la pila la pantalla de pausa\\
+      \hline
+      Salida & Pantalla de pausa\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 6 \\
+      \hline
+      Nombre & Tablero de la partida.\\
+      \hline
+      Descripción & Tablero de la partida\\
+      \hline
+      Entrada & \\
+      \hline
+      Procesamiento & Se incrementa las variables dinámicamente junto con las acciones de la partida\\
+      \hline
+      Salida & El valor de la puntuación y el nivel\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 7 \\
+      \hline
+      Nombre & Control del volumen de la música.\\
+      \hline
+      Descripción & El usuario puede activar y desactivar el volúmen del juego\\
+      \hline
+      Entrada & Se pulsa el botón de volúmen.\\
+      \hline
+      Procesamiento & \\
+      \hline
+      Salida & \\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 8 \\
+      \hline
+      Nombre & Crear Torneo.\\
+      \hline
+      Descripción & El usuario podrá crear un torneo.\\
+      \hline
+      Entrada & Datos del torneo: Nombre del torneo, tipo de partida,fecha de inicio y de fin, máximo de participantes.\\
+      \hline
+      Procesamiento & Se añade un nuevo torneo a la base de datos\\
+      \hline
+      Salida & Mensaje de éxito o de error\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 9 \\
+      \hline
+      Nombre & Unirse a torneo.\\
+      \hline
+      Descripción & El usuario podrá unirse a un torneo creado\\
+      \hline
+      Entrada & Se pulsa el botón de participar en el torneo.\\
+      \hline
+      Procesamiento & Se guarda la participación de ese usuario en el torneo para que pueda jugarlo cuando se abra la posibilidad.\\
+      \hline
+      Salida & Mensaje de registro en el torneo efectuado correctamente\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 10 \\
+      \hline
+      Nombre & Jugar torneo.\\
+      \hline
+      Descripción & El usuario podrá jugar a una partida de un torneo.\\
+      \hline
+      Entrada & Se pulsa el botón de jugar partida.\\
+      \hline
+      Procesamiento & Se prepara el tablero de la partida del torneo para el usuario\\
+      Salida & Tablero del torneo\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 11 \\
+      \hline
+      Nombre & Tablero del torneo.\\
+      \hline
+      Descripción & El usuario podrá ver la lista de torneos disponibles\\
+      \hline
+      Entrada & Se pulsa el botón de “Torneos”.\\
+      \hline
+      Procesamiento & Consulta SQL\\
+      \hline
+      Salida & Se muestra una tabla interactiva de los torneos abiertos y los torneos finalizados\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 12 \\
+      \hline
+      Nombre & Ver los resultados de un torneo acabado.\\
+      \hline
+      Descripción & El usuario podrá ver los resultados de un torneo acabado.\\
+      \hline
+      Entrada & Se pulsa el torneo marcado con finalizado.\\
+      \hline
+      Procesamiento &  Consulta SQL.\\
+      \hline
+      Salida & Tabla con el nombre y la puntuación en orden descendente de las puntuaciones guardadas en el torneo.\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\begin{table}[H]
+  \begin{center}
+    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      \textbf{Detalle} & \textbf{Descripción}\\
+%      $\alpha$ & $\beta$ & $\gamma$ \\
+      \hline
+      RF & 13 \\
+      \hline
+      Nombre & Ver la clasificación global.\\
+      \hline
+      Descripción & El usuario podrá ver la clasificación global.\\
+      \hline
+      Entrada & Se pulsa el botón de clasificación global.\\
+      \hline
+      Procesamiento & Consulta SQL.\\
+      \hline
+      Salida & Tabla con el nombre y la puntuación en orden descendente por esta última\\
+      \hline
+    \end{tabularx}
+  \end{center}
+\end{table}
+
+\subsection{Requisitos No Funcionales}
+\begin{itemize}
+    \item El sistema debe trabajar en tiempo real para evitar inconsistencias.
+    \item El sistema tendrá una interfaz para el menú para elegir modos y comenzar la partida.
+    \item El servidor web- estará implementado sobre Ruby On Rails
+    \item La aplicación cliente está implementado en Dart con Flutter.
+    \item Los datos se almacenarán en una base de datos relacional, concretamente MySQL.
+    \item Las físicas del sistema no deben estar unidas a los fotogramas por segundo (FPS).
+    \item Existirá un modo oscuro que cambie los colores de la interfaz.
+\end{itemize}
+
+\subsection{Diagramas}
+\subsubsection{Diagrama de contexto}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/contexto.png}
+  \caption{Diagrama de clases de la aplicación} 
+\end{figure}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/paquetes.png}
+  \caption{Diagrama de clases de la aplicación} 
+\end{figure}
+\subsubsection{Diagrama de paquetes}
+\subsection{Partes Interesadas}
+
+\begin{itemize}
+    \item Usuario: Es el jugador que utiliza la aplicación desarrollada. En nuestro caso, juega al videojuego.
+    \item Equipo de prueba: Son los encargados de ejecutar los ficheros de prueba, y de realizar tests sobre
+    la aplicación tras una actualización antes de lanzar la nueva versión para todo el público.
+    \item Desarrollador: Es el encargado de crear e implementar el código del videojuego.
+    \item Usuario Organizador (Moderador): Se encargará de crear torneos nuevos en la web.
+    \item Administrador: Se encarga de que los torneos sean correctos y del buen funcionamiento del servidor.
+    \item Mantenedores: Son los encargados de hacer los mantenimientos para aplicar las nuevas actualizaciones de una manera rápida, y también que cuando el sistema falle, puedan dar con una solución rápida.
+    \item Ingenieros de producción: Es el encargado de diseñar y crear un servidor y una base de datos, de una manera que no se sature con demasiada facilidad.
+    \item Equipo de apoyo: Son los encargados de velar por una experiencia satisfactoria en el juego de todos los usuarios, mediante arreglar problemas, bugs, y demás en foros, o en el Discord del juego (Son unos usuarios que han cogido ese rol dentro de la comunidad).
+\end{itemize}
+
+\subsection{Criterios de calidad} 
+
+\begin{itemize}
+    \item Los movimientos de las piezas deberán verse en pantalla en tiempo real.
+    
+    \item Las colisiones entre piezas se realizan de forma consistente con independencia de la cantidad de bloques que haya en el tablero.
+    
+    \item La puntuación del usuario se actualizará de forma dinámica y correctamente de acuerdo a las reglas preestablecidas.
+    
+    \item Que varios usuarios de forma concurrente puedan acceder a la página de torneos.
+
+    \item Que la aplicación sea fluida en rendimiento en cualquier smartphone Android. (eficiencia)
+    
+    \item Que la información que se inserta en el servidor web aparezca correctamente en la aplicación.
+    
+    \item Que la aplicación móvil sea responsive en cualquier smartphone Android.
+    
+    \item Que la aplicación web sea sencilla, intuitiva y fácil de manejar (usabilidad)
+    
+\end{itemize}
+
+\subsection{Diseño de Pruebas de Sistema e Integración}
+
+\subsubsection{Pruebas P3}
+
+\begin{itemize}
+    \item Pruebas de Unidad
+    \begin{itemize}
+      \item El volumen de la música debería cambiar a 0: Se comprobará que el volumen de la música es 0 cuando se pulse el botón del volumen.
+    
+      \item El volumen de la música debería cambiar a 1: Se comprobará que el volumen de la música es 1 cuando se pulse el botón del volumen.
+      
+      \item La pieza no se debe mover en los bordes del tablero: Este test verifica si al mover una pieza que está en el borde del tablero en esa misma dirección, esta permanece en el mismo sitio sin salirse del tablero. El test se dará como correcto si todas las piezas no se salen del tablero tanto por la izquierda como por la derecha
+      
+      \item La bomba explota: Este test se encargará de comprobar que las piezas bombas al detonar eliminan los bloques colindantes y los propios bloques de la pieza bomba.Se dará como correcto si los bloques del tablero de alrededor de la bomba y los de la propia pieza bomba son nulos.
+      
+      \item La pieza está en el suelo: Este test comprobará que la pieza al bajarla se encuentre en el suelo del tablero y no haya bajado más de la cuenta.
+  
+      \item Todas las piezas creadas son distintas: Este test comprueba que el algoritmo usado en la factoría para obtener las piezas es consistente. Se dará como correcto el test si al sacar el mismo número de piezas que las pasadas a la factoría al final son todas distintas.
+    
+      \item La pieza detecta colisión con otra de abajo: Este test se encarga de comprobar que al poner una pieza encima de otra no la atraviese y detecte correctamente la colisión.
+  
+      \item Cuando se forman 10 bloques horizontales se destruye una línea: Este test consiste en colocar 10 bloques (en este caso 5 cubos) y comprobar que al hacer la línea (2 en esta ocasión) se eliminan del tablero.
+    \end{itemize}
+    \item Pruebas de Widgets
+    \begin{itemize}
+    \item Cambio de icono al apagar/encender la música: Se comprobará si el icono del altavoz se alterna al apretarlo para cambiar el volumen de la música
+    
+    \item Aparece la pantalla de Game Over: Se comprueba si al pasar un tiempo, el juego termina por la llegada de las piezas a la parte superior del tablero.
+
+    \item Al salir de la partida desde el menú de pausa regresa al menú principal: Se verifica que al pulsar el botón de salir en la pantalla Pause se vuelve a la pantalla de inicio.
+    
+    \item Al reservar la pieza, esta aparece en la pantalla: Se comprueba si al pulsar ``Guardar'' por primera vez, la pieza actual pasa a ser una pieza reservada.
+  \end{itemize}
+\item Pruebas de integridad: La prueba de Widgets ``Game Over'' podría ser considerada de integridad.
+
+  \end{itemize}
+
+\subsubsection{Pruebas P4 en RoR}
+
+\begin{itemize}
+    \item Test Fixtures 1: Un usuario creado tiene el nombre esperado.
+
+    \item Test Fixtures 2: Un usuario creado tiene el id esperado.
+    
+    \item Test Modelos 1: Un usuario creado no es admin por defecto.
+
+    \item Test Integración 1: Se puede acceder correctamente a la página para crear torneos por el método GET y se puede crear un torneo con el método POST. Redirige correctamente a otra página donde se encuentra un mensaje de éxito
+    
+    \item Test Integración 2: Se puede acceder correctamente a la página para crear usuarios por el método GET y se puede crear un usuario con el método POST. Redirige correctamente a otra página donde se encuentra un mensaje de éxito
 \end{itemize}
 
 \begin{figure}[H]
-      \includegraphics[width=\textwidth]{imagenes/dart_test.png}
-      \caption{Resultado de los tests de unidad}
+  \includegraphics[width=\textwidth]{imagenes/Pruebas.JPG}
+  \caption{Salida de la ejecución de todas las pruebas realizadas para Ruby on Rails} 
 \end{figure}
 
-\newpage
-
-\section{Tests de Widgets}
-\begin{itemize}
-\item \textbf{Cambio de icono al apagar/encender la música:} Clase: Música.
-
-Se comprobará si el icono del altavoz se alterna al apretarlo para cambiar el volumen de la música.
-Se hace apretando el botón de iniciar partida, luego el icono de pause y luego el botón para cambiar el volumen.
-
-Se dará como correcto este test si al pulsar el botón el icono del mismo cambia al otro que se espera.
-
-\item \textbf{Aparece la pantalla de Game Over:} Clase: GameOver.
-
-Se comprueba si al pasar un tiempo, el juego termina por la llegada de las piezas a la parte
-superior del tablero.
-
-Se dará como correcto este test si al perder la partida aparece la pantalla de Game Over.
-
-\item \textbf{Al salir de la partida desde el menú de pausa regresa al menú principal:} Clase: Pausa
-
-Se verifica si al pulsar el botón de salir en la pantalla Pause, se saca de la pila el widget del tablero y del Pause y vuelve a la pantalla de inicio.
-
-Se dará como correcto este test cuando al salir desde el menú de pausa se desapilen todas las pantallas y vuelva a aparecer la pantalla de inicio.
-
-\item \textbf{Al reservar pieza, esta aparece en la pantalla: }Clase: Tablero.
-
-Se comprueba si al pulsar "Guardar" por primera vez, la pieza actual pasa a ser una pieza reservada mediante
-un \textit{find.ByKey} (previamente se ha tenido que poner una key a la pieza reservada para poder
-encontrarla)
-
-Se dará como correcto este test cuando al reservar la primera pieza en la partida, esta salga en el recuadro asignado.
-
-\end{itemize}
+\section{FASE DE DISEÑO}
+\subsection{Diagrama de clases}
 
 \begin{figure}[H]
-      \includegraphics[width=\textwidth]{imagenes/flutter_test.png}
-      \caption{Resultado de los tests de componentes/widgets}
+  \includegraphics[width=\textwidth]{imagenes/clase_final.png}
+  \caption{Diagrama de clases de la aplicación} 
 \end{figure}
+%\end{itemize}
 
 \end{document}
