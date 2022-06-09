@@ -645,5 +645,86 @@ de RoR como la asignación a la variable ``session'' para mantener la sesión in
 Una vez teníamos toda la lógica implementada, solo faltaba la estética de la aplicación. Hemos decidido optar por un diseño simple pero intuitivo y minimalista. Por ello,
 simplemente realizamos. Mediante un fichero CSS, se dieron ciertas reglas para cambiar el formato y el estilo de los distintos elementos del sitio web.
 
+\section{Fase de pruebas}
+\begin{itemize}
+  \item \textbf{Test Fixtures 1: Un usuario creado tiene el nombre esperado.}
+  Se comprobará si un usuario que se ha registrado tiene su nombre almacenado correctamente, es decir,
+  si es igual al que tiene en la base de datos.
+
+  Se dará como correcto el test si las dos cadenas de caracteres coinciden.
+
+  \item \textbf{Test Fixtures 2: Un usuario creado tiene el id esperado.}
+  
+  \item \textbf{Test Modelos 1: Un usuario creado no es admin por defecto.}
+  Se comprobará si un nuevo usuario no tiene el rol de administrador por defecto. Es decir,
+  el campo de admin tiene que ser falso cuando se crea el usuario.
+
+  Se dará como correcto el test si el campo ``admin'' del usuario es falso. 
+
+  \item \textbf{Test Integración 1: Gestión de torneos} Se comprobará si se puede acceder correctamente a la página para crear torneos por el método GET y
+   se puede crear un torneo con el método POST. Redirige correctamente a otra página donde se encuentra un mensaje de éxito.
+   \item \textbf{Test Integración 2: Gestión de usuarios} Se comprobará si se puede acceder correctamente a la página para crear usuarios por el método GET y
+   se puede crear un usuario con el método POST. Redirige correctamente a otra página donde se encuentra un mensaje de éxito.
+
+\end{itemize}
+
+\section{Capturas de pantalla}
+\subsection{Aplicación móvil}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/inicio.jpeg}
+  \caption{Pantalla principal} 
+\end{figure} 
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/torneos.jpeg}
+  \caption{Sección de torneos} 
+\end{figure} 
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/torneo.jpeg}
+  \caption{Información de un torneo} 
+\end{figure} 
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/clasTorneo.jpeg}
+  \caption{Clasificación de un torneo} 
+\end{figure} 
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/clasInd.jpeg}
+  \caption{Puntuaciones de un usuario} 
+\end{figure} 
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/piezasRosas.jpeg}
+  \caption{Partida personalizada de un torneo} 
+\end{figure}
+
+\subsection{Aplicación web}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/inicioAdmin.jpeg}
+  \caption{Partida personalizada de un torneo} 
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/inicioUser.jpeg}
+  \caption{Partida personalizada de un torneo} 
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/piezasRosas.jpeg}
+  \caption{Partida personalizada de un torneo} 
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/piezasRosas.jpeg}
+  \caption{Partida personalizada de un torneo} 
+\end{figure}
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/piezasRosas.jpeg}
+  \caption{Partida personalizada de un torneo} 
+\end{figure}
+\section{Conclusiones}
 
 \end{document}
