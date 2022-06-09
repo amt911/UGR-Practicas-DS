@@ -19,12 +19,9 @@ class _FormularioInicioSesionState extends State<FormularioInicioSesion> {
         future: _futureUsuario,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            //print(snapshot.data);
-            //return Text('bueno: ${snapshot.error}');
             if (snapshot.hasData) {
               if (snapshot.data!.contrasena == _contrasenaController.text) {
                 ParametrosTablero.sesionIniciada = true;
-                //Navigator.pop(context);
                 ParametrosTablero.usuario = snapshot.data;
                 Future.microtask(() => Navigator.pop(context));
               } else {
@@ -71,7 +68,6 @@ class _FormularioInicioSesionState extends State<FormularioInicioSesion> {
                   _futureUsuario = Usuario.getUsuario(_nombreController.text);
                   _idEntered = true;
                 });
-                //print("usuario: $_futureUsuario");
               },
             ),
             if (_idEntered) checkUsuario(),

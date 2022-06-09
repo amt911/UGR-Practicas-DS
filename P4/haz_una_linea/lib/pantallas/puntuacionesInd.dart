@@ -46,7 +46,6 @@ class _PuntuacionesInd extends State<PuntuacionesInd> {
 
   @override
   Widget build(BuildContext context) {
-    //print("Soy el usuario: ${ParametrosTablero.usuario!.id}");
     _futurePuntuacion=PuntuacionInd.getPuntuaciones(ParametrosTablero.usuario!.id);
     return Scaffold(
       appBar: AppBar(
@@ -55,9 +54,6 @@ class _PuntuacionesInd extends State<PuntuacionesInd> {
       body: SingleChildScrollView(
         child: getPuntuaciones()
       )
-          //Tabla con las puntuaciones
-          //child: getPuntuaciones()
-      //)
     );
   }
 }

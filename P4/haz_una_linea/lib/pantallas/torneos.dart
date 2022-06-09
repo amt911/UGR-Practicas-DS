@@ -24,14 +24,8 @@ class _Torneos extends State<Torneos> {
     return FutureBuilder<TorneosAPI>(
         future: _futureTorneos,
         builder: (context, snapshot) {
-          //print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              //if (_menuItem == 4) {
-              //  _idController.text = snapshot.data!.toString();
-              //}
-              //return Text(snapshot.data.toString());
-              //_torneos = snapshot.data as List<Torneo>?;
               Column c = Column(
                 children: [
                   for (Torneo torneo in snapshot.data!.torneos)
@@ -39,7 +33,6 @@ class _Torneos extends State<Torneos> {
                         padding: const EdgeInsets.all(10),
                         child: InkWell(
                           onTap: () {
-                            //Navigator.pushNamed(context, '/torneo', arguments: torneo);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -66,7 +59,6 @@ class _Torneos extends State<Torneos> {
                                           
                                           padding: const EdgeInsets.all(10),
                                           width: double.infinity,
-                                          //color: Colors.blueAccent,
                                           child: Text(
                                             torneo.nombre,
                                             textAlign: TextAlign.center,
@@ -135,7 +127,6 @@ class _Torneos extends State<Torneos> {
                                           
                                           padding: const EdgeInsets.all(10),
                                           width: double.infinity,
-                                          //color: Colors.blueAccent,
                                           child: Text(
                                             torneo.nombre,
                                             textAlign: TextAlign.center,
@@ -165,7 +156,6 @@ class _Torneos extends State<Torneos> {
                                                           fontWeight: FontWeight.bold)),
                                                   Container(
                                                   padding: const EdgeInsets.all(20),
-                                                  //Dia mes y año como chils
                                                   child: Text(torneo.fecha_max_juego.day.toString()+"/"+torneo.fecha_max_juego.month.toString()+"/"+torneo.fecha_max_juego.year.toString())
                                                   )
                                                 ]
@@ -189,8 +179,6 @@ class _Torneos extends State<Torneos> {
                                     )
                                     ))
                         )),
-
-                  //Text(torneo.toString())
                 ],
               );
 
@@ -201,7 +189,6 @@ class _Torneos extends State<Torneos> {
               }
             }
           }
-          //return const CircularProgressIndicator();
           return const Text("");
         });
   }
@@ -209,7 +196,6 @@ class _Torneos extends State<Torneos> {
   @override
   Widget build(BuildContext context) {
     actualizarTorneos();
-    //getTorneos();
     return Scaffold(
       appBar: AppBar(
         title: const Center(

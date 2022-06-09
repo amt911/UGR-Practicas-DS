@@ -14,8 +14,6 @@ class TPiezaNormal extends TPieza {
 
     //Comprobar el centro de esta pieza
     centroPieza = Bloque(centro + 0, -1, Colors.white);
-
-    //if (identical(centroPieza, bloques[1])) print("SON IGUALES EN CONSTRUCTOR\n");
   }
 
   @override

@@ -15,8 +15,6 @@ class PiezaMasBomba extends PiezaMas{
 
     //Comprobar el centro de esta pieza
     centroPieza = Bloque(centro + 0, -2, Colors.white);
-
-    //if (identical(centroPieza, bloques[1])) print("SON IGUALES EN CONSTRUCTOR\n");
   }
 
   @override

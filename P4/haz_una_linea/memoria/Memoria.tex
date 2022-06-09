@@ -11,13 +11,17 @@
 \begin{document}
 \date{Junio 2022}
 \maketitle
+\tableofcontents
+
+\newpage
+
 \section{Introducción}
 
 En esta práctica hemos desarrollado un servidor web usando el framework Ruby on Rails y siguiendo el patrón Modelo-Vista-Controlador. La idea principal
-es evolucionar nuestra práctica 2, llamada "Haz Una Línea", que consistía en la implementación de un videojuego para móviles semejante al famoso "Tetris" con ciertas modificaciones.
+es evolucionar nuestra práctica 2, llamada ``Haz Una Línea'', que consistía en la implementación de un videojuego para móviles semejante al famoso ``Tetris'' con ciertas modificaciones.
 Las nuevas funciones planteadas para esta práctica, que se detallarán mediante requisitos posteriormente, son:
 \begin{itemize}
-\item Permitir al usuario registrarse y logearse
+\item Permitir al usuario registrarse y loguearse
 \item Permitir a los administradores crear torneos
 \item Implementar la gestión (modificación, creación, eliminación) de los distintos datos del modelo (usuarios, participaciones y torneos).
 \item Permitir a los usuarios ver la lista de torneos creados (antiguos y nuevos) y ver los torneos en los que ha jugado.
@@ -40,8 +44,6 @@ Los administradores también podrán gestionar los distintos datos existentes en
 de estas tablas.
 
 \section{Fase de planificación}
-%\begin{itemize}
-%\item \textbf{Distribucion de equipos}
 \subsection{Distribución de equipos}
 
 Los equipos se han repartido entre los participantes, Andrés y Ricardo serán el equipo número 1, y Sergio y Javier serán el equipo número 2.
@@ -134,7 +136,7 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \item RF6.3 - El sistema permitirá a estos usuarios poder ver la lista de torneos.
       \item RF6.4 - El sistema permitirá poder ver la información de cada torneo.
       \item RF6.5 - El sistema permitirá jugar los torneos activos que no hayan sido jugados.
-      \item RF6.5 - El sistema permitirá ver las puntuaciones guardadas por los participantes del torneo.
+      \item RF6.6 - El sistema permitirá ver las puntuaciones guardadas por los participantes del torneo.
       
     \end{itemize}
 
@@ -164,11 +166,11 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 1 \\
+      RF & 2.3 \\
       \hline
       Nombre & Pausar partida\\
       \hline
-      Descripción & El sistema debe permitir pausar la partida en cualquier momento.\\
+      Descripción & El sistema debe permitir pausar la partida en cualquier momento como en reproducción.\\
       \hline
       Entrada & Se pulsa el botón de pausa o se sale de la aplicación.\\
       \hline
@@ -187,7 +189,7 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 2 \\
+      RF & 2.1 \\
       \hline
       Nombre & Movimiento de las piezas.\\
       \hline
@@ -210,7 +212,7 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 3 \\
+      RF & 2.2 \\
       \hline
       Nombre & Reservar pieza.\\
       \hline
@@ -233,7 +235,7 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 4 \\
+      RF & 1.1 \\
       \hline
       Nombre & Iniciar partida.\\
       \hline
@@ -256,7 +258,7 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 5 \\
+      RF & 2.1 \\
       \hline
       Nombre & Movimiento de las piezas.\\
       \hline
@@ -277,19 +279,18 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
     \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
       \hline
       \textbf{Detalle} & \textbf{Descripción}\\
-%      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 6 \\
+      RF & 5.1 \\
       \hline
-      Nombre & Tablero de la partida.\\
+      Nombre & Jugar partidas sin registrarse.\\
       \hline
-      Descripción & Tablero de la partida\\
+      Descripción & El sistema permitirá jugar partidas normales a estos usuarios pero no guardar su puntuación.\\
       \hline
-      Entrada & \\
+      Entrada & Pulsar el botón de partida normal sin haber iniciado sesión\\
       \hline
-      Procesamiento & Se incrementa las variables dinámicamente junto con las acciones de la partida\\
+      Procesamiento & Se genera el tablero para poder jugar.\\
       \hline
-      Salida & El valor de la puntuación y el nivel\\
+      Salida & El tablero generado junto con las piezas, listo para jugar.\\
       \hline
     \end{tabularx}
   \end{center}
@@ -302,15 +303,15 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 7 \\
+      RF & 4.1 \\
       \hline
       Nombre & Control del volumen de la música.\\
       \hline
-      Descripción & El usuario puede activar y desactivar el volúmen del juego\\
+      Descripción & El usuario puede activar y desactivar el volumen del juego\\
       \hline
-      Entrada & Se pulsa el botón de volúmen.\\
+      Entrada & Se pulsa el botón de volumen.\\
       \hline
-      Procesamiento & \\
+      Procesamiento & Se activa o desactiva la música de acuerdo al estado anterior. \\
       \hline
       Salida & \\
       \hline
@@ -325,13 +326,13 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 8 \\
+      RF & 7.1 \\
       \hline
       Nombre & Crear Torneo.\\
       \hline
-      Descripción & El usuario podrá crear un torneo.\\
+      Descripción & El sistema permitirá a los administradores crear y editar torneos desde la aplicación web.\\
       \hline
-      Entrada & Datos del torneo: Nombre del torneo, tipo de partida,fecha de inicio y de fin, máximo de participantes.\\
+      Entrada & Datos del torneo: Nombre del torneo, tipo de partida, fecha límite, probabilidad de bomba, velocidad de juego y número de bloques iniciales.\\
       \hline
       Procesamiento & Se añade un nuevo torneo a la base de datos\\
       \hline
@@ -346,19 +347,17 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
     \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
       \hline
       \textbf{Detalle} & \textbf{Descripción}\\
-%      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 9 \\
+      RF & 6.5 \\
       \hline
-      Nombre & Unirse a torneo.\\
+      Nombre & Jugar torneo.\\
       \hline
-      Descripción & El usuario podrá unirse a un torneo creado\\
+      Descripción & El sistema permitirá jugar los torneos activos que no hayan sido jugados.\\
       \hline
-      Entrada & Se pulsa el botón de participar en el torneo.\\
+      Entrada & Se pulsa el botón de jugar partida.\\
       \hline
-      Procesamiento & Se guarda la participación de ese usuario en el torneo para que pueda jugarlo cuando se abra la posibilidad.\\
-      \hline
-      Salida & Mensaje de registro en el torneo efectuado correctamente\\
+      Procesamiento & Se prepara el tablero de la partida del torneo para el usuario con los parámetros del torneo.\\
+      Salida & Tablero del torneo\\
       \hline
     \end{tabularx}
   \end{center}
@@ -371,29 +370,7 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \textbf{Detalle} & \textbf{Descripción}\\
 %      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 10 \\
-      \hline
-      Nombre & Jugar torneo.\\
-      \hline
-      Descripción & El usuario podrá jugar a una partida de un torneo.\\
-      \hline
-      Entrada & Se pulsa el botón de jugar partida.\\
-      \hline
-      Procesamiento & Se prepara el tablero de la partida del torneo para el usuario\\
-      Salida & Tablero del torneo\\
-      \hline
-    \end{tabularx}
-  \end{center}
-\end{table}
-
-\begin{table}[h!]
-  \begin{center}
-    \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
-      \hline
-      \textbf{Detalle} & \textbf{Descripción}\\
-%      $\alpha$ & $\beta$ & $\gamma$ \\
-      \hline
-      RF & 11 \\
+      RF & 6.3 \\
       \hline
       Nombre & Tablero del torneo.\\
       \hline
@@ -401,7 +378,7 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
       \hline
       Entrada & Se pulsa el botón de “Torneos”.\\
       \hline
-      Procesamiento & Consulta SQL\\
+      Procesamiento & Obtiene los torneos del servidor web y los imprime en la app.\\
       \hline
       Salida & Se muestra una tabla interactiva de los torneos abiertos y los torneos finalizados\\
       \hline
@@ -409,22 +386,21 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
   \end{center}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[H]
   \begin{center}
     \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
       \hline
       \textbf{Detalle} & \textbf{Descripción}\\
-%      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 12 \\
+      RF & 6.6 \\
       \hline
-      Nombre & Ver los resultados de un torneo acabado.\\
+      Nombre & Ver los resultados de un torneo.\\
       \hline
-      Descripción & El usuario podrá ver los resultados de un torneo acabado.\\
+      Descripción & El sistema permitirá ver las puntuaciones guardadas por los participantes del torneo.\\
       \hline
-      Entrada & Se pulsa el torneo marcado con finalizado.\\
+      Entrada & Se pulsa sobre el botón de clasificaciones del torneo elegido.\\
       \hline
-      Procesamiento &  Consulta SQL.\\
+      Procesamiento & \\
       \hline
       Salida & Tabla con el nombre y la puntuación en orden descendente de las puntuaciones guardadas en el torneo.\\
       \hline
@@ -437,19 +413,18 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
     \begin{tabularx}{\linewidth}{|X|X|X|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
       \hline
       \textbf{Detalle} & \textbf{Descripción}\\
-%      $\alpha$ & $\beta$ & $\gamma$ \\
       \hline
-      RF & 13 \\
+      RF & 2.2 \\
       \hline
-      Nombre & Ver la clasificación global.\\
+      Nombre & Reserva de piezas.\\
       \hline
-      Descripción & El usuario podrá ver la clasificación global.\\
+      Descripción & El sistema debe permitir al usuario reservar una pieza.\\
       \hline
-      Entrada & Se pulsa el botón de clasificación global.\\
+      Entrada & Se pulsa el botón reserva.\\
       \hline
-      Procesamiento & Consulta SQL.\\
+      Procesamiento & Se quita la pieza actual del tablero, se almacena en reservada y se escoge una nueva.\\
       \hline
-      Salida & Tabla con el nombre y la puntuación en orden descendente por esta última\\
+      Salida & La pieza antigua en el cajón de reservados y una pieza nueva que irá cayendo.\\
       \hline
     \end{tabularx}
   \end{center}
@@ -457,59 +432,111 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
 
 \subsection{Requisitos No Funcionales}
 \begin{itemize}
+  \item Aplicación móvil
+  \begin{itemize}
     \item El sistema debe trabajar en tiempo real para evitar inconsistencias.
     \item El sistema tendrá una interfaz para el menú para elegir modos y comenzar la partida.
-    \item El servidor web- estará implementado sobre Ruby On Rails
     \item La aplicación cliente está implementado en Dart con Flutter.
-    \item Los datos se almacenarán en una base de datos relacional, concretamente MySQL.
     \item Las físicas del sistema no deben estar unidas a los fotogramas por segundo (FPS).
     \item Existirá un modo oscuro que cambie los colores de la interfaz.
+    \item Los tipos de datos serán validados por la aplicación 
+    \item Las fechas de los torneos serán validadas por la aplicación
+  \end{itemize}
+  \item Aplicación web
+  \begin{itemize}
+    \item Los datos se almacenarán en una base de datos relacional, concretamente MySQL.
+    \item El servidor web- estará implementado sobre Ruby On Rails
+    \item El tiempo de respuesta de las operaciones deberá ser mínimo
+    \item Los botones de la aplicación serán lo suficientemente grandes y fáciles de detectar e interaccionar con ellos.
+\end{itemize}
+\end{itemize}
+\subsection{Criterios de calidad} 
+\begin{itemize}
+  \item Aplicación móvil
+  \begin{itemize}
+    \item Los movimientos de las piezas deberán verse en pantalla en tiempo real. \textbf{(Usabilidad y Eficiencia)}.
+
+    \item Las colisiones entre piezas se realizan de forma consistente con independencia de la cantidad de bloques que haya en el tablero. \textbf{(Integridad)}.
+
+    \item La puntuación del usuario se actualizará de forma dinámica y correctamente de acuerdo a las reglas preestablecidas. \textbf{(Integridad)}.
+    
+    \item Que varios usuarios de forma concurrente puedan acceder a la página de torneos. \textbf{(Escalabilidad)}.
+
+    \item Que la aplicación sea fluida en rendimiento en cualquier smartphone Android. \textbf{(Eficiencia)}
+    
+    \item Que la información que se inserta en el servidor web aparezca correctamente en la aplicación. \textbf{(Integridad)}
+   
+    \item Que la aplicación móvil sea responsive en cualquier smartphone Android. \textbf{(Usabilidad)}
+  \end{itemize}
+  \item Aplicación web
+  \begin{itemize}
+    \item Que la aplicación web sea responsive en cualquier dispositivo (ordenadores, móviles, tabletas...) \textbf{(Usabilidad)}.
+
+    \item Que la aplicación web sea sencilla, intuitiva y fácil de manejar \textbf{(Usabilidad)}
+
+    \item Que los usuarios no administradores no puedan acceder a la gestión de torneos o usuarios o a cualquier sitio de la web no autorizado. \textbf{Seguridad}
+
+    \item Que los usuarios no administradores no pueden acceder a la información de otros usuarios. \textbf{Seguridad}
+    
+    \item La inserción, modificación y el borrado de una tupla en la base de datos no ocasionará problemas de inexistencia o falta de información. \textbf{(Integridad)}
+
+    \item Que la interacción con los distintos botones de la página web no de problemas en cuanto al tamaño o la percepción de estos \textbf{(Accesibilidad)}
+  \end{itemize}
 \end{itemize}
 
 \subsection{Diagramas}
 \subsubsection{Diagrama de contexto}
-\begin{figure}[H]
+Para el diagrama de contexto, se han definido los cuatro subsistemas que hay en nuestras aplicaciones:
+\begin{itemize}
+\item Subsistema de usuarios: Registro y login del cliente.  
+\item Subsistema de torneos: Partidas personalizadas creadas por el staff del sistema y las cuales los usuarios podrán jugar. 
+\item Subsistema de puntuaciones: Las partidas individuales serán tratadas para que el usuario pueda ver todas sus puntuaciones
+\item Subsistema de juego: Es la funcionalidad básica del juego "Haz Una Línea".
+\end{itemize}
+
+Además, también se ha representado la base de datos que almacenará el modelo que utilizarán los subsistemas anteriores.
+  \begin{figure}[H]
   \includegraphics[width=\textwidth]{imagenes/contexto.png}
   \caption{Diagrama de clases de la aplicación} 
 \end{figure}
-\begin{figure}[H]
-  \includegraphics[width=\textwidth]{imagenes/paquetes.png}
-  \caption{Diagrama de clases de la aplicación} 
-\end{figure}
+
 \subsubsection{Diagrama de paquetes}
+%PONER DIAGRAMA DE PAQUETES
+A continuación se muestra el diagrama de paquetes de la aplicación del lado del cliente. Consta de los siguientes paquetes:
+
+\begin{itemize}
+  \item \textbf{pantallas: }Distintas pantallas de la app.
+  \item \textbf{Factoria: }Distintos algoritmos de creación de piezas.
+  \item \textbf{main: }Funcionalidad principal.
+  \item \textbf{Piezas: }Todas las piezas del juego.
+  \item \textbf{api: }Interfaz para la conexión con el servidor.
+\end{itemize}
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/DiagramaPaquetes2.jpg}
+  \caption{Diagrama de paquetes de la aplicación del cliente} 
+\end{figure} 
+
+\subsubsection{Modelo E/R}
+A continuación, mostramos los distintos elementos que habrá en nuestra base de datos y sus atributos que especificarán las características de cada uno.
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{imagenes/er.png}
+  \caption{Diagrama del modelo E/R de nuestro sistema} 
+\end{figure} 
+
+
 \subsection{Partes Interesadas}
 
 \begin{itemize}
-    \item Usuario: Es el jugador que utiliza la aplicación desarrollada. En nuestro caso, juega al videojuego.
-    \item Equipo de prueba: Son los encargados de ejecutar los ficheros de prueba, y de realizar tests sobre
+    \item \textbf{Usuario}: Es el jugador que utiliza la aplicación desarrollada. En nuestro caso, juega al videojuego.
+    \item \textbf{Equipo de prueba}: Son los encargados de ejecutar los ficheros de prueba, y de realizar tests sobre
     la aplicación tras una actualización antes de lanzar la nueva versión para todo el público.
-    \item Desarrollador: Es el encargado de crear e implementar el código del videojuego.
-    \item Usuario Organizador (Moderador): Se encargará de crear torneos nuevos en la web.
-    \item Administrador: Se encarga de que los torneos sean correctos y del buen funcionamiento del servidor.
-    \item Mantenedores: Son los encargados de hacer los mantenimientos para aplicar las nuevas actualizaciones de una manera rápida, y también que cuando el sistema falle, puedan dar con una solución rápida.
-    \item Ingenieros de producción: Es el encargado de diseñar y crear un servidor y una base de datos, de una manera que no se sature con demasiada facilidad.
-    \item Equipo de apoyo: Son los encargados de velar por una experiencia satisfactoria en el juego de todos los usuarios, mediante arreglar problemas, bugs, y demás en foros, o en el Discord del juego (Son unos usuarios que han cogido ese rol dentro de la comunidad).
-\end{itemize}
-
-\subsection{Criterios de calidad} 
-
-\begin{itemize}
-    \item Los movimientos de las piezas deberán verse en pantalla en tiempo real.
-    
-    \item Las colisiones entre piezas se realizan de forma consistente con independencia de la cantidad de bloques que haya en el tablero.
-    
-    \item La puntuación del usuario se actualizará de forma dinámica y correctamente de acuerdo a las reglas preestablecidas.
-    
-    \item Que varios usuarios de forma concurrente puedan acceder a la página de torneos.
-
-    \item Que la aplicación sea fluida en rendimiento en cualquier smartphone Android. (eficiencia)
-    
-    \item Que la información que se inserta en el servidor web aparezca correctamente en la aplicación.
-    
-    \item Que la aplicación móvil sea responsive en cualquier smartphone Android.
-    
-    \item Que la aplicación web sea sencilla, intuitiva y fácil de manejar (usabilidad)
-    
+    \item \textbf{Desarrollador}: Es el encargado de crear e implementar el código del videojuego.
+    \item \textbf{Usuario Organizador (Moderador)}: Se encargará de crear torneos nuevos en la web.
+    \item \textbf{Administrador}: Se encarga de que los torneos sean correctos y del buen funcionamiento del servidor.
+    \item \textbf{Mantenedores}: Son los encargados de hacer los mantenimientos para aplicar las nuevas actualizaciones de una manera rápida, y también que cuando el sistema falle, puedan dar con una solución rápida.
+    \item \textbf{Ingenieros de producción}: Es el encargado de diseñar y crear un servidor y una base de datos, de una manera que no se sature con demasiada facilidad.
+    \item \textbf{Equipo de apoyo}: Son los encargados de velar por una experiencia satisfactoria en el juego de todos los usuarios, mediante arreglar problemas, bugs, y demás en foros, o en el Discord del juego (Son unos usuarios que han cogido ese rol dentro de la comunidad).
 \end{itemize}
 
 \subsection{Diseño de Pruebas de Sistema e Integración}
@@ -568,13 +595,55 @@ Como ya hemos dicho antes, se han planteado 5 sprints cada equipo aunque la mayo
   \caption{Salida de la ejecución de todas las pruebas realizadas para Ruby on Rails} 
 \end{figure}
 
-\section{FASE DE DISEÑO}
+\section{Fase de diseño}
 \subsection{Diagrama de clases}
+La aplicación se ha dividido en varios paquetes para poder encapsular la funcionalidad similar:
+
+\begin{itemize}
+  \item \textbf{Pieza: }Paquete de la izquierda, contiene todo lo relativo a las piezas que la aplicación tiene. La clase Pieza se encarga de aportar a sus hijos la funcionalidad principal (colisiones, movimientos y giros). Esta clase contiene un conjunto de bloques, que son los que finalmente se pondrán en el tablero y los que le dan forma a la pieza.
+  \item \textbf{Factoria: }Paquete que se encarga de generar las piezas siguiendo las normas del Tetris original. Está formado por dos implementaciones concretas, ``FactoriaConcreta'', usada para el juego normal, y ``FactoriaConcretaEspecial'', usada para generar las piezas normales y según una probabilidad, generar piezas bomba.
+  \item \textbf{Main: }Este paquete tiene la funcionalidad del propio tablero y sus parámetros. El tablero es la pantalla propia del juego, que implementa las reglas y funcionalidad propias del tablero y usa los métodos de las piezas. ``ParametrosTablero'' se encarga de almacenar la configuración del tablero y, en esta práctica, también cierto estado sobre la aplicación (si el usuario ha iniciado sesión, está en un torneo, etc).
+  \item \textbf{Pantalla: }Implementa las distintas pantallas de la aplicación, no tienen lógica muy compleja, excepto para las pantallas de esta práctica, que varían según el estado de la aplicación.
+  \item \textbf{api: }Este paquete implementa la interfaz que se conecta con el servidor web para realizar peticiones y enviar información a la misma. Es el que se encarga de obtener los torneos, credenciales de usuario, puntuaciones individuales y de torneo, etc.
+\end{itemize}
+
 
 \begin{figure}[H]
   \includegraphics[width=\textwidth]{imagenes/clase_final.png}
   \caption{Diagrama de clases de la aplicación} 
 \end{figure}
-%\end{itemize}
+
+\section{Fase de codificación}
+A continuación detallaremos el proceso de desarrollo junto con los problemas que hemos ido teniendo al realizar la práctica
+
+Para empezar, lo primero que hicimos fue plantear el modelo (la base de datos). Para ello, creamos un modelo E/R que reflejase las tablas y las relaciones entre ellas
+que queríamos tener. Una vez decidimos la estructura final de la base de datos, realizamos el paso a tablas y la fusión de estas para poder crear las tablas en Ruby.
+
+Cuando ya teníamos la estructura de los datos que queríamos almacenar, creamos los Scaffolds de Ruby on Rails en la aplicación que teníamos por defecto creada. Así, ya teníamos el 
+modelo, la vista y el controlador bien separados y definidos en los directorios. Aquí tuvimos unos cuantos problemas, ya que teníamos que destruir todos los Scaffolds cada vez que queríamos
+modificar algo del modelo. Al final realizamos un script que automatizase todos los comandos que debíamos poner para realizar algún cambio en la base de datos.
+
+Posteriormente, creamos la API para la conexión con los clientes de la aplicación. Para ello, tuvimos que crear una API para los torneos, usuarios, puntuaciones individuales y puntuaciones del torneo. Cada una implementa la funcionalidad necesaria para obtener la información que se necesita en cada momento, por ejemplo, para los torneos, se implementa show, que muestra un torneo concreto con la id pasada como parámetro en la URL, mientras que en index muestra todos los torneos, incluyendo información adicional extraída con sentencias SQL. 
+
+Un problema que tuvimos a la hora de implementarlo es que solo se podía pasar un parámetro en la URL y no encontramos forma sencilla de arreglarlo. Al final optamos por usar el único parámetro para buscar por otros campos, en vez de usarlo para la id, como tiene RoR por defecto. 
+
+Otro problema que tuvimos era, como RoR principalmente usa métodos para filtrar los registros de la base de datos, no podíamos realizar consultas más complejas. Al final la solución fue usar el método ``exec\_query'' para poder obtener la información deseada usando SQL.
+
+Una vez preparada la API en Ruby On Rails, nos pusimos manos a la obra con la funcionalidad en Flutter. Para ello añadimos un botón que permitiese entrar a los torneos. Una vez hecho esto, los usuarios
+podrán acceder a los torneos. Se accedió a la API para listar todos los torneos existentes, para crear una participación a un torneo y una jugada en una partida individual.
+En este caso, se nos hizo un poco cuesta arriba la conexión con la API por diversos fallos que tuvimos, como por ejemplo los tipos de datos que recibía del servidor, el nombre
+de los atributos del Json, etc.
+
+Por último, se añadió la funcionalidad a Ruby On Rails. Por cada pantalla había que crear una nueva vista, un nuevo controlador y añadir la configuración al fichero de rutas.
+\begin{itemize}
+  \item Creamos el login y el registro en el servidor web. Para ello, tuvimos que aprender a usar ciertas sentencias
+de RoR como la asignación a la variable ``session'' para mantener la sesión iniciada o el acceso a los hiperenlaces a las distintas rutas del servidor web.  
+  \item Creamos la lista de torneos: Para ello utilizamos el bucle for en rails incrustado en HTML
+  \item Creamos la lista de puntuaciones individuales: Se hizo de la misma forma que el punto anterior
+  \end {itemize}
+
+Una vez teníamos toda la lógica implementada, solo faltaba la estética de la aplicación. Hemos decidido optar por un diseño simple pero intuitivo y minimalista. Por ello,
+simplemente realizamos. Mediante un fichero CSS, se dieron ciertas reglas para cambiar el formato y el estilo de los distintos elementos del sitio web.
+
 
 \end{document}
