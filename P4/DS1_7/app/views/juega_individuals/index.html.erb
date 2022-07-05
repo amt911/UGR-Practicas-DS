@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Juega individuals</h1>
+<% if session[:admin] %>
+
+<div id="juega_individuals">
+  <% @juega_individuals.each do |juega_individual| %>
+    <%= render juega_individual %>
+    <p>
+      <%= link_to "Show this juega individual", juega_individual %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New juega individual", new_juega_individual_path %>
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

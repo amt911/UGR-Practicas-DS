@@ -1,0 +1,17 @@
+<h1>Editing juega individual</h1>
+<% if session[:admin] %>
+
+<%= render "form", juega_individual: @juega_individual %>
+
+<br>
+
+<div>
+  <%= link_to "Show this juega individual", @juega_individual %> |
+  <%= link_to "Back to juega individuals", juega_individuals_path %>
+</div>
+
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

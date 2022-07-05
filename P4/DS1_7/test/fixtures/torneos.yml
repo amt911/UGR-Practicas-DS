@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  fecha_max_juego: 2022-06-05
+  es_bomba: false
+  multiplier: 1.5
+  piezas_puestas: 1
+  descripcion: MyString
+  probabilidad: 1.5
+
+two:
+  nombre: MyString
+  fecha_max_juego: 2022-06-05
+  es_bomba: false
+  multiplier: 1.5
+  piezas_puestas: 1
+  descripcion: MyString
+  probabilidad: 1.5

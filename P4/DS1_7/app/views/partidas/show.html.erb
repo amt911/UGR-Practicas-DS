@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+<% if session[:admin] %>
+
+<%= render @partida %>
+
+<div>
+  <%= link_to "Edit this partida", edit_partida_path(@partida) %> |
+  <%= link_to "Back to partidas", partidas_path %>
+
+  <%= button_to "Destroy this partida", @partida, method: :delete %>
+</div>
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

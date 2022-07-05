@@ -1,0 +1,44 @@
+<head>
+<title>Lista de torneos</title>
+</head>
+<%= stylesheet_link_tag 'estilos' %> 
+
+
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+<h2 class="subtitulo">LISTA DE TORNEOS</h2>
+
+<!--Mostrar todos los torneos-->
+<% @torneos.each do |torneo| %>
+  <% if (Date.today > torneo.fecha_max_juego) %>
+    <div class="torneofuera">
+  <% else %>
+    <div class="torneo">
+  <% end %>
+
+  <div class="titulotorneo"><%= torneo.nombre %></div>
+  <hr/>
+  <div class="fechatorneo"><b>Fecha Límite:</b> <%= torneo.fecha_max_juego %></div>
+    <hr/>
+  <% if torneo.es_bomba %>
+    <% bomba = "Si" %>
+  <% else %>
+    <% bomba = "No" %>
+  <% end %>
+  <div class="caracteristicas"><b>Bomba:</b> <%= bomba %></div>
+  <div class="caracteristicas"><b>Velocidad:</b> <%= torneo.multiplier %></div>
+  <div class="caracteristicas"><b>Piezas puestas:</b> <%= torneo.piezas_puestas %></div>
+  <div class="caracteristicas"><b>Probabilidad de bombas:</b> <%= torneo.probabilidad %></div>
+  <hr/>
+
+  <div class="descripciontorneo"><%= torneo.descripcion %></div>
+  <hr/>
+  <% if session[:admin] %>
+  <div class="botonestorneo">
+    <div class="botontorneo">  <%= link_to 'Puntuaciones', puntuaciones_path(:valor => torneo.id), class:"enlacetitulo" %></div>
+    <div class="botontorneo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7/torneos/<%= torneo.id %>">Editar</a></div>
+  </div>
+  <% else %>
+    <div class="botontorneopuntuacion"> <%= link_to 'Puntuaciones', puntuaciones_path(:valor => torneo.id), class:"enlacetitulo" %></div>
+  <% end %>
+  </div>
+<% end %>

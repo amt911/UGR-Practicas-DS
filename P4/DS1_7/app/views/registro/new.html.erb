@@ -1,0 +1,38 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<head>
+<title>Registrate</title>
+</head>
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+<h2 class="subtitulo">REGISTRO</h2>
+
+<% if session[:nombre] == nil %>
+<%= form_with id:"formulario", url: registro_path do |form| %>
+  <% if @usuario.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@usuario.errors.count, "error") %> prohibited this usuario from being saved:</h2>
+
+      <ul>
+        <% @usuario.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div>
+    <%= form.label :contrasena, style: "display: block" %>
+    <%= form.text_field :contrasena, type: "password" %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+<% else %>
+<center><h3>Ya está logueado</h3></center>
+<% end %>

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   nombre: MyString
+#   contrasena: MyString
+#   admin: false
+
+# two:
+#   nombre: MyString
+#   contrasena: MyString
+#   admin: false
+
+UsuarioPrueba:
+  id: 69
+  nombre: tiopaco
+  contrasena: 1234
+  admin: 0
+  created_at: "2022-06-05 22:48:01.616249"
+  updated_at: "2022-06-05 22:47:08.967568"

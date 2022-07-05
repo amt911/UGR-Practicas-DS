@@ -1,0 +1,26 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<head>
+<title>Iniciar Sesión</title>
+</head>
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+<h2 class="subtitulo">LOGIN</h2>
+
+<% if session[:nombre] == nil %>
+<%= form_with id:"formulario", url: login_path do |form| %>
+    <div class="campo">
+        <%= form.label :usuario %>
+        <%= form.text_field :nombre,  id: "nombre", class: "inputtexto", placeholder:"Introduzca su usuario" %>
+    </div>
+    <div class="campo">
+        <%= form.label :contrasena %>
+        <%= form.text_field :contrasena, type: "password", id: "contrasena", class: "inputtexto", placeholder:"Introduzca su contraseña" %>
+    </div>
+
+    <%= form.submit "Iniciar Sesión", class: "boton"%>
+    </form>
+</div>
+
+<% end %>
+<% else %>
+<center><h3>Ya está logueado</h3></center>
+<% end %>

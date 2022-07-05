@@ -1,0 +1,218 @@
+.titulo{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 50px;
+    margin-bottom: 1%;
+}
+
+.enlacetitulo{
+    text-decoration: none;
+    color:black;
+    width: 100%;
+}
+
+.subtitulo{
+    text-align: center;
+    margin-bottom: 1%;
+
+}
+
+#formulario{
+    width: 48%;
+    height: auto;
+    background-color: rgb(156, 157, 226);
+    border-radius: 10px;
+    outline-color: rgb(69, 69, 141);
+    outline-style: solid;
+    outline-width: 2px;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+    padding-top: 1%;
+}
+
+.inputtexto{
+    display: block;
+    margin:auto;
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 3%;
+    text-align: center;
+}
+
+.boton{
+    width: 45%;
+    padding: 1em;
+}
+
+.titulotorneo{
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1%;
+}
+
+.torneo{
+    background-color: #B6DCB6;
+    margin-bottom: 2%;
+    outline-color: rgb(69, 141, 81);
+    outline-style: solid;
+    outline-width: 2px;
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 1%;
+}
+
+.fechatorneo{
+    text-align: center;
+    width:auto;
+    margin-top: 1%;
+}
+
+.torneofuera{
+    background-color: #fabfb7;
+    margin-bottom: 2%;
+    outline-color: rgb(133, 52, 52);
+    outline-style: solid;
+    outline-width: 2px;
+    border-radius: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 1%;
+}
+
+.seccion{
+    background-color: #e6cbfd ;
+    outline-color: rgb(127, 84, 139);
+    outline-style: solid;
+    outline-width: 2px;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 2%;
+}
+
+#secciones{
+    justify-content: center;
+    display:grid;
+    grid-template-columns: 45% 45%;
+    grid-template-rows: auto;
+    grid-gap: 1%;
+    font-size: 40px;
+    
+}
+
+.botoncerrar{
+    font-size: 40px;
+}
+
+.divbotoncerrar{
+    text-align: center;
+}
+
+
+.bienvenida{
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 1%;
+    background-color: bisque;
+    border-radius: 10px;
+    padding: 1%;
+
+}
+
+
+.partida{
+    display: grid;
+    grid-template-columns: 10% 40% 40%;
+    grid-template-rows: auto auto;
+    grid-gap: 1%;
+    margin-bottom: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: blanchedalmond;
+    border-radius: 5px;
+    padding: 1%;
+}
+
+.top{
+    display: grid;
+}
+
+.puntuacionpartida{
+    display: grid;
+}
+
+.fechapartida{
+    display: grid;
+}
+
+.botontorneopuntuacion{
+    margin: auto;
+    width: fit-content;
+    padding-top: 0.4%;
+    padding-bottom: 0.4%;
+    padding-right: 1%;
+    padding-left: 1%;
+
+    text-align: center;
+    background-color: #e6e6e6;
+    outline-color: rgb(150, 150, 150);
+    outline-style: solid;
+    outline-width: 2px;
+}
+
+.botonestorneo{
+    display:grid;
+    grid-template-columns: 35% 35%;
+    grid-template-rows: auto;
+    grid-gap: 1%;
+    justify-content: center;
+    margin-top: 1%;
+}
+
+.botontorneo{
+    display:grid;
+    text-align: center;
+    background-color: #e6e6e6;
+    outline-color: rgb(150, 150, 150);
+    outline-style: solid;
+    outline-width: 2px;
+    padding-top: 1%;
+    padding-bottom: 1%; 
+
+}
+
+.puntuacion{
+    display:grid;
+    grid-template-columns: 8% 25% 15% 15%;
+    grid-template-rows: auto;
+    grid-gap: 0.5%;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+
+.campopuntuacion{
+    display:grid;
+    background-color: #B6DCB6;
+    border-radius: 5px;
+    outline-color: rgb(69, 141, 81);
+    outline-style: solid;
+    outline-width: 2px;
+    text-align: center;
+    padding: 0.5%;
+    align-items: center;
+
+}
+
+.campoatributos{
+    background-color: #bdd1bd;
+    outline-color: rgb(87, 119, 92);
+    font-weight: 800;
+    padding-top: 1.2%;
+    padding-bottom: 1.2%;
+}

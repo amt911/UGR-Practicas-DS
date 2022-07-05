@@ -1,0 +1,57 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<%= stylesheet_link_tag 'gestor' %> 
+
+<div class="formulariodiv">
+<%= form_with(model: torneo) do |form| %>
+  <% if torneo.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(torneo.errors.count, "error") %> prohibited this torneo from being saved:</h2>
+
+      <ul>
+        <% torneo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="campoform">
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :fecha_max_juego, style: "display: block" %>
+    <%= form.date_field :fecha_max_juego %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :es_bomba, style: "display: block" %>
+    <%= form.check_box :es_bomba %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :multiplier, style: "display: block" %>
+    <%= form.text_field :multiplier %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :piezas_puestas, style: "display: block" %>
+    <%= form.number_field :piezas_puestas %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :descripcion, style: "display: block" %>
+    <%= form.text_area :descripcion, class: "textareaform" %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :probabilidad, style: "display: block" %>
+    <%= form.text_field :probabilidad %>
+  </div>
+
+  <div class="botonformulario">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>

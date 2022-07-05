@@ -1,0 +1,38 @@
+<%= stylesheet_link_tag 'estilos' %>
+
+<head>
+<title>Haz Una Línea Tournament</title>
+</head>
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+
+<p class="bienvenida">Bienvenid@ <%= session[:nombre] %> :)</p>
+
+<div id="secciones">
+<% if session[:usuario_id]!=nil %>
+<!-- Todas las operaciones, cerrar sesión> -->
+
+<div class="seccion"><a  class="enlacetitulo" href="http://clados.ugr.es/DS1_7/listatorneos/">Torneos</a></div>
+<div class="seccion"><a  class="enlacetitulo" href="http://clados.ugr.es/DS1_7/mispartidas/">Mis partidas</a></div>
+
+<!--<div class="seccion">Clasificación</div>-->
+
+    <% if session[:admin] %>
+    <div class="seccion"><a  class="enlacetitulo" href="http://clados.ugr.es/DS1_7/torneos/">Gestionar Torneos</a></div>
+    <div class="seccion"><a class="enlacetitulo"  href="http://clados.ugr.es/DS1_7/usuarios/">Gestionar Usuarios</a></div>
+    <div class="seccion"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7/participas/">Gestionar Participaciones</a></div>
+    <% end %>
+
+
+<%else%>
+<!-- Iniciar Sesión y Registrarse -->
+
+<div class="seccion"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7/login/">Iniciar Sesión</a></div>
+<div class="seccion"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7/registro/">Registrarse</a></div>
+
+<% end %>
+</div>
+<% if session[:nombre] != nil %>
+<div class="divbotoncerrar">
+    <%= button_to "Cerrar Sesión", logout_path, {class: "botoncerrar", method: :delete} %>
+</div>
+<% end %>

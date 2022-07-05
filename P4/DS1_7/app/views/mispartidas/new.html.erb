@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag 'estilos' %>
+<head>
+<title>Mis partidas</title>
+</head> 
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+<h2 class="subtitulo">LISTA DE PARTIDAS</h2>
+<% if session[:nombre] != nil %>
+
+<!--Para cada elemento de partida-->
+<% num = 1 %>
+<% @partidas.each do |partida| %>
+<div class="partida">
+    <div class="top">
+        <%= num %>
+        <% num = num + 1 %>
+    </div>
+    <div class="puntuacionpartida">
+        <%= partida.puntuacion %>
+    </div>
+    <div class="fechapartida">
+        <%= partida.fecha %>
+    </div>
+</div>
+<% end %>
+
+
+<% else %>
+    <center><h3>No está logueado</h3></center>
+<% end %>

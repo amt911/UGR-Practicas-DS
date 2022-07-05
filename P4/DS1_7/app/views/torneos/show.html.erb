@@ -1,0 +1,24 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<%= stylesheet_link_tag 'gestor' %> 
+<head>
+<title>Mostrar torneo</title>
+</head>
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+<% if session[:admin] %>
+<h2 class="subtitulo">Torneo</h2>
+
+<div class="torneo-container-button">
+<%= render @torneo %>
+      </div>
+<div class="botonestorneo">
+  <%= link_to "Editar torneo", edit_torneo_path(@torneo), class: "botontorneo" %>
+  <%= link_to "Volver a torneos", torneos_path, class:"botontorneo"%>
+</div>
+<div class="botoneditardiv">
+  <%= button_to "Eliminar torneo", @torneo, method: :delete, class:"botoneditar" %>
+</div>
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

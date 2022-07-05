@@ -1,0 +1,2 @@
+class Partida < ApplicationRecord
+end

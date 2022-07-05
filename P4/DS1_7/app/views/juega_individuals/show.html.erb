@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+<% if session[:admin] %>
+
+<%= render @juega_individual %>
+
+<div>
+  <%= link_to "Edit this juega individual", edit_juega_individual_path(@juega_individual) %> |
+  <%= link_to "Back to juega individuals", juega_individuals_path %>
+
+  <%= button_to "Destroy this juega individual", @juega_individual, method: :delete %>
+</div>
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

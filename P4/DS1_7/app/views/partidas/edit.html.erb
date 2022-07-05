@@ -1,0 +1,16 @@
+<h1>Editing partida</h1>
+<% if session[:admin] %>
+
+<%= render "form", partida: @partida %>
+
+<br>
+
+<div>
+  <%= link_to "Show this partida", @partida %> |
+  <%= link_to "Back to partidas", partidas_path %>
+</div>
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

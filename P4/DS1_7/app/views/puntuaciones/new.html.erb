@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<head>
+<title>Puntuaciones del torneo</title>
+</head>
+
+<% if session[:nombre] != nil %>
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+<h2 class="subtitulo">Puntuaciones del torneo</h2>
+
+<!--for each participaciones-->
+<% top = 0 %>
+    <div class="puntuacion">
+        <div class="campopuntuacion campoatributos">Puesto</div>
+        <div class="campopuntuacion campoatributos">Nombre</div>
+        <div class="campopuntuacion campoatributos">Puntuación</div>
+        <div class="campopuntuacion campoatributos">Fecha</div>
+    </div>
+<% @participaciones.each do |participacion| %>
+    <% top = top + 1 %>
+    <div class="puntuacion">
+        <div class="campopuntuacion"><%= top %></div>
+        <div class="campopuntuacion"><%= participacion["nombre"] %></div>
+        <div class="campopuntuacion"><%= participacion["puntuacion"] %></div>
+        <div class="campopuntuacion"><%= participacion["fecha"] %></div>
+    </div>
+<% end %>
+<% else %>
+    <center><h3>No está logueado</h3></center>
+<% end %>

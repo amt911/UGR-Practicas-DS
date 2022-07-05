@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<%= stylesheet_link_tag 'gestor' %> 
+<head>
+<title>Nuevo usuario</title>
+</head>
+<h1 class="titulo"><a class="enlacetitulo" href="http://clados.ugr.es/DS1_7">Haz Una Línea Tournament</a></h1>
+<% if session[:admin] %>
+<h2 class="subtitulo">Nuevo Usuario</h2>
+
+<%= render "form", usuario: @usuario %>
+
+<br>
+
+<div  class="botondiv">
+  <%= link_to "Volver a usuarios", usuarios_path, class:"botonunico" %>
+</div>
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

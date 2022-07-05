@@ -1,0 +1,37 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<%= stylesheet_link_tag 'gestor' %> 
+
+<div class="formulariodiv">
+<%= form_with(model: usuario) do |form| %>
+  <% if usuario.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(usuario.errors.count, "error") %> prohibited this usuario from being saved:</h2>
+
+      <ul>
+        <% usuario.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="campoform">
+    <%= form.label :nombre, style: "display: block" %>
+    <%= form.text_field :nombre %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :contrasena, style: "display: block" %>
+    <%= form.text_field :contrasena %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :admin, style: "display: block" %>
+    <%= form.check_box :admin %>
+  </div>
+
+  <div class="botonformulario">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>

@@ -1,0 +1,18 @@
+<h1>Partidas</h1>
+<% if session[:admin] %>
+
+<div id="partidas">
+  <% @partidas.each do |partida| %>
+    <%= render partida %>
+    <p>
+      <%= link_to "Show this partida", partida %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New partida", new_partida_path %>
+<% else %>
+
+  <h2 class="subtitulo">No estas autorizado para acceder a esta sección</h2>  
+
+  <%end%>

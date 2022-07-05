@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag 'estilos' %> 
+<%= stylesheet_link_tag 'gestor' %> 
+
+
+<div class="formulariodiv">
+
+<%= form_with(model: participa) do |form| %>
+  <% if participa.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(participa.errors.count, "error") %> prohibited this participa from being saved:</h2>
+
+      <ul>
+        <% participa.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="campoform">
+    <%= form.label :torneo_id, style: "display: block" %>
+    <%= form.text_field :torneo_id %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :usuario_id, style: "display: block" %>
+    <%= form.text_field :usuario_id %>
+  </div>
+
+  <div class="campoform">
+    <%= form.label :puntuacion, style: "display: block" %>
+    <%= form.number_field :puntuacion %>
+  </div>
+
+  <div class="botonformulario">
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>
